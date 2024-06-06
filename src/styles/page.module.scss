@@ -50,8 +50,8 @@ $wisdm-logo-splash: 60px;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
   min-height: 100vh;
+  background: $app-background;
 }
 
 //SPLASH SCREEN CLASSES
@@ -66,56 +66,6 @@ $wisdm-logo-splash: 60px;
     height: $wisdm-logo-splash;
     margin: auto;
   }
-}
-
-// SIGN UP AND LOG IN CLASSES
-.signupWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-content: center;
-  margin: auto;
-  gap: 10px;
-  background: $app-background;
-
-  h2 {
-    font-size: $small-header;
-    color: $white-color;
-    text-align: center;
-  }
-
-  img {
-    height: $wisdm-logo;
-    margin: 0 auto;
-  }
-}
-
-.signupButton {
-  width: $small-button-width;
-  height: $small-button-height;
-  padding: $button-padding;
-  box-sizing: content-box;
-  border-radius: $button-radius;
-  border-width: 0;
-  background-color: $brand-color;
-  color: $white-color;
-  font-weight: 600;
-  font-size: 16px; //ADD VARIABLE AFTER
-  text-align: center;
-}
-
-.loginButton {
-  width: $small-button-width;
-  height: $small-button-height;
-  padding: $button-padding;
-  box-sizing: content-box;
-  border-radius: $button-radius;
-  border-width: 0;
-  background-color: $white-color;
-  color: $brand-color;
-  font-weight: 600;
-  font-size: 16px; //ADD VARIABLE AFTER
-  text-align: center;
 }
 
 // UNCATEGORIZED CLASSES

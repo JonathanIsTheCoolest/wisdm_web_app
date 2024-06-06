@@ -1,0 +1,52 @@
+$splash-gradient: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
+$wisdm-logo-splash: 60px;
+
+.main {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.splashScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $splash-gradient;
+    opacity: 1;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  
+    img {
+      height: $wisdm-logo-splash;
+      margin: auto;
+    }
+  
+    &.fadeOut {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+
+.splashContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.onBoarding {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  
+    &.fadeIn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
