@@ -1,7 +1,9 @@
+import { JSX } from "react";
+
 import styles from "../styles/page.module.scss";
 import SplashScreen from "./SplashScreen";
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <main className={styles.main}>
 
