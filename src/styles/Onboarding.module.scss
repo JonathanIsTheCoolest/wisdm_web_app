@@ -1,0 +1,539 @@
+$app-background: #232323;
+
+// TEMPORARY VARIABLES, WILL MOVE TO main.scss AFTER FIXING ROOT DECLARATION ISSUE
+
+// FONT & ICON COLORS
+$brand-color: #855DB9;
+$icon-color: #777777;
+$info-color: #B1B1B1;
+$white-color: #FFF;
+
+// GRADIENTS
+$splash-gradient: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
+$quad-gradient: conic-gradient(from 0deg at 50% 50%, #B0853B 3.5999999195337296deg, #8F3D3D 93.59999656677246deg, rgba(94, 64, 115, 0.90) 180deg, #406B8F 270deg);
+$quad-gradient2: linear-gradient(90deg, rgba(254, 45, 80, 0.50) 0%, rgba(166, 121, 185, 0.50) 61%, rgba(110, 169, 252, 0.50) 100%), #3C3C3C;
+
+// BACKGROUNDS
+$app-background: #232323;
+$comment-background: #3C3C3C;
+$overlay-background: #2D2D2D;
+
+// BUTTONS & INPUT FIELDS
+$unselected-comments: #838383;
+$selected-comments: #FFF;
+$input-field: #3C3C3C;
+
+// SHADOWS
+$box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.12), 0px 14px 14px 0px rgba(0, 0, 0, 0.24);
+$navbar-shadow: 0px 0px 12px 0px rgba(35, 35, 35, 0.8);
+
+
+// FONT SIZING & STYLING
+$large-header: 30px;
+$page-header: 24px;
+$small-header: 20px;
+$body-text: 14px;
+$event-text: 18px;
+$event-date: 16px;
+$comment-details: 12px;
+
+// BUTTONS
+$small-button-height: 24px;
+$small-button-width: 127px;
+$button-padding: 10px 30px;
+$button-radius: 16px;
+
+// LOGOS
+$wisdm-logo: 36px;
+$wisdm-logo-splash: 60px;
+
+
+// SIGN UP AND LOG IN CLASSES
+.signupWrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    margin: auto;
+    gap: 10px;
+    background: $app-background;
+  
+    h2 {
+      font-size: $small-header;
+      color: $white-color;
+      text-align: center;
+    }
+  
+    img {
+      height: $wisdm-logo;
+      margin: 0 auto;
+    }
+  }
+
+// GENERIC CLASSES
+.backButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    color: $white-color;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.nextButton {
+    width: 100%;
+    height: 44px;
+    padding: 10px 30px 10px 30px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 16px;
+    background-color: $brand-color;
+    color: $white-color;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.infoText {
+    font-size: $body-text;
+    color: $info-color;
+    text-align: center;
+    margin: 20px 0;
+}
+  .signupButton, .loginButton {
+    width: $small-button-width;
+    height: $small-button-height;
+    padding: $button-padding;
+    box-sizing: content-box;
+    border-radius: $button-radius;
+    border-width: 0;
+    font-weight: 600;
+    font-size: 16px; //ADD VARIABLE AFTER
+    text-align: center;
+    margin: auto;
+  }
+
+  .signupButton {
+    background-color: $brand-color;
+    color: $white-color;
+  }
+  
+  .loginButton {
+    background-color: $white-color;
+    color: $brand-color;
+  }
+
+  .onboardingWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+// SIGN-UP PAGE
+.signupPage {
+    margin: 20px;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: left;
+    }
+
+    label {
+        font-family: 'Poppins', sans-serif;
+        color: $white-color;
+        font-size: $body-text;
+        margin-top: 1rem;
+    }
+
+    .inputField {
+        width: 100%;
+        height: 35px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 0;
+        border-radius: 8px;
+        background-color: $input-field;
+    }
+    
+    .orDivider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 20px 0;
+        color: #606060;
+    
+        &::before,
+        &::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #606060; // ADD VARIABLE FOR THIS COLOR
+            ;
+        }
+    
+        &::before {
+            margin-right: 1em;
+        }
+    
+        &::after {
+            margin-left: 1em;
+        }
+    }
+    
+    .authButton {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .termsText {
+        font-size: 12px;
+        color: #aaa;
+        text-align: center;
+        margin: 20px 0;
+    
+        a {
+            color: #aaa;
+            text-decoration: underline;
+        }
+    }
+}
+
+// FORGOTTEN PASSWORD PAGE
+.forgotPasswordPage {
+    margin: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: center;
+    }
+
+    p {
+        font-size: $body-text;
+        color: $info-color;
+        margin: 10px 0;
+    }
+
+    label {
+        font-family: 'Poppins', sans-serif;
+        color: $white-color;
+        font-size: $body-text;
+        margin-top: 1rem;
+        display: block;
+        text-align: left;
+    }
+
+    .inputField {
+        width: 100%;
+        height: 35px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 0;
+        border-radius: 8px;
+        background-color: $input-field;
+    }
+
+    .termsText {
+        font-size: 12px;
+        color: #aaa;
+        text-align: center;
+        margin: 20px 0;
+
+        a {
+            color: #aaa;
+            text-decoration: underline;
+        }
+    }
+}
+
+// LOGIN PAGE
+.loginPage {
+    margin: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: center;
+    }
+
+    p {
+        font-size: $body-text;
+        color: $info-color;
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        height: $wisdm-logo;
+        margin: 20px auto;
+    }
+
+    label {
+        font-family: 'Poppins', sans-serif;
+        color: $white-color;
+        font-size: $body-text;
+        margin-top: 1rem;
+        display: block;
+        text-align: left;
+    }
+
+    .inputField {
+        width: 100%;
+        height: 35px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 0;
+        border-radius: 8px;
+        background-color: $input-field;
+    }
+
+    .forgotPassword {
+        display: block;
+        text-align: right;
+        color: $brand-color;
+        font-size: $body-text;
+        margin: 10px 0;
+        text-decoration: none;
+    }
+}
+
+// PERSONAL INFO PAGE
+.personalInfoPage {
+    margin: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: center;
+    }
+
+    label {
+        font-family: 'Poppins', sans-serif;
+        color: $white-color;
+        font-size: $body-text;
+        margin-top: 1rem;
+        display: block;
+        text-align: left;
+    }
+
+    .inputField {
+        width: 100%;
+        height: 35px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 0;
+        border-radius: 8px;
+        background-color: $input-field;
+    }
+
+    p {
+        font-size: $body-text;
+        color: $info-color;
+        margin: 10px 0;
+    }
+
+    h3 {
+        font-size: $small-header;
+        color: $white-color;
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .genderButtons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 20px 0;
+
+        .genderButton {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: $input-field;
+            color: $white-color;
+            cursor: pointer;
+        }
+    }
+}
+
+// LOCATION INFO PAGE
+.locationInfoPage {
+    margin: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: center;
+    }
+
+    p {
+        font-size: $body-text;
+        color: $info-color;
+        margin: 10px 0;
+    }
+
+    label {
+        font-family: 'Poppins', sans-serif;
+        color: $white-color;
+        font-size: $body-text;
+        margin-top: 1rem;
+        display: block;
+        text-align: left;
+    }
+
+    .inputField {
+        width: 100%;
+        height: 35px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 0;
+        border-radius: 8px;
+        background-color: $input-field;
+        color: $white-color;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%23fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y: 50%;
+    }
+}
+
+// TAGS INFO PAGE
+.tagsInfoPage {
+    margin: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: center;
+    }
+
+    p {
+        font-size: $body-text;
+        color: $info-color;
+        margin: 10px 0;
+    }
+
+    .tagsButtons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 20px 0;
+
+        .tagButton {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: $input-field;
+            color: $white-color;
+            cursor: pointer;
+        }
+    }
+
+    .nextButton {
+        width: 100%;
+        height: 44px;
+        padding: 10px 30px 10px 30px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 16px;
+        background-color: $brand-color;
+        color: $white-color;
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
+
+// INTERESTS INFO PAGE
+.interestsPage {
+    margin: 20px;
+    text-align: center;
+
+    h2 {
+        font-size: $page-header;
+        color: $white-color;
+        text-align: center;
+    }
+
+    p {
+        font-size: $body-text;
+        color: $info-color;
+        margin: 10px 0;
+    }
+
+    .interestsGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (min-width: 1024px) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .interestItem {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: $input-field;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+            }
+
+            p {
+                font-size: $body-text;
+                color: $white-color;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .finishButton {
+        width: 100%;
+        height: 44px;
+        padding: 10px 30px 10px 30px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 16px;
+        background-color: $brand-color;
+        color: $white-color;
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
