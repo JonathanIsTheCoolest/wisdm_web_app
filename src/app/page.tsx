@@ -1,23 +1,59 @@
-import styles from "../styles/page.module.scss";
-import Image from "next/image";
-import wisdm_logo_white from "../assets/icons/wisdm_logo_white.svg";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import styles from "../styles/page.module.scss";
+import SplashScreen from "./SplashScreen";
+import Onboarding from "./Onboarding";
+import Home from "./Home";
+import Explore from "./Explore";
+import Profile from "./Profile";
+import Vote from "./Vote";
+import Notifications from "./Notifications";
+import NavigationBar from "./NavigationBar";
+
+export default function App() {
+  const [currentStep, setCurrentStep] = useState("splash");
+  const [currentView, setCurrentView] = useState("home");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentStep("onboarding");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    setCurrentStep("home");
+  };
+
+  const renderComponent = () => {
+    switch (currentView) {
+      case "home":
+        return <Home />;
+      case "explore":
+        return <Explore />;
+      case "profile":
+        return <Profile />;
+      case "vote":
+        return <Vote />;
+      case "notifications":
+        return <Notifications />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.testScreen}>
-        <div className={styles.splashScreen}>
-          <Image src={wisdm_logo_white} />
-        </div>
-
-        {/*<div className={styles.signupWrapper}>
-          <Image src={wisdm_logo_white} />
-          <h2>WISDM</h2>
-          <button className={styles.signupButton}>Sign Up</button>
-          <div className={styles.loginButton}>Log In</div>
-        </div>*/}
-        
-      </div>
+      {currentStep === "splash" && <SplashScreen />}
+      {currentStep === "onboarding" && <Onboarding onComplete={handleOnboardingComplete} />}
+      {currentStep === "home" && (
+        <>
+          {renderComponent()}
+          <NavigationBar setCurrentView={setCurrentView} currentView={currentView} />
+        </>
+      )}
     </main>
   );
 }

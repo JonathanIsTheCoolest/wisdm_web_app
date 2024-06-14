@@ -1,0 +1,61 @@
+@import "variables.scss";
+
+.voteContainer {
+  padding: $container-padding;
+  color: $container-color;
+  background-color: $container-background;
+  display: flex;
+  flex-direction: column;
+  height: $container-height;
+  width: $container-width;
+  box-sizing: $container-box-sizing;
+  overflow-y: $container-overflow-y;
+}
+
+.voteItem {
+  position: relative;
+  background-color: $vote-item-background;
+  border-radius: $vote-item-border-radius;
+  overflow: hidden;
+  margin-bottom: $vote-item-margin-bottom;
+  height: $vote-item-height;
+
+  .voteImage {
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $vote-item-overlay;
+      z-index: 1;
+    }
+  }
+
+  .voteContent {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $vote-item-padding;
+    z-index: 2;
+
+    h3 {
+      font-family: $feed-content-font-family;
+      font-size: $feed-content-font-size;
+      color: $vote-item-title-color;
+      text-align: center;
+    }
+  }
+}

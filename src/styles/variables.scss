@@ -1,0 +1,241 @@
+@font-face {
+    font-family: 'Poppins Regular';
+    src: url('../assets/fonts/Poppins/Poppins-Regular.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+@font-face {
+  font-family: 'Poppins SemiBold';
+  src: url('../assets/fonts/Poppins/Poppins-SemiBold.ttf') format('ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Istok Bold';
+    src: url('../assets/fonts/Istok_Web/IstokWeb-Regular.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+// FONTS
+$body-font: 'Poppins Regular', sans-serif;
+$news-header-font: 'Poppins SemiBold', sans-serif;
+$page-header-font: 'Istok Bold', sans-serif;
+
+// FONT & ICON COLORS
+$brand-color: #855DB9;
+$icon-color: #777777;
+$info-color: #B1B1B1;
+$white-color: #FFF;
+$detail-color: rgba(255, 255, 255, 0.5);
+$border-color: rgba(255, 255, 255, 0.2);
+
+// GRADIENTS
+$splash-gradient: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
+$quad-gradient: conic-gradient(from 0deg at 50% 50%, #B0853B 3.5999999195337296deg, #8F3D3D 93.59999656677246deg, rgba(94, 64, 115, 0.90) 180deg, #406B8F 270deg);
+$quad-gradient2: linear-gradient(90deg, rgba(254, 45, 80, 0.50) 0%, rgba(166, 121, 185, 0.50) 61%, rgba(110, 169, 252, 0.50) 100%), #3C3C3C;
+
+// BACKGROUNDS
+$app-background: #232323;
+$comment-background: #3C3C3C;
+$overlay-background: #2D2D2D;
+$navbar-background: #2D2D2D;
+
+// BUTTONS & INPUT FIELDS
+$unselected-comments: #838383;
+$selected-comments: #FFF;
+$input-field: #3C3C3C;
+
+// SHADOWS
+$box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.12), 0px 14px 14px 0px rgba(0, 0, 0, 0.24);
+$navbar-shadow: 0px 0px 12px 0px rgba(35, 35, 35, 0.8);
+
+
+// FONT SIZING & STYLING
+$large-header: 30px;
+$page-header: 24px;
+$small-header: 20px;
+$body-text: 14px;
+$event-text: 18px;
+$event-date: 16px;
+$comment-details: 12px;
+
+// BUTTONS
+$small-button-height: 24px;
+$small-button-width: 127px;
+$button-padding: 10px 30px;
+$button-radius: 16px;
+
+// LOGOS
+$wisdm-logo: 36px;
+$wisdm-logo-splash: 60px;
+
+
+
+
+
+// Common styles
+$container-padding: 20px;
+$container-color: $white-color;
+$container-background: $app-background;
+$container-height: 100vh;
+$container-width: 100vw;
+$container-box-sizing: border-box;
+$container-overflow-y: auto;
+
+$header-margin-bottom: 20px;
+$header-margin-top: 20px;
+
+$feed-item-background: $comment-background;
+$feed-item-border-radius: 8px;
+$feed-item-margin-bottom: 3rem;
+$feed-item-height: 85%;
+$feed-item-padding: 20px;
+
+$feed-content-padding: 20px;
+$feed-content-font-family: $news-header-font;
+$feed-content-font-size: 20px;
+$feed-content-color: $white-color;
+$feed-content-info-color: $info-color;
+
+$gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+
+// Notification specific styles
+$notification-background: #1a1a1a;
+$notification-border-radius: 8px;
+$notification-padding: 20px;
+$notification-margin-bottom: 20px;
+$notification-title-color: $white-color;
+$notification-content-color: $info-color;
+$notification-icon-size: 24px;
+$notification-arrow-color: $brand-color;
+$notification-username-color: #a855f7;
+
+// Vote specific styles
+$vote-item-background: $comment-background;
+$vote-item-border-radius: 8px;
+$vote-item-margin-bottom: 20px;
+$vote-item-height: 200px;
+$vote-item-padding: 20px;
+$vote-item-title-color: $white-color;
+$vote-item-content-color: $info-color;
+$vote-item-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+
+// Profile specific styles
+$profile-background: $app-background;
+$profile-avatar-size: 80px;
+$profile-username-color: $white-color;
+$profile-joined-color: $info-color;
+$profile-tag-background: $comment-background;
+$profile-tag-color: $white-color;
+$profile-tag-border-radius: 16px;
+$profile-tag-padding: 5px 10px;
+$profile-tab-color: $white-color;
+$profile-tab-active-color: $brand-color;
+$profile-tab-border-radius: 16px;
+$profile-tab-padding: 10px 20px;
+$profile-tab-margin: 10px;
+$profile-quadrant-gradient: $quad-gradient;
+$profile-quadrant-size: 300px;
+$profile-visibility-toggle-color: $brand-color;
+
+$settings-slide-width: 300px;
+$settings-slide-background: $profile-background;
+$settings-slide-transition: 0.3s ease;
+
+
+
+
+
+// COMMON CLASSES
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px; // Add margin at the top
+
+  h1 {
+    font-family: $page-header-font;
+    font-size: $page-header;
+    color: $brand-color;
+  }
+}
+
+.inputField {
+    width: 100%;
+    height: 35px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 0;
+    border-radius: 8px;
+    background-color: $input-field;
+    color: $white-color;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.nextButton {
+    width: 100%;
+    height: 44px;
+    padding: 10px 30px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 16px;
+    background-color: $brand-color;
+    color: $white-color;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pageTitle {
+  font-family: $page-header-font;
+  font-size: $page-header;
+  line-height: 30px;
+  color: $brand-color;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  h2 {
+    font-family: $news-header-font;
+    font-size: 20px;
+    color: $white-color;
+  }
+}
+
+.searchBar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  background-color: $input-field;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.searchBar input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: $white-color;
+  font-size: 16px;
+  outline: none;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.settingsIcon {
+  width: 30px;
+  height: 30px;
+}
