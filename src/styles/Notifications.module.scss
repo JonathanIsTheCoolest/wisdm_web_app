@@ -1,0 +1,55 @@
+@import "variables.scss";
+
+.notificationsContainer {
+  padding: $container-padding;
+  color: $container-color;
+  background-color: $container-background;
+  display: flex;
+  flex-direction: column;
+  height: $container-height;
+  width: $container-width;
+  box-sizing: $container-box-sizing;
+  overflow-y: $container-overflow-y;
+}
+
+.notificationItem {
+  background-color: $notification-background;
+  border-radius: $notification-border-radius;
+  padding: $notification-padding;
+  margin-bottom: $notification-margin-bottom;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .notificationContent {
+    display: flex;
+    flex-direction: column;
+
+    .notificationTitle {
+      font-size: 16px;
+      font-weight: bold;
+      color: $notification-title-color;
+      display: flex;
+      align-items: center;
+
+      .notificationIcon {
+        font-size: $notification-icon-size;
+        margin-right: 8px;
+      }
+    }
+
+    .notificationText {
+      font-size: 14px;
+      color: $notification-content-color;
+
+      .username {
+        color: $notification-username-color;
+      }
+    }
+  }
+
+  .notificationArrow {
+    font-size: $notification-icon-size;
+    color: $notification-arrow-color;
+  }
+}

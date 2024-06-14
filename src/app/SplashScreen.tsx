@@ -1,10 +1,9 @@
-"use client"
-
 import { useEffect, useState } from "react";
 import styles from "../styles/SplashScreen.module.scss";
 import Onboarding from "./Onboarding";
+import Home from "./Home";
 import Image from "next/image";
-import wisdm_logo_white from "../assets/icons/wisdm_logo_white.svg";
+import wisdm_logo_white from "../assets/logos/wisdm_logo_white.svg";
 
 const SplashScreen = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -21,21 +20,16 @@ const SplashScreen = () => {
       return () => clearTimeout(timer);
     }, []);
 
-  return (
-    <main className={styles.main}>
-
-      <div className={`${styles.splashScreen} ${fadeOut ? styles.fadeOut : ""}`}>
-        <div className={styles.splashContent}>
-          <Image src={wisdm_logo_white} alt="Wisdm Logo" />
+    return (
+      <main className={styles.main}>
+        <div className={styles.splashScreen}>
+          <div className={styles.splashContent}>
+            <Image src={wisdm_logo_white} alt="Wisdm Logo" />
+          </div>
         </div>
-      </div>
-      <div className={`${styles.onBoarding} ${!isLoading ? styles.fadeIn : ""}`}>
-        <Onboarding />
-      </div>
-
-    </main>
-  );
-}
-
-export default SplashScreen;
+      </main>
+    );
+  };
+  
+  export default SplashScreen;
 
