@@ -1,9 +1,7 @@
 import React from "react";
-import styles from "../styles/Vote.module.scss";
-import NavigationBar from "./NavigationBar";
-import Image from "next/image";
-import trumpImage from "../assets/images/home_test_img.png";
-import depressionImage from "../assets/images/home_test_img_2.png";
+import styles from "@/styles/Vote.module.scss";
+import trumpImage from "@/assets/images/home_test_img.png";
+import depressionImage from "@/assets/images/home_test_img_2.png";
 
 const voteItems = [
   {
@@ -32,7 +30,6 @@ const Vote = () => {
           </div>
         </div>
       ))}
-      <NavigationBar />
     </div>
   );
 };

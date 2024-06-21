@@ -1,8 +1,9 @@
+'use client'
+
 import React, { useState } from "react";
-import styles from "../styles/Profile.module.scss";
-import NavigationBar from "./NavigationBar";
-import featuredImage1 from "../assets/images/home_test_img.png";
-import featuredImage2 from "../assets/images/home_test_img_2.png";
+import styles from "@/styles/Profile.module.scss";
+import featuredImage1 from "@/assets/images/home_test_img.png";
+import featuredImage2 from "@/assets/images/home_test_img_2.png";
 
 const comments = [
   {
@@ -113,7 +114,6 @@ const Profile = () => {
             onClick={toggleVisibility}
           ></div>
         </div>
-        <NavigationBar />
       </div>
     );
   }
@@ -230,7 +230,6 @@ const Profile = () => {
               ))}
             </div>
           )}
-          <NavigationBar />
         </div>
       );
     };

@@ -1,17 +1,15 @@
+'use client'
+
 import { useState, useEffect } from "react";
-import styles from "../styles/Home.module.scss";
-import NavigationBar from "./NavigationBar";
-import Sidebar from "./Sidebar";
+import styles from "@/styles/Home.module.scss";
 import Image from "next/image";
-import searchIcon from "../assets/icons/search.svg";
-import gearIcon from "../assets/icons/gear.svg";
-import homeTestImg from "../assets/images/home_test_img.png";
-import homeTestImg2 from "../assets/images/home_test_img_2.png";
+import searchIcon from "@/assets/icons/search.svg";
+import gearIcon from "@/assets/icons/gear.svg";
+import homeTestImg from "@/assets/images/home_test_img.png";
+import homeTestImg2 from "@/assets/images/home_test_img_2.png";
 
 const Home = () => {
   const [feedTitle, setFeedTitle] = useState("");
-  const [showSidebar, setShowSidebar] = useState(false);
-  const toggleSidebar = () => setShowSidebar(!showSidebar);
 
   useEffect(() => {
     const fetchFeedData = async () => {
@@ -58,7 +56,7 @@ const Home = () => {
     <div className={styles.homeContainer}>
       <header className={styles.header}>
         <h1 className={styles.pageTitle}>For You</h1>
-        <div className={styles.settingsIcon} onClick={toggleSidebar}>
+        <div className={styles.settingsIcon} onClick={() => console.log('toggleSidebar')}>
           <Image src={gearIcon} alt="Settings" />
         </div>
       </header>
@@ -85,8 +83,6 @@ const Home = () => {
           </div>
         ))}
       </section>
-      <Sidebar isActive={showSidebar} toggleSidebar={toggleSidebar} />
-      <NavigationBar />
     </div>
   );
 };

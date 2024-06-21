@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import styles from "../styles/Sidebar.module.scss";
+import styles from "@/styles/Sidebar.module.scss";
 
-const Sidebar = ({ isActive, toggleSidebar }) => {
+interface SidebarProps {
+  isActive: boolean;
+  toggleSidebar: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isActive , toggleSidebar }) => {
   const [pushNotifications, setPushNotifications] = useState(true);
 
   const togglePushNotifications = () => {
@@ -18,15 +23,15 @@ const Sidebar = ({ isActive, toggleSidebar }) => {
         <h2>Privacy and Security</h2>
         <div className={styles.item}>
           <span className={styles.label}>Privacy Settings</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
         <div className={styles.item}>
           <span className={styles.label}>Security Settings</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
         <div className={styles.item}>
           <span className={styles.label}>Blocked Users</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
       </div>
       <div className={styles.section}>
@@ -40,25 +45,25 @@ const Sidebar = ({ isActive, toggleSidebar }) => {
         </div>
         <div className={styles.item}>
           <span className={styles.label}>Email Notifications</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
       </div>
       <div className={styles.section}>
         <h2>Display and Accessibility</h2>
         <div className={styles.item}>
           <span className={styles.label}>Themes</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
         <div className={styles.item}>
           <span className={styles.label}>Languages</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
       </div>
       <div className={styles.section}>
         <h2>Support and Feedback</h2>
         <div className={styles.item}>
           <span className={styles.label}>Help Center</span>
-          <span className={styles.icon}>></span>
+          <span className={styles.icon}>&gt;</span>
         </div>
       </div>
     </div>
