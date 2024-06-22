@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from "next/headers"
+import { permanentRedirect } from "next/navigation"
  
 export async function signIn(prevState: any, formData: FormData) {
   const user = formData.get('user')
@@ -36,16 +37,49 @@ export async function signIn(prevState: any, formData: FormData) {
       path: '/'
     })
 
-    cookies().set('currentUser', 'true', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === process.env.ENVIRONMENT,
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: '/'
-    })
-
     return { user: user }
   } catch (error: any) {
     console.error('Error during sign-in:', error.message);
     return { error: error.message || 'An unexpected error occurred.' };
   }
+}
+
+export async function authFunctionWrapper(cb: (auth: string) => any) {
+  const cookieStore = cookies()
+  const auth = cookieStore.get('auth')?.value
+  if (auth) {
+    const response = await cb(auth)
+    const result = response.result
+    if (result?.error) {
+      cookieStore.set('auth', '', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === process.env.ENVIRONMENT,
+        expires: new Date(0),
+        path: '/'
+      })
+      permanentRedirect('/login/signIn')
+    }
+    return result
+  } else {
+    console.error({ error: 'Missing auth token' })
+    permanentRedirect('/login/signIn')
+  }
+}
+
+export async function getUser() {
+  const getData = async (auth: string) => {
+    try {
+      const response = await fetch(`${process.env.BASE_API_URL}/users/get/user`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `${auth}`
+        }
+      })
+      const result = await response.json()
+      return result
+    } catch (e) {
+      return { error: e }
+    }
+  }
+  return authFunctionWrapper(getData)
 }

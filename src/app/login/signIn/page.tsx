@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
 
 const LoginPage = () => {
@@ -24,7 +24,7 @@ const LoginPage = () => {
   const [state, formAction] = useFormState(signIn, INITIAL_STATE)
   const router = useRouter()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (state.user) {

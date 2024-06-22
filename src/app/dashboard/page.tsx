@@ -8,8 +8,16 @@ import gearIcon from "@/assets/icons/gear.svg";
 import homeTestImg from "@/assets/images/home_test_img.png";
 import homeTestImg2 from "@/assets/images/home_test_img_2.png";
 
+import { getUser } from "@/app/_lib/actions";
+
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setUser } from "@/lib/features/userSlice";
+
 const Home = () => {
   const [feedTitle, setFeedTitle] = useState("");
+
+  const userName = useAppSelector((state) => state.user.userName)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const fetchFeedData = async () => {
@@ -28,6 +36,20 @@ const Home = () => {
 
     fetchFeedData();
   }, []);
+
+  useEffect(() => {
+    const requestUser = async () => {
+      try {
+        const result = await getUser()
+        dispatch(setUser(result.data))
+      } catch (e) {
+        console.error(`There was an error fetching your data: ${e}`)
+      }
+    }
+    if (!userName.length) {
+      requestUser()
+    }
+  }, [])
 
   const feedItems = [
     {
