@@ -1,7 +1,7 @@
 'use server'
 
 import { cookies } from "next/headers"
-import { permanentRedirect } from "next/navigation"
+import { permanentRedirect, redirect } from "next/navigation"
  
 export async function signIn(prevState: any, formData: FormData) {
   const user = formData.get('user')

@@ -15,6 +15,9 @@ import ellipse from "@/assets/icons/ellipse.svg"
 import Link from "next/link";
 
 const NavigationBar = () => {
+  const [currentView, setCurrentView] = useState<string | null>(null);
+  const elementRef = useRef<HTMLImageElement | null>(null);
+
   function extractLastSegment(path: string) {
     const pattern = /\/([^\/?]+)(?=\?|$)/;
     const match = path.match(pattern);
@@ -31,9 +34,6 @@ const NavigationBar = () => {
 
   const INITIAL_VIEW: string | null = typeof document !== 'undefined' && document.location.pathname ? extractLastSegment(document.location.pathname) : 'home';
 
-  const [currentView, setCurrentView] = useState<string | null>(null);
-  const elementRef = useRef<HTMLImageElement | null>(null);
-
   const navOptionsArray = [
     { name: 'home', href: '/', alt: 'Home', activeIcon: homeActiveIcon, inactiveIcon: homeIcon },
     { name: 'explore', href: '/explore', alt: 'Explore', activeIcon: exploreActiveIcon, inactiveIcon: exploreIcon },
@@ -49,9 +49,6 @@ const NavigationBar = () => {
       data-name={name}
       className={`${styles.navItem} ${currentView === name ? styles.navItemActive : ""}`}
       onClick={() => setCurrentView(name)}
-      style={{
-        zIndex: '1001'
-      }}
     >
       <Image
         ref={currentView === name ? elementRef : null}
@@ -77,7 +74,8 @@ const NavigationBar = () => {
       
       if (circle) {
         circle.style.left = `${distances.left}px`;
-        circle.style.bottom = `${distances.bottom + bottomPadding}px`;
+        // To be refactored at a later time ↓
+        // circle.style.bottom = `${distances.bottom + bottomPadding}px`;
       }
     }
   };
@@ -96,7 +94,7 @@ const NavigationBar = () => {
   }, [currentView]);
 
   useEffect(() => {
-    setCurrentView(INITIAL_VIEW);
+    setCurrentView(INITIAL_VIEW)
   }, []);
 
   return (
