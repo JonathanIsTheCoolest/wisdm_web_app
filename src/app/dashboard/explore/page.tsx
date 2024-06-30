@@ -1,17 +1,15 @@
+'use client'
+
 import React, { useState } from "react";
-import styles from "../styles/Explore.module.scss";
-import NavigationBar from "./NavigationBar";
-import Sidebar from "./Sidebar";
+import styles from "@/styles/Explore.module.scss";
 import Image from "next/image";
-import searchIcon from "../assets/icons/search.svg";
-import settingsIcon from "../assets/icons/gear.svg";
-import featuredImage1 from "../assets/images/home_test_img.png";
-import featuredImage2 from "../assets/images/home_test_img.png";
+import searchIcon from "@/assets/icons/search.svg";
+import settingsIcon from "@/assets/icons/gear.svg";
+import featuredImage1 from "@/assets/images/home_test_img.png";
+import featuredImage2 from "@/assets/images/home_test_img.png";
 
 const Explore = () => {
   const images = [featuredImage1, featuredImage2];
-  const [showSidebar, setShowSidebar] = useState(false);
-  const toggleSidebar = () => setShowSidebar(!showSidebar);
 
   const comments = [
     {
@@ -70,7 +68,7 @@ const Explore = () => {
     <div className={styles.exploreContainer}>
       <header className={styles.header}>
         <h1 className={styles.pageTitle}>Explore</h1>
-        <div className={styles.settingsIcon} onClick={toggleSidebar}>
+        <div className={styles.settingsIcon} onClick={() => console.log('toggleSidebar')}>
           <Image src={settingsIcon} alt="Settings" />
         </div>
       </header>
@@ -133,8 +131,6 @@ const Explore = () => {
           </div>
         ))}
       </section>
-      <NavigationBar />
-      <Sidebar isActive={showSidebar} toggleSidebar={toggleSidebar} />
     </div>
   );
 };

@@ -34,21 +34,22 @@
     width: 20%; /* Ensure each tab takes up an equal width */
     color: $icon-color;
     text-align: center;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: transform 0.5s ease, color 0.5s ease;
     position: relative;
     outline: none; /* Remove focus outline */
+    z-index: 1001;
 
     img {
       width: 36px;
       height: 36px;
       margin-bottom: 5px;
-      transition: filter 0.3s ease, transform 0.3s ease;
+      transition: filter 0.5s ease, transform 0.5s ease;
     }
 
     span {
       font-size: 12px;
       color: $white-color;
-      transition: color 0.3s ease;
+      transition: color 0.5s ease;
       white-space: nowrap; /* Prevent text from breaking into multiple lines */
     }
 
@@ -64,8 +65,10 @@
     img {
       filter: brightness(1.2);
       transform: scale(1.1);
-      transition: filter 0.3s ease, transform 0.3s ease;
+      transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
       z-index: 2;
+      height: auto;
+      width: auto;
     }
 
     span {
@@ -73,5 +76,39 @@
       color: $white-color;
       font-family: $body-font;
     }
+  }
+
+  .circle, .innerCircle {
+    transition: 0.3s ease-in-out;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1000;
+  }
+
+  .circle {
+    background: transparent;
+    position: fixed;
+    bottom: 48px;
+    left: -10%;
+  }
+
+  .innerCircle {
+    background: #855DB9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .ellipse {
+    width: 125px;
+    height: 125px;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

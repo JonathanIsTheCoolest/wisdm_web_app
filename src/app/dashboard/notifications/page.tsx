@@ -1,6 +1,5 @@
 import React from "react";
-import styles from "../styles/Notifications.module.scss";
-import NavigationBar from "./NavigationBar";
+import styles from "@/styles/Notifications.module.scss";
 
 const notifications = [
   {
@@ -53,7 +52,6 @@ const Notifications = () => {
           <div className={styles.notificationArrow}>➔</div>
         </div>
       ))}
-      <NavigationBar />
     </div>
   );
 };
