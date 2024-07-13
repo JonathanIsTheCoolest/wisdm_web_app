@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import "@/styles/variables.scss";
 
 .profileContainer {
   padding: $container-padding;
@@ -20,9 +20,9 @@
   margin-top: $header-margin-top;
 
   h1 {
-    font-family: $page-header-font;
-    font-size: $page-header;
-    color: $brand-color;
+    font-family: $font-poppins-semibold;
+    font-size: $font-size-page-header;
+    color: $color-brand;
   }
 
   .editButton {
@@ -44,7 +44,7 @@
     width: $profile-avatar-size;
     height: $profile-avatar-size;
     border-radius: 50%;
-    background-color: $icon-color;
+    background-color: $color-icon;
     margin-right: 20px;
   }
 
@@ -310,7 +310,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: $icon-color;
+        background-color: $color-icon;
       }
 
       .details {
@@ -324,7 +324,7 @@
 
         .time {
           font-size: 12px;
-          color: $info-color;
+          color: $color-info;
         }
       }
     }
@@ -367,8 +367,8 @@
   overflow-y: $container-overflow-y;
 
   .backButton {
-    color: $brand-color;
-    font-size: 24px;
+    color: $color-brand;
+    font-size: $font-size-page-header;
     cursor: pointer;
     margin-bottom: 20px;
   }
@@ -381,9 +381,9 @@
     margin-top: $header-margin-top;
 
     h1 {
-      font-family: $page-header-font;
-      font-size: $page-header;
-      color: $brand-color;
+      font-family: $font-poppins-semibold;
+      font-size: $font-size-page-header;
+      color: $color-brand;
     }
   }
 
@@ -391,7 +391,7 @@
     width: $profile-avatar-size;
     height: $profile-avatar-size;
     border-radius: 50%;
-    background-color: $icon-color;
+    background-color: $color-icon;
     margin: 0 auto 20px;
   }
 

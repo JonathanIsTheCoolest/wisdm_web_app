@@ -1,7 +1,8 @@
 'use client'
 
 import wisdm_logo_white from "@/assets/logos/wisdm_logo_white.svg";
-import styles from "@/styles/Onboarding.module.scss"
+import arrowLeft from "@/assets/icons/arrow_left_white.svg";
+import styles from "@/styles/login/signIn/signIn.module.scss";
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 import { signIn } from "@/app/_lib/actions";
 import Image from "next/image";
@@ -34,9 +35,11 @@ const LoginPage = () => {
   }, [state.user, state.error, router]);
   return (
     <div className={styles.loginPage}>
-      <Link href='/login' className={styles.backButton}>
-        ←
-      </Link>
+      <div className={styles.onboardingHeader}>
+        <Link href="/login" className={styles.backButton}>
+          <Image src={arrowLeft} />
+        </Link>
+      </div>
       <Image src={wisdm_logo_white} alt="Wisdm Logo" className={styles.logo} />
       <h2>Welcome Back</h2>
       <p>Please enter your credentials to Log in</p>
@@ -45,13 +48,12 @@ const LoginPage = () => {
           inputArray.map((item) => {
             const {label, type, name} = item
             return (
-              <label key={name}>
+              <label key={name} className={styles.labelWrapper}>
                 {label}
                 <input
                   type={type}
                   placeholder={label}
                   name={name}
-                  className={styles.inputField}
                   required={true}
                 />
               </label>

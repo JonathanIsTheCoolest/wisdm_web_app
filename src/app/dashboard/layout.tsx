@@ -3,7 +3,7 @@
 import React, { ReactNode, useState } from 'react';
 import NavigationBar from '@/app/_components/navigation/NavigationBar';
 import Sidebar from '@/app/_components/navigation/Sidebar';
-import styles from '@/styles/Onboarding.module.scss';
+import styles from '@/styles/page.module.scss';
 
 interface LayoutProps {
   children: ReactNode;

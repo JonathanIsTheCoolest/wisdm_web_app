@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import styles from "@/styles/Home.module.scss";
+import styles from "@/styles/dashboard/Home.module.scss";
 import Image from "next/image";
 import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";

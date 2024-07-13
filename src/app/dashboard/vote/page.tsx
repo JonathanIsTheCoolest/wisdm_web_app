@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Vote.module.scss";
+import styles from "@/styles/dashboard/vote/Vote.module.scss";
 import trumpImage from "@/assets/images/home_test_img.png";
 import depressionImage from "@/assets/images/home_test_img_2.png";
 

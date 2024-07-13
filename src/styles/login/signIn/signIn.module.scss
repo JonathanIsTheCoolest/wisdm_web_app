@@ -1,0 +1,57 @@
+@import "@/styles/variables.scss";
+
+// LOGIN PAGE
+.loginPage {
+    margin: 20px;
+    margin-top: 8rem;
+    text-align: center;
+  
+    h2 {
+      font-size: $font-size-page-header;
+      color: $color-white;
+      text-align: center;
+    }
+  
+    p {
+      font-size: $font-size-body-text;
+      color: $color-info;
+      margin-bottom: 20px;
+      color:#737373;
+    }
+  
+    label {
+      color: $color-white;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 21px;
+      text-align: left;
+    }
+    
+    input {
+      height: 45px;
+      width: 100%;
+      padding: 10px;
+      border: 0;
+      border-radius: 8px;
+      background-color: $color-input-bg;
+      color: $color-white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  
+    .logo {
+      height: $logo-wisdm;
+      margin: 20px auto;
+    }
+  
+    .forgotPassword {
+      display: block;
+      text-align: right;
+      color: $color-brand;
+      font-size: $font-size-body-text;
+      margin: 10px 0;
+      text-decoration: none;
+    }
+  }

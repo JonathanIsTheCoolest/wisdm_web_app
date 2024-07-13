@@ -1,0 +1,26 @@
+@import "@/styles/variables.scss";
+
+// TAGS INFO PAGE
+.tagsInfoPage {
+    margin: 20px;
+    text-align: center;
+    margin-top: 8rem;
+  
+    .tagsButtons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+  
+      .tagButton {
+        flex: 1;
+        min-width: 100px;
+        padding: 1rem;
+        border: 0;
+        border-radius: 8px;
+        background-color: $color-input-bg;
+        color: $color-info;
+        cursor: pointer;
+      }
+    }
+  }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
-import styles from "@/styles/NavigationBar.module.scss";
+import styles from "@/styles/components/navigation/NavigationBar.module.scss";
 import Image, { StaticImageData } from "next/image";
 import homeIcon from "@/assets/icons/home.svg";
 import homeActiveIcon from "@/assets/icons/home_active_clear.svg";

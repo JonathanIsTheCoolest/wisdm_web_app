@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from "react";
-import styles from "@/styles/Explore.module.scss";
+import styles from "@/styles/dashboard/explore/Explore.module.scss";
 import Image from "next/image";
 import searchIcon from "@/assets/icons/search.svg";
 import settingsIcon from "@/assets/icons/gear.svg";

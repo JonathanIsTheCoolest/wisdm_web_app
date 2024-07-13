@@ -17,12 +17,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: $splash-gradient;
+    background: $gradient-splash;
     opacity: 1;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   
     img {
-      height: $wisdm-logo-splash;
+      height: $logo-wisdm-splash;
       margin: auto;
     }
   

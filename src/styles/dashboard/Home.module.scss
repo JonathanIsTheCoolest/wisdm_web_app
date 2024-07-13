@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import "@/styles/variables.scss";
 
 .homeContainer {
   padding: $container-padding;
@@ -65,8 +65,12 @@
     }
   
     p {
-      font-size: $body-text;
+      font-family: $font-poppins-regular;
+      font-size: $font-size-body-text;
       color: $feed-content-info-color;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: left;
     }
   }
 }

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styles from '@/styles/Onboarding.module.scss';
+import styles from '@/styles/login/startScreen.module.scss';
 
 interface LayoutProps {
   children: ReactNode;

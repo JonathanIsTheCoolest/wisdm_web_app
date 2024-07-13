@@ -28,8 +28,8 @@
     margin-bottom: 20px;
 
     h1 {
-      font-size: $page-header;
-      color: $brand-color;
+      font-size: $font-size-page-header;
+      color: $color-brand;
     }
   }
 
@@ -59,7 +59,7 @@
       }
 
       .icon {
-        color: $brand-color;
+        color: $color-brand;
       }
     }
   }

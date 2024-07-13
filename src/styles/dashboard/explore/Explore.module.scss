@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import "@/styles/variables.scss";
 
 .exploreContainer {
   padding: $container-padding;
@@ -17,7 +17,7 @@
 }
 
 .seeAll {
-  color: $brand-color;
+  color: $color-brand;
   text-decoration: none;
 }
 
@@ -45,7 +45,7 @@
   border-radius: $feed-item-border-radius;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: $box-shadow;
+  box-shadow: $shadow-box;
 }
 
 .postHeader {
@@ -57,7 +57,7 @@
 }
 
 .topic {
-  font-family: $body-font;
+  font-family: $font-poppins-regular;
   font-size: 16px;
   line-height: 24px;
   color: $container-color;
@@ -77,10 +77,10 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
-  font-size: $body-font;
+  font-size: $font-poppins-regular;
 
   span {
-    color: $detail-color;
+    color: $color-detail;
     font-size: 12px;
     line-height: 18px;
   }
@@ -90,16 +90,16 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: $icon-color;
+  background-color: $color-icon;
 }
 
 .time {
-  font-size: $comment-details;
-  color: $info-color;
+  font-size: $font-size-comment-details;
+  color: $color-info;
 }
 
 .tag {
-  background-color: $brand-color; // CHANGE WITH CORRESPONDING TAG COLORS
+  background-color: $color-brand; // CHANGE WITH CORRESPONDING TAG COLORS
   color: $container-color; // CHANGE WITH CORRESPONDING TAG FONT COLOR
   padding: 5px 10px;
   border-radius: 14px;
@@ -108,12 +108,12 @@
 }
 
 .postContent {
-  font-size: $body-text;
+  font-size: $font-size-body-text;
   color: $container-color;
   margin-bottom: 0.8rem;
   margin-left: 0.4rem;
   padding-left: 0.8rem;
-  border-left: 1px solid $border-color;
+  border-left: 1px solid $color-border;
 }
 
 .postFooter {
@@ -126,8 +126,8 @@
 .upvotes, .downvotes, .comments {
   display: flex;
   align-items: center;
-  font-size: $comment-details;
-  color: $detail-color;
+  font-size: $font-size-comment-details;
+  color: $color-detail;
 }
 
 .upvotes span, .downvotes span, .comments span {

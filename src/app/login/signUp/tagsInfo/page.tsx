@@ -1,17 +1,25 @@
-import styles from "@/styles/Onboarding.module.scss";
+import styles from "@/styles/login/signUp/tagsInfo/tagsInfo.module.scss";
+import Image from "next/image";
 import Link from "next/link";
+import arrowLeft from "@/assets/icons/arrow_left_white.svg";
+import progressCircle4 from "@/assets/icons/progress_circle_4.svg";
 
 interface NavigationActions {
-  [key: string]: () => void
+  [key: string]: () => void;
 }
 
 const TagsInfoPage = ({ locationInfo, interestsInfo }: NavigationActions) => (
   <div className={styles.tagsInfoPage}>
-    <Link href='/login/signUp/locationInfo' className={styles.backButton}>
-      ←
-    </Link>
+    <div className={styles.onboardingHeader}>
+      <Link href="/login/signUp/locationInfo" className={styles.backButton}>
+        <Image src={arrowLeft} />
+      </Link>
+      <Image src={progressCircle4} className={styles.progressCircles} />
+    </div>
+
     <h2>Where do you stand?</h2>
     <p>Choose the tags below that you think best describes yourself</p>
+
     <div className={styles.tagsButtons}>
       {[
         "Left Liberal",
@@ -37,10 +45,13 @@ const TagsInfoPage = ({ locationInfo, interestsInfo }: NavigationActions) => (
         </button>
       ))}
     </div>
-    <Link href='/login/signUp/interests' className={styles.nextButton}>
-      Next
-    </Link>
+
+    <div className={styles.nextWrapper}>
+      <Link href="/login/signUp/interests" className={styles.nextButton}>
+        Next
+      </Link>
+    </div>
   </div>
 );
 
-export default TagsInfoPage
+export default TagsInfoPage;
