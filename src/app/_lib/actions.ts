@@ -83,3 +83,9 @@ export async function getUser() {
   }
   return authFunctionWrapper(getData)
 }
+
+export async function getCookie(key: string) {
+  const cookieStore = cookies()
+  const cookie = cookieStore.get(key)?.value
+  return cookie
+}

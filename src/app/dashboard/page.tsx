@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "@/styles/dashboard/Home.module.scss";
+import { handleSocketCleanup, socket } from "../_lib/socket";
 import Image from "next/image";
 import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
@@ -12,12 +13,23 @@ import { getUser } from "@/app/_lib/actions";
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
+import { handleRoomConnection } from "../_lib/socket";
 
 const Home = () => {
   const [feedTitle, setFeedTitle] = useState("");
 
   const userName = useAppSelector((state) => state.user.userName)
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    let cleanup: () => any | void = () => null;
+    if (socket.connected && userName) {
+      cleanup = handleSocketCleanup(() => handleRoomConnection(userName))
+    }
+    return () => {
+      cleanup();
+    }
+  }, [userName, socket.connected])
 
   useEffect(() => {
     const fetchFeedData = async () => {
