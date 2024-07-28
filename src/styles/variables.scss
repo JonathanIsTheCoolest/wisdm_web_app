@@ -14,6 +14,17 @@ $color-navbar-bg: #2D2D2D;
 $color-input-bg: #3C3C3C;
 $color-profile-bg: #232323;
 
+// LIGHT & DARK VARIABLES
+$color-light-mode-bg: #FFFFFF;
+$color-light-mode-header-font: #111111;
+$color-light-mode-body-font: #111111;
+$color-light-mode-info-font: #5B5B5B;
+$color-light-mode-input: #EAEAEA;
+$color-light-mode-navbar: #EAEAEA;
+$color-light-mode-navbar-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+$color-light-mode-feed-item-bg: #EAEAEA;
+$color-light-mode-notification-bg: #E8E8E8;
+
 // GRADIENTS
 $gradient-splash: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
 $gradient-quad: conic-gradient(from 0deg at 50% 50%, #B0853B 3.6deg, #8F3D3D 93.6deg, rgba(94, 64, 115, 0.90) 180deg, #406B8F 270deg);
@@ -78,7 +89,7 @@ $logo-wisdm-splash: 60px;
 // COMMON STYLES
 $container-padding: 20px;
 $container-color: $color-white;
-$container-background: $color-profile-bg;
+$container-background: $color-profile-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $container-height: 100vh;
 $container-width: 100vw;
 $container-box-sizing: border-box;
@@ -87,7 +98,7 @@ $container-overflow-y: auto;
 $header-margin-bottom: 20px;
 $header-margin-top: 20px;
 
-$feed-item-background: $color-comment-bg;
+$feed-item-background: $color-comment-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $feed-item-border-radius: 8px;
 $feed-item-margin-bottom: 3rem;
 $feed-item-height: 85%;
@@ -100,7 +111,7 @@ $feed-content-color: $color-white;
 $feed-content-info-color: $color-info;
 
 // NOTIFICATION SPECIFIC STYLES
-$notification-background: $color-notification-bg;
+$notification-background: $color-notification-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $notification-border-radius: 8px;
 $notification-padding: 20px;
 $notification-margin-bottom: 20px;
@@ -111,7 +122,7 @@ $notification-arrow-color: $color-brand;
 $notification-username-color: $color-notification-username;
 
 // VOTE SPECIFIC STYLES
-$vote-item-background: $color-comment-bg;
+$vote-item-background: $color-comment-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $vote-item-border-radius: 8px;
 $vote-item-margin-bottom: 20px;
 $vote-item-height: 200px;
@@ -121,11 +132,11 @@ $vote-item-content-color: $color-info;
 $vote-item-overlay: $gradient-vote-item-overlay;
 
 // PROFILE SPECIFIC STYLES
-$profile-background: $color-profile-bg;
+$profile-background: $color-profile-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $profile-avatar-size: 80px;
 $profile-username-color: $color-white;
 $profile-joined-color: $color-info;
-$profile-tag-background: $color-comment-bg;
+$profile-tag-background: $color-comment-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $profile-tag-color: $color-white;
 $profile-tag-border-radius: 16px;
 $profile-tag-padding: 5px 10px;
@@ -139,7 +150,7 @@ $profile-quadrant-size: 300px;
 $profile-visibility-toggle-color: $color-brand;
 
 $settings-slide-width: 300px;
-$settings-slide-background: $color-profile-bg;
+$settings-slide-background: $color-profile-bg; //REMOVE OR ADJUST FOR LIGHT & DARK MODE
 $settings-slide-transition: 0.3s ease;
 
 // COMMON ONBOARDING CLASSES
@@ -147,25 +158,26 @@ $settings-slide-transition: 0.3s ease;
   width: 100%;
   height: 100%;
   align-items: center;
+  background-color: $color-light-mode-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
 
-  h2 {
-    font-family: $font-poppins-semibold;
-    font-size: $font-size-page-header;
-    color: $color-white;
-    text-align: center;
-  }
+  // h2 {
+  //   font-family: $font-poppins-semibold;
+  //   font-size: $font-size-page-header;
+  //   color: $color-white;
+  //   text-align: center;
+  // }
 
-  p {
-    font-family: $font-poppins-regular;
-    color: $color-info;
-    margin: 10px 0;
-  }
+  // p {
+  //   font-family: $font-poppins-regular;
+  //   color: $color-info;
+  //   margin: 10px 0;
+  // }
 
-  a {
-    font-family: $font-poppins-regular;
-    color: $color-info;
-    margin: 10px 0;
-  }
+  // a {
+  //   font-family: $font-poppins-regular;
+  //   color: $color-info;
+  //   margin: 10px 0;
+  // }
 
   .onboardingContainer {
     width: 100%;
@@ -225,7 +237,7 @@ $settings-slide-transition: 0.3s ease;
     padding: 10px;
     border: 0;
     border-radius: 8px;
-    background-color: $color-input-bg;
+    background-color: $color-light-mode-input; //CHANGE COLOR FOR LIGHT & DARK MODE
     color: $color-white;
     appearance: none;
     -webkit-appearance: none;
@@ -292,12 +304,13 @@ $settings-slide-transition: 0.3s ease;
 // COMMON DASHBOARD CLASSES
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   margin-bottom: 20px;
   margin-top: 20px;
 
   h1 {
+    width: 100%;
+    text-align: center;
     font-family: $font-poppins-semibold;
     font-size: $font-size-page-header;
     color: $color-brand;
@@ -316,11 +329,12 @@ $settings-slide-transition: 0.3s ease;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  text-align: center;
 
   h2 {
     font-family: $font-poppins-semibold;
     font-size: 20px;
-    color: $color-white;
+    color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
   }
 }
 
@@ -328,7 +342,7 @@ $settings-slide-transition: 0.3s ease;
   height: 44px;
   display: flex;
   align-items: center;
-  background-color: $color-input-bg;
+  background-color: $color-light-mode-input; //CHANGE COLOR FOR LIGHT & DARK MODE
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 20px;
@@ -349,6 +363,8 @@ $settings-slide-transition: 0.3s ease;
 }
 
 .settingsIcon {
+  position: absolute;
+  right: 0;
   width: 30px;
   height: 30px;
 }

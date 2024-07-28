@@ -3,7 +3,6 @@
 .exploreContainer {
   padding: $container-padding;
   color: $container-color;
-  background-color: $container-background;
   display: flex;
   flex-direction: column;
   height: $container-height;
@@ -41,7 +40,7 @@
 }
 
 .post {
-  background-color: $feed-item-background;
+  background-color: $color-light-mode-feed-item-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
   border-radius: $feed-item-border-radius;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -60,7 +59,7 @@
   font-family: $font-poppins-regular;
   font-size: 16px;
   line-height: 24px;
-  color: $container-color;
+  color: $color-light-mode-header-font !important; //CHANGE COLOR FOR LIGHT & DARK MODE
   margin-bottom: 12px;
 }
 
@@ -80,7 +79,7 @@
   font-size: $font-poppins-regular;
 
   span {
-    color: $color-detail;
+    color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
     font-size: 12px;
     line-height: 18px;
   }
@@ -109,11 +108,11 @@
 
 .postContent {
   font-size: $font-size-body-text;
-  color: $container-color;
+  color: $color-light-mode-body-font; //CHANGE COLOR FOR LIGHT & DARK MODE
   margin-bottom: 0.8rem;
   margin-left: 0.4rem;
   padding-left: 0.8rem;
-  border-left: 1px solid $color-border;
+  border-left: 1px solid #ADADAD; //CHANGE COLOR FOR LIGHT & DARK MODE
 }
 
 .postFooter {
@@ -127,7 +126,7 @@
   display: flex;
   align-items: center;
   font-size: $font-size-comment-details;
-  color: $color-detail;
+  color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
 }
 
 .upvotes span, .downvotes span, .comments span {

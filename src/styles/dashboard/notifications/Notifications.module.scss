@@ -3,7 +3,6 @@
 .notificationsContainer {
   padding: $container-padding;
   color: $container-color;
-  background-color: $container-background;
   display: flex;
   flex-direction: column;
   height: $container-height;
@@ -13,7 +12,7 @@
 }
 
 .notificationItem {
-  background-color: $notification-background;
+  background-color: $color-light-mode-notification-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
   border-radius: $notification-border-radius;
   padding: $notification-padding;
   margin-bottom: $notification-margin-bottom;
@@ -27,8 +26,8 @@
 
     .notificationTitle {
       font-size: 16px;
-      font-weight: bold;
-      color: $notification-title-color;
+      font-weight: 700;
+      color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
       display: flex;
       align-items: center;
 
@@ -39,8 +38,10 @@
     }
 
     .notificationText {
-      font-size: 14px;
-      color: $notification-content-color;
+      font-size: 16px;
+      font-family: 'Poppins';
+      font-weight: '400';
+      color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
 
       .username {
         color: $notification-username-color;

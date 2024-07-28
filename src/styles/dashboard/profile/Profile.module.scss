@@ -2,37 +2,12 @@
 
 .profileContainer {
   padding: $container-padding;
-  color: $container-color;
-  background-color: $profile-background;
   display: flex;
   flex-direction: column;
   height: $container-height;
   width: $container-width;
   box-sizing: $container-box-sizing;
   overflow-y: $container-overflow-y;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: $header-margin-bottom;
-  margin-top: $header-margin-top;
-
-  h1 {
-    font-family: $font-poppins-semibold;
-    font-size: $font-size-page-header;
-    color: $color-brand;
-  }
-
-  .editButton {
-    padding: 10px 20px;
-    border: 1px solid $container-color;
-    border-radius: 16px;
-    background: none;
-    color: $container-color;
-    cursor: pointer;
-  }
 }
 
 .profileInfo {
@@ -54,12 +29,12 @@
 
     .username {
       font-size: 20px;
-      color: $profile-username-color;
+      color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
     }
 
     .joined {
       font-size: 14px;
-      color: $profile-joined-color;
+      color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
     }
   }
 }
@@ -70,27 +45,52 @@
   margin-bottom: 20px;
 
   .tag {
-    background-color: $profile-tag-background;
-    color: $profile-tag-color;
+    background-color: $color-light-mode-notification-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
+    color: $color-white;
     border-radius: $profile-tag-border-radius;
     padding: $profile-tag-padding;
+
+    p {
+      color: '#FEFEFE';
+      font-size: 10px;
+      font-family: 'Poppins';
+      font-weight: '500';
+    }
   }
 }
 
 .tabs {
   display: flex;
-  justify-content: space-around;
+  overflow-x: auto;
+  white-space: nowrap;
   margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch; // For smooth scrolling on iOS
+
+  &::-webkit-scrollbar {
+    display: none; // Hide scrollbar for Chrome, Safari and Opera
+  }
+
+  -ms-overflow-style: none;  // IE and Edge
+  scrollbar-width: none;  // Firefox
 
   .tab {
-    color: $profile-tab-color;
+    color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
     padding: $profile-tab-padding;
     border-radius: $profile-tab-border-radius;
     cursor: pointer;
+    font-size: 15px;
+    font-family: 'Poppins';
+    font-weight: 600;
+    flex: 0 0 auto;
+    margin-right: 10px;
 
-    &.active {
-      background-color: $profile-tab-active-color;
+    &:last-child {
+      margin-right: 0;
     }
+  }
+
+  .active {
+    background-color: $color-light-mode-notification-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
   }
 }
 
@@ -217,7 +217,7 @@
     border-radius: $feed-item-border-radius;
     padding: $feed-item-padding;
     display: flex;
-    height: 25vh;
+    height: 10rem;
     flex-direction: column;
     gap: 10px;
     position: relative;
@@ -371,20 +371,6 @@
     font-size: $font-size-page-header;
     cursor: pointer;
     margin-bottom: 20px;
-  }
-
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: $header-margin-bottom;
-    margin-top: $header-margin-top;
-
-    h1 {
-      font-family: $font-poppins-semibold;
-      font-size: $font-size-page-header;
-      color: $color-brand;
-    }
   }
 
   .avatar {

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import styles from "@/styles/dashboard/profile/Profile.module.scss";
@@ -131,17 +131,23 @@ const Profile = () => {
         <div className={styles.details}>
           <div className={styles.username}>teacher.s_pet123</div>
           <div className={styles.joined}>Joined April 2024</div>
+          <div className={styles.tags}>
+            <div className={styles.tag}>
+              <p>Left-Handed</p>
+            </div>
+            <div className={styles.tag}>
+              <p>Teacher’s Pet</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.tags}>
-        <div className={styles.tag}>Left-Handed</div>
-        <div className={styles.tag}>Teacher’s Pet</div>
       </div>
       <div className={styles.tabs}>
         {["Quadrant", "Comments", "Saved Topics", "Words"].map((tab) => (
           <div
             key={tab}
-            className={`${styles.tab} ${activeTab === tab ? "active" : ""}`}
+            className={`${styles.tab} ${
+              activeTab === tab ? styles.active : ""
+            }`}
             onClick={() => handleTabClick(tab)}
           >
             {tab}
@@ -184,54 +190,48 @@ const Profile = () => {
           ))}
         </div>
       )}
-          {activeTab === "Saved Topics" && (
-            <div className={styles.savedTopics}>
-              {savedTopics.map((topic, index) => (
-                <div key={index} className={styles.topic}>
-                  <div className={styles.topicImage} style={{ backgroundImage: `url(${topic.image})` }}></div>
-                  <div className={styles.topicContent}>
-                    <div className={styles.topicTitle}>{topic.title}</div>
-                    <div className={styles.topicBody}>{topic.body}</div>
-                    <div className={styles.topicFooter}>
-                      <div className={styles.topicStats}>
-                        <div className={styles.stat}>
-                          <span>💬</span> {topic.comments} comments
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      {activeTab === "Saved Topics" && (
+        <div className={styles.savedTopics}>
+          {savedTopics.map((topic, index) => (
+            <div key={index} className={styles.topic}>
+              <div className={styles.topicContent}>
+                <div className={styles.topicTitle}>
+                  {topic.title} <span>💬</span> {topic.comments} comments
                 </div>
-              ))}
+                <div className={styles.topicBody}>{topic.body}</div>
+              </div>
             </div>
-          )}
-          {activeTab === "Words" && (
-            <div className={styles.wordsOfWisdom}>
-              {wordsOfWisdom.map((wisdom, index) => (
-                <div key={index} className={styles.wisdom}>
-                  <div className={styles.wisdomHeader}>
-                    <div className={styles.avatar}></div>
-                    <div className={styles.details}>
-                      <div className={styles.username}>{wisdom.username}</div>
-                      <div className={styles.time}>{wisdom.time}</div>
-                    </div>
-                  </div>
-                  <div className={styles.wisdomBody}>{wisdom.body}</div>
-                  <div className={styles.wisdomFooter}>
-                    <div className={styles.wisdomStats}>
-                      <div className={styles.stat}>
-                        <span>👍</span> {wisdom.upvotes}
-                      </div>
-                      <div className={styles.stat}>
-                        <span>💬</span> {wisdom.comments}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          ))}
         </div>
-      );
-    };
-    
-    export default Profile;
+      )}
+      {activeTab === "Words" && (
+        <div className={styles.wordsOfWisdom}>
+          {wordsOfWisdom.map((wisdom, index) => (
+            <div key={index} className={styles.wisdom}>
+              <div className={styles.wisdomHeader}>
+                <div className={styles.avatar}></div>
+                <div className={styles.details}>
+                  <div className={styles.username}>{wisdom.username}</div>
+                  <div className={styles.time}>{wisdom.time}</div>
+                </div>
+              </div>
+              <div className={styles.wisdomBody}>{wisdom.body}</div>
+              <div className={styles.wisdomFooter}>
+                <div className={styles.wisdomStats}>
+                  <div className={styles.stat}>
+                    <span>👍</span> {wisdom.upvotes}
+                  </div>
+                  <div className={styles.stat}>
+                    <span>💬</span> {wisdom.comments}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Profile;

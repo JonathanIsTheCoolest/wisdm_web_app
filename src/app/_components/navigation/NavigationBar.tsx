@@ -3,15 +3,21 @@ import styles from "@/styles/components/navigation/NavigationBar.module.scss";
 import Image, { StaticImageData } from "next/image";
 import homeIcon from "@/assets/icons/home.svg";
 import homeActiveIcon from "@/assets/icons/home_active_clear.svg";
+import homeLightMode from "@/assets/icons/home_lightmode.svg";
 import exploreIcon from "@/assets/icons/explore.svg";
 import exploreActiveIcon from "@/assets/icons/explore_active_clear.svg";
+import exploreLightMode from "@/assets/icons/explore_lightmode.svg";
 import profileIcon from "@/assets/icons/profile.svg";
 import profileActiveIcon from "@/assets/icons/profile_active_clear.svg";
+import profileLightMode from "@/assets/icons/profile_lightmode.svg";
 import voteIcon from "@/assets/icons/vote.svg";
 import voteActiveIcon from "@/assets/icons/vote_active_clear.svg";
+import voteLightMode from "@/assets/icons/vote_lightmode.svg";
 import notificationsIcon from "@/assets/icons/notification.svg";
 import notificationsActiveIcon from "@/assets/icons/notification_active_clear.svg";
+import notificationsLightMode from "@/assets/icons/notification_lightmode.svg";
 import ellipse from "@/assets/icons/ellipse.svg"
+import navbarCurveLight from "@/assets/icons/navbar_curve_light.svg"
 import Link from "next/link";
 
 const NavigationBar = () => {
@@ -33,13 +39,44 @@ const NavigationBar = () => {
   }
 
   const INITIAL_VIEW: string | null = typeof document !== 'undefined' && document.location.pathname ? extractLastSegment(document.location.pathname) : 'home';
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const navOptionsArray = [
-    { name: 'home', href: '/', alt: 'Home', activeIcon: homeActiveIcon, inactiveIcon: homeIcon },
-    { name: 'explore', href: '/explore', alt: 'Explore', activeIcon: exploreActiveIcon, inactiveIcon: exploreIcon },
-    { name: 'profile', href: '/profile', alt: 'Profile', activeIcon: profileActiveIcon, inactiveIcon: profileIcon },
-    { name: 'vote', href: '/vote', alt: 'Vote', activeIcon: voteActiveIcon, inactiveIcon: voteIcon },
-    { name: 'notifications', href: '/notifications', alt: 'Notifications', activeIcon: notificationsActiveIcon, inactiveIcon: notificationsIcon },
+    { 
+      name: 'home', 
+      href: '/', 
+      alt: 'Home', 
+      activeIcon: homeActiveIcon, 
+      inactiveIcon: isDarkMode ? homeIcon : homeLightMode
+    },
+    { 
+      name: 'explore', 
+      href: '/explore', 
+      alt: 'Explore', 
+      activeIcon: exploreActiveIcon, 
+      inactiveIcon: isDarkMode ? exploreIcon : exploreLightMode
+    },
+    { 
+      name: 'profile', 
+      href: '/profile', 
+      alt: 'Profile', 
+      activeIcon: profileActiveIcon, 
+      inactiveIcon: isDarkMode ? profileIcon : profileLightMode
+    },
+    { 
+      name: 'vote', 
+      href: '/vote', 
+      alt: 'Vote', 
+      activeIcon: voteActiveIcon, 
+      inactiveIcon: isDarkMode ? voteIcon : voteLightMode
+    },
+    { 
+      name: 'notifications', 
+      href: '/notifications', 
+      alt: 'Notifications', 
+      activeIcon: notificationsActiveIcon, 
+      inactiveIcon: isDarkMode ? notificationsIcon : notificationsLightMode
+    },
   ];
 
   const navOption = (name: string, href: string, alt: string, activeIcon: StaticImageData, inactiveIcon: StaticImageData) => (
@@ -112,7 +149,7 @@ const NavigationBar = () => {
         >
           <Image 
             className={styles.ellipse} 
-            src={ellipse} 
+            src={navbarCurveLight} // CHANGE FOR LIGHT & DARK MODE
             alt="ellipse"
           />
           <div
