@@ -6,31 +6,21 @@
   right: -$settings-slide-width;
   width: $settings-slide-width;
   height: 100%;
-  background-color: $settings-slide-background;
+  background-color: var(--settings-slide-background);
   transition: right $settings-slide-transition;
   z-index: 1000;
   padding: $container-padding;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  // box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); THIS SHADOW IS VISIBLE EVEN WHEN THE SIDEBAR IS NOT ACTIVE
 
   &.active {
     right: 0;
   }
 
   .closeButton {
-    font-size: 24px;
+    font-size: $font-size-page-header;
     cursor: pointer;
     margin-bottom: 20px;
     text-align: right;
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 20px;
-
-    h1 {
-      font-size: $font-size-page-header;
-      color: $color-brand;
-    }
   }
 
   .section {
@@ -38,7 +28,7 @@
 
     h2 {
       font-size: 16px;
-      color: $container-color;
+      color: var(--container-color);
       margin-bottom: 10px;
     }
 
@@ -47,7 +37,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
-      border-bottom: 1px solid $container-color;
+      border-bottom: 1px solid var(--container-color);
       cursor: pointer;
 
       &:last-child {
@@ -71,15 +61,15 @@
     margin-bottom: 20px;
 
     label {
-      font-size: 14px;
-      color: $container-color;
+      font-size: $font-size-body-text;
+      color: var(--container-color);
     }
 
     .toggleSwitch {
       position: relative;
       width: 40px;
       height: 20px;
-      background-color: $profile-visibility-toggle-color;
+      background-color: var(--profile-visibility-toggle-color);
       border-radius: 10px;
       cursor: pointer;
 
@@ -88,7 +78,7 @@
         position: absolute;
         width: 18px;
         height: 18px;
-        background-color: $container-color;
+        background-color: var(--container-color);
         border-radius: 50%;
         top: 1px;
         left: 1px;

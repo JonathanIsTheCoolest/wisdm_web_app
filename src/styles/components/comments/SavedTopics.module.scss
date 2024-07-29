@@ -1,0 +1,80 @@
+.savedTopics {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    .topic {
+      background-color: var(--color-feed-item-bg);
+      border-radius: $radius-small;
+      padding: $container-padding;
+      display: flex;
+      height: 10rem;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+  
+      .topicImage {
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: var(--color-feed-item-overlay);
+          z-index: 1;
+        }
+      }
+  
+      .topicContent {
+        position: absolute;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: $container-padding;
+        z-index: 2;
+  
+        .topicTitle {
+          font-size: 16px;
+          font-weight: bold;
+          color: var(--color-container-color);
+        }
+  
+        .topicBody {
+          font-size: 14px;
+          color: var(--color-container-color);
+        }
+  
+        .topicFooter {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 14px;
+          color: var(--color-container-color);
+  
+          .topicStats {
+            display: flex;
+            gap: 10px;
+  
+            .stat {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+            }
+          }
+        }
+      }
+    }
+  }

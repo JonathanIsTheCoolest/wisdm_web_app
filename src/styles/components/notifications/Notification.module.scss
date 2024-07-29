@@ -1,0 +1,45 @@
+@import "@/styles/variables.scss";
+
+.notificationItem {
+    background-color: $color-light-mode-notification-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
+    border-radius: $radius-small;
+    padding: $container-padding;
+    margin-bottom: $notification-margin-bottom;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .notificationContent {
+      display: flex;
+      flex-direction: column;
+  
+      .notificationTitle {
+        font-size: 16px;
+        font-weight: 700;
+        color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+        display: flex;
+        align-items: center;
+  
+        .notificationIcon {
+          font-size: $notification-icon-size;
+          margin-right: 8px;
+        }
+      }
+  
+      .notificationText {
+        font-size: 16px;
+        font-family: $font-poppins-regular;
+        font-weight: '400';
+        color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+  
+        .username {
+          color: $color-notification-username;
+        }
+      }
+    }
+  
+    .notificationArrow {
+      font-size: $notification-icon-size;
+      color: $color-brand;
+    }
+}

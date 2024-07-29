@@ -8,9 +8,8 @@
   width: 100%;
   height: 100px;
   justify-content: space-around;
-  background-color: #232323;
-  color: $color-white;
-  box-shadow: $shadow-navbar;
+  background-color: var(--color-navbar-top); //CHANGE COLOR FOR LIGHT & DARK MODE
+  color: var(--color-body-font);
   z-index: 1000;
 
   .navWrapper {
@@ -21,9 +20,8 @@
     align-items: center;
     width: 100%;
     height: 77px;
-    background-color: $color-navbar-bg;
-    color: $color-white;
-    box-shadow: $shadow-navbar;
+    background-color: var(--color-navbar); //CHANGE COLOR FOR LIGHT & DARK MODE
+    box-shadow: var(--color-navbar-shadow);
   }
 
   .navItem {
@@ -32,7 +30,7 @@
     align-items: center;
     justify-content: center;
     width: 20%; /* Ensure each tab takes up an equal width */
-    color: $color-icon;
+    color: var(--color-icon);
     text-align: center;
     transition: transform 0.5s ease, color 0.5s ease;
     position: relative;
@@ -48,7 +46,7 @@
 
     span {
       font-size: 12px;
-      color: $color-white;
+      color: var(--color-body-font);
       transition: color 0.5s ease;
       white-space: nowrap; /* Prevent text from breaking into multiple lines */
     }
@@ -73,8 +71,8 @@
 
     span {
       margin-top: 10px;
-      color: $color-white;
-      font-family: $font-poppins-regular;
+      color: var(--color-body-font);
+      font-family: var(--font-poppins-regular);
     }
   }
 

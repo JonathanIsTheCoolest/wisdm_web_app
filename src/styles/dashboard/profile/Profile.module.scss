@@ -1,99 +1,134 @@
 @import "@/styles/variables.scss";
 
 .profileContainer {
-  padding: $container-padding;
-  color: $container-color;
-  background-color: $profile-background;
+  // padding: $container-padding; // FIX THIS PADDING TO NOT INHERIT TO CHILDREN ALWAYS
   display: flex;
   flex-direction: column;
   height: $container-height;
   width: $container-width;
-  box-sizing: $container-box-sizing;
+  box-sizing: border-box;
   overflow-y: $container-overflow-y;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: $header-margin-bottom;
-  margin-top: $header-margin-top;
 
   h1 {
-    font-family: $font-poppins-semibold;
-    font-size: $font-size-page-header;
-    color: $color-brand;
-  }
-
-  .editButton {
-    padding: 10px 20px;
-    border: 1px solid $container-color;
-    border-radius: 16px;
-    background: none;
-    color: $container-color;
-    cursor: pointer;
+    text-align: left;
   }
 }
 
-.profileInfo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  .profileInfoContainer {
+    padding: $container-padding;
+    border-bottom: 2px solid black;
 
-  .avatar {
-    width: $profile-avatar-size;
-    height: $profile-avatar-size;
-    border-radius: 50%;
-    background-color: $color-icon;
-    margin-right: 20px;
-  }
+    .editButton {
+      width: 80px; // MAKE RESPONSIVE
+      height: 32px; // MAKE RESPONSIVE
+      border: 1px;
+      border-radius: $button-radius;
+      background-color: $color-light-mode-input;
 
-  .details {
-    display: flex;
-    flex-direction: column;
-
-    .username {
-      font-size: 20px;
-      color: $profile-username-color;
+      font-family: $font-poppins-regular;  // FIND A BETTER PLACE FOR THIS OR INHERIT IT PROPERLY
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 12px;
     }
 
-    .joined {
-      font-size: 14px;
-      color: $profile-joined-color;
+    .profileInfo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px; // REMOVE OR REPLACE WITH GAP?
+
+      .userInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        
+        line-height: 1; // FIND A MORE FITTING PLACE FOR THIS OR RESTRUCTURE P TAGS
+      }
+
+      .avatarImage {
+        width: $profile-avatar-size;
+        height: $profile-avatar-size;
+        border-radius: 50%;
+        background-color: var(--color-icon);
+      }
+
+    .details { // REMOVE?
+      display: flex;
+      flex-direction: column;
+
+      .username { // REMOVE?
+        font-family: $font-poppins-regular;
+        font-size: $font-size-small-header;
+        font-weight: 600;
+        color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+      }
+
+      .joined { // REMOVE?
+        font-size: 14px;
+        color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+      }
     }
   }
 }
 
-.tags {
+.tags { // MAKE INTO COMMON CLASS AND MERGE WITH OTHER COMMON CLASSES
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
 
   .tag {
-    background-color: $profile-tag-background;
-    color: $profile-tag-color;
-    border-radius: $profile-tag-border-radius;
+    background-color: var(--color-light-mode-notification-bg); //CHANGE COLOR FOR LIGHT & DARK MODE
+    color: $color-white;
+    border-radius: $radius-large;
     padding: $profile-tag-padding;
-  }
-}
 
-.tabs {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-
-  .tab {
-    color: $profile-tab-color;
-    padding: $profile-tab-padding;
-    border-radius: $profile-tab-border-radius;
-    cursor: pointer;
-
-    &.active {
-      background-color: $profile-tab-active-color;
+    p {
+      color: '#FEFEFE';
+      font-size: 10px;
+      font-family: $font-poppins-regular;
+      font-weight: '500';
     }
   }
 }
 
+.tabsWrapper {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabItem {
+    color: var(--color-header-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+    padding: $profile-tab-padding;
+    border-radius: $radius-large;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: $font-poppins-regular;
+    font-weight: 600;
+    flex: 0 0 auto;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .activeTabItem {
+    background-color: var(--color-input); //CHANGE COLOR FOR LIGHT & DARK MODE
+  }
+}
+
+.profileFeed {
+  padding: $container-padding;
+}
+
+// RECREATE ENTIRELY & MAKE INTO A COMPONENT
 .quadrant {
   display: flex;
   flex-direction: column;
@@ -103,188 +138,9 @@
   .quadrantImage {
     width: $profile-quadrant-size;
     height: $profile-quadrant-size;
-    background: $profile-quadrant-gradient;
+    // background: $profile-quadrant-gradient;
     border-radius: 16px;
     position: relative;
-
-    .quadrantDot {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: $container-color;
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-
-  .visibilityToggle {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-
-    .toggleLabel {
-      margin-right: 10px;
-      color: $container-color;
-    }
-
-    .toggleSwitch {
-      position: relative;
-      width: 40px;
-      height: 20px;
-      background-color: $profile-visibility-toggle-color;
-      border-radius: 10px;
-      cursor: pointer;
-
-      &::before {
-        content: "";
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        background-color: $container-color;
-        border-radius: 50%;
-        top: 1px;
-        left: 1px;
-        transition: transform 0.3s ease;
-
-        &.active {
-          transform: translateX(20px);
-        }
-      }
-    }
-  }
-}
-
-.comments {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  .comment {
-    background-color: $feed-item-background;
-    border-radius: $feed-item-border-radius;
-    padding: $feed-item-padding;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    .commentHeader {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .commentTitle {
-        font-size: 16px;
-        font-weight: bold;
-        color: $container-color;
-      }
-    }
-
-    .commentBody {
-      font-size: 14px;
-      color: $container-color;
-    }
-
-    .commentFooter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-      color: $container-color;
-
-      .commentStats {
-        display: flex;
-        gap: 10px;
-
-        .stat {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-      }
-    }
-  }
-}
-
-.savedTopics {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  .topic {
-    background-color: $feed-item-background;
-    border-radius: $feed-item-border-radius;
-    padding: $feed-item-padding;
-    display: flex;
-    height: 25vh;
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
-
-    .topicImage {
-      background-size: cover;
-      background-position: center;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-  
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: $vote-item-overlay;
-        z-index: 1;
-      }
-    }
-
-    .topicContent {
-      position: absolute;
-      display: flex;
-      height: 100%;
-      width: 100%;
-      left: 0;
-      top: 0;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: $feed-content-padding;
-      z-index: 2;
-
-      .topicTitle {
-        font-size: 16px;
-        font-weight: bold;
-        color: $container-color;
-      }
-
-      .topicBody {
-        font-size: 14px;
-        color: $container-color;
-      }
-
-      .topicFooter {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 14px;
-        color: $container-color;
-
-        .topicStats {
-          display: flex;
-          gap: 10px;
-
-          .stat {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -294,9 +150,9 @@
   gap: 20px;
 
   .wisdom {
-    background-color: $feed-item-background;
-    border-radius: $feed-item-border-radius;
-    padding: $feed-item-padding;
+    background-color: var(--color-feed-item-bg);
+    border-radius: $radius-small;
+    padding: $container-padding;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -310,7 +166,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: $color-icon;
+        background-color: var(--color-icon);
       }
 
       .details {
@@ -319,19 +175,19 @@
 
         .username {
           font-size: 14px;
-          color: $container-color;
+          color: var(--color-container-color);
         }
 
         .time {
           font-size: 12px;
-          color: $color-info;
+          color: var(--color-info);
         }
       }
     }
 
     .wisdomBody {
       font-size: 14px;
-      color: $container-color;
+      color: var(--color-container-color);
     }
 
     .wisdomFooter {
@@ -339,7 +195,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
-      color: $container-color;
+      color: var(--color-container-color);
 
       .wisdomStats {
         display: flex;
@@ -357,74 +213,37 @@
 
 .userSettingsContainer {
   padding: $container-padding;
-  color: $container-color;
-  background-color: $profile-background;
+  color: var(--color-container-color);
+  background-color: var(--color-profile-background);
   display: flex;
   flex-direction: column;
   height: $container-height;
   width: $container-width;
-  box-sizing: $container-box-sizing;
+  box-sizing: border-box;
   overflow-y: $container-overflow-y;
 
-  .backButton {
-    color: $color-brand;
-    font-size: $font-size-page-header;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: $header-margin-bottom;
-    margin-top: $header-margin-top;
-
-    h1 {
-      font-family: $font-poppins-semibold;
-      font-size: $font-size-page-header;
-      color: $color-brand;
-    }
-  }
-
-  .avatar {
+  .avatarImage {
     width: $profile-avatar-size;
     height: $profile-avatar-size;
     border-radius: 50%;
-    background-color: $color-icon;
+    background-color: var(--color-icon);
     margin: 0 auto 20px;
   }
 
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
 
-    label {
-      font-size: 14px;
-      color: $container-color;
-      margin-bottom: 5px;
-    }
 
-    input {
-      padding: 10px;
-      border: 1px solid $container-color;
-      border-radius: 8px;
-      background-color: $profile-background;
-      color: $container-color;
-      font-size: 16px;
-    }
 
-    .editIcon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: $container-color;
-      cursor: pointer;
-    }
-  }
 
+
+
+
+
+
+
+
+
+
+  // BELOW STYLING IS CLEANED UP
   .toggleGroup {
     display: flex;
     justify-content: space-between;

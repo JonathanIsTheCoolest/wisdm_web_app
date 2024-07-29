@@ -1,7 +1,8 @@
 import styles from "@/styles/login/signUp/interests/interests.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import arrowLeft from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftWhite from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle5 from "@/assets/icons/progress_circle_5.svg";
 import tech from "@/assets/images/tech.png";
 
@@ -9,13 +10,15 @@ const InterestsPage = () => (
   <div className={styles.interestsPage}>
     <div className={styles.onboardingHeader}>
       <Link href="/login/signUp/tagsInfo" className={styles.backButton}>
-        <Image src={arrowLeft} />
+        <Image src={arrowLeftBrand} />
       </Link>
       <Image src={progressCircle5} className={styles.progressCircles} />
     </div>
 
-    <h2>What are you interested in?</h2>
-    <p>Pick 5 to customize your news feed</p>
+    <div className={styles.onboardingTextBlock}>
+      <h1>What are you interested in?</h1>
+      <p>Pick 5 to customize your news feed</p>
+    </div>
 
     <div className={styles.interestsGrid}>
       {[

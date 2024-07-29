@@ -3,12 +3,11 @@
 .exploreContainer {
   padding: $container-padding;
   color: $container-color;
-  background-color: $container-background;
   display: flex;
   flex-direction: column;
   height: $container-height;
   width: $container-width;
-  box-sizing: $container-box-sizing;
+  box-sizing: border-box;
   overflow-y: $container-overflow-y;
 }
 
@@ -17,6 +16,8 @@
 }
 
 .seeAll {
+  font-family: $font-poppins-regular;
+  font-weight: 600;
   color: $color-brand;
   text-decoration: none;
 }
@@ -38,98 +39,4 @@
 
 .wordsOfWisdomWrapper {
   flex: 1;
-}
-
-.post {
-  background-color: $feed-item-background;
-  border-radius: $feed-item-border-radius;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: $shadow-box;
-}
-
-.postHeader {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.topic {
-  font-family: $font-poppins-regular;
-  font-size: 16px;
-  line-height: 24px;
-  color: $container-color;
-  margin-bottom: 12px;
-}
-
-.userWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.username {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  font-size: $font-poppins-regular;
-
-  span {
-    color: $color-detail;
-    font-size: 12px;
-    line-height: 18px;
-  }
-}
-
-.userIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: $color-icon;
-}
-
-.time {
-  font-size: $font-size-comment-details;
-  color: $color-info;
-}
-
-.tag {
-  background-color: $color-brand; // CHANGE WITH CORRESPONDING TAG COLORS
-  color: $container-color; // CHANGE WITH CORRESPONDING TAG FONT COLOR
-  padding: 5px 10px;
-  border-radius: 14px;
-  font-size: 12px;
-  line-height: 18px;
-}
-
-.postContent {
-  font-size: $font-size-body-text;
-  color: $container-color;
-  margin-bottom: 0.8rem;
-  margin-left: 0.4rem;
-  padding-left: 0.8rem;
-  border-left: 1px solid $color-border;
-}
-
-.postFooter {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
-}
-
-.upvotes, .downvotes, .comments {
-  display: flex;
-  align-items: center;
-  font-size: $font-size-comment-details;
-  color: $color-detail;
-}
-
-.upvotes span, .downvotes span, .comments span {
-  margin: 0 5px;
 }

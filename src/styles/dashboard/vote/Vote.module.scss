@@ -3,19 +3,18 @@
 .voteContainer {
   padding: $container-padding;
   color: $container-color;
-  background-color: $container-background;
   display: flex;
   flex-direction: column;
   height: $container-height;
   width: $container-width;
-  box-sizing: $container-box-sizing;
+  box-sizing: border-box;
   overflow-y: $container-overflow-y;
 }
 
 .voteItem {
   position: relative;
-  background-color: $vote-item-background;
-  border-radius: $vote-item-border-radius;
+  background-color: var(--color-bg);
+  border-radius: $radius-small;
   overflow: hidden;
   margin-bottom: $vote-item-margin-bottom;
   height: $vote-item-height;
@@ -48,13 +47,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: $vote-item-padding;
+    padding: $container-padding;
     z-index: 2;
 
     h3 {
-      font-family: $feed-content-font-family;
-      font-size: $feed-content-font-size;
-      color: $vote-item-title-color;
+      font-family: $font-poppins-semibold;
+      font-size: $font-size-body-text;
+      color: var(--color-text);
       text-align: center;
     }
   }

@@ -1,7 +1,8 @@
 import styles from "@/styles/login/signUp/tagsInfo/tagsInfo.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import arrowLeft from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftWhite from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle4 from "@/assets/icons/progress_circle_4.svg";
 
 interface NavigationActions {
@@ -12,13 +13,15 @@ const TagsInfoPage = ({ locationInfo, interestsInfo }: NavigationActions) => (
   <div className={styles.tagsInfoPage}>
     <div className={styles.onboardingHeader}>
       <Link href="/login/signUp/locationInfo" className={styles.backButton}>
-        <Image src={arrowLeft} />
+        <Image src={arrowLeftBrand} />
       </Link>
       <Image src={progressCircle4} className={styles.progressCircles} />
     </div>
 
-    <h2>Where do you stand?</h2>
-    <p>Choose the tags below that you think best describes yourself</p>
+    <div className={styles.onboardingTextBlock}>
+      <h1>Where do you stand?</h1>
+      <p>Choose the tags below that you think best describes yourself</p>
+    </div>
 
     <div className={styles.tagsButtons}>
       {[

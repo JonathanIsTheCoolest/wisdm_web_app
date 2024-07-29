@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import wisdm_logo_white from "@/assets/logos/wisdm_logo_white.svg";
+import wisdmLogoWhite from "@/assets/logos/wisdm_logo_white.svg";
+import wisdmLogoBrand from "@/assets/logos/wisdm_logo_brand.svg";
 import styles from "@/styles/login/startScreen.module.scss";
 
 const OnboardingPage = () => (
   <div className={styles.startScreenWrapper}>
-    <Image src={wisdm_logo_white} alt="Wisdm Logo" />
-    <h2>WISDM</h2>
+    <Image src={wisdmLogoBrand} alt="Wisdm Logo" />
+    <h1>WISDM</h1>
     <Link href="/login/signUp" className={styles.signupButton}>
       Sign Up
     </Link>

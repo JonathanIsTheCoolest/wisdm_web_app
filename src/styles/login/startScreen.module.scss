@@ -11,6 +11,11 @@
   top: 50%;
   transform: translateY(-50%);
 
+  h2 {
+    color: $color-brand;
+    text-align: center;
+  }
+
   img {
     height: $logo-wisdm;
     margin: auto;
@@ -37,7 +42,7 @@
   }
   
   .loginButton {
-    background-color: $color-white;
+    background-color: $color-brand-light;
     color: $color-brand;
   }
 }

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState, useEffect } from "react";
 import styles from "@/styles/dashboard/Home.module.scss";
@@ -6,11 +6,12 @@ import { handleSocketCleanup, socket } from "../_lib/socket";
 import Image from "next/image";
 import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
+import questionIcon from "@/assets/icons/questionmark.svg";
 import homeTestImg from "@/assets/images/home_test_img.png";
 import homeTestImg2 from "@/assets/images/home_test_img_2.png";
 
 import { getUser } from "@/app/_lib/actions";
-
+import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
 import { handleRoomConnection } from "../_lib/socket";
@@ -18,8 +19,18 @@ import { handleRoomConnection } from "../_lib/socket";
 const Home = () => {
   const [feedTitle, setFeedTitle] = useState("");
 
-  const userName = useAppSelector((state) => state.user.userName)
-  const dispatch = useAppDispatch()
+  const userName = useAppSelector((state) => state.user.userName);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    let cleanup: () => any | void = () => null;
+    if (socket.connected && userName) {
+      cleanup = handleSocketCleanup(() => handleRoomConnection(userName));
+    }
+    return () => {
+      cleanup();
+    };
+  }, [userName, socket.connected]);
 
   useEffect(() => {
     let cleanup: () => any | void = () => null;
@@ -52,16 +63,16 @@ const Home = () => {
   useEffect(() => {
     const requestUser = async () => {
       try {
-        const result = await getUser()
-        dispatch(setUser(result.data))
+        const result = await getUser();
+        dispatch(setUser(result.data));
       } catch (e) {
-        console.error(`There was an error fetching your data: ${e}`)
+        console.error(`There was an error fetching your data: ${e}`);
       }
-    }
+    };
     if (!userName.length) {
-      requestUser()
+      requestUser();
     }
-  }, [])
+  }, []);
 
   const feedItems = [
     {
@@ -90,8 +101,17 @@ const Home = () => {
     <div className={styles.homeContainer}>
       <header className={styles.header}>
         <h1 className={styles.pageTitle}>For You</h1>
-        <div className={styles.settingsIcon} onClick={() => console.log('toggleSidebar')}>
-          <Image src={gearIcon} alt="Settings" />
+        <div className={styles.iconContainer}>
+          <ThemeToggle />
+          <div className={styles.questionIcon}>
+            <Image src={questionIcon} alt="Question" />
+          </div>
+          <div
+            className={styles.settingsIcon}
+            onClick={() => console.log("toggleSidebar")}
+          >
+            <Image src={gearIcon} alt="Settings" />
+          </div>
         </div>
       </header>
       <div className={styles.searchBar}>
