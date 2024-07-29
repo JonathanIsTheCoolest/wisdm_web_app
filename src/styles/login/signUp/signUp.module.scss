@@ -4,10 +4,6 @@
 .signupPage {
     margin: 20px;
     margin-top: 8rem;
-  
-    h2 {
-      text-align: left;
-    }
     
     .orDivider {
       display: flex;
@@ -23,7 +19,7 @@
       &::after {
         content: '';
         flex: 1;
-        border: 0.5px solid $color-comment-bg;
+        border: 0.5px solid var(--color-comment-bg);
       }
     
       &::before {

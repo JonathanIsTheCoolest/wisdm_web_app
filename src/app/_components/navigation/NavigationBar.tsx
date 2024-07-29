@@ -16,13 +16,15 @@ import voteLightMode from "@/assets/icons/vote_lightmode.svg";
 import notificationsIcon from "@/assets/icons/notification.svg";
 import notificationsActiveIcon from "@/assets/icons/notification_active_clear.svg";
 import notificationsLightMode from "@/assets/icons/notification_lightmode.svg";
-import ellipse from "@/assets/icons/ellipse.svg"
 import navbarCurveLight from "@/assets/icons/navbar_curve_light.svg"
+import navbarCurveDark from "@/assets/icons/navbar_curve_dark.svg"
 import Link from "next/link";
+import { useTheme } from "@/app/_contexts/ThemeContext";
 
 const NavigationBar = () => {
   const [currentView, setCurrentView] = useState<string | null>(null);
   const elementRef = useRef<HTMLImageElement | null>(null);
+  const { theme } = useTheme();
 
   function extractLastSegment(path: string) {
     const pattern = /\/([^\/?]+)(?=\?|$)/;
@@ -39,7 +41,7 @@ const NavigationBar = () => {
   }
 
   const INITIAL_VIEW: string | null = typeof document !== 'undefined' && document.location.pathname ? extractLastSegment(document.location.pathname) : 'home';
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const isDarkMode = theme === 'dark';
 
   const navOptionsArray = [
     { 
@@ -149,7 +151,7 @@ const NavigationBar = () => {
         >
           <Image 
             className={styles.ellipse} 
-            src={navbarCurveLight} // CHANGE FOR LIGHT & DARK MODE
+            src={isDarkMode ? navbarCurveDark : navbarCurveLight}
             alt="ellipse"
           />
           <div

@@ -1,19 +1,22 @@
 import styles from "@/styles/login/signUp/personalInfo/personalInfo.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import arrowLeft from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftWhite from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle2 from "@/assets/icons/progress_circle_2.svg";
 
 const PersonalInfoPage = () => (
   <div className={styles.personalInfoPage}>
     <div className={styles.onboardingHeader}>
       <Link href="/login/signUp" className={styles.backButton}>
-        <Image src={arrowLeft} />
+        <Image src={arrowLeftBrand} />
       </Link>
       <Image src={progressCircle2} className={styles.progressCircles} />
     </div>
 
-    <h2>Tell us a little about yourself</h2>
+    <div className={styles.onboardingTextBlock}>
+      <h1>Tell us a little about yourself</h1>
+    </div>
 
     <div className={styles.labelWrapper}>
       <label>Choose a unique username</label>

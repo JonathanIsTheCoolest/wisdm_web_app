@@ -19,8 +19,8 @@
         padding: 1rem;
         border: 0;
         border-radius: 8px;
-        background-color: $color-input-bg;
-        color: $color-info;
+        background-color: var(--color-light-mode-input);
+        color: var(--color-info);
         cursor: pointer;
       }
     }

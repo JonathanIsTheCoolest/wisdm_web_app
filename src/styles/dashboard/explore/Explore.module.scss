@@ -7,7 +7,7 @@
   flex-direction: column;
   height: $container-height;
   width: $container-width;
-  box-sizing: $container-box-sizing;
+  box-sizing: border-box;
   overflow-y: $container-overflow-y;
 }
 
@@ -16,6 +16,8 @@
 }
 
 .seeAll {
+  font-family: $font-poppins-regular;
+  font-weight: 600;
   color: $color-brand;
   text-decoration: none;
 }
@@ -37,98 +39,4 @@
 
 .wordsOfWisdomWrapper {
   flex: 1;
-}
-
-.post {
-  background-color: $color-light-mode-feed-item-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
-  border-radius: $feed-item-border-radius;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: $shadow-box;
-}
-
-.postHeader {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.topic {
-  font-family: $font-poppins-regular;
-  font-size: 16px;
-  line-height: 24px;
-  color: $color-light-mode-header-font !important; //CHANGE COLOR FOR LIGHT & DARK MODE
-  margin-bottom: 12px;
-}
-
-.userWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.username {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  font-size: $font-poppins-regular;
-
-  span {
-    color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
-    font-size: 12px;
-    line-height: 18px;
-  }
-}
-
-.userIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: $color-icon;
-}
-
-.time {
-  font-size: $font-size-comment-details;
-  color: $color-info;
-}
-
-.tag {
-  background-color: $color-brand; // CHANGE WITH CORRESPONDING TAG COLORS
-  color: $container-color; // CHANGE WITH CORRESPONDING TAG FONT COLOR
-  padding: 5px 10px;
-  border-radius: 14px;
-  font-size: 12px;
-  line-height: 18px;
-}
-
-.postContent {
-  font-size: $font-size-body-text;
-  color: $color-light-mode-body-font; //CHANGE COLOR FOR LIGHT & DARK MODE
-  margin-bottom: 0.8rem;
-  margin-left: 0.4rem;
-  padding-left: 0.8rem;
-  border-left: 1px solid #ADADAD; //CHANGE COLOR FOR LIGHT & DARK MODE
-}
-
-.postFooter {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
-}
-
-.upvotes, .downvotes, .comments {
-  display: flex;
-  align-items: center;
-  font-size: $font-size-comment-details;
-  color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
-}
-
-.upvotes span, .downvotes span, .comments span {
-  margin: 0 5px;
 }

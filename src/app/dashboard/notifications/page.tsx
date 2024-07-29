@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "@/styles/dashboard/notifications/Notifications.module.scss";
+import Notification from "@/app/_components/notifications/notification";
 
 const notifications = [
   {
@@ -38,22 +39,15 @@ const Notifications = () => {
         <h1>Notifications</h1>
       </header>
       {notifications.map((notification, index) => (
-        <div key={index} className={styles.notificationItem}>
-          <div className={styles.notificationContent}>
-            <div className={styles.notificationTitle}>
-              <span className={styles.notificationIcon}>{notification.icon}</span>
-              {notification.title}
-            </div>
-            <div className={styles.notificationText}>
-              {notification.username && <span className={styles.username}>{notification.username} </span>}
-              {notification.content}
-            </div>
-          </div>
-          <div className={styles.notificationArrow}>➔</div>
-        </div>
+        <Notification
+          key={index}
+          icon={notification.icon}
+          title={notification.title}
+          username={notification.username}
+          content={notification.content}
+        />
       ))}
     </div>
   );
 };
-
 export default Notifications;

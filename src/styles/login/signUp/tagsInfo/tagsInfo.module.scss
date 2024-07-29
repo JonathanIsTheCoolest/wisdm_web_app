@@ -10,16 +10,18 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      justify-content: center;
   
       .tagButton {
-        flex: 1;
+        flex: 0 1 auto;
         min-width: 100px;
+        max-width: fit-content;
+        white-space: nowrap;
+        overflow: visible;
         padding: 1rem;
         border: 0;
         border-radius: 8px;
-        background-color: $color-input-bg;
-        color: $color-info;
+        background-color: $color-light-mode-input; //CHANGE COLOR FOR LIGHT & DARK MODE
+        color: $color-light-mode-body-font; //CHANGE COLOR FOR LIGHT & DARK MODE
         cursor: pointer;
       }
     }

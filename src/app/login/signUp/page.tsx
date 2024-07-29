@@ -1,7 +1,8 @@
 import styles from "@/styles/login/signUp/signUp.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import arrowLeft from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftWhite from "@/assets/icons/arrow_left_white.svg";
+import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle1 from "@/assets/icons/progress_circle_1.svg";
 import googleIcon from "@/assets/icons/google.svg";
 import appleIcon from "@/assets/icons/apple.svg";
@@ -11,12 +12,14 @@ const SignUpPage = () => (
   <div className={styles.signupPage}>
     <div className={styles.onboardingHeader}>
       <Link href="/login" className={styles.backButton}>
-        <Image src={arrowLeft} />
+        <Image src={arrowLeftBrand} />
       </Link>
       <Image src={progressCircle1} className={styles.progressCircles} />
     </div>
 
-    <h2>Let's Get Started</h2>
+    <div className={styles.onboardingTextBlock}>
+      <h1>Let's Get Started</h1>
+    </div>
 
     <div className={styles.labelWrapper}>
       <label>Full Name</label>

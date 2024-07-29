@@ -1,0 +1,92 @@
+@import '@/styles/variables.scss';
+
+.commentWrapper {
+    background-color: var(--color-feed-item-bg); //CHANGE COLOR FOR LIGHT & DARK MODE
+    border-radius: $radius-small;
+    padding: $container-padding;
+    margin-bottom: 1rem;
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+    h3 {
+        font-family: $font-poppins-regular;
+        font-size: $font-size-event-date;
+        line-height: 24px;
+        color: var(--color-header-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-family: $font-poppins-thin;
+        font-size: $font-size-body-text;
+        color: var(--color-body-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+        margin-bottom: 0.8rem;
+    }
+
+    span {
+        color: var(--color-info-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+  .commentContent {
+    font-size: $font-size-body-text;
+    color: var(--color-body-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+    margin-bottom: 0.8rem;
+    margin-left: 0.4rem;
+    padding-left: 0.8rem;
+    border-left: 1px solid #ADADAD; //CHANGE COLOR FOR LIGHT & DARK MODE
+
+    .userWrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 10px;
+    
+        .userName {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            font-size: $font-size-body-text;
+
+            .userIcon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: var(--color-icon);
+              }
+          }
+      }
+  }
+
+  .commentFooter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+
+    span {
+        font-size: $font-size-comment-details;
+        margin: 0 5px;
+    }
+  }
+}
+
+
+  
+ 
+  
+  
+  .userTag { //TURN INTO A COMMON CLASS?
+    background-color: $color-brand; // CHANGE WITH CORRESPONDING TAG COLORS
+    color: $container-color; // CHANGE WITH CORRESPONDING TAG FONT COLOR
+    padding: 5px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  
+ 
+  
