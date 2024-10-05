@@ -40,6 +40,28 @@ const Home = () => {
     handleRoomConnection();
     return () => {
       handleSocketCleanup();
+    let cleanup: () => any | void = () => null;
+    if (socket.connected && userName) {
+      cleanup = handleSocketCleanup(() => handleRoomConnection(userName))
+    }
+    return () => {
+      cleanup();
+    }
+  }, [userName, socket.connected])
+
+  useEffect(() => {
+    const fetchFeedData = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:5000/api/timelines/get/timelines"
+        );
+        const data = await response.json();
+        if (data.timelines && data.timelines.length > 0) {
+          setFeedTitle(data.timelines[0].title);
+        }
+      } catch (error) {
+        console.error("Error fetching timeline data:", error);
+      }
     };
   }, []);
 
