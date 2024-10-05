@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "@/styles/Sidebar.module.scss";
+import styles from "@/styles/components/navigation/Sidebar.module.scss";
 
 interface SidebarProps {
   isActive: boolean;

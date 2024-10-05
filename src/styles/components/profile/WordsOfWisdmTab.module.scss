@@ -1,0 +1,61 @@
+@import "@/styles/variables.scss";
+
+.wordsOfWisdom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .wisdom {
+    background-color: var(--color-feed-item-bg);
+    border-radius: $radius-small;
+    padding: $container-padding;
+
+    .wisdomHeader {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      .avatarImage {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .details {
+        .username {
+          font-weight: bold;
+          color: var(--color-header-font);
+        }
+
+        .time {
+          font-size: 0.8em;
+          color: var(--color-info-font);
+        }
+      }
+    }
+
+    .wisdomBody {
+      color: var(--color-body-font);
+      margin-bottom: 10px;
+    }
+
+    .wisdomFooter {
+      display: flex;
+      justify-content: space-between;
+
+      .wisdomStats {
+        display: flex;
+        gap: 15px;
+
+        .stat {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          color: var(--color-info-font);
+        }
+      }
+    }
+  }
+}

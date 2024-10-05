@@ -6,7 +6,7 @@ import styles from "@/styles/login/startScreen.module.scss";
 
 const OnboardingPage = () => (
   <div className={styles.startScreenWrapper}>
-    <Image src={wisdmLogoBrand} alt="Wisdm Logo" />
+    <Image src={wisdmLogoWhite} alt="Wisdm Logo" />
     <h1>WISDM</h1>
     <Link href="/login/signUp" className={styles.signupButton}>
       Sign Up

@@ -1,8 +1,17 @@
+"use client";
+
 import React from "react";
 import styles from "@/styles/dashboard/notifications/Notifications.module.scss";
 import Notification from "@/app/_components/notifications/notification";
 
-const notifications = [
+interface NotificationItem {
+  icon: string;
+  title: string;
+  username?: string;
+  content: string;
+}
+
+const notifications: NotificationItem[] = [
   {
     icon: "🔔",
     title: "New Reply Alert!",
@@ -36,18 +45,21 @@ const Notifications = () => {
   return (
     <div className={styles.notificationsContainer}>
       <header className={styles.header}>
-        <h1>Notifications</h1>
+        <h1 className={styles.pageTitle}>Notifications</h1>
       </header>
-      {notifications.map((notification, index) => (
-        <Notification
-          key={index}
-          icon={notification.icon}
-          title={notification.title}
-          username={notification.username}
-          content={notification.content}
-        />
-      ))}
+      <div className={styles.notificationsList}>
+        {notifications.map((notification, index) => (
+          <Notification
+            key={index}
+            icon={notification.icon}
+            title={notification.title}
+            username={notification.username}
+            content={notification.content}
+          />
+        ))}
+      </div>
     </div>
   );
 };
+
 export default Notifications;

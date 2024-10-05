@@ -1,0 +1,30 @@
+@import "@/styles/variables.scss";
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+
+  .avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+  }
+
+  .userInfo {
+    .username {
+      font-size: 1.5rem;
+      color: var(--color-header-font);
+      margin: 0;
+    }
+
+    .bio {
+      font-size: 1rem;
+      color: var(--color-body-font);
+      margin: 0.5rem 0 0 0;
+    }
+  }
+}

@@ -12,7 +12,7 @@ const ForgotPasswordPage = ({ login }: NavigationActions) => (
   <div className={styles.forgotPasswordPage}>
     <div className={styles.onboardingHeader}>
       <Link href="/login/signIn" className={styles.backButton}>
-        <Image src={arrowLeftBrand} /> {/* CHANGE COLOR FOR LIGHT & DARK MODE */}
+        <Image src={arrowLeftBrand} />
       </Link>
     </div>
     <div className={styles.onboardingTextBlock}>

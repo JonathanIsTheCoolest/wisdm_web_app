@@ -20,8 +20,9 @@
         padding: 1rem;
         border: 0;
         border-radius: 8px;
-        background-color: $color-light-mode-input; //CHANGE COLOR FOR LIGHT & DARK MODE
-        color: $color-light-mode-body-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+        background-color: var(--color-feed-item-bg);
+        font-family: $font-poppins-regular;
+        color: var(--color-body-font);
         cursor: pointer;
       }
     }

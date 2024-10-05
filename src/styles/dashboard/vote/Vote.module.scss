@@ -11,6 +11,21 @@
   overflow-y: $container-overflow-y;
 }
 
+.header { // Change to somewhere else?
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    text-align: center;
+    color: $color-vote-text-description;
+  }
+}
+
 .voteItem {
   position: relative;
   background-color: var(--color-bg);

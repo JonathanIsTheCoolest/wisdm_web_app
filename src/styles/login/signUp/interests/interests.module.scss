@@ -6,25 +6,26 @@
     margin-top: 8rem;
 
     .interestsGrid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-
-        @media (min-width: 768px) {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        @media (min-width: 1024px) {
-            grid-template-columns: repeat(5, 1fr);
-        }
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; // Adjust the gap as needed
 
         .interestItem {
-            width: 100%;
+            margin: 0;
+            padding: 0;
+            flex: 1 1 calc(33.333% - 10px);
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
+
+            &.selected img {
+                opacity: 0.5;
+            }
 
             img {
                 width: 100%;
@@ -34,7 +35,8 @@
 
             p {
                 font-size: 10px;
-                color: $color-light-mode-body-font; // CHANGE COLOR FOR LIGHT & DARK MODE
+                font-family: $font-poppins-regular;
+                color: var(--color-body-font);
                 margin-top: 10px;
             }
         }

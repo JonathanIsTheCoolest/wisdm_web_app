@@ -19,9 +19,16 @@
         padding: 1rem;
         border: 0;
         border-radius: 8px;
-        background-color: var(--color-light-mode-input);
-        color: var(--color-info);
+        background-color: var(--color-feed-item-bg);
+        font-family: $font-poppins-regular;
+        color: var(--color-body-font);
         cursor: pointer;
+        box-sizing: border-box;
+        border: 2px solid transparent;
+
+        &.active {
+          border: 2px solid var(--color-input-border);
+        }
       }
     }
   }

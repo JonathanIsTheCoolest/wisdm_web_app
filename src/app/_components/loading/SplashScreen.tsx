@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "@/styles/SplashScreen.module.scss";
+import styles from "@/styles/components/loading/SplashScreen.module.scss";
 import Image from "next/image";
 import wisdm_logo_white from "../assets/logos/wisdm_logo_white.svg";
 

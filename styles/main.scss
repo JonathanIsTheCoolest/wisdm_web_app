@@ -1,3 +1,6 @@
+@import "./variables.scss";
+@import "./globals.scss";
+
 // DECLARED VARIABLES FROM THE FIGMA
 $gradient-splash: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
 
@@ -101,6 +104,27 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: $font-poppins-regular;
+}
+
+input, textarea {
+  font-family: $font-poppins-regular;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: $radius-small;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-poppins-semibold;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1rem 0;
 }
 
 @media (prefers-color-scheme: dark) {

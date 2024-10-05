@@ -1,0 +1,63 @@
+@import "@/styles/variables.scss";
+
+.savedTopics {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .topic {
+    position: relative;
+    border-radius: $radius-small;
+    overflow: hidden;
+    height: 10rem;
+    display: flex;
+    background-color: var(--color-feed-item-bg);
+
+    .topicImage {
+      flex: 1;
+      position: relative;
+
+      img {
+        border-radius: $radius-small 0 0 $radius-small;
+      }
+    }
+
+    .topicContent {
+      flex: 2;
+      padding: $container-padding;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .topicTitle {
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--color-header-font);
+      }
+
+      .topicBody {
+        font-size: 14px;
+        color: var(--color-body-font);
+      }
+
+      .topicFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .topicStats {
+          display: flex;
+          gap: 10px;
+
+          .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: var(--color-info-font);
+          }
+        }
+      }
+    }
+  }
+}

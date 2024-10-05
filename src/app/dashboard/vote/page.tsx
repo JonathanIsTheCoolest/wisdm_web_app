@@ -19,8 +19,8 @@ const Vote = () => {
   return (
     <div className={styles.voteContainer}>
       <header className={styles.header}>
-        <h1>Vote</h1>
-        <p>Vote on the hottest takes 🔥</p>
+        <h1 className={styles.pageTitle}>Vote</h1>
+        <p className={styles.headerText}>Vote on the hottest takes 🔥</p>
       </header>
       {voteItems.map((item, index) => (
         <div key={index} className={styles.voteItem}>

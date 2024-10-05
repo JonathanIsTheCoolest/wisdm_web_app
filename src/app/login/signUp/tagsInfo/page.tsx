@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import styles from "@/styles/login/signUp/tagsInfo/tagsInfo.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,52 +12,70 @@ interface NavigationActions {
   [key: string]: () => void;
 }
 
-const TagsInfoPage = ({ locationInfo, interestsInfo }: NavigationActions) => (
-  <div className={styles.tagsInfoPage}>
-    <div className={styles.onboardingHeader}>
-      <Link href="/login/signUp/locationInfo" className={styles.backButton}>
-        <Image src={arrowLeftBrand} />
-      </Link>
-      <Image src={progressCircle4} className={styles.progressCircles} />
-    </div>
+const TagsInfoPage = () => {
+  const [activeTags, setActiveTags] = useState<string[]>([]);
 
-    <div className={styles.onboardingTextBlock}>
-      <h1>Where do you stand?</h1>
-      <p>Choose the tags below that you think best describes yourself</p>
-    </div>
+  const handleTagClick = (tag: string) => {
+    setActiveTags((prevTags) => {
+      if (prevTags.includes(tag)) {
+        return prevTags.filter((t) => t !== tag);
+      } else {
+        return [...prevTags, tag];
+      }
+    });
+  };
 
-    <div className={styles.tagsButtons}>
-      {[
-        "Left Liberal",
-        "Right Rebel",
-        "Middle Man",
-        "Eco Warrior",
-        "Tech Geek",
-        "Fiscal Hawk",
-        "Socialist Spark",
-        "Diplomacy Devotee",
-        "Freedom Fanatic",
-        "Capitalist Crusader",
-        "Green Guardian",
-        "Rural Revolutionary",
-        "Planet Preserver",
-        "Urban Utopian",
-        "Cultural Creative",
-        "Justice Juggernaut",
-        "Equality Evangelist",
-      ].map((tag) => (
-        <button key={tag} className={styles.tagButton}>
-          {tag}
-        </button>
-      ))}
-    </div>
+  return (
+    <div className={styles.tagsInfoPage}>
+      <div className={styles.onboardingHeader}>
+        <Link href="/login/signUp/locationInfo" className={styles.backButton}>
+          <Image src={arrowLeftBrand} alt="Back" />
+        </Link>
+        <Image src={progressCircle4} alt="Progress" className={styles.progressCircles} />
+      </div>
 
-    <div className={styles.nextWrapper}>
-      <Link href="/login/signUp/interests" className={styles.nextButton}>
-        Next
-      </Link>
+      <div className={styles.onboardingTextBlock}>
+        <h1>Where do you stand?</h1>
+        <p>Choose the tags below that you think best describes yourself</p>
+      </div>
+
+      <div className={styles.tagsButtons}>
+        {[
+          { label: "Left Liberal", className: "LeftLiberal" },
+          { label: "Right Rebel", className: "RightRebel" },
+          { label: "Middle Man", className: "MiddleMan" },
+          { label: "Eco Warrior", className: "EcoWarrior" },
+          { label: "Tech Geek", className: "TechGeek" },
+          { label: "Fiscal Hawk", className: "FiscalHawk" },
+          { label: "Socialist Spark", className: "SocialistSpark" },
+          { label: "Diplomacy Devotee", className: "DiplomacyDevotee" },
+          { label: "Freedom Fanatic", className: "FreedomFanatic" },
+          { label: "Capitalist Crusader", className: "CapitalistCrusader" },
+          { label: "Green Guardian", className: "GreenGuardian" },
+          { label: "Rural Revolutionary", className: "RuralRevolutionary" },
+          { label: "Planet Preserver", className: "PlanetPreserver" },
+          { label: "Urban Utopian", className: "UrbanUtopian" },
+          { label: "Cultural Creative", className: "CulturalCreative" },
+          { label: "Justice Juggernaut", className: "JusticeJuggernaut" },
+          { label: "Equality Evangelist", className: "EqualityEvangelist" },
+        ].map(({ label, className }) => (
+          <button
+            key={label}
+            className={`${styles.tagButton} ${activeTags.includes(className) ? styles[`active${className.charAt(0).toUpperCase()}${className.slice(1)}`] : ""}`}
+            onClick={() => handleTagClick(className)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className={styles.nextWrapper}>
+        <Link href="/login/signUp/interests" className={styles.nextButton}>
+          Next
+        </Link>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default TagsInfoPage;

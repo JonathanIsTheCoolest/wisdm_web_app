@@ -9,13 +9,18 @@
   width: $container-width;
   box-sizing: border-box;
   overflow-y: $container-overflow-y;
+  margin-bottom: 100px;
 }
 
 .feedSection {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 100px);
+
+  a {
+    height: 100%;
+  }
 }
 
 .feedItem {

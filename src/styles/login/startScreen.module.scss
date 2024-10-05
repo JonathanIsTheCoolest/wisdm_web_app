@@ -11,6 +11,12 @@
   top: 50%;
   transform: translateY(-50%);
 
+  h1 {
+    font-size: $font-size-small-header;
+    text-align: center;
+    color: var(--color-header-font);
+  }
+
   h2 {
     color: $color-brand;
     text-align: center;

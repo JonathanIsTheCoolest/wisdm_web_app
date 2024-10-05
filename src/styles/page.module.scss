@@ -3,7 +3,7 @@
 .main {
   display: flex;
   min-height: 100vh;
-  background: $color-light-mode-bg;
+  background: var(--color-bg);
 }
 
 //SPLASH SCREEN CLASSES

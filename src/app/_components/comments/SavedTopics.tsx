@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/components/comments/SavedTopic.module.scss";
+import styles from "@/styles/components/comments/SavedTopics.module.scss";
 
 interface SavedTopicProps {
   title: string;
