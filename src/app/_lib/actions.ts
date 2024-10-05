@@ -5,7 +5,9 @@ import { permanentRedirect, redirect } from "next/navigation"
  
 export async function signIn(prevState: any, formData: FormData) {
   const user = formData.get('user')
+  console.log(user)
   const password = formData.get('password')
+  console.log(password)
   const SIGN_IN_URL: string = `${process.env.BASE_API_URL}${process.env.SIGN_IN_EXTENSION}`
 
   const body = {
@@ -21,6 +23,7 @@ export async function signIn(prevState: any, formData: FormData) {
       body: JSON.stringify(body)
     })
 
+    console.log(response)
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Something went wrong.');
@@ -28,7 +31,6 @@ export async function signIn(prevState: any, formData: FormData) {
     const data = await response.json()
     const token = data.token
     const user = data.user
-
 
     cookies().set('auth', token, {
       httpOnly: true,

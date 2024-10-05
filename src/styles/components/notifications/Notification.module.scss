@@ -1,7 +1,7 @@
 @import "@/styles/variables.scss";
 
 .notificationItem {
-    background-color: $color-light-mode-notification-bg; //CHANGE COLOR FOR LIGHT & DARK MODE
+    background-color: var(--color-notification-bg);
     border-radius: $radius-small;
     padding: $container-padding;
     margin-bottom: $notification-margin-bottom;
@@ -16,7 +16,7 @@
       .notificationTitle {
         font-size: 16px;
         font-weight: 700;
-        color: $color-light-mode-header-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+        color: var(--color-info-font);
         display: flex;
         align-items: center;
   
@@ -30,7 +30,7 @@
         font-size: 16px;
         font-family: $font-poppins-regular;
         font-weight: '400';
-        color: $color-light-mode-info-font; //CHANGE COLOR FOR LIGHT & DARK MODE
+        color: var(--color-info-font);
   
         .username {
           color: $color-notification-username;

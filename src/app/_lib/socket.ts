@@ -59,12 +59,18 @@ export const handleSocketCleanup = (cb: () => any) => {
   let cleanup: (() => void) | undefined;
 
   const initialize = async () => {
-    cleanup = await cb();
+    if (typeof cb === 'function') {
+      cleanup = await cb();
+    } else {
+      console.error('Callback is not a function');
+    }
   };
 
   initialize();
 
   return () => {
-    if (cleanup) cleanup();
+    if (cleanup && typeof cleanup === 'function') {
+      cleanup();
+    }
   };
 };

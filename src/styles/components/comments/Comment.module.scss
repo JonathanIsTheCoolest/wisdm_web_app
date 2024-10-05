@@ -1,7 +1,7 @@
 @import '@/styles/variables.scss';
 
 .commentWrapper {
-    background-color: var(--color-feed-item-bg); //CHANGE COLOR FOR LIGHT & DARK MODE
+    background-color: var(--color-feed-item-bg);
     border-radius: $radius-small;
     padding: $container-padding;
     margin-bottom: 1rem;
@@ -10,27 +10,29 @@
     h3 {
         font-family: $font-poppins-regular;
         font-size: $font-size-event-date;
+        font-weight: 400;
         line-height: 24px;
-        color: var(--color-header-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+        color: var(--color-header-font);
         margin-bottom: 1rem;
     }
 
     p {
         font-family: $font-poppins-thin;
         font-size: $font-size-body-text;
-        color: var(--color-body-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+        font-weight: 200;
+        color: var(--color-comment-font);
         margin-bottom: 0.8rem;
     }
 
     span {
-        color: var(--color-info-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+        color: var(--color-comment-font-detail);
         font-size: 12px;
         line-height: 18px;
     }
 
   .commentContent {
     font-size: $font-size-body-text;
-    color: var(--color-body-font); //CHANGE COLOR FOR LIGHT & DARK MODE
+    color: var(--color-body-font);
     margin-bottom: 0.8rem;
     margin-left: 0.4rem;
     padding-left: 0.8rem;
@@ -66,9 +68,40 @@
     align-items: center;
     gap: 1rem;
 
-    span {
+    .voteContainer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      span {
         font-size: $font-size-comment-details;
-        margin: 0 5px;
+      }
+
+      .upvoteIcon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .downvoteIcon {
+        width: 18px;
+        height: 18px;
+        transform: rotate(180deg);
+      }
+    }
+
+    .commentContainer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      span {
+        font-size: $font-size-comment-details;
+      }
+
+      .commentIcon {
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 }

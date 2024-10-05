@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect, useContext } from "react";
 import styles from "@/styles/components/navigation/NavigationBar.module.scss";
 import Image, { StaticImageData } from "next/image";
 import homeIcon from "@/assets/icons/home.svg";
@@ -19,12 +19,12 @@ import notificationsLightMode from "@/assets/icons/notification_lightmode.svg";
 import navbarCurveLight from "@/assets/icons/navbar_curve_light.svg"
 import navbarCurveDark from "@/assets/icons/navbar_curve_dark.svg"
 import Link from "next/link";
-import { useTheme } from "@/app/_contexts/ThemeContext";
+import { ThemeContext } from "@/app/_contexts/ThemeContext";
 
 const NavigationBar = () => {
   const [currentView, setCurrentView] = useState<string | null>(null);
   const elementRef = useRef<HTMLImageElement | null>(null);
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   function extractLastSegment(path: string) {
     const pattern = /\/([^\/?]+)(?=\?|$)/;
