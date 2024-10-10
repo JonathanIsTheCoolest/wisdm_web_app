@@ -8,7 +8,7 @@ import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
 import homeTestImg from "@/assets/images/home_test_img.png";
-import homeTestImg2 from "@/assets/images/home_test_img_2.png";
+import { onSignOut } from "../_lib/firebase/auth/auth_sign_out";
 
 import { getUser } from "@/app/_lib/actions";
 import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
@@ -28,59 +28,42 @@ const Home = () => {
   const [feedItems, setFeedItems] = useState<FeedItem[]>([]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await getUser();
-      dispatch(setUser(userData));
-    };
+    // const fetchUser = async () => {
+    //   const userData = await getUser();
+    //   dispatch(setUser(userData));
+    // };
 
-    fetchUser();
+    // fetchUser();
   }, [dispatch]);
 
   useEffect(() => {
-    handleRoomConnection();
-    return () => {
-      handleSocketCleanup();
     let cleanup: () => any | void = () => null;
-    if (socket.connected && userName) {
-      cleanup = handleSocketCleanup(() => handleRoomConnection(userName))
+    if (socket.connected && user.userName) {
+      handleRoomConnection(user.userName)
+      cleanup = () => handleSocketCleanup(() => handleRoomConnection(user.userName))
     }
     return () => {
       cleanup();
     }
-  }, [userName, socket.connected])
+  }, [user.userName, socket.connected])
 
-  useEffect(() => {
-    const fetchFeedData = async () => {
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:5000/api/timelines/get/timelines"
-        );
-        const data = await response.json();
-        if (data.timelines && data.timelines.length > 0) {
-          setFeedTitle(data.timelines[0].title);
-        }
-      } catch (error) {
-        console.error("Error fetching timeline data:", error);
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   const fetchFeed = async () => {
+  //     try {
+  //       const response = await fetch(`${process.env.BASE_API_URL_DEV}/feed`);
+  //       const data = await response.json();
+  //       setFeedItems(data.feed);
+  //     } catch (error) {
+  //       console.error("Error fetching feed items:", error);
+  //     }
+  //   };
 
-  useEffect(() => {
-    const fetchFeed = async () => {
-      try {
-        const response = await fetch(`${process.env.BASE_API_URL_DEV}/feed`);
-        const data = await response.json();
-        setFeedItems(data.feed);
-      } catch (error) {
-        console.error("Error fetching feed items:", error);
-      }
-    };
-
-    fetchFeed();
-  }, []);
+  //   fetchFeed();
+  // }, []);
 
   return (
     <div className={styles.homeContainer}>
+      <button onClick={onSignOut}>Sign Out</button>
       <header className={styles.header}>
         <h1 className={styles.pageTitle}>For You</h1>
         <div className={styles.iconContainer}>

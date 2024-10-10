@@ -1,22 +1,12 @@
-import { useEffect, useState } from "react";
+'use client'
+
+import { useState } from "react";
 import styles from "@/styles/components/loading/SplashScreen.module.scss";
 import Image from "next/image";
-import wisdm_logo_white from "../assets/logos/wisdm_logo_white.svg";
+import wisdm_logo_white from "@/assets/logos/wisdm_logo_white.svg";
 
 const SplashScreen = () => {
-    const [isLoading, setIsLoading] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
-  
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setFadeOut(true);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500); // Duration of the fade-out transition
-      }, 3000); // Adjust the timeout duration as needed
-  
-      return () => clearTimeout(timer);
-    }, []);
 
     return (
       <main className={styles.main}>
@@ -29,5 +19,4 @@ const SplashScreen = () => {
     );
   };
   
-  export default SplashScreen;
-
+export default SplashScreen;

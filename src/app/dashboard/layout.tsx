@@ -5,6 +5,7 @@ import NavigationBar from '@/app/_components/navigation/NavigationBar';
 import Sidebar from '@/app/_components/navigation/Sidebar';
 import styles from '@/styles/page.module.scss';
 import { handleSocketConnection, handleSocketCleanup } from '../_lib/socket';
+import withAuth from '../_components/auth/withAuth';
 
 interface LayoutProps {
   children: ReactNode;
@@ -28,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   </div>;
 };
 
-export default Layout;
+export default withAuth(Layout);
 
 
 

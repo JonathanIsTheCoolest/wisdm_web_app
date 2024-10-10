@@ -1,7 +1,6 @@
 'use client'
 
 import { io, Socket } from "socket.io-client";
-import { getCookie } from "./actions";
 
 const BASE_API_URL = '127.0.0.1:5000'
 
@@ -15,9 +14,6 @@ export const socket: Socket = io(
 
 export const handleSocketConnection = async () => {
   try {
-    const authCookie = await getCookie('auth');
-
-    socket.auth = {token: authCookie}
     socket.connect();
 
     socket.on('connect', () => {
@@ -62,7 +58,7 @@ export const handleSocketCleanup = (cb: () => any) => {
     if (typeof cb === 'function') {
       cleanup = await cb();
     } else {
-      console.error('Callback is not a function');
+      console.error('Socket cleanup callback is not a function');
     }
   };
 
