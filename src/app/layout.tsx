@@ -3,13 +3,10 @@ import type { Metadata } from "next";
 
 // API/Database Imports
 import { ThemeProvider } from '@/app/_contexts/ThemeContext';
-<<<<<<< Updated upstream
-=======
 
 // Component Imports
 import StoreProvider from "./StoreProvider";
 import AuthWrapper from "./_components/auth/AuthWrapper";
->>>>>>> Stashed changes
 
 // Stylesheet Imports
 import '../../styles/variables.scss';
@@ -42,9 +39,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-<<<<<<< Updated upstream
-}
-=======
 }
 
 // import type { Metadata } from "next";
