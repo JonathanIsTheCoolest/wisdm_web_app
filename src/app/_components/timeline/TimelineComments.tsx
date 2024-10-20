@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 
 // API/Database Imports
-import { fetchComments } from '@/app/_lib/actions';
+// import { fetchComments } from '@/app/_lib/actions';
 
 // Component Imports
 import Draggable from 'react-draggable';
@@ -26,13 +26,13 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [sortBy, setSortBy] = useState<'top' | 'newest'>('top');
 
-  useEffect(() => {
-    const loadComments = async () => {
-      const fetchedComments = await fetchComments(sortBy);
-      setComments(fetchedComments);
-    };
-    loadComments();
-  }, [sortBy]);
+  // useEffect(() => {
+  //   const loadComments = async () => {
+  //     const fetchedComments = await fetchComments(sortBy);
+  //     setComments(fetchedComments);
+  //   };
+  //   loadComments();
+  // }, [sortBy]);
 
   const handleDrag = (_: any, ui: { y: number }) => {
     setPosition({ x: 0, y: ui.y });

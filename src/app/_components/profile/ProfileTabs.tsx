@@ -11,7 +11,7 @@ import CommentCard from "@/app/_components/cards/CommentCard";
 import SavedTopicCard from "@/app/_components/cards/SavedTopicCard";
 
 // Stylesheet Imports
-import styles from "@/app/pages/dashboard/profile/Profile.module.scss";
+import styles from "@/app/(pages)/dashboard/profile/Profile.module.scss";
 
 // CommentsTab Component
 const CommentsTab: React.FC<{ comments: Comment[] }> = ({ comments }) => {

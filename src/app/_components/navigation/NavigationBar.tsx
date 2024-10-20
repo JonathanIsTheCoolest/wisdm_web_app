@@ -91,7 +91,7 @@ const NavigationBar = () => {
 
   const navOption = (name: string, href: string, alt: string, activeIcon: StaticImageData, inactiveIcon: StaticImageData) => (
     <Link
-      href={`/pages/dashboard${href}`}
+      href={`/dashboard${href}`}
       key={name}
       data-name={name}
       className={`${styles.navItem} ${currentView === name ? styles.navItemActive : ""}`}

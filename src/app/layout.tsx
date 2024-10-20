@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 // API/Database Imports
 import { ThemeProvider } from "@/app/_contexts/ThemeContext";
-import AuthWrapper from "./_components/auth/AuthWrapper";
 
 // Component Imports
 import StoreProvider from "./StoreProvider";

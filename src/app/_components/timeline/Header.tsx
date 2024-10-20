@@ -10,7 +10,7 @@ import Link from 'next/link';
 import ThemeToggle from '@/app/_components/buttons/ThemeToggle';
 
 // Stylesheet Imports
-import styles from '@/app/pages/dashboard/timeline/Timeline.module.scss';
+import styles from '@/app/(pages)/dashboard/timeline/Timeline.module.scss';
 
 // Asset Imports
 import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
     <header className={styles.header}>
     <div className={styles.timelineHeader}>
-      <Link href="/pages/dashboard" className={styles.backButton}>
+      <Link href="/dashboard" className={styles.backButton}>
         <Image src={arrowLeftBrand} alt="Back" />
       </Link>
       <h1 className={styles.pageTitle}>{title}</h1>

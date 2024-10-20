@@ -10,7 +10,7 @@ export const logInWithEmailAndPassword = async (email: string, password: string)
     const userInfo = {
       user,
       tokens: {
-        accessToken: token
+        idToken: token
       }
     }
 

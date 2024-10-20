@@ -16,7 +16,7 @@ export const googleSignInWithPopup = async () => {
     const userInfo = {
       user,
       tokens: {
-        accessToken: token
+        idToken: token
       }
     }
 

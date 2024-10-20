@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 // Stylesheet Imports
-import styles from '@/app/pages/dashboard/timeline/Timeline.module.scss';
+import styles from '@/app/(pages)/dashboard/timeline/Timeline.module.scss';
 
 interface TimelineEvent {
   body: string;

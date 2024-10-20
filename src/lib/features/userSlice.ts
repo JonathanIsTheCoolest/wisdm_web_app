@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
-  avatar: string;
+  avatar: string | null;
   currentChannel: string | null;
-  email: string;
-  lastPostId: string;
-  locality: string;
-  numPosts: number;
-  userName: string;
+  email: string | null;
+  lastPostId: string | null;
+  locality: string | null;
+  numPosts: number | null;
+  userName: string | null;
 }
 
 interface UserAction {
-  avatar: string;
+  avatar: string | null;
   current_channel: string | null;
-  email: string;
-  last_post_id: string;
-  locality: string;
-  num_posts: number;
-  user_name: string;
+  email: string | null;
+  last_post_id: string | null;
+  locality: string | null;
+  num_posts: number | null;
+  user_name: string | null;
 }
 
 const initialState: UserState = {
@@ -37,13 +37,13 @@ const userSlice = createSlice({
     setUser: (state: UserState, action: PayloadAction<UserAction>) => {
       const { avatar, current_channel, email, last_post_id, locality, num_posts, user_name } = action.payload
       return {
-        avatar: avatar,
-        currentChannel: current_channel,
-        email: email,
-        lastPostId: last_post_id,
-        locality: locality,
-        numPosts: num_posts,
-        userName: user_name
+        avatar: avatar ?? state.avatar,
+        currentChannel: current_channel ?? state.currentChannel,
+        email: email ?? state.email,
+        lastPostId: last_post_id ?? state.lastPostId,
+        locality: locality ?? state.locality,
+        numPosts: num_posts ?? state.numPosts,
+        userName: user_name ?? state.userName
       };
     }
   }
