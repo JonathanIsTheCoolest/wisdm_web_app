@@ -121,10 +121,18 @@ input, textarea {
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-poppins-semibold;
   margin: 0;
+  line-height: 1;
 }
 
 p {
-  margin: 0 0 1rem 0;
+  line-height: 1;
+  margin: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-medium;
 }
 
 @media (prefers-color-scheme: dark) {

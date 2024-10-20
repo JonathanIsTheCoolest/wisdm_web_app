@@ -1,0 +1,102 @@
+// CLEAN UP THIS FILE
+
+@import './styles/variables.scss';
+
+.commentWrapper {
+    background-color: var(--color-feed-item-bg);
+    border-radius: $radius-small;
+    padding: $padding-medium;
+    display: flex;
+    flex-direction: column;
+    gap: $gap-medium;
+
+    h3 {
+        font-family: $font-poppins-regular;
+        font-size: $font-size-event-date;
+        font-weight: 400;
+        color: var(--color-header-font);
+    }
+
+    p {
+        font-family: $font-poppins-thin;
+        font-size: $font-size-body-text;
+        font-weight: 200;
+        color: var(--color-comment-font);
+    }
+
+    span {
+        color: var(--color-comment-font-detail);
+        font-size: 12px;
+    }
+
+  .commentContent {
+    font-size: $font-size-body-text;
+    color: var(--color-body-font);
+    padding-left: $padding-medium;
+    border-left: 1px solid #ADADAD; //CHANGE COLOR FOR LIGHT & DARK MODE
+    display: flex;
+    flex-direction: column;
+    gap: $gap-small;
+
+    .userWrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+    
+        .userName {
+            display: flex;
+            flex-direction: row;
+            gap: $gap-medium;
+            align-items: center;
+            font-size: $font-size-body-text;
+
+            .userIcon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: var(--color-icon);
+              }
+          }
+      }
+  }
+
+  .commentFooter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: $gap-medium;
+
+    .voteContainer {
+      display: flex;
+      align-items: center;
+      gap: $gap-small; //make into $gap-container-small
+      
+      .upvoteIcon {
+        width: 18px;
+        height: 18px;
+      }
+  
+      .downvoteIcon {
+        width: 18px;
+        height: 18px;
+        transform: rotate(180deg);
+      }
+    }
+    
+    .commentContainer {
+      display: flex;
+      align-items: center;
+      gap: $gap-small; //make into $gap-container-small
+
+      .commentIcon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+  
+ 
+  

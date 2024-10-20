@@ -1,0 +1,17 @@
+@import "./styles/variables.scss";
+
+.voteItem {
+  border-radius: $radius-small;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+
+  .voteImage {
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+}

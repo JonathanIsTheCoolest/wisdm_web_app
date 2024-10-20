@@ -1,0 +1,44 @@
+@import "./styles/variables.scss";
+
+.notificationItem {
+    background-color: var(--color-notification-bg);
+    border-radius: $radius-small;
+    padding: $padding-medium;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .notificationContent {
+      display: flex;
+      flex-direction: column;
+  
+      .notificationTitle {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--color-info-font);
+        display: flex;
+        align-items: center;
+  
+        .notificationIcon {
+          font-size: $notification-icon-size;
+          margin-right: 8px;
+        }
+      }
+  
+      .notificationText {
+        font-size: 16px;
+        font-family: $font-poppins-regular;
+        font-weight: '400';
+        color: var(--color-info-font);
+  
+        .username {
+          color: $color-notification-username;
+        }
+      }
+    }
+  
+    .notificationArrow {
+      font-size: $notification-icon-size;
+      color: $color-brand;
+    }
+}

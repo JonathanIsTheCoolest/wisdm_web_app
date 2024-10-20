@@ -1,4 +1,4 @@
-@import 'src/styles/variables.scss';
+@import 'variables.scss';
 
 :root {
   --color-bg: #{$color-light-mode-bg};
@@ -41,8 +41,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: $font-poppins-regular;
-  background-color: var(--color-bg);
+  font-family: 'Poppins Regular', sans-serif;
+  background-color: $color-background;
   color: var(--color-body-font);
 }
 

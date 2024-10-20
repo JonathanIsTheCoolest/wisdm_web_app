@@ -16,12 +16,12 @@ export async function authFunctionWrapper(cb: (auth: string) => any) {
         expires: new Date(0),
         path: '/'
       })
-      permanentRedirect('/login/signIn')
+      return { redirect: '/pages/login/signin' }
     }
     return result
   } else {
     console.error({ error: 'Missing auth token' })
-    permanentRedirect('/login/signIn')
+    return { redirect: '/pages/login/signin' }
   }
 }
 
@@ -40,5 +40,12 @@ export async function getUser() {
       return { error: e }
     }
   }
+  return authFunctionWrapper(getData)
+}
+
+export async function getCookie(key: string) {
+  const cookieStore = cookies()
+  const cookie = cookieStore.get(key)?.value
+  return cookie
   return getData
 }

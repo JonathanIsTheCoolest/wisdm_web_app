@@ -1,0 +1,51 @@
+@import "./styles/variables.scss";
+
+.commentsContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(100% - 200px); // Adjust as needed
+  background-color: var(--color-timeline-comment-bg);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dragHandle {
+  width: 50px;
+  height: 5px;
+  background-color: #888;
+  border-radius: 5px;
+  margin: 10px auto;
+  cursor: grab;
+}
+
+.commentsHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: $profile-tab-padding;
+  border-bottom: 1px solid #444;
+  flex-direction: column;
+  gap: $gap-medium;
+}
+
+.sortOptions {
+  background: none;
+  border: none;
+  color: var(--color-body-font);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: $gap-medium;
+}
+
+.commentsContent {
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  padding: $padding-medium;
+}
