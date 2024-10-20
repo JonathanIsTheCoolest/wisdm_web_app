@@ -43,32 +43,39 @@
   ],
   "savedTopics": [
     {
+      "id": "1",
       "title": "U.S. TikTok Ban",
       "body": "President Biden on Wednesday signed a law that would ban Chinese-owned TikTok unless it is sold within a year.",
-      "comments": 315
+      "comments": 315,
+      "imageUrl": "/savedTopics_1.png"
     },
     {
       "title": "Ukraine War",
       "body": "On 24 February 2022, Russia invaded Ukraine in an escalation of the Russo-Ukrainian War that started in 2014.",
-      "comments": 4283
+      "comments": 4283,
+      "imageUrl": "/assets/images/saved-topics/ukraine-war.jpg"
     }
   ],
   "wordsOfWisdom": [
     {
-      "title": "Ukraine War",
-      "username": "teacher.s_pet123",
-      "time": "4d",
-      "body": "So from my point of view this is trash. These people don't deserve anything at all and are the lowest form of life.",
-      "upvotes": 18294,
-      "comments": 489
+      "topic": "Ukraine War",
+      "username": "peace_lover",
+      "time": "3d",
+      "tag": "Diplomacy Devotee",
+      "tagClassName": "activeDiplomacyDevotee",
+      "content": "War is never the answer. We need to find peaceful solutions to our conflicts.",
+      "upvotes": 11294,
+      "comments": 189
     },
     {
-      "title": "Ukraine War",
-      "username": "not_a_b0t_650",
-      "time": "2w",
-      "body": "So from my point of view this is trash. These people don't deserve anything at all and are the lowest form of life.",
-      "upvotes": 18294,
-      "comments": 489
+      "topic": "Ukraine War",
+      "username": "peace_lover",
+      "time": "3d",
+      "tag": "Diplomacy Devotee",
+      "tagClassName": "activeDiplomacyDevotee",
+      "content": "War is never the answer. We need to find peaceful solutions to our conflicts.",
+      "upvotes": 11294,
+      "comments": 189
     }
   ],
   "user": [

@@ -1,8 +1,13 @@
 'use client'
 
-import { useFormStatus } from 'react-dom'
-import styles from '@/styles/login/signUp/signUp.module.scss'
-import React from 'react'
+// System Imports
+import React from 'react';
+
+// API/Database Imports
+import { useFormStatus } from 'react-dom';
+
+// Stylesheet Imports
+import styles from '@/app/pages/login/signup/SignUpPage.module.scss';
 
 type SubmissionButtonProps = {
   text?: string;

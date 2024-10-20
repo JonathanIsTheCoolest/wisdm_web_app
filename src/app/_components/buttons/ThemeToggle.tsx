@@ -1,8 +1,13 @@
 'use client';
 
+// System Imports
 import React from 'react';
+
+// Component Imports
 import { ThemeContext } from '@/app/_contexts/ThemeContext';
-import styles from '@/styles/components/buttons/ThemeToggle.module.scss';
+
+// Stylesheet Imports
+import styles from '@/app/_components/buttons/ThemeToggle.module.scss';
 
 interface ThemeToggleProps {
   className?: string;

@@ -1,7 +1,14 @@
-import { useEffect, useState } from "react";
-import styles from "@/styles/components/loading/SplashScreen.module.scss";
+'use client'
+
+// System Imports
+import { useState } from "react";
 import Image from "next/image";
-import wisdm_logo_white from "../assets/logos/wisdm_logo_white.svg";
+
+// Stylesheet Imports
+import styles from "@/app/_components/loading/SplashScreen.module.scss";
+
+// Asset Imports
+import wisdm_logo_white from "@/assets/logos/wisdm_logo_white.svg";
 
 const SplashScreen = () => {
     const [isLoading, setIsLoading] = useState(true);

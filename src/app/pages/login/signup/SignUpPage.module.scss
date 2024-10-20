@@ -1,0 +1,36 @@
+@import "./styles/variables.scss";
+
+// SIGN-UP PAGE
+.signupPage {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-medium;
+  padding: $padding-medium;
+  margin-top: 8rem;
+  
+  .orDivider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: $font-poppins-regular;
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-divider;
+  
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: $color-divider;
+    }
+  
+    &::before {
+      margin-right: 1rem;
+    }
+  
+    &::after {
+      margin-left: 1rem;
+    }
+  }
+}

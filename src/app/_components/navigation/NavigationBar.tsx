@@ -1,6 +1,16 @@
+// System Imports
 import { useState, useEffect, useRef, useLayoutEffect, useContext } from "react";
-import styles from "@/styles/components/navigation/NavigationBar.module.scss";
+import { usePathname } from 'next/navigation';
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
+
+// Context Imports
+import { ThemeContext } from "@/app/_contexts/ThemeContext";
+
+// Stylesheet Imports
+import styles from "@/app/_components/navigation/NavigationBar.module.scss";
+
+// Asset Imports
 import homeIcon from "@/assets/icons/home.svg";
 import homeActiveIcon from "@/assets/icons/home_active_clear.svg";
 import homeLightMode from "@/assets/icons/home_lightmode.svg";
@@ -18,13 +28,12 @@ import notificationsActiveIcon from "@/assets/icons/notification_active_clear.sv
 import notificationsLightMode from "@/assets/icons/notification_lightmode.svg";
 import navbarCurveLight from "@/assets/icons/navbar_curve_light.svg"
 import navbarCurveDark from "@/assets/icons/navbar_curve_dark.svg"
-import Link from "next/link";
-import { ThemeContext } from "@/app/_contexts/ThemeContext";
 
 const NavigationBar = () => {
   const [currentView, setCurrentView] = useState<string | null>(null);
   const elementRef = useRef<HTMLImageElement | null>(null);
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const pathname = usePathname();
 
   function extractLastSegment(path: string) {
     const pattern = /\/([^\/?]+)(?=\?|$)/;
@@ -40,7 +49,6 @@ const NavigationBar = () => {
     }
   }
 
-  const INITIAL_VIEW: string | null = typeof document !== 'undefined' && document.location.pathname ? extractLastSegment(document.location.pathname) : 'home';
   const isDarkMode = theme === 'dark';
 
   const navOptionsArray = [
@@ -83,7 +91,7 @@ const NavigationBar = () => {
 
   const navOption = (name: string, href: string, alt: string, activeIcon: StaticImageData, inactiveIcon: StaticImageData) => (
     <Link
-      href={`/dashboard${href}`}
+      href={`/pages/dashboard${href}`}
       key={name}
       data-name={name}
       className={`${styles.navItem} ${currentView === name ? styles.navItemActive : ""}`}
@@ -119,6 +127,11 @@ const NavigationBar = () => {
     }
   };
 
+  useEffect(() => {
+    const newView = extractLastSegment(pathname);
+    setCurrentView(newView);
+  }, [pathname]);
+
   useLayoutEffect(() => {
     updateCirclePosition(6);
 
@@ -131,10 +144,6 @@ const NavigationBar = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [currentView]);
-
-  useEffect(() => {
-    setCurrentView(INITIAL_VIEW)
-  }, []);
 
   return (
     <nav className={styles.navbar}>
