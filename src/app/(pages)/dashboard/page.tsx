@@ -6,12 +6,9 @@ import Link from 'next/link';
 import Image from "next/image";
 
 // API/Database Imports
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { handleSocketCleanup, socket, handleRoomConnection } from '@/app/_lib/socket';
 import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
-import { getUser } from "@/app/_lib/actions";
-import { setUser } from "@/lib/features/userSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 
 // Component Imports
 import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
@@ -33,8 +30,8 @@ interface Timeline {
 
 const Home = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://127.0.0.1:5000';
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state: any) => state.user);
+  const idToken = useAppSelector((state: any) => state.auth.idToken)
 
   const [timelines, setTimelines] = useState<Timeline[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,19 +41,6 @@ const Home = () => {
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
-
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     let cleanup: () => any | void = () => null;
@@ -70,22 +54,15 @@ const Home = () => {
   }, [user.userName, socket.connected])
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchFeed();
-    }
-  }, [isAuthenticated]);
+    fetchFeed()
+  }, [idToken]);
 
   const fetchFeed = async () => {
     try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-
-      if (!user) {
+      if (!idToken) {
         console.error("User not authenticated");
         return;
       }
-
-      const idToken = await user.getIdToken();
 
       const response = await fetch(`${API_BASE_URL}/api/timelines/get/timelines`, {
         method: 'GET',
