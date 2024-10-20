@@ -1,5 +1,9 @@
-import React from 'react';
-import styles from '@/styles/components/timeline/Perspectives.module.scss';
+// REWRITE COMPONENT INTO ONE WITH ALL THE OTHERS
+  // System Imports
+  import React from 'react';
+  
+  // Stylesheet Imports
+  import styles from '@/app/_components/timeline/Perspectives.module.scss';
 
 interface Perspective {
   title: string;

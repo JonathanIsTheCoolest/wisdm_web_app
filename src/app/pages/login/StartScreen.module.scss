@@ -1,0 +1,54 @@
+@import "./styles/variables.scss";
+
+// SIGN-UP PAGE
+.startScreenWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 25%;
+  width: 100%;
+  gap: $gap-medium;
+  top: 50%;
+  transform: translateY(-50%);
+
+  h1 {
+    font-size: $font-size-small-header;
+    text-align: center;
+    color: var(--color-header-font);
+  }
+
+  h2 {
+    color: $color-brand;
+    text-align: center;
+  }
+
+  img {
+    height: $logo-wisdm;
+    margin: auto;
+  }
+
+  .signupButton, .loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $button-width;
+    height: $button-height;
+    box-sizing: content-box;
+    border-radius: $button-radius;
+    border-width: 0;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .signupButton {
+    background-color: $color-brand;
+    color: white;
+  }
+  
+  .loginButton {
+    background-color: $color-brand-light;
+    color: $color-brand;
+  }
+}

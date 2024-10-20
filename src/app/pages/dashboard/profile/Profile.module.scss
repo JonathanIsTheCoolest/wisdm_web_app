@@ -1,0 +1,104 @@
+// CLEAN UP THIS FILE
+
+@import "./styles/variables.scss";
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .avatar {
+    position: relative;
+    width: $profile-avatar-size;
+    height: $profile-avatar-size;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-small;
+
+  .username {
+    font-size: $font-size-page-header;
+    line-height: 1;
+    color: var(--color-body-font);
+  }
+
+  .joined {
+    font-size: $font-size-body-text;
+    font-weight: 200;
+    color: var(--color-info-font);
+  }
+
+  .tags {
+    display: flex;
+    gap: $gap-medium;
+  }
+}
+
+.editButton {
+    padding: $profile-tab-padding;
+    border: 0;
+    border-radius: 16px;
+    background-color: var(--color-input);
+    color: var(--color-body-font);
+    cursor: pointer;
+  }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: $gap-medium;
+  
+    .tab {
+      color: var(--color-header-font);
+      text-wrap: nowrap;
+      padding: $profile-tab-padding;
+      border-radius: $radius-small;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .active {
+      background-color: var(--color-feed-item-bg);
+    }
+  }
+
+//USER SETTINGS
+  .formGroup {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    label {
+      font-size: 14px;
+      color: var(--color-body-font);
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      padding: $padding-small;
+      border: 1px solid var(--color-input); //Change border color
+      border-radius: 8px;
+      background-color: var(--color-input);
+      color: var(--color-body-font);
+      font-size: 16px;
+    }
+
+    .editIcon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      color: white;
+      cursor: pointer;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }

@@ -1,0 +1,162 @@
+// CLEAN UP THIS FILE
+
+@import "./styles/variables.scss";
+
+.timelineContainer {
+  padding: $padding-medium;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-y: auto;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: $gap-medium;
+
+  h3 {
+    color: var(--color-body-font);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .timelineHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .backButton {
+      align-self: center;
+      display: flex;
+    }
+
+    .pageTitle {
+      margin: 0;
+    }
+  }
+
+  .timelineEventsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    position: relative;
+    margin-top: 2rem;
+    gap: $gap-medium;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+
+    .timelineDots {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      transform: translateX(-50%);
+      height: 100%;
+
+      @media (max-width: 767px) {
+        justify-content: flex-start;
+        height: auto;
+        bottom: auto;
+      }
+    }
+
+    .timelineDot {
+      width: 4px;
+      height: 4px;
+      background-color: #ccc;
+      border-radius: 50%;
+      flex-shrink: 0;
+
+      &.largeDot {
+        width: 8px;
+        height: 8px;
+        background-color: $color-brand;
+      }
+
+      @media (max-width: 767px) {
+        width: 3px;
+        height: 3px;
+        margin-bottom: 7px;
+
+        &.largeDot {
+          width: 6px;
+          height: 6px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+
+    .timelineEvent {
+      display: flex;
+      width: 100%;
+      position: relative;
+
+      .eventContainer {
+        width: 45%;
+        padding: $padding-small;
+        background-color: var(--color-timeline-event-bg);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        .eventDate {
+          font-size: 0.9em;
+          color: var(--color-body-font);
+          margin-bottom: 5px;
+        }
+
+        .eventContent {
+          color: var(--color-body-font);
+        
+          .eventTitle {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+
+          @media (max-width: 767px) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .left {
+      .eventContainer {
+        margin-right: auto;
+      }
+    }
+    
+    .right {
+      justify-content: flex-end;
+    
+      .eventContainer {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .toggleCommentsButton {
+    padding: $profile-tab-padding;
+    background-color: var(--color-timeline-comment-bg);
+    color: var(--color-body-font);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .toggleCommentsButton:hover {
+    background-color: #555;
+  }
+}

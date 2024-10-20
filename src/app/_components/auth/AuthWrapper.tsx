@@ -1,11 +1,14 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/lib/hooks';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/app/_lib/firebase/auth/auth';
-import { login, logout } from '@/lib/features/authSlice';
+// System Imports
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+// API/Database Imports
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/_lib/firebase/auth/auth";
+import { useAppDispatch } from "@/lib/hooks";
+import { login, logout } from "@/lib/features/authSlice";
 
 function AuthWrapper({
   children,
@@ -17,20 +20,22 @@ function AuthWrapper({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log('Checking for credentials...')
+      console.log("Checking for credentials...");
       if (user) {
-        console.log('Logging in')
-        dispatch(login({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        }));
-        router.push('/dashboard')
+        console.log("Logging in");
+        dispatch(
+          login({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          })
+        );
+        router.push("/pages/dashboard");
       } else {
-        console.log('None or invalid credentials')
+        console.log("None or invalid credentials");
         dispatch(logout());
-        router.push('/login')
+        router.push("/pages/login");
       }
     });
 
@@ -40,4 +45,4 @@ function AuthWrapper({
   return children;
 }
 
-export default AuthWrapper
+export default AuthWrapper;

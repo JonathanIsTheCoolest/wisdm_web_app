@@ -1,7 +1,8 @@
-import SplashScreen from "./_components/loading/SplashScreen"
+// Component Imports
+import SplashScreen from "./_components/loading/SplashScreen";
 
 const EnterApp = () => {
-  return <SplashScreen/>
-}
+  return <SplashScreen />;
+};
 
-export default EnterApp
+export default EnterApp;

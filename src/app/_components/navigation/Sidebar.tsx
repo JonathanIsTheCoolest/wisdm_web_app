@@ -1,21 +1,18 @@
-import React, { useState } from "react";
-import styles from "@/styles/components/navigation/Sidebar.module.scss";
+// System Imports
+import React from "react";
+
+// Stylesheet Imports
+import styles from "@/app/_components/navigation/Sidebar.module.scss";
 
 interface SidebarProps {
-  isActive: boolean;
-  toggleSidebar: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isActive , toggleSidebar }) => {
-  const [pushNotifications, setPushNotifications] = useState(true);
-
-  const togglePushNotifications = () => {
-    setPushNotifications(!pushNotifications);
-  };
-
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
-    <div className={`${styles.sidebarContainer} ${isActive ? styles.active : ""}`}>
-      <div className={styles.closeButton} onClick={toggleSidebar}>×</div>
+    <div className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}>
+      <div className={styles.closeButton} onClick={onClose}>×</div>
       <header className={styles.header}>
         <h1>Wisdm</h1>
       </header>
@@ -38,10 +35,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive , toggleSidebar }) => {
         <h2>Notifications</h2>
         <div className={styles.toggleGroup}>
           <label>Push Notifications</label>
-          <div
+          {/* <div
             className={`${styles.toggleSwitch} ${pushNotifications ? "active" : ""}`}
             onClick={togglePushNotifications}
-          ></div>
+          ></div> */}
         </div>
         <div className={styles.item}>
           <span className={styles.label}>Email Notifications</span>

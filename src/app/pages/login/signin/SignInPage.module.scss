@@ -1,0 +1,50 @@
+@import "./styles/variables.scss";
+
+// LOGIN PAGE
+.loginPage {
+  margin-top: 8rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: $gap-medium;
+  padding: $padding-medium;
+
+  .logo {
+    height: $logo-wisdm;
+    margin: 20px auto;
+  }
+
+  .forgotPassword {
+    display: block;
+    text-align: right;
+    color: $color-brand;
+    font-size: $font-size-body-text;
+    text-decoration: none;
+  }
+
+  .orDivider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: $font-poppins-regular;
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-divider;
+  
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: $color-divider;
+    }
+  
+    &::before {
+      margin-right: 1rem;
+    }
+  
+    &::after {
+      margin-left: 1rem;
+    }
+  }
+}
