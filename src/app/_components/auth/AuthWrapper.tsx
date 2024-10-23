@@ -1,14 +1,12 @@
 "use client";
 
-// System Imports
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-// API/Database Imports
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/app/_lib/firebase/auth/auth";
-import { useAppDispatch } from "@/lib/hooks";
-import { login, logout } from "@/lib/features/authSlice";
+import { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAppDispatch } from '@/lib/hooks';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/app/_lib/firebase/auth/auth';
+import { login, logout } from '@/lib/features/authSlice';
+import { setUser } from '@/lib/features/userSlice';
 
 function AuthWrapper({
   children,
@@ -17,25 +15,35 @@ function AuthWrapper({
 }>) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("Checking for credentials...");
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log('Checking credentials...')
+      console.log(pathName)
+      
       if (user) {
-        console.log("Logging in");
-        dispatch(
-          login({
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          })
-        );
-        router.push("/pages/dashboard");
+        dispatch(login({
+          idToken: await user.getIdToken()
+        }));
+        dispatch(setUser({
+          avatar: user.photoURL,
+          current_channel: null,
+          email: user.email,
+          last_post_id: null,
+          locality: null,
+          num_posts: null,
+          user_name: user.displayName
+        }))
+        if (!pathName?.includes('dashboard')) {
+          router.push('/dashboard')
+        } else {
+          router.push(pathName)
+        }
       } else {
         console.log("None or invalid credentials");
         dispatch(logout());
-        router.push("/pages/login");
+        router.push("/login");
       }
     });
 

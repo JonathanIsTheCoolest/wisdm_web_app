@@ -7,7 +7,7 @@ import React from 'react';
 import { useFormStatus } from 'react-dom';
 
 // Stylesheet Imports
-import styles from '@/app/pages/login/signup/SignUpPage.module.scss';
+import styles from '@/app/(pages)/login/signup/SignUpPage.module.scss';
 
 type SubmissionButtonProps = {
   text?: string;
