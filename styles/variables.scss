@@ -10,7 +10,7 @@ $color-light-mode-timeline-comment-bg: #EAEAEA;
 $color-dark-mode-timeline-comment-bg: #2e2e2e;
 $color-light-mode-timeline-event-bg: #DEDEDE;
 $color-dark-mode-timeline-event-bg: #2e2e2e;
-$color-vote-text-description: #888888; // MOVE
+$color-vote-text-description: #888888;
 
 // TAG COLORS
 $color-left-liberal: #4D5FFF;
@@ -33,35 +33,33 @@ $color-equality-evangelist: #000000;
 
 // LIGHT MODE VARIABLES
 $color-light-mode-bg: #FFFFFF;
-$color-light-mode-header-font: #111111;
 $color-light-mode-body-font: #111111;
-$color-light-mode-info-font: #5B5B5B;
-$color-light-mode-terms-font: #3C3C3C;
 $color-light-mode-comment-font: #3C3C3C;
-$color-light-mode-comment-font-detail: #5B5B5B;
+$color-light-mode-comment-font_detail: #5B5B5B;
+$color-light-mode-feed-item-bg: #EAEAEA;
+$color-light-mode-header-font: #111111;
+$color-light-mode-info-font: #5B5B5B;
 $color-light-mode-input: #EAEAEA;
 $color-light-mode-input-border: #3C3C3C;
-$color-light-mode-navbar-bg-top: #FFFFFF;
 $color-light-mode-navbar-bg: #EAEAEA;
-$color-light-mode-feed-item-bg: #EAEAEA;
-$color-light-mode-notification-bg: #E8E8E8;
+$color-light-mode-navbar-bg-top: #FFFFFF;
 $color-light-mode-navbar-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+$color-light-mode-notification-bg: #E8E8E8;
 
 // DARK MODE VARIABLES
 $color-dark-mode-bg: #232323;
-$color-dark-mode-header-font: white;
 $color-dark-mode-body-font: white;
-$color-dark-mode-info-font: #B1B1B1;
-$color-dark-mode-terms-font: #F5F5F5;
 $color-dark-mode-comment-font: #F5F5F5;
-$color-dark-mode-comment-font-detail: #ADADAD;
+$color-dark-mode-comment-font_detail: #ADADAD;
+$color-dark-mode-feed-item-bg: #3C3C3C;
+$color-dark-mode-header-font: white;
+$color-dark-mode-info-font: #B1B1B1;
 $color-dark-mode-input: #3C3C3C;
 $color-dark-mode-input-border: #EAEAEA;
-$color-dark-mode-navbar-bg-top: #232323;
 $color-dark-mode-navbar-bg: #2D2D2D;
-$color-dark-mode-feed-item-bg: #3C3C3C;
-$color-dark-mode-notification-bg: #282828;
+$color-dark-mode-navbar-bg-top: #232323;
 $color-dark-mode-navbar-shadow: 0px 0px 12px 0px rgba(35, 35, 35, 0.8);
+$color-dark-mode-notification-bg: #282828;
 
 // GRADIENTS
 $gradient-splash: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
@@ -351,6 +349,133 @@ $settings-slide-transition: 0.3s ease;
   }
 }
 
+// CARD COMPONENT STYLES
+.cardImage {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  
+  img {
+    object-fit: cover;
+  }
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-small;
+  height: 100%;
+  justify-content: space-between;
+  padding: $padding-medium;
+  position: relative;
+  z-index: 1;
+
+  h3 {
+    font-family: $font-poppins-regular;
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  p {
+    font-family: $font-poppins-thin;
+    font-size: $font-size-body-text;
+    font-weight: 200;
+  }
+
+  span {
+    font-family: $font-poppins-thin;
+    font-size: 12px;
+  }
+
+  .cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-small;
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.commentContainer {
+  align-items: center;
+  display: flex;
+  gap: $gap-small;
+}
+
+.commentContainer .downvoteIcon {
+  height: 18px;
+  transform: rotate(180deg);
+  width: 18px;
+}
+
+.commentContainer .upvoteIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.commentFooter {
+  align-items: center;
+  display: flex;
+  gap: $gap-medium;
+  justify-content: flex-end;
+}
+
+.commentCount {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  
+  img {
+    height: 18px;
+    width: 18px;
+  }
+  
+  span {
+    align-items: center;
+    color: #D9D9D9;
+    display: flex;
+    gap: $gap-small;
+  }
+}
+
+.overlay {
+  background: rgba(50, 50, 50, 0.7);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ONBOARDING CLASSES
 .onboardingWrapper {
   align-items: center;
@@ -369,6 +494,9 @@ $settings-slide-transition: 0.3s ease;
 }
 
 .onboardingTextBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-small;
   h1 {
     color: var(--color-header-font);
     font-family: $font-poppins-regular;
@@ -449,18 +577,6 @@ $settings-slide-transition: 0.3s ease;
   font-family: $font-poppins-regular;
   font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.05em;
-  margin: 20px 0;
-  text-align: center;
-}
-
-.termsText {
-  color: var(--color-terms);
-  font-family: $font-poppins-regular;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  margin: 20px 0;
   text-align: center;
 
   a {
@@ -476,6 +592,7 @@ $settings-slide-transition: 0.3s ease;
   left: 0;
   position: fixed;
   width: 100%;
+  gap: $gap-medium;
 }
 
 .nextButton {

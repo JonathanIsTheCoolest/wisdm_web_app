@@ -1,0 +1,49 @@
+@import "./styles/variables.scss";
+
+.voteCard {
+  border-radius: $radius-large;
+  cursor: pointer;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.cardContent {
+    justify-content: center;
+    text-align: center;
+    width: 80%;
+}
+
+.voteButtons { // CHANGE TO HAVE THUMBS UP/DOWN
+    background-color: transparent;
+    border-radius: $radius-large;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    left: -5%;
+    position: absolute;
+    width: 110%;
+
+  .voteButton {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: $radius-large;
+    color: white;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: background-color 0.3s, color 0.3s;
+
+    &.selected {
+      background-color: white;
+      color: black;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

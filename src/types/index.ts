@@ -1,4 +1,9 @@
 //Home Tab
+interface Timeline { //Redundant?
+    timeline_id: string;
+    title: string;
+  }
+
 //Explore Tab
 
 //Profile Tab

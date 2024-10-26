@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 // API/Database Imports
-import { User, SavedTopic, Wisdom, Comment } from '@/types';
 import placeholderData from "@/assets/placeholderData.json";
 
 // Component Imports

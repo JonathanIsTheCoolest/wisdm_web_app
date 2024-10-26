@@ -80,5 +80,50 @@
   ],
   "user": [
     
+  ],
+  "voteItems": [
+    {
+      "id": "1",
+      "image": "explore_feed_1.png",
+      "title": "Should we ban assault weapons?",
+      "description": "Considering recent events, there's a growing debate about whether to ban assault weapons. What's your stance on this issue?",
+      "vote": null
+    },
+    {
+      "id": "2",
+      "image": "explore_feed_2.png",
+      "title": "Is universal healthcare a good idea?",
+      "description": "Many countries have implemented universal healthcare systems. Should our country consider adopting a similar approach?",
+      "vote": null
+    }
+  ],
+  "notificationItems": [
+    {
+      "icon": "🔔",
+      "title": "New Reply Alert!",
+      "username": "UserNameHere",
+      "content": "has responded to your comment. Click here to join the conversation!"
+    },
+    {
+      "icon": "🛑",
+      "title": "Moderation Update.",
+      "content": "Your recent post has been moderated. Tap to learn more and see your options."
+    },
+    {
+      "icon": "🏆",
+      "title": "Achievement Unlocked!",
+      "content": "Your comment just hit 100 upvotes! Tap to view."
+    },
+    {
+      "icon": "🔔",
+      "title": "New Reply Alert!",
+      "username": "UserNameHere",
+      "content": "has responded to your comment. Click here to join the conversation!"
+    },
+    {
+      "icon": "🗣️",
+      "title": "You’re Being Quoted!",
+      "content": "Tap how your words are sparking more conversation."
+    }
   ]
 }

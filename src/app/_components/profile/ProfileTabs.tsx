@@ -6,9 +6,9 @@ import Image from "next/image";
 import { User, SavedTopic, Wisdom, Comment } from '@/types';
 
 // Component Imports
-import ActivityCommentCard from "@/app/_components/cards/ActivityCommentCard";
+import ActivityCard from "@/app/_components/cards/ActivityCard";
 import CommentCard from "@/app/_components/cards/CommentCard";
-import SavedTopicCard from "@/app/_components/cards/SavedTopicCard";
+import TopicCard from "@/app/_components/cards/TopicCard";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/profile/Profile.module.scss";
@@ -18,7 +18,7 @@ const CommentsTab: React.FC<{ comments: Comment[] }> = ({ comments }) => {
   return (
 <div className={styles.pageWrapper}>
     {comments.map((comment, index) => (
-        <ActivityCommentCard key={index} {...comment} />
+        <ActivityCard key={index} {...comment} />
     ))}
 </div>
   );
@@ -45,7 +45,7 @@ const SavedTopicsTab: React.FC<{ topics: SavedTopic[] }> = ({ topics }) => {
   return (
     <div className={styles.pageWrapper}>
       {topics.map((topic) => (
-        <SavedTopicCard key={topic.id} {...topic} />
+        <TopicCard key={topic.id} {...topic} />
       ))}
     </div>
   );

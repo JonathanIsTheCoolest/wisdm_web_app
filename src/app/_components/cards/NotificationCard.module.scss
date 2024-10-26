@@ -1,44 +1,39 @@
 @import "./styles/variables.scss";
 
-.notificationItem {
+.notificationCard {
+    align-items: center;
     background-color: var(--color-notification-bg);
-    border-radius: $radius-small;
-    padding: $padding-medium;
+    border-radius: $radius-large;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-  
-    .notificationContent {
+    
+    .cardContent {
+      color: var(--color-body-font);
       display: flex;
       flex-direction: column;
-  
-      .notificationTitle {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--color-info-font);
-        display: flex;
+      gap: $gap-small;
+      width: 100%;
+
+      .cardHeader {
         align-items: center;
-  
-        .notificationIcon {
-          font-size: $notification-icon-size;
-          margin-right: 8px;
-        }
+        gap: $gap-small;
+        justify-content: unset;
       }
-  
-      .notificationText {
-        font-size: 16px;
-        font-family: $font-poppins-regular;
-        font-weight: '400';
-        color: var(--color-info-font);
-  
-        .username {
+
+      .cardBody {
+        color: var(--color-body-font);
+        display: unset;
+        font-size: 14px;
+        
+        span {
           color: $color-notification-username;
         }
       }
     }
-  
-    .notificationArrow {
-      font-size: $notification-icon-size;
+
+    .cardArrow {
       color: $color-brand;
+      font-size: $notification-icon-size;
+      padding: $padding-medium;
     }
-}
+  }

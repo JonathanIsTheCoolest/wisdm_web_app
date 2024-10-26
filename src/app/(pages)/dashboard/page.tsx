@@ -23,11 +23,6 @@ import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
 import homeTestImg from "@/assets/images/home_test_img.png";
 
-interface Timeline {
-  timeline_id: string;
-  title: string;
-}
-
 const Home = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://127.0.0.1:5000';
   const user = useAppSelector((state: any) => state.user);
@@ -87,7 +82,6 @@ const Home = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <button onClick={onSignOut}>Sign Out</button>
       <header className={styles.pageTitle}>
         <h1>For You</h1>
         <div className={styles.iconContainer}>

@@ -1,0 +1,9 @@
+@import './styles/variables.scss';
+
+.topicCard {
+  border-radius: $radius-large;
+  height: fit-content;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
