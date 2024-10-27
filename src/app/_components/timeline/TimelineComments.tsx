@@ -3,19 +3,21 @@
 
 // System Imports
 import React, { useState, useEffect } from 'react';
-
-// API/Database Imports
-// import { fetchComments } from '@/app/_lib/actions';
+import { useAppSelector, useAppDispatch } from '@/src/lib/hooks';
 
 // Component Imports
 import Draggable from 'react-draggable';
-import CommentCard from '@/app/_components/cards/CommentCard';
+import CommentCard from '@/src/app/_components/cards/CommentCard';
 
 // Stylesheet Imports
 import styles from '@/app/_components/timeline/TimelineComments.module.scss';
 
 // Asset Imports
-import { Comment } from '@/types';
+import { Comment, CommentThread } from '@/src/types';
+import { RootState } from '@/src/lib/store';
+
+import { socket } from '@/src/app/_lib/socket';
+import { apiSocketWrapper } from '@/src/lib/features/authSlice';
 
 interface TimelineCommentsProps {
   onClose: () => void;
@@ -23,16 +25,22 @@ interface TimelineCommentsProps {
 
 const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentThread, setCommentThread] = useState<CommentThread | null>(null);
   const [sortBy, setSortBy] = useState<'top' | 'newest'>('top');
+  const [newComment, setNewComment] = useState('')
 
-  // useEffect(() => {
-  //   const loadComments = async () => {
-  //     const fetchedComments = await fetchComments(sortBy);
-  //     setComments(fetchedComments);
-  //   };
-  //   loadComments();
-  // }, [sortBy]);
+  const user = useAppSelector((state: RootState) => state.user)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const loadComments = async () => {
+      const fetchedComments = await fetch(`http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${user.currentChannel}`);
+      const result =  await fetchedComments.json()
+      console.log(result)
+      setCommentThread(result);
+    };
+    loadComments();
+  }, [sortBy]);
 
   const handleDrag = (_: any, ui: { y: number }) => {
     setPosition({ x: 0, y: ui.y });
@@ -46,12 +54,56 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
     }
   };
 
+  const onClickPostComment = () => {
+    dispatch(apiSocketWrapper({
+      cb: (args: object) => {
+        socket.emit('send_message', args);
+      },
+      args: {
+        room: user.currentChannel,
+        thread_id: user.currentChannel,
+        body: newComment,
+        parent_comment_id: null,
+        reference_id: null,
+      }
+    }));
+  };
+
+  useEffect(() => {
+    socket.on('receive_message', (response) => {
+      console.log(response)
+    })
+  }, [])
+
   return (
     <Draggable axis="y" bounds="parent" position={position} onDrag={handleDrag} onStop={handleStop}>
-      <div className={styles.commentsContainer}>
+      <div className={styles.commentsContainer} style={{'overflow': 'scroll'}}>
         <div className={styles.dragHandle} />
         <TimelineCommentsHeader sortBy={sortBy} onSortChange={setSortBy} />
-        <TimelineCommentsList comments={comments} />
+        {
+          commentThread && Object.keys(commentThread.comments).map((commentId) => {
+            const comment: Comment = commentThread.comments[commentId];
+
+            return (
+              <div key={commentId}>
+                <p>{comment.body}</p>
+                <p>By: {comment.username}</p>
+                <p>Posted on: {comment.created_at}</p>
+              </div>
+            );
+          })
+        }
+        <div>
+          <input
+            type='text'
+            value={newComment}
+            placeholder='join the conversation'
+            onChange={(e) => setNewComment(e.target.value)}
+          ></input>
+          <button
+            onClick={onClickPostComment}
+          >Submit</button>
+        </div>
       </div>
     </Draggable>
   );
@@ -71,12 +123,12 @@ const TimelineCommentsHeader: React.FC<{ sortBy: string; onSortChange: (sort: 't
   </div>
 );
 
-const TimelineCommentsList: React.FC<{ comments: Comment[] }> = ({ comments }) => (
-  <div className={styles.commentsContent}>
-    {comments.map((comment) => (
-      <CommentCard key={comment.id} {...comment} />
-    ))}
-  </div>
-);
+// const TimelineCommentsList: React.FC<{ comments: Comment[] }> = ({ comments }) => (
+//   <div className={styles.commentsContent}>
+//     {comments.length && comments.map((comment) => (
+//       <CommentCard key={comment.id} {...comment} />
+//     ))}
+//   </div>
+// );
 
 export default TimelineComments;

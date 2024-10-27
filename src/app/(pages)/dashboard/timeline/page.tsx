@@ -5,10 +5,10 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 // Component Imports
-import Header from '@/app/_components/timeline/Header';
-import Perspectives from '@/app/_components/timeline/Perspectives';
-import TimelineEvents from '@/app/_components/timeline/TimelineEvents';
-import TimelineComments from '@/app/_components/timeline/TimelineComments';
+import Header from '@/src/app/_components/timeline/Header';
+import Perspectives from '@/src/app/_components/timeline/Perspectives';
+import TimelineEvents from '@/src/app/_components/timeline/TimelineEvents';
+import TimelineComments from '@/src/app/_components/timeline/TimelineComments';
 
 // Stylesheet Imports
 import styles from '@/app/(pages)/dashboard/timeline/Timeline.module.scss';
@@ -17,7 +17,7 @@ const Timeline = () => {
   const [showComments, setShowComments] = useState<boolean>(true);
   const [timelineData, setTimelineData] = useState<any>(null);
   const searchParams = useSearchParams();
-  const timelineId = searchParams.get('timeline_id');
+  const timelineId = searchParams?.get('timeline_id');
 
   useEffect(() => {
     const fetchTimelineDetails = async () => {

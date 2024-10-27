@@ -1,6 +1,8 @@
 //Home Tab
 //Explore Tab
 
+import internal from "stream";
+
 //Profile Tab
 export interface User {
     username: string;
@@ -27,15 +29,36 @@ export interface Wisdom {
     comments: number;
 }
 
+// export interface Comment {
+//     id: string;
+//     username: string;
+//     time: string;
+//     tag: string;
+//     tagClassName: string;
+//     content: string;
+//     upvotes: number;
+//     comments: number;
+// }
+
 export interface Comment {
-    id: string;
-    username: string;
-    time: string;
-    tag: string;
-    tagClassName: string;
-    content: string;
-    upvotes: number;
-    comments: number;
+    "body": string;
+    "created_at": string;
+    "deleted": boolean;
+    "parent_comment_id": string | null;
+    "comment_id": string;
+    "comment_index": number;
+    "reference_id": string | null;
+    "timeline_id": string;
+    "updated_at": string | null;
+    "username": string;
+    // "votes": number
+    // "comments": number;
+}
+
+export interface CommentThread {
+    comments: {
+        [key: string]: Comment;
+    };
 }
 
 //Vote Tab

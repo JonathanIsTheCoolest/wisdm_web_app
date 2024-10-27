@@ -6,13 +6,13 @@ import Link from 'next/link';
 import Image from "next/image";
 
 // API/Database Imports
-import { handleSocketCleanup, socket, handleRoomConnection } from '@/app/_lib/socket';
-import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
-import { useAppSelector } from "@/lib/hooks";
+import { onSignOut } from "@/src/app/_lib/firebase/auth/auth_sign_out";
+import { useAppDispatch, useAppSelector } from "@/src/lib/hooks";
+import { updateCurrentChannel } from "@/src/lib/features/userSlice";
 
 // Component Imports
-import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
-import Sidebar from "@/app/_components/navigation/Sidebar";
+import ThemeToggle from "@/src/app/_components/buttons/ThemeToggle";
+import Sidebar from "@/src/app/_components/navigation/Sidebar";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
@@ -30,28 +30,17 @@ interface Timeline {
 
 const Home = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://127.0.0.1:5000';
-  const user = useAppSelector((state: any) => state.user);
+
   const idToken = useAppSelector((state: any) => state.auth.idToken)
+  const dispatch = useAppDispatch()
 
   const [timelines, setTimelines] = useState<Timeline[]>([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
-
-  useEffect(() => {
-    let cleanup: () => any | void = () => null;
-    if (socket.connected && user.userName) {
-      handleRoomConnection(user.userName)
-      cleanup = () => handleSocketCleanup(() => handleRoomConnection(user.userName))
-    }
-    return () => {
-      cleanup();
-    }
-  }, [user.userName, socket.connected])
 
   useEffect(() => {
     fetchFeed()
@@ -119,7 +108,11 @@ const Home = () => {
           <p className={styles.errorMessage}>{error}</p>
         ) : timelines.length > 0 ? (
           timelines.map((timeline) => (
-            <Link href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`} key={timeline.timeline_id}>
+            <Link 
+              onClick={() => dispatch(updateCurrentChannel({ current_channel: timeline.timeline_id }))}
+              href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`} 
+              key={timeline.timeline_id}
+            >
               <div className={styles.feedItem}>
                 <div
                   className={styles.feedImage}

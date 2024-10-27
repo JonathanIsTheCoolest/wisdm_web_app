@@ -7,7 +7,11 @@ interface UserState {
   lastPostId: string | null;
   locality: string | null;
   numPosts: number | null;
-  userName: string | null;
+  username: string | null;
+}
+
+interface UpdateChannelPayload {
+  current_channel: string | null;
 }
 
 interface UserAction {
@@ -17,17 +21,17 @@ interface UserAction {
   last_post_id: string | null;
   locality: string | null;
   num_posts: number | null;
-  user_name: string | null;
+  username: string | null;
 }
 
 const initialState: UserState = {
   avatar: '',
-  currentChannel: '',
+  currentChannel: null,
   email: '',
   lastPostId: '',
   locality: '',
   numPosts: 0,
-  userName: ''
+  username: ''
 }
 
 const userSlice = createSlice({
@@ -35,7 +39,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state: UserState, action: PayloadAction<UserAction>) => {
-      const { avatar, current_channel, email, last_post_id, locality, num_posts, user_name } = action.payload
+      const { avatar, current_channel, email, last_post_id, locality, num_posts, username } = action.payload
       return {
         avatar: avatar ?? state.avatar,
         currentChannel: current_channel ?? state.currentChannel,
@@ -43,12 +47,15 @@ const userSlice = createSlice({
         lastPostId: last_post_id ?? state.lastPostId,
         locality: locality ?? state.locality,
         numPosts: num_posts ?? state.numPosts,
-        userName: user_name ?? state.userName
+        username: username ?? state.username
       };
+    },
+    updateCurrentChannel: (state, action: PayloadAction<UpdateChannelPayload>) => {
+      state.currentChannel = action.payload.current_channel;
     }
   }
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, updateCurrentChannel } = userSlice.actions;
 
 export default userSlice.reducer;
