@@ -48,18 +48,28 @@ export interface Comment {
     "comment_id": string;
     "comment_index": number;
     "reference_id": string | null;
-    "timeline_id": string;
+    "thread_id": string;
     "updated_at": string | null;
     "username": string;
-    // "votes": number
-    // "comments": number;
+    "vote_count": number;
+    "comment_count": number;
+    "vote": boolean | null;
+    "user_photo_url": string | null
+}
+
+export interface CommentGroupByIndex {
+    [commentIndex: string]: Comment;
+}
+
+
+export interface CommentsByParentId {
+    [parentCommentId: string]: CommentGroupByIndex;
 }
 
 export interface CommentThread {
-    comments: {
-        [key: string]: Comment;
-    };
+    comments: CommentsByParentId;
 }
+
 
 //Vote Tab
 //Notifications Tab

@@ -11,12 +11,12 @@ const initialState: AuthState = {
 
 export const apiHTTPWrapper = createAsyncThunk(
   'auth/apiHTTPWrapper',
-  async ({ url, options }: { url: string; options?: RequestInit }, { getState }) => {
+  async ({ url, options = {} }: { url: string; options?: RequestInit }, { getState }) => {
     const state = getState() as RootState;
     const token = state.auth.idToken;
 
     const headers = {
-      ...options?.headers,
+      ...options.headers,
       Authorization: token ? `Bearer ${token}` : '',
     };
 
@@ -25,7 +25,9 @@ export const apiHTTPWrapper = createAsyncThunk(
       headers,
     });
 
-    return response.json();
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    return await response.json();
   }
 );
 

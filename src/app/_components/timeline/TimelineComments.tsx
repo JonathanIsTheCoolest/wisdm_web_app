@@ -19,6 +19,11 @@ import { RootState } from '@/src/lib/store';
 import { socket } from '@/src/app/_lib/socket';
 import { apiSocketWrapper } from '@/src/lib/features/authSlice';
 
+import { apiHTTPWrapper } from '@/src/lib/features/authSlice';
+
+import nextImg from 'public/next.svg'
+import Image from 'next/image';
+
 interface TimelineCommentsProps {
   onClose: () => void;
 }
@@ -34,11 +39,21 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
 
   useEffect(() => {
     const loadComments = async () => {
-      const fetchedComments = await fetch(`http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${user.currentChannel}`);
-      const result =  await fetchedComments.json()
-      console.log(result)
-      setCommentThread(result);
+      try {
+        const actionResult = await dispatch(apiHTTPWrapper({
+          url: `http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${user.currentChannel}`,
+        }));
+        if (apiHTTPWrapper.fulfilled.match(actionResult)) {
+          const result = actionResult.payload;
+          setCommentThread(result);
+        } else {
+          console.error("Failed to load comments:", actionResult.error);
+        }
+      } catch (error) {
+        console.error("Error loading comments:", error);
+      }
     };
+  
     loadComments();
   }, [sortBy]);
 
@@ -72,6 +87,7 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
   useEffect(() => {
     socket.on('receive_message', (response) => {
       console.log(response)
+
     })
   }, [])
 
@@ -86,6 +102,13 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
 
             return (
               <div key={commentId}>
+                <Image 
+                  src={comment.user_photo_url || nextImg} 
+                  alt={`${comment.username}'s user photo`}
+                  width={'50'}
+                  height={'50'}
+                  style={{'border': '1px black', 'borderRadius': '50%'}}
+                />
                 <p>{comment.body}</p>
                 <p>By: {comment.username}</p>
                 <p>Posted on: {comment.created_at}</p>

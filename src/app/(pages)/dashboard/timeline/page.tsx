@@ -9,42 +9,38 @@ import Header from '@/src/app/_components/timeline/Header';
 import Perspectives from '@/src/app/_components/timeline/Perspectives';
 import TimelineEvents from '@/src/app/_components/timeline/TimelineEvents';
 import TimelineComments from '@/src/app/_components/timeline/TimelineComments';
+import ThreadContainer from '@/src/app/_components/comments/ThreadContainer/ThreadContainer';
 
 // Stylesheet Imports
 import styles from '@/app/(pages)/dashboard/timeline/Timeline.module.scss';
 
 const Timeline = () => {
-  const [showComments, setShowComments] = useState<boolean>(true);
   const [timelineData, setTimelineData] = useState<any>(null);
   const searchParams = useSearchParams();
   const timelineId = searchParams?.get('timeline_id');
 
-  useEffect(() => {
-    const fetchTimelineDetails = async () => {
-      try {
-        const response = await fetch(`${process.env.BASE_API_URL_DEV}/timelines/get/timeline?timeline_id=${timelineId}`);
-        const data = await response.json();
-        setTimelineData(data);
-      } catch (error) {
-        console.error("Error fetching timeline details:", error);
-      }
-    };
-    if (timelineId) {
-      fetchTimelineDetails();
-    }
-  }, [timelineId]);
+  // useEffect(() => {
+  //   const fetchTimelineDetails = async () => {
+  //     try {
+  //       const response = await fetch(`${process.env.BASE_API_URL_DEV}/timelines/get/timeline?timeline_id=${timelineId}`);
+  //       const data = await response.json();
+  //       setTimelineData(data);
+  //     } catch (error) {
+  //       console.error("Error fetching timeline details:", error);
+  //     }
+  //   };
+  //   if (timelineId) {
+  //     fetchTimelineDetails();
+  //   }
+  // }, [timelineId]);
 
-  const toggleComments = (): void => {
-    setShowComments(!showComments);
-  };
-
-  if (!timelineData) {
-    return <div>Loading...</div>;
-  }
+  // if (!timelineData) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className={styles.timelineContainer}>
-      <Header title={timelineData.timeline.title} />
+      {/* <Header title={timelineData.timeline.title} />
       <Perspectives
         left={{
           title: "Left Perspective",
@@ -55,11 +51,8 @@ const Timeline = () => {
           content: timelineData.summary.right
         }}
       />
-      <TimelineEvents events={timelineData.events} />
-      <button className={styles.toggleCommentsButton} onClick={toggleComments}>
-        {showComments ? "Hide Comments" : "Show Comments"}
-      </button>
-      {showComments && <TimelineComments onClose={toggleComments} />}
+      <TimelineEvents events={timelineData.events} /> */}
+      <ThreadContainer threadId={timelineId}/>
     </div>
   );
 };
