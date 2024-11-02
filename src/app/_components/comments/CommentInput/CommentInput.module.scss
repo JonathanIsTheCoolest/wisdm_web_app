@@ -1,0 +1,30 @@
+.labelContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputField {
+  width: 100%;
+  padding-right: 35px; /* Adds space for the icon inside the input */
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.sendIcon {
+  border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%); /* Centers the icon vertically in the input */
+  background-color: greenyellow;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  opacity: 0;
+  cursor: text;
+}
+
+.sendIconActive {
+  opacity: 1;
+  cursor: pointer;
+}

@@ -2,13 +2,15 @@
 
 import React, { useEffect, useReducer } from "react"
 
+import { socket } from "@/src/app/_lib/socket"
+
 // Redux
-import { useAppSelector, useAppDispatch } from "@/src/lib/hooks"
+import { useAppDispatch } from "@/src/lib/hooks"
 import { apiHTTPWrapper } from "@/src/lib/features/authSlice"
 
 // Components
 import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay"
-import CommentInput from "../CommentInput/CommentInput"
+import RootCommentInput from "../RootCommentInput/RootCommentInput"
 
 import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer"
 
@@ -39,16 +41,43 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
       }
     };
   
-    loadComments();
+    loadComments()
   }, []);
 
+  useEffect(() => {
+    socket.on('receive_message', (response) => {
+      const comment = response.comment
+
+      commentDispatch({
+        type: 'addComment', 
+        payload: {
+          comment
+        }
+      })
+    });
+
+    return () => {
+      socket.off('receive_message')
+    };
+  }, [])
+
   return(
-    <div>
+    <div
+      id='comment_container'
+      style={{
+        position: 'relative'
+      }}
+    >
       {
-        commentState.comments.root && 
-        RecursiveCommentDisplay(commentState.comments, commentState.comments.root)
+        commentState.comments.root &&
+        <RecursiveCommentDisplay
+          commentsObject={commentState.comments}
+          commentObject={commentState.comments.root}
+          threadId={threadId}
+          parentCollapsed={false}
+        />
       }
-      <CommentInput threadId={threadId}/>
+      <RootCommentInput threadId={threadId}/>
     </div>
   )
 }

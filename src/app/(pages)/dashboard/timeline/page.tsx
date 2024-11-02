@@ -19,28 +19,28 @@ const Timeline = () => {
   const searchParams = useSearchParams();
   const timelineId = searchParams?.get('timeline_id');
 
-  // useEffect(() => {
-  //   const fetchTimelineDetails = async () => {
-  //     try {
-  //       const response = await fetch(`${process.env.BASE_API_URL_DEV}/timelines/get/timeline?timeline_id=${timelineId}`);
-  //       const data = await response.json();
-  //       setTimelineData(data);
-  //     } catch (error) {
-  //       console.error("Error fetching timeline details:", error);
-  //     }
-  //   };
-  //   if (timelineId) {
-  //     fetchTimelineDetails();
-  //   }
-  // }, [timelineId]);
+  useEffect(() => {
+    const fetchTimelineDetails = async () => {
+      try {
+        const response = await fetch(`${process.env.BASE_API_URL_DEV}/timelines/get/timeline?timeline_id=${timelineId}`);
+        const data = await response.json();
+        setTimelineData(data);
+      } catch (error) {
+        console.error("Error fetching timeline details:", error);
+      }
+    };
+    if (timelineId) {
+      fetchTimelineDetails();
+    }
+  }, [timelineId]);
 
-  // if (!timelineData) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!timelineData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.timelineContainer}>
-      {/* <Header title={timelineData.timeline.title} />
+      <Header title={timelineData.timeline.title} />
       <Perspectives
         left={{
           title: "Left Perspective",
@@ -51,7 +51,7 @@ const Timeline = () => {
           content: timelineData.summary.right
         }}
       />
-      <TimelineEvents events={timelineData.events} /> */}
+      <TimelineEvents events={timelineData.events} />
       <ThreadContainer threadId={timelineId}/>
     </div>
   );

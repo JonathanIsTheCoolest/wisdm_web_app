@@ -80,8 +80,7 @@ const ThreadContainer: React.FC<ThreadContainerProps> = ({ threadId, commentHead
     >
       <div 
         className={styles.outerDragContainer}
-        style={{ height: containerHeight }}
-      >
+        style={{ height: containerHeight }}      >
         <div
           ref={draggableRef}
           className={`draggable ${styles.draggableTab}`}
@@ -101,7 +100,7 @@ const ThreadContainer: React.FC<ThreadContainerProps> = ({ threadId, commentHead
         {/* Comment Guidelines */}
         <div
           className={styles.commentGuidelines}
-        >Keep comments respectful and follow out Community Guidelines!</div>
+        >Keep comments respectful and follow our Community Guidelines!</div>
         {/* Comment */}
         <div
           className={styles.commentContainer}

@@ -1,0 +1,43 @@
+.commentBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 0 0;
+}
+
+.userPhoto {
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.usernameElapsed {
+  /* Additional styling for username and elapsed time display */
+}
+
+.commentContent {
+  margin-left: 60px;
+}
+
+.commentText {
+  margin: 0 0 15px 0;
+}
+
+.commentFooter {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.commentIcon {
+  margin: 0 3px 0 20px;
+  cursor: pointer;
+}
+
+.commentCount {
+  /* Additional styling for comment count display */
+}

@@ -3,7 +3,7 @@ import { CommentThread, Comment } from "@/src/types";
 
 export type CommentActions =
   | { type: 'setThread'; payload: CommentThread }
-  | { type: 'addComment'; payload: { threadId: string; comment: Comment } }
+  | { type: 'addComment'; payload: { comment: Comment } }
   | { type: 'updateComment'; payload: { threadId: string; comment: Comment } }
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } };
 
@@ -18,17 +18,21 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
       return action.payload;
 
     case 'addComment': {
-      const { threadId, comment } = action.payload;
-      return {
+      const { comment } = action.payload;
+      const parent_comment_id = comment.parent_comment_id || 'root'
+
+      const commentStateModel = {
         ...state,
         comments: {
           ...state.comments,
-          [threadId]: {
-            ...state.comments[threadId],
-            [comment.comment_id]: comment
+          [parent_comment_id]: {
+            ...state.comments[parent_comment_id],
+            [comment.comment_index]: comment
           }
         }
-      };
+      }
+
+      return commentStateModel
     }
 
     case 'updateComment': {

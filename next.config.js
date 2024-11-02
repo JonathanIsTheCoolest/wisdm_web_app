@@ -12,8 +12,16 @@ const nextConfig = {
     BASE_API_URL_DEV: 'http://127.0.0.1:5000/api',
   },
   images: {
-    domains: ['localhost'],
-    domains: ['lh3.googleusercontent.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
   },
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src');
