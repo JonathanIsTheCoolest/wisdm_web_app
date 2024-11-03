@@ -16,7 +16,7 @@ const RootCommentInput: React.FC<RootCommentInputProps> = ({ threadId }) => {
   return (
     <div className={styles.container}>
       <Image 
-        src={userDefaultImage} 
+        src={user.avatar  ||  userDefaultImage} 
         alt={`${user.username}'s user photo`}
         width={50}
         height={50}

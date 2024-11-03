@@ -29,17 +29,8 @@ export interface Wisdom {
     comments: number;
 }
 
-// export interface Comment {
-//     id: string;
-//     username: string;
-//     time: string;
-//     tag: string;
-//     tagClassName: string;
-//     content: string;
-//     upvotes: number;
-//     comments: number;
-// }
-
+// Start Comment Interface
+// add tag and tag class name
 export interface Comment {
     "body": string;
     "created_at": string;
