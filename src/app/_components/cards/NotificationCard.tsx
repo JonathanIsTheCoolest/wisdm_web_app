@@ -15,7 +15,7 @@ interface NotificationProps {
   content: string;
 }
 
-const Notification: React.FC<NotificationProps> = ({ icon, title, username, content }) => {
+const NotificationCard: React.FC<NotificationProps> = ({ icon, title, username, content }) => {
   return (
     <div className={styles.notificationCard}>
       <div className={styles.cardContent}>
@@ -35,4 +35,4 @@ const Notification: React.FC<NotificationProps> = ({ icon, title, username, cont
   );
 };
 
-export default Notification;
+export default NotificationCard;

@@ -88,10 +88,7 @@ const LoginPage = () => {
             </div>
           );
         })}
-        <Link
-          href="/login/forgotpassword"
-          className={styles.forgotPassword}
-        >
+        <Link href="/login/forgotpassword" className={styles.forgotPassword}>
           Forgot Password?
         </Link>
 

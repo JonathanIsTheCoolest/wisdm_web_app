@@ -1,10 +1,13 @@
 // System Imports
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 
 // API/Database Imports
 import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
 import { ThemeContext } from "@/app/_contexts/ThemeContext";
+
+// Component Imports
+import ToggleSwitch from "@/app/_components/buttons/ToggleSwitch";
 
 // Stylesheet Imports
 import styles from "@/app/_components/navigation/Sidebar.module.scss";
@@ -21,15 +24,20 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { theme } = useContext(ThemeContext);
+  const [isPushNotificationsOn, setIsPushNotificationsOn] = useState(false);
 
   return (
-    <div className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}>
-      <div className={styles.closeButton} onClick={onClose}>×</div>
+    <div
+      className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}
+    >
+      <div className={styles.closeButton} onClick={onClose}>
+        ×
+      </div>
       <header className={styles.sidebarHeader}>
         <h1>Wisdm</h1>
-        <Image 
-          src={theme === 'light' ? wisdmLogoBrand : wisdmLogoWhite} 
-          alt="Wisdm Logo" 
+        <Image
+          src={theme === "light" ? wisdmLogoBrand : wisdmLogoWhite}
+          alt="Wisdm Logo"
         />
       </header>
       <h2>Privacy and Security</h2>
@@ -37,28 +45,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <div className={styles.sidebarItem}>
           <p>Privacy Settings</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
         <div className={styles.sidebarItem}>
           <p>Security Settings</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
         <div className={styles.sidebarItem}>
           <p>Blocked Users</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
       </div>
@@ -67,11 +66,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <div className={styles.sidebarItem}>
           <p>Email Notifications</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
+        </div>
+        <div className={styles.sidebarItem}>
+          <p>Push Notifications</p>
+          <ToggleSwitch
+            isOn={isPushNotificationsOn}
+            handleToggle={() =>
+              setIsPushNotificationsOn(!isPushNotificationsOn)
+            }
+          />
         </div>
       </div>
       <h2>Display and Accessibility</h2>
@@ -79,19 +84,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <div className={styles.sidebarItem}>
           <p>Themes</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
         <div className={styles.sidebarItem}>
           <p>Languages</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
       </div>
@@ -100,19 +99,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <div className={styles.sidebarItem}>
           <p>Help Center</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
         <div className={styles.sidebarItem}>
           <p onClick={onSignOut}>Log Out</p>
           <span>
-            <Image 
-              src={arrowRightBrand}
-              alt="Arrow Right"
-            />
+            <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
         </div>
       </div>

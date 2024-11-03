@@ -1,0 +1,52 @@
+.toggleWrapper {
+  display: inline-block;
+  height: 26px;
+  min-width: 50px;
+  position: relative;
+  width: 50px;
+
+  input {
+    height: 0;
+    opacity: 0;
+    width: 0;
+  }
+
+  .toggleSlider {
+    background-color: #666;
+    border-radius: 26px;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.4s;
+  }
+
+  .toggleCircle {
+    background-color: white;
+    border-radius: 50%;
+    content: "";
+    height: calc(100% - 4px);
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    transition: 0.4s;
+    width: calc(50% - 4px);
+  }
+  .toggleSlider.on {
+    background-color: #6c5ce7;
+  }
+
+  .toggleSlider.on .toggleCircle {
+    transform: translateX(calc(100% + 4px));
+  }
+
+  input:checked + .toggleSlider {
+    background-color: #6c5ce7;
+  }
+
+  input:checked + .toggleSlider .toggleCircle {
+    transform: translateX(calc(100% + 4px));
+  }
+}

@@ -10,7 +10,7 @@ import placeholderData from "@/assets/placeholderData.json";
 import styles from "@/app/(pages)/dashboard/notifications/Notifications.module.scss";
 
 // Component Imports
-import Notification from "@/app/_components/cards/NotificationCard";
+import NotificationCard from "@/app/_components/cards/NotificationCard";
 
 interface NotificationItem {
   icon: string;
@@ -27,7 +27,7 @@ const Notifications = () => {
       </header>
       <div className={styles.pageWrapper}>
         {placeholderData.notificationItems.map((notification, index) => (
-          <Notification
+          <NotificationCard
             key={index}
             icon={notification.icon}
             title={notification.title}

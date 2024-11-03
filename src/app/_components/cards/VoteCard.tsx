@@ -62,19 +62,19 @@ const VoteCard: React.FC<VoteItem> = ({
           <h3>{title}</h3>
         ) : (
           <>
-            <p className={styles.cardBody}>{description}</p>
-            <div className={styles.voteButtons}>
+            <div className={styles.voteContainer}>
               <button 
                 className={`${styles.voteButton} ${vote === true ? styles.selected : ''}`}
                 onClick={(e) => { e.stopPropagation(); handleVote(true); }}
               >
-                Yes
+                👍
               </button>
+              <p className={styles.cardBody}>{description}</p>
               <button 
-                className={`${styles.voteButton} ${vote === false ? styles.selected : ''}`}
-                onClick={(e) => { e.stopPropagation(); handleVote(false); }}
+                  className={`${styles.voteButton} ${vote === false ? styles.selected : ''}`}
+                  onClick={(e) => { e.stopPropagation(); handleVote(false); }}
               >
-                No
+                👎
               </button>
             </div>
           </>
