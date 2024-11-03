@@ -61,7 +61,7 @@ const SignUpPage = () => (
     </div>
 
     <div className={styles.nextWrapper}>
-      <p className={styles.termsText}>
+      <p className={styles.infoText}>
         By continuing you agree to our <a href="/terms">Terms of Service</a> and{" "}
         <a href="/privacy">Privacy Policy</a>.
       </p>

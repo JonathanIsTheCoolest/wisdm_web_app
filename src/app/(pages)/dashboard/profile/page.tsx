@@ -5,11 +5,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 // API/Database Imports
-import { User, SavedTopic, Wisdom, Comment } from '@/types';
 import placeholderData from "@/assets/placeholderData.json";
 
 // Component Imports
 import ProfileTabs from "@/app/_components/profile/ProfileTabs";
+import UserSettings from "@/app/_components/profile/UserSettings";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/profile/Profile.module.scss";
@@ -28,33 +28,7 @@ const Profile: React.FC = () => {
   };
 
   if (showSettings) {
-    return (
-      <div className={styles.pageContainer}>
-        <div className={styles.backButton} onClick={toggleSettings}>
-          <Image src={arrowLeftBrand} alt="Back" />
-        </div>
-        <header className={styles.pageTitle}>
-          <h1>User Settings</h1>
-        </header>
-        <div className={styles.avatar}>
-          <Image src={placeholderAvatar} alt={`${user.username}'s avatar`} width={80} height={80} />
-        </div>
-        <div className={styles.pageWrapper}>
-          <label>Username</label>
-          <input type="text" value={user.username} readOnly />
-          <span className={styles.editIcon}>
-            <Image src={editIcon} alt="edit icon" width={24} height={24} />
-          </span>
-        </div>
-        <div className={styles.pageWrapper}>
-          <label>Email</label>
-          <input type="email" value={user.email} readOnly />
-          <span className={styles.editIcon}>
-            <Image src={editIcon} alt="edit icon" width={24} height={24} />
-          </span>
-        </div>
-      </div>
-    );
+    return <UserSettings user={user} onBack={toggleSettings} />;
   }
 
   return (

@@ -1,0 +1,54 @@
+@import "./styles/variables.scss";
+
+.voteCard {
+  border-radius: $radius-large;
+  cursor: pointer;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  h3 {
+    color: white;
+  }
+
+  p {
+    color: white;
+  }
+}
+
+.cardContent {
+    justify-content: center;
+    text-align: center;
+}
+
+.voteContainer {
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  gap: $gap-medium;
+  width: 100%;
+
+  .voteButton {
+    background-color: transparent;
+    border: none;
+    border-radius: $radius-large;
+    cursor: pointer;
+    font-size: 30px;
+    line-height: 1;
+    padding: $padding-medium;
+    transition: background-color 0.3s, color 0.3s;
+
+    &.selected {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: black;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

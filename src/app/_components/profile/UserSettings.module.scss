@@ -1,0 +1,58 @@
+@import "@/styles/variables.scss";
+
+.userSettingsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-medium;
+  background-color: $color-background;
+  overflow-y: auto;
+  padding: $padding-medium;
+  height: 100vh; // FIX THIS
+
+  h1 {
+    font-size: $font-size-page-header;
+    color: $color-brand;
+    width: 100%;
+  }
+
+  p {
+    font-size: 14px;
+    color: $color-light-mode-info-font;
+  }
+
+  .pageTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $gap-medium;
+    text-align: center;
+  }
+}
+
+.labelWrapper {
+  .labelContainer {
+    position: relative;
+    .editIcon {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+}
+
+.settingsContainer {
+  display: flex;
+  gap: $gap-medium;
+
+  label {
+    color: var(--color-body-font);
+    font-size: 14px;
+  }
+
+  .settingsBody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $gap-small;
+  }
+}

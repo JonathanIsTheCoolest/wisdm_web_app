@@ -1,0 +1,21 @@
+@import "./styles/variables.scss";
+
+.activityCard {
+    background-color: $color-background;
+    border-bottom: 1px solid var(--color-feed-item-bg);
+    display: flex;
+    flex-direction: column;
+    gap: $gap-medium;
+
+    h3 {
+        color: var(--color-header-font);
+    }
+
+    p {
+        color: var(--color-comment-font);
+    }
+
+    span {
+        color: var(--color-comment-font-detail);
+    }
+}

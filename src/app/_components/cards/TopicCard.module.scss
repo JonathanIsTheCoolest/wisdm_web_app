@@ -1,0 +1,17 @@
+@import './styles/variables.scss';
+
+.topicCard {
+  border-radius: $radius-large;
+  height: fit-content;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  h3 {
+    color: white;
+  }
+
+  p {
+    color: #D9D9D9;
+  }
+}
