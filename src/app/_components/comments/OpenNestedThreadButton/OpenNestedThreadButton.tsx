@@ -36,22 +36,33 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
     const commentContainer = commentContainerRef.current;
     const parentElement = document.getElementById(comment_id);
     const childElementArray = Object.values(comment_object).map((comment) => document.getElementById(comment.comment_id));
-
+  
     if (!commentContainer || !parentElement || childElementArray.some(child => !child)) {
       return null;
     }
-
+  
     const containerRect = commentContainer.getBoundingClientRect();
     const parentRect = parentElement.getBoundingClientRect();
+    
+    const parentLeft = parentRect.left - containerRect.left
+    const parentRight = parentRect.right - containerRect.left
+    const parentPosition = {
+      top: parentRect.top - containerRect.top,
+      left: parentLeft,
+      right: parentRight,
+      center: (parentLeft + parentRight) / 2,
+      bottom: parentRect.bottom - containerRect.top,
+    };
+
     const childPositionsArray = childElementArray.map((childElement) => {
       const rect = childElement?.getBoundingClientRect();
       if (rect) {
         const top = rect.top - containerRect.top;
         const left = rect.left - containerRect.left;
         const bottom = rect.bottom - containerRect.top;
-        const centeredLeft = ((parentRect.left - containerRect.left) + left) / 2;
+        const centeredLeft = parentPosition.center;
         const horizontalLineLength = Math.abs(centeredLeft - left);
-    
+  
         return {
           top,
           left,
@@ -63,18 +74,12 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
       }
       return { top: 0, left: 0, bottom: 0, center: 0, horizontalLineLength: 0, centeredLeft: 0 };
     });
-    
-    const parentPosition = {
-      top: parentRect.top - containerRect.top,
-      left: parentRect.left - containerRect.left,
-      bottom: parentRect.bottom - containerRect.top,
-    };
   
     const togglePosition = {
       top: (parentPosition.bottom + childPositionsArray[0]?.top) / 2,
-      left: (parentPosition.left + childPositionsArray[0]?.left) / 2,
+      left: parentPosition.center,
     };
-
+  
     const lastChildPosition = childPositionsArray[childPositionsArray.length - 1];
     const verticalLinePositions = {
       topStartPosition: parentPosition.bottom,
@@ -83,9 +88,9 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
       toggleToBottomHeight: lastChildPosition.center - togglePosition.top,
       left: togglePosition.left,
     };
-
+  
     return { togglePosition, verticalLinePositions, childPositionsArray };
-  };
+  };  
 
   useEffect(() => {
     commentContainerRef.current = document.getElementById("comment_container");
