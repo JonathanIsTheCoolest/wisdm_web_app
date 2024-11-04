@@ -28,8 +28,9 @@ const CommentCard: React.FC<CommentProps> = ({
   comments = 0,
 }) => {
   return (
-    <div className={styles.commentWrapper}>
-      {topic && <h3 className={styles.topic}>{topic}</h3>}
+    <div className={styles.commentCard}> {/* Change into commentCard */}
+      <div className={styles.cardContent}>
+      {topic && <h3>{topic}</h3>}
       <div className={styles.commentContent}>
         <div className={styles.userWrapper}>
           <div className={styles.userName}>
@@ -44,7 +45,7 @@ const CommentCard: React.FC<CommentProps> = ({
         <p>{content}</p>
       </div>
       <div className={styles.commentFooter}>
-        <div className={styles.voteContainer}>
+        <div className={styles.commentContainer}>
           <Image
             src={upvoteIcon}
             className={styles.upvoteIcon}
@@ -57,13 +58,13 @@ const CommentCard: React.FC<CommentProps> = ({
             alt="Downvote"
           />
         </div>
-        <div className={styles.commentContainer}>
+        <div className={styles.commentCount}>
           <Image
             src={commentIcon}
-            className={styles.commentIcon}
             alt="Comment"
           />
-          <span>{comments}</span>
+          <span>{comments} comments</span>
+        </div>
         </div>
       </div>
     </div>

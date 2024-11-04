@@ -2,18 +2,17 @@
 
 :root {
   --color-bg: #{$color-light-mode-bg};
-  --color-header-font: #{$color-light-mode-header-font};
   --color-body-font: #{$color-light-mode-body-font};
-  --color-info-font: #{$color-light-mode-info-font};
-  --color-terms: #{$color-light-mode-terms-font};
   --color-comment-font: #{$color-light-mode-comment-font};
   --color-comment-font-detail: #{$color-light-mode-comment-font-detail};
+  --color-feed-item-bg: #{$color-light-mode-feed-item-bg};
+  --color-header-font: #{$color-light-mode-header-font};
+  --color-info-font: #{$color-light-mode-info-font};
   --color-input: #{$color-light-mode-input};
   --color-input-border: #{$color-light-mode-input-border};
-  --color-navbar-top: #{$color-light-mode-navbar-bg-top};
   --color-navbar: #{$color-light-mode-navbar-bg};
   --color-navbar-shadow: #{$color-light-mode-navbar-shadow};
-  --color-feed-item-bg: #{$color-light-mode-feed-item-bg};
+  --color-navbar-top: #{$color-light-mode-navbar-bg-top};
   --color-notification-bg: #{$color-light-mode-notification-bg};
   --color-timeline-comment-bg: #{$color-light-mode-timeline-comment-bg};
   --color-timeline-event-bg: #{$color-light-mode-timeline-event-bg};
@@ -21,29 +20,28 @@
 
 [data-theme='dark'] {
   --color-bg: #{$color-dark-mode-bg};
-  --color-header-font: #{$color-dark-mode-header-font};
   --color-body-font: #{$color-dark-mode-body-font};
-  --color-info-font: #{$color-dark-mode-info-font};
-  --color-terms: #{$color-dark-mode-terms-font};
   --color-comment-font: #{$color-dark-mode-comment-font};
   --color-comment-font-detail: #{$color-dark-mode-comment-font-detail};
+  --color-feed-item-bg: #{$color-dark-mode-feed-item-bg};
+  --color-header-font: #{$color-dark-mode-header-font};
+  --color-info-font: #{$color-dark-mode-info-font};
   --color-input: #{$color-dark-mode-input};
   --color-input-border: #{$color-dark-mode-input-border};
-  --color-navbar-top: #{$color-dark-mode-navbar-bg-top};
   --color-navbar: #{$color-dark-mode-navbar-bg};
   --color-navbar-shadow: #{$color-dark-mode-navbar-shadow};
-  --color-feed-item-bg: #{$color-dark-mode-feed-item-bg};
+  --color-navbar-top: #{$color-dark-mode-navbar-bg-top};
   --color-notification-bg: #{$color-dark-mode-notification-bg};
   --color-timeline-comment-bg: #{$color-dark-mode-timeline-comment-bg};
   --color-timeline-event-bg: #{$color-dark-mode-timeline-event-bg};
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins Regular', sans-serif;
   background-color: $color-background;
   color: var(--color-body-font);
+  font-family: 'Poppins Regular', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 a {

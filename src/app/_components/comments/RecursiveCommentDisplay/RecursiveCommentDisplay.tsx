@@ -53,7 +53,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> = React.me
 
         return (
           <div key={comment_id}>
-            <CommentBody comment={comment} threadId={threadId} comment_count={comment_count || 0} />
+            <CommentBody comment={comment} threadId={threadId} comment_count={comment_count} />
             {comment_count > 0 && !parentCollapsed && (
               <OpenNestedThreadButton
                 isCollapsed={collapsedStates[comment_id] || parentCollapsed}

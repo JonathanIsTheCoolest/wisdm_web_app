@@ -7,7 +7,6 @@
 
 .inputField {
   width: 100%;
-  padding-right: 35px; /* Adds space for the icon inside the input */
   border-radius: 15px;
   padding: 10px;
 }
@@ -17,7 +16,7 @@
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%); /* Centers the icon vertically in the input */
+  transform: translateY(-50%);
   background-color: greenyellow;
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   opacity: 0;

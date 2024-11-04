@@ -2,7 +2,7 @@
 
 // System Imports
 import React, { useState, useEffect } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
@@ -17,16 +17,13 @@ import Sidebar from "@/src/app/_components/navigation/Sidebar";
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
 
+import {Timeline} from '@/src/types/index'
+
 // Asset Imports
 import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
-import homeTestImg from "@/assets/images/home_test_img.png";
-
-interface Timeline {
-  timeline_id: string;
-  title: string;
-}
+import timeline_1 from "@/assets/images/timeline_1.png";
 
 const Home = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://127.0.0.1:5000';
@@ -66,6 +63,7 @@ const Home = () => {
       }
 
       const data = await response.json();
+
       setTimelines(data.timelines);
       setError(null);
     } catch (error) {
@@ -76,7 +74,6 @@ const Home = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <button onClick={onSignOut}>Sign Out</button>
       <header className={styles.pageTitle}>
         <h1>For You</h1>
         <div className={styles.iconContainer}>
@@ -114,14 +111,16 @@ const Home = () => {
               key={timeline.timeline_id}
             >
               <div className={styles.feedItem}>
-                <div
-                  className={styles.feedImage}
-                  style={{ backgroundImage: `url(${homeTestImg})` }}
-                  aria-label={`Feed Image for ${timeline.title}`}
-                ></div>
+                <div className={styles.feedImage}>
+                  <Image
+                    src={timeline_1}
+                    alt={timeline.title}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
                 <div className={styles.feedContent}>
                   <h3>{timeline.title}</h3>
-                  <p>Timeline ID: {timeline.timeline_id}</p>
                 </div>
               </div>
             </Link>

@@ -1,39 +1,47 @@
+"use client";
+
 // System Imports
-import React from "react";
+import React, { useState } from "react";
+
+// API/Database Imports
+import placeholderData from "@/assets/placeholderData.json";
+
+// Component Imports
+import VoteCard from "@/app/_components/cards/VoteCard";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/vote/Vote.module.scss";
 
-// Asset Imports
-import trumpImage from "@/assets/images/home_test_img.png";
-import depressionImage from "@/assets/images/home_test_img_2.png";
-
-const voteItems = [
-  {
-    image: trumpImage,
-    title: "Donald Trump as a person?",
-  },
-  {
-    image: depressionImage,
-    title: "Depression isn’t real.",
-  },
-  // Add more vote items as needed
-];
-
 const Vote = () => {
+  const [voteItems, setVoteItems] = useState(placeholderData.voteItems);
+
+  const handleVote = (id: string, vote: boolean) => {
+    setVoteItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, vote: vote } : item
+      )
+    );
+  };
+
   return (
     <div className={styles.pageContainer}>
       <header className={styles.pageTitle}>
         <h1>Vote</h1>
+        <h2>Vote on the hottest takes 🔥</h2>
       </header>
-      {voteItems.map((item, index) => (
-        <div key={index} className={styles.voteItem}>
-          <div className={styles.voteImage} style={{ backgroundImage: `url(${item.image.src})` }}></div>
-          <div className={styles.voteContent}>
-            <h3>{item.title}</h3>
-          </div>
-        </div>
-      ))}
+      <div className={styles.pageWrapper}>
+        {voteItems.map((item) => (
+          <VoteCard
+            key={item.id}
+            id={item.id}
+            image={item.image}
+            title={item.title}
+            description={item.description}
+            vote={item.vote}
+            onVote={handleVote}
+          />
+        ))}
+      </div>
     </div>
   );
 };

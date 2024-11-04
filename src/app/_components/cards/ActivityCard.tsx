@@ -3,33 +3,34 @@ import React from 'react';
 import Image from 'next/image';
 
 // Stylesheet Imports
-import styles from '@/app/_components/cards/ActivityCommentCard.module.scss';
+import styles from '@/app/_components/cards/ActivityCard.module.scss';
 
 // Asset Imports
 import upvoteIcon from '@/assets/icons/upvote.svg';
 import commentIcon from '@/assets/icons/comment.svg';
 
-interface ActivityCommentProps {
+interface ActivityProps {
   topic?: string;
   content: string;
   upvotes?: number;
   comments?: number;
 }
 
-const ActivityCommentCard: React.FC<ActivityCommentProps> = ({
+const ActivityCard: React.FC<ActivityProps> = ({
   topic,
   content,
   upvotes = 0,
   comments = 0,
 }) => {
   return (
-    <div className={styles.activityCommentWrapper}>
+    <div className={styles.activityCard}>
+      <div className={styles.cardContent}>
         {topic && <h3>{topic}</h3>}
         <div className={styles.commentContent}>
           <p className={styles.commentText}>{content}</p>
         </div>
         <div className={styles.commentFooter}>
-          <div className={styles.voteContainer}>
+          <div className={styles.commentContainer}>
             <Image
                 src={upvoteIcon}
                 className={styles.upvoteIcon}
@@ -42,17 +43,17 @@ const ActivityCommentCard: React.FC<ActivityCommentProps> = ({
                 alt="Downvote"
             />
           </div>
-          <div className={styles.commentContainer}>
+          <div className={styles.commentCount}>
             <Image
                 src={commentIcon}
-                className={styles.commentIcon}
                 alt="Comment"
             />
-            <span>{comments}</span>
+            <span>{comments} comments</span>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
-export default ActivityCommentCard;
+export default ActivityCard;

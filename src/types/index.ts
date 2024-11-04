@@ -1,7 +1,34 @@
-//Home Tab
-//Explore Tab
+// Timeline Summary
+export interface Summary {
+    summary: string;
+    summary_id: string;
+    timeline_id: string;
+    version: number;
+}
 
-import internal from "stream";
+// Timeline Events
+interface Event {
+    body: string;
+    event_id: string;
+    event_index: number;
+    narrative_bias: "left" | "right";
+    timeline_id: string;
+    version: number;
+  }
+
+// Timeline
+export interface Timeline {
+    timeline_id: string;
+    parent_event_id: string;
+    title: string;
+    image: string;
+  }
+
+export interface TimelineWithDetails {
+    timeline: Timeline;
+    summary: Summary;
+    events: Event[][];
+}
 
 //Profile Tab
 export interface User {

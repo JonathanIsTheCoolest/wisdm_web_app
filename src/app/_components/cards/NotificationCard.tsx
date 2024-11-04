@@ -15,24 +15,24 @@ interface NotificationProps {
   content: string;
 }
 
-const Notification: React.FC<NotificationProps> = ({ icon, title, username, content }) => {
+const NotificationCard: React.FC<NotificationProps> = ({ icon, title, username, content }) => {
   return (
-    <div className={styles.notificationItem}>
-      <div className={styles.notificationContent}>
-        <div className={styles.notificationTitle}>
-          <span className={styles.notificationIcon}>{icon}</span>
+    <div className={styles.notificationCard}>
+      <div className={styles.cardContent}>
+        <div className={styles.cardHeader}>
+          <span>{icon}</span>
           {title}
         </div>
-        <div className={styles.notificationText}>
-          {username && <span className={styles.username}>{username} </span>}
+        <div className={styles.cardBody}>
+          {username && <span>{username} </span>}
           {content}
         </div>
       </div>
-      <div className={styles.notificationArrow}>
+      <div className={styles.cardArrow}>
         <Image src={ArrowRightBrand} alt="arrow-right-brand" />
       </div>
     </div>
   );
 };
 
-export default Notification;
+export default NotificationCard;
