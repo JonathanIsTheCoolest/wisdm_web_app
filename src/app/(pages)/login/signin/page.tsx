@@ -1,20 +1,17 @@
 "use client";
 
 // System Imports
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useAppDispatch } from "@/lib/hooks";
-import { setUser } from "@/lib/features/userSlice";
 
 // API/Database Imports
-import { logInWithEmailAndPassword } from "@/app/_lib/firebase/auth/auth_signin_password";
-import { googleSignInSequence } from "@/app/_lib/firebase/auth/google/auth_google_signin_sequence";
-import { facebookSignInSequence } from "@/app/_lib/firebase/auth/facebook/auth_facebook_signin_sequence";
+import { logInWithEmailAndPassword } from "@/src/app/_lib/firebase/auth/auth_signin_password";
+import { googleSignInSequence } from "@/src/app/_lib/firebase/auth/google/auth_google_signin_sequence";
+import { facebookSignInSequence } from "@/src/app/_lib/firebase/auth/facebook/auth_facebook_signin_sequence";
 
 // Component Imports
-import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+import { SubmitButton } from "@/src/app/_components/buttons/SubmitButton";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/signin/SignInPage.module.scss";
@@ -26,8 +23,6 @@ import googleIcon from "@/assets/icons/google.svg";
 import facebookIcon from "@/assets/icons/facebook.svg";
 
 const LoginPage = () => {
-  const INITIAL_STATE: any = {};
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -47,11 +42,6 @@ const LoginPage = () => {
       set: setPassword,
     },
   ];
-
-  const router = useRouter();
-
-  const dispatch = useAppDispatch();
-
   const onClickFirebaseEmailPasswordLogin = () => {
     if (email && password) {
       logInWithEmailAndPassword(email, password);
@@ -62,7 +52,7 @@ const LoginPage = () => {
     <div className={styles.loginPage}>
       <div className={styles.onboardingHeader}>
         <Link href="/login" className={styles.backButton}>
-          <Image src={arrowLeftBrand} />
+          <Image alt='Navigate back to Wisdm default login page' src={arrowLeftBrand} />
         </Link>
       </div>
       <Image src={wisdmLogoBrand} alt="Wisdm Logo" className={styles.logo} />
@@ -105,7 +95,7 @@ const LoginPage = () => {
             className={styles.authButton}
             onClick={facebookSignInSequence}
           >
-            <Image src={facebookIcon} />
+            <Image src={facebookIcon} alt="Facebook Icon"/>
             Continue with Facebook
           </button>
         </div>

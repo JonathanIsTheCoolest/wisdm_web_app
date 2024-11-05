@@ -2,11 +2,12 @@
 
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/app/_lib/firebase/auth/auth';
-import { login, logout } from '@/lib/features/authSlice';
-import { setUser } from '@/lib/features/userSlice';
+import { auth } from '@/src/app/_lib/firebase/auth/auth';
+import { login, logout } from '@/src/lib/features/authSlice';
+import { setUser } from '@/src/lib/features/userSlice';
+import { RootState } from '@/src/lib/store';
 
 function AuthWrapper({
   children,
@@ -17,23 +18,25 @@ function AuthWrapper({
   const router = useRouter();
   const pathName = usePathname();
 
+  const currentUser = useAppSelector((state: RootState) => state.user)
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log('Checking credentials...')
       console.log(pathName)
-      
+
       if (user) {
         dispatch(login({
           idToken: await user.getIdToken()
         }));
         dispatch(setUser({
           avatar: user.photoURL,
-          current_channel: null,
+          current_channel: currentUser.currentChannel ?? user.displayName,
           email: user.email,
-          last_post_id: null,
-          locality: null,
-          num_posts: null,
-          user_name: user.displayName
+          last_post_id: currentUser.lastPostId,
+          locality: currentUser.locality,
+          num_posts: currentUser.numPosts,
+          username: user.displayName
         }))
         if (!pathName?.includes('dashboard')) {
           router.push('/dashboard')

@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react';
 
 // Component Imports
-import ThemeToggle from '@/app/_components/buttons/ThemeToggle';
+import ThemeToggle from '@/src/app/_components/buttons/ThemeToggle';
 
 // Stylesheet Imports
 import styles from '@/app/(pages)/login/StartScreen.module.scss';

@@ -1,14 +1,12 @@
 'use client'
 
 // System Imports
-import { useContext, useEffect } from "react";
-import { useRouter } from 'next/navigation';
+import { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { authFunctionWrapper, getUser } from "@/app/_lib/actions";
-import { ThemeContext } from "@/app/_contexts/ThemeContext";
+import { ThemeContext } from "@/src/app/_contexts/ThemeContext";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/StartScreen.module.scss";

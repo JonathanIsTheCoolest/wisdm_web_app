@@ -426,47 +426,47 @@ $settings-slide-transition: 0.3s ease;
   }
 }
 
-.commentContainer {
-  align-items: center;
-  display: flex;
-  gap: $gap-small;
-}
+// .commentContainer {
+//   align-items: center;
+//   display: flex;
+//   gap: $gap-small;
+// }
 
-.commentContainer .downvoteIcon {
-  height: 18px;
-  transform: rotate(180deg);
-  width: 18px;
-}
+// .commentContainer .downvoteIcon {
+//   height: 18px;
+//   transform: rotate(180deg);
+//   width: 18px;
+// }
 
-.commentContainer .upvoteIcon {
-  height: 18px;
-  width: 18px;
-}
+// .commentContainer .upvoteIcon {
+//   height: 18px;
+//   width: 18px;
+// }
 
-.commentFooter {
-  align-items: center;
-  display: flex;
-  gap: $gap-medium;
-  justify-content: flex-end;
-}
+// .commentFooter {
+//   align-items: center;
+//   display: flex;
+//   gap: $gap-medium;
+//   justify-content: flex-end;
+// }
 
-.commentCount {
-  align-items: center;
-  display: flex;
-  gap: 10px;
+// .commentCount {
+//   align-items: center;
+//   display: flex;
+//   gap: 10px;
 
-  img {
-    height: 18px;
-    width: 18px;
-  }
+//   img {
+//     height: 18px;
+//     width: 18px;
+//   }
 
-  span {
-    align-items: center;
-    color: #d9d9d9;
-    display: flex;
-    gap: $gap-small;
-  }
-}
+//   span {
+//     align-items: center;
+//     color: #d9d9d9;
+//     display: flex;
+//     gap: $gap-small;
+//   }
+// }
 
 .overlay {
   background: rgba(50, 50, 50, 0.7);

@@ -1,0 +1,20 @@
+.commentContainer {
+  overflow: hidden;
+  transition: opacity 0.5s ease, max-height 0.5s ease, margin-top 0.5s ease;
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0px;
+
+  &.show {
+    opacity: 1;
+    max-height: 100%;
+    margin-top: 10px;
+  }
+
+  &.hide {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0px;
+  }
+}
+
