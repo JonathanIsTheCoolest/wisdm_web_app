@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from "@/src/lib/store";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "@/lib/store";
 
 interface AuthState {
   idToken: string | null;
@@ -10,14 +10,17 @@ const initialState: AuthState = {
 };
 
 export const apiHTTPWrapper = createAsyncThunk(
-  'auth/apiHTTPWrapper',
-  async ({ url, options = {} }: { url: string; options?: RequestInit }, { getState }) => {
+  "auth/apiHTTPWrapper",
+  async (
+    { url, options = {} }: { url: string; options?: RequestInit },
+    { getState }
+  ) => {
     const state = getState() as RootState;
     const token = state.auth.idToken;
 
     const headers = {
       ...options.headers,
-      Authorization: token ? `Bearer ${token}` : '',
+      Authorization: token ? `Bearer ${token}` : "",
     };
 
     const response = await fetch(url, {
@@ -25,14 +28,14 @@ export const apiHTTPWrapper = createAsyncThunk(
       headers,
     });
 
-    if (!response.ok) throw new Error('Network response was not ok');
-    
+    if (!response.ok) throw new Error("Network response was not ok");
+
     return await response.json();
   }
 );
 
 export const apiSocketWrapper = createAsyncThunk(
-  'auth/apiSocketWrapper',
+  "auth/apiSocketWrapper",
   async ({ cb, args }: { cb: Function; args?: object }, { getState }) => {
     const state = getState() as RootState;
     const token = state.auth.idToken;
@@ -47,7 +50,7 @@ export const apiSocketWrapper = createAsyncThunk(
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     login: (state: AuthState, action: PayloadAction<AuthState>) => {
