@@ -13,7 +13,7 @@ import CommentCard from "@/app/_components/cards/CommentCard";
 import styles from "@/app/_components/timeline/TimelineComments.module.scss";
 
 // Asset Imports
-import { Comment, CommentThread } from "@/src/types";
+import { Comment, CommentThread } from "@/types";
 import { RootState } from "@/lib/store";
 
 import { socket } from "@/app/_lib/socket";

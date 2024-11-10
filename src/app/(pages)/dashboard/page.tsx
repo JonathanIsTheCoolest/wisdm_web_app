@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { updateCurrentChannel } from "@/lib/features/userSlice";
 import { Timeline } from "@/types";
@@ -20,8 +19,6 @@ import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
-
-import {Timeline} from '@/src/types/index'
 
 // Asset Imports
 import searchIcon from "@/assets/icons/search.svg";

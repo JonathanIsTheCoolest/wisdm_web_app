@@ -14,7 +14,7 @@ import RootCommentInput from "../RootCommentInput/RootCommentInput";
 
 import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer";
 
-import { CommentThread } from "@/src/types";
+import { CommentThread } from "@/types";
 
 interface CommentContainerProps {
   threadId: string;

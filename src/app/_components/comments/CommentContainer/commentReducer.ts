@@ -1,5 +1,5 @@
 // Types
-import { CommentThread, Comment } from "@/src/types";
+import { CommentThread, Comment } from "@/types";
 
 export type CommentActions =
   | { type: 'setThread'; payload: CommentThread }

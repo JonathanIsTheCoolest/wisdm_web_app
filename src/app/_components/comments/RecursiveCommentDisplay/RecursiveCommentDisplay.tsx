@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/src/types";
+import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/types";
 import CommentBody from '../CommentBody/CommentBody';
 import NestedThreadContainer from '../NestedThreadContainer/NestedThreadContainer';
 import OpenNestedThreadButton from '../OpenNestedThreadButton/OpenNestedThreadButton';

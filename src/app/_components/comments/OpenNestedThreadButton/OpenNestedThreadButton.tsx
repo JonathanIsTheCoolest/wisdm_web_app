@@ -10,7 +10,7 @@ import Image from "next/image";
 import collapseSVG from "@/assets/icons/collapse_comments_triangle.svg";
 import styles from "./OpenNestedThreadButton.module.scss";
 
-import { CommentGroupByIndex } from "@/src/types";
+import { CommentGroupByIndex } from "@/types";
 
 interface OpenNestedThreadButtonProps {
   isCollapsed: boolean;

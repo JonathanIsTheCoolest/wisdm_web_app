@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Comment } from "@/src/types";
+import { Comment } from "@/types";
 import Image from "next/image";
 import userDefaultImage from "@/assets/icons/user_avatar.svg";
 import { getElapsedTime } from "@/app/_lib/getElapsedTime";
