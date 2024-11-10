@@ -6,12 +6,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { logInWithEmailAndPassword } from "@/app/_lib/firebase/auth/auth_signin_password";
-import { googleSignInSequence } from "@/app/_lib/firebase/auth/google/auth_google_signin_sequence";
-import { facebookSignInSequence } from "@/app/_lib/firebase/auth/facebook/auth_facebook_signin_sequence";
+import { logInWithEmailAndPassword } from "@/src/app/_lib/firebase/auth/auth_signin_password";
+import { googleSignInSequence } from "@/src/app/_lib/firebase/auth/google/auth_google_signin_sequence";
+import { facebookSignInSequence } from "@/src/app/_lib/firebase/auth/facebook/auth_facebook_signin_sequence";
 
 // Component Imports
-import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+import { SubmitButton } from "@/src/app/_components/buttons/SubmitButton";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/signin/SignInPage.module.scss";

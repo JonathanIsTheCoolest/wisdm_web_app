@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Comment } from "@/types";
+import { Comment } from "@/src/types";
 import Image from "next/image";
-import userDefaultImage from "@/assets/icons/user_avatar.svg";
-import { getElapsedTime } from "@/app/_lib/getElapsedTime";
+import userDefaultImage from '@/src/assets/icons/user_avatar.svg';
+import { getElapsedTime } from "@/src/app/_lib/getElapsedTime";
 
-import commentSVG from "@/assets/icons/comment.svg";
-import styles from "./CommentBody.module.scss";
+import commentSVG from '@/src/assets/icons/comment.svg';
+import styles from './CommentBody.module.scss';
 
 import VoteContainer from "../VoteContainer/VoteContainer";
 import NestedCommentInput from "../NestedCommentInput/NestedCommentInput";
@@ -16,22 +16,10 @@ interface CommentBodyProps {
   comment_count: number;
 }
 
-const CommentBody: React.FC<CommentBodyProps> = ({
-  comment,
-  threadId,
-  comment_count,
-}) => {
-  const {
-    body,
-    user_photo_url,
-    vote_count,
-    vote,
-    username,
-    created_at,
-    comment_id,
-  } = comment;
+const CommentBody: React.FC<CommentBodyProps> = ({ comment, threadId, comment_count }) => {
+  const { body, user_photo_url, vote_count, vote, username, created_at, comment_id } = comment;
   const [elapsedTime, setElapsedTime] = useState(getElapsedTime(created_at));
-  const [isReplying, setIsReplying] = useState<boolean>(false);
+  const [ isReplying, setIsReplying ] = useState<boolean>(false)
 
   useEffect(() => {
     const updateInterval = setInterval(() => {
@@ -46,15 +34,13 @@ const CommentBody: React.FC<CommentBodyProps> = ({
       <div className={styles.commentHeader}>
         <Image
           id={comment_id}
-          src={user_photo_url || userDefaultImage}
+          src={user_photo_url || userDefaultImage} 
           alt={`${username}'s user photo`}
           width={50}
           height={50}
           className={styles.userPhoto}
         />
-        <div className={styles.usernameElapsed}>
-          {username} · {elapsedTime}
-        </div>
+        <div className={styles.usernameElapsed}>{username} · {elapsedTime}</div>
       </div>
       <div className={styles.commentContent}>
         <div className={styles.commentText}>{body}</div>
@@ -70,7 +56,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
             height={20}
             width={20}
             className={styles.commentIcon}
-            onClick={() => setIsReplying((prev) => (prev ? false : true))}
+            onClick={() => setIsReplying((prev) => prev ? false : true)}
           />
           <div className={styles.commentCount}>{comment_count}</div>
         </div>

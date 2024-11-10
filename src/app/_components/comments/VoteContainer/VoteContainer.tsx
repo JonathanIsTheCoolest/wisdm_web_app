@@ -1,9 +1,9 @@
 import React from "react";
 
 import Image from "next/image";
-import upVote from "@/assets/icons/upvote.svg";
+import upVote from '@/src/assets/icons/upvote.svg';
 
-import styles from "@/app/_components/comments/VoteContainer/VoteContainer.module.scss";
+import styles from '@/src/app/_components/comments/VoteContainer/VoteContainer.module.scss'
 
 interface VoteContainerProps {
   vote: boolean | null;
@@ -11,11 +11,12 @@ interface VoteContainerProps {
   comment_id: string;
 }
 
-const VoteContainer: React.FC<VoteContainerProps> = ({
-  vote,
-  vote_count,
-  comment_id,
-}) => {
+const VoteContainer: React.FC<VoteContainerProps> = ({ 
+    vote, 
+    vote_count,
+    comment_id
+  }) => {
+
   return (
     <div>
       <Image
@@ -34,7 +35,7 @@ const VoteContainer: React.FC<VoteContainerProps> = ({
         className={`${styles.voteArrow} ${styles.downvote}`}
       />
     </div>
-  );
-};
+  )
+}
 
-export default VoteContainer;
+export default VoteContainer

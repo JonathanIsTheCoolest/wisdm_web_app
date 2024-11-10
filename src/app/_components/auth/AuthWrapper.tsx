@@ -18,32 +18,28 @@ function AuthWrapper({
   const router = useRouter();
   const pathName = usePathname();
 
-  const currentUser = useAppSelector((state: RootState) => state.user);
+  const currentUser = useAppSelector((state: RootState) => state.user)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log("Checking credentials...");
-      console.log(pathName);
+      console.log('Checking credentials...')
+      console.log(pathName)
 
       if (user) {
-        dispatch(
-          login({
-            idToken: await user.getIdToken(),
-          })
-        );
-        dispatch(
-          setUser({
-            avatar: user.photoURL,
-            current_channel: currentUser.currentChannel ?? user.displayName,
-            email: user.email,
-            last_post_id: currentUser.lastPostId,
-            locality: currentUser.locality,
-            num_posts: currentUser.numPosts,
-            username: user.displayName,
-          })
-        );
-        if (!pathName?.includes("dashboard")) {
-          router.push("/dashboard");
+        dispatch(login({
+          idToken: await user.getIdToken()
+        }));
+        dispatch(setUser({
+          avatar: user.photoURL,
+          current_channel: currentUser.currentChannel ?? user.displayName,
+          email: user.email,
+          last_post_id: currentUser.lastPostId,
+          locality: currentUser.locality,
+          num_posts: currentUser.numPosts,
+          username: user.displayName
+        }))
+        if (!pathName?.includes('dashboard')) {
+          router.push('/dashboard')
         } else {
           router.push(pathName);
         }

@@ -3,7 +3,7 @@ const path = require("path");
 
 const nextConfig = {
   reactStrictMode: true,
-  pageExtensions: ["tsx", "ts", "jsx", "js"],
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   sassOptions: {
     includePaths: [path.join(__dirname, "src/styles")],
   },
@@ -13,12 +13,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "localhost",
+        protocol: 'https',
+        hostname: 'localhost',
       },
       {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
       },
     ],
   },

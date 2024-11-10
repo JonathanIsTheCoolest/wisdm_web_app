@@ -21,6 +21,8 @@ import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
 
+import {Timeline} from '@/src/types/index'
+
 // Asset Imports
 import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
@@ -121,8 +123,9 @@ const Home = () => {
           <p className={styles.errorMessage}>{error}</p>
         ) : timelines.length > 0 ? (
           timelines.map((timeline) => (
-            <Link
-              href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
+            <Link 
+              onClick={() => dispatch(updateCurrentChannel({ current_channel: timeline.timeline_id }))}
+              href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`} 
               key={timeline.timeline_id}
             >
               <TimelineCard

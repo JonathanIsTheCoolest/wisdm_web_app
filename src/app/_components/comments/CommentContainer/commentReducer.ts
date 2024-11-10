@@ -1,28 +1,25 @@
 // Types
-import { CommentThread, Comment } from "@/types";
+import { CommentThread, Comment } from "@/src/types";
 
 export type CommentActions =
-  | { type: "setThread"; payload: CommentThread }
-  | { type: "addComment"; payload: { comment: Comment } }
-  | { type: "updateComment"; payload: { threadId: string; comment: Comment } }
-  | { type: "deleteComment"; payload: { threadId: string; commentId: string } };
+  | { type: 'setThread'; payload: CommentThread }
+  | { type: 'addComment'; payload: { comment: Comment } }
+  | { type: 'updateComment'; payload: { threadId: string; comment: Comment } }
+  | { type: 'deleteComment'; payload: { threadId: string; commentId: string } };
 
 export const INIT_COMMENT_THREAD: CommentThread = {
-  comments: {},
+  comments: {}
 };
 
 // Reducer
-export const commentReducer = (
-  state: CommentThread,
-  action: CommentActions
-): CommentThread => {
+export const commentReducer = (state: CommentThread, action: CommentActions): CommentThread => {
   switch (action.type) {
-    case "setThread":
+    case 'setThread':
       return action.payload;
 
-    case "addComment": {
+    case 'addComment': {
       const { comment } = action.payload;
-      const parent_comment_id = comment.parent_comment_id || "root";
+      const parent_comment_id = comment.parent_comment_id || 'root'
 
       const commentStateModel = {
         ...state,
@@ -30,15 +27,15 @@ export const commentReducer = (
           ...state.comments,
           [parent_comment_id]: {
             ...state.comments[parent_comment_id],
-            [comment.comment_index]: comment,
-          },
-        },
-      };
+            [comment.comment_index]: comment
+          }
+        }
+      }
 
-      return commentStateModel;
+      return commentStateModel
     }
 
-    case "updateComment": {
+    case 'updateComment': {
       const { threadId, comment } = action.payload;
       if (!state.comments[threadId]) return state;
       return {
@@ -47,13 +44,13 @@ export const commentReducer = (
           ...state.comments,
           [threadId]: {
             ...state.comments[threadId],
-            [comment.comment_id]: comment,
-          },
-        },
+            [comment.comment_id]: comment
+          }
+        }
       };
     }
 
-    case "deleteComment": {
+    case 'deleteComment': {
       const { threadId, commentId } = action.payload;
       if (!state.comments[threadId]) return state;
 
@@ -62,14 +59,12 @@ export const commentReducer = (
         ...state,
         comments: {
           ...state.comments,
-          [threadId]: remainingComments,
-        },
+          [threadId]: remainingComments
+        }
       };
     }
 
     default:
-      throw new Error(
-        `Unknown action type: ${(action as CommentActions).type}`
-      );
+      throw new Error(`Unknown action type: ${(action as CommentActions).type}`);
   }
 };

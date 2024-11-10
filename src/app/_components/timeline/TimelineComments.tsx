@@ -2,27 +2,27 @@
 "use client";
 
 // System Imports
-import React, { useState, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import React, { useState, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '@/src/lib/hooks';
 
 // Component Imports
-import Draggable from "react-draggable";
-import CommentCard from "@/app/_components/cards/CommentCard";
+import Draggable from 'react-draggable';
+import CommentCard from '@/src/app/_components/cards/CommentCard';
 
 // Stylesheet Imports
 import styles from "@/app/_components/timeline/TimelineComments.module.scss";
 
 // Asset Imports
-import { Comment, CommentThread } from "@/types";
-import { RootState } from "@/lib/store";
+import { Comment, CommentThread } from '@/src/types';
+import { RootState } from '@/src/lib/store';
 
-import { socket } from "@/app/_lib/socket";
-import { apiSocketWrapper } from "@/lib/features/authSlice";
+import { socket } from '@/src/app/_lib/socket';
+import { apiSocketWrapper } from '@/src/lib/features/authSlice';
 
-import { apiHTTPWrapper } from "@/lib/features/authSlice";
+import { apiHTTPWrapper } from '@/src/lib/features/authSlice';
 
-import nextImg from "public/next.svg";
-import Image from "next/image";
+import nextImg from 'public/next.svg'
+import Image from 'next/image';
 
 interface TimelineCommentsProps {
   onClose: () => void;
@@ -30,23 +30,19 @@ interface TimelineCommentsProps {
 
 const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [commentThread, setCommentThread] = useState<CommentThread | null>(
-    null
-  );
-  const [sortBy, setSortBy] = useState<"top" | "newest">("top");
-  const [newComment, setNewComment] = useState("");
+  const [commentThread, setCommentThread] = useState<CommentThread | null>(null);
+  const [sortBy, setSortBy] = useState<'top' | 'newest'>('top');
+  const [newComment, setNewComment] = useState('')
 
-  const user = useAppSelector((state: RootState) => state.user);
-  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.user)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const loadComments = async () => {
       try {
-        const actionResult = await dispatch(
-          apiHTTPWrapper({
-            url: `http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${user.currentChannel}`,
-          })
-        );
+        const actionResult = await dispatch(apiHTTPWrapper({
+          url: `http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${user.currentChannel}`,
+        }));
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {
           const result = actionResult.payload;
           setCommentThread(result);
@@ -57,7 +53,7 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
         console.error("Error loading comments:", error);
       }
     };
-
+  
     loadComments();
   }, [sortBy]);
 
@@ -74,66 +70,62 @@ const TimelineComments: React.FC<TimelineCommentsProps> = ({ onClose }) => {
   };
 
   const onClickPostComment = () => {
-    dispatch(
-      apiSocketWrapper({
-        cb: (args: object) => {
-          socket.emit("send_message", args);
-        },
-        args: {
-          room: user.currentChannel,
-          thread_id: user.currentChannel,
-          body: newComment,
-          parent_comment_id: null,
-          reference_id: null,
-        },
-      })
-    );
+    dispatch(apiSocketWrapper({
+      cb: (args: object) => {
+        socket.emit('send_message', args);
+      },
+      args: {
+        room: user.currentChannel,
+        thread_id: user.currentChannel,
+        body: newComment,
+        parent_comment_id: null,
+        reference_id: null,
+      }
+    }));
   };
 
   useEffect(() => {
-    socket.on("receive_message", (response) => {
-      console.log(response);
-    });
-  }, []);
+    socket.on('receive_message', (response) => {
+      console.log(response)
+
+    })
+  }, [])
 
   return (
-    <Draggable
-      axis="y"
-      bounds="parent"
-      position={position}
-      onDrag={handleDrag}
-      onStop={handleStop}
-    >
-      <div className={styles.commentsContainer} style={{ overflow: "scroll" }}>
+    <Draggable axis="y" bounds="parent" position={position} onDrag={handleDrag} onStop={handleStop}>
+      <div className={styles.commentsContainer} style={{'overflow': 'scroll'}}>
         <div className={styles.dragHandle} />
         <TimelineCommentsHeader sortBy={sortBy} onSortChange={setSortBy} />
-        {commentThread &&
-          Object.keys(commentThread.comments).map((commentId) => {
+        {
+          commentThread && Object.keys(commentThread.comments).map((commentId) => {
             const comment: Comment = commentThread.comments[commentId];
 
             return (
               <div key={commentId}>
-                <Image
-                  src={comment.user_photo_url || nextImg}
+                <Image 
+                  src={comment.user_photo_url || nextImg} 
                   alt={`${comment.username}'s user photo`}
-                  width={"50"}
-                  height={"50"}
-                  style={{ border: "1px black", borderRadius: "50%" }}
+                  width={'50'}
+                  height={'50'}
+                  style={{'border': '1px black', 'borderRadius': '50%'}}
                 />
                 <p>{comment.body}</p>
                 <p>By: {comment.username}</p>
                 <p>Posted on: {comment.created_at}</p>
               </div>
             );
-          })}
+          })
+        }
         <div>
           <input
-            type="text"
+            type='text'
             value={newComment}
-            placeholder="join the conversation"
+            placeholder='join the conversation'
             onChange={(e) => setNewComment(e.target.value)}
           ></input>
-          <button onClick={onClickPostComment}>Submit</button>
+          <button
+            onClick={onClickPostComment}
+          >Submit</button>
         </div>
       </div>
     </Draggable>
