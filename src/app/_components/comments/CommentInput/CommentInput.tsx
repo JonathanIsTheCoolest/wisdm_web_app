@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "@/src/lib/hooks";
-import { apiSocketWrapper } from "@/src/lib/features/authSlice";
-import { socket } from "@/src/app/_lib/socket";
+import { useAppDispatch } from "@/lib/hooks";
+import { apiSocketWrapper } from "@/lib/features/authSlice";
+import { socket } from "@/app/_lib/socket";
 import Image from "next/image";
-import commentSVG from '@/src/assets/icons/comment.svg';
-import styles from '@/src/app/_components/comments/CommentInput/CommentInput.module.scss';
+import commentSVG from "@/assets/icons/comment.svg";
+import styles from "@/app/_components/comments/CommentInput/CommentInput.module.scss";
 
 interface CommentInputProps {
   threadId: string;
@@ -16,33 +16,35 @@ interface CommentInputProps {
 const CommentInput: React.FC<CommentInputProps> = ({
   threadId,
   parentCommentId = null,
-  placeholder = 'Join the conversation', 
-  inputStyles
+  placeholder = "Join the conversation",
+  inputStyles,
 }) => {
   const dispatch = useAppDispatch();
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
 
   const onClickPostComment = (e: React.MouseEvent) => {
-    e.preventDefault()
-    dispatch(apiSocketWrapper({
-      cb: (args: object) => {
-        socket.emit('send_message', args);
-      },
-      args: {
-        room: threadId,
-        thread_id: threadId,
-        body: newComment,
-        parent_comment_id: parentCommentId,
-        reference_id: null,
-      }
-    }));
-    setNewComment('');
+    e.preventDefault();
+    dispatch(
+      apiSocketWrapper({
+        cb: (args: object) => {
+          socket.emit("send_message", args);
+        },
+        args: {
+          room: threadId,
+          thread_id: threadId,
+          body: newComment,
+          parent_comment_id: parentCommentId,
+          reference_id: null,
+        },
+      })
+    );
+    setNewComment("");
   };
 
   return (
     <label htmlFor="newComment" className={styles.labelContainer}>
-      <input 
-        id="newComment" 
+      <input
+        id="newComment"
         name="newComment"
         type="text"
         value={newComment}
@@ -50,20 +52,22 @@ const CommentInput: React.FC<CommentInputProps> = ({
         onChange={({ target: { value } }) => setNewComment(value)}
         className={styles.inputField}
         style={{
-          ...inputStyles
+          ...inputStyles,
         }}
       />
-      
+
       <Image
         onClick={(e) => newComment.length && onClickPostComment(e)}
-        src={commentSVG} 
+        src={commentSVG}
         alt="send comment button"
         width={25}
         height={25}
-        className={`${styles.sendIcon} ${newComment.length ? styles.sendIconActive : ''}`}
+        className={`${styles.sendIcon} ${
+          newComment.length ? styles.sendIconActive : ""
+        }`}
       />
     </label>
-  )
-}
+  );
+};
 
 export default CommentInput;

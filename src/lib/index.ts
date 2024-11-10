@@ -5,6 +5,7 @@ export interface User {
 }
 
 export interface SavedTopic {
+  id: string;
   title: string;
   body: string;
   comments: number;
@@ -33,8 +34,8 @@ export interface SavedTopic {
   comments: number;
   imageUrl: string;
 }
-  
-  export interface Wisdom {
+
+export interface Wisdom {
   username: string;
   time: string;
   body: string;

@@ -22,7 +22,7 @@ interface HeaderProps {
   title: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const TimelineHeader: React.FC<HeaderProps> = ({ title }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.user);
   return (
@@ -37,11 +37,11 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
         >
           <Image src={arrowLeftBrand} alt="Back" />
         </Link>
-        <h1 className={styles.pageTitle}>{title}</h1>
+        <h1 className={styles.timelineTitle}>{title}</h1>
         <ThemeToggle />
       </div>
     </header>
   );
 };
 
-export default Header;
+export default TimelineHeader;

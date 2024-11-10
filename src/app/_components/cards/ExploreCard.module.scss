@@ -1,0 +1,23 @@
+@import "styles/variables.scss";
+
+.exploreItem {
+  aspect-ratio: 1;
+  border-radius: $radius-large;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 240px;
+  min-width: 240px;
+  position: relative;
+  transform-origin: center center;
+  transition: transform 0.2s ease-in-out;
+  z-index: 1;
+
+  &:hover {
+    transform: scale(1.02);
+    z-index: 2;
+  }
+
+  img {
+    border-radius: $radius-large;
+  }
+}

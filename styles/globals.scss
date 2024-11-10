@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 :root {
   --color-bg: #{$color-light-mode-bg};
@@ -16,9 +16,10 @@
   --color-notification-bg: #{$color-light-mode-notification-bg};
   --color-timeline-comment-bg: #{$color-light-mode-timeline-comment-bg};
   --color-timeline-event-bg: #{$color-light-mode-timeline-event-bg};
+  --theme-transition-duration: 0.3s;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --color-bg: #{$color-dark-mode-bg};
   --color-body-font: #{$color-dark-mode-body-font};
   --color-comment-font: #{$color-dark-mode-comment-font};
@@ -39,9 +40,11 @@
 body {
   background-color: $color-background;
   color: var(--color-body-font);
-  font-family: 'Poppins Regular', sans-serif;
+  font-family: "Poppins Regular", sans-serif;
   margin: 0;
   padding: 0;
+  transition: background-color var(--theme-transition-duration) ease,
+    color var(--theme-transition-duration) ease;
 }
 
 a {
@@ -51,4 +54,8 @@ a {
 
 * {
   box-sizing: border-box;
+  transition: background-color var(--theme-transition-duration) ease,
+    color var(--theme-transition-duration) ease,
+    border-color var(--theme-transition-duration) ease,
+    box-shadow var(--theme-transition-duration) ease;
 }

@@ -6,12 +6,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { logInWithEmailAndPassword } from "@/src/app/_lib/firebase/auth/auth_signin_password";
-import { googleSignInSequence } from "@/src/app/_lib/firebase/auth/google/auth_google_signin_sequence";
-import { facebookSignInSequence } from "@/src/app/_lib/firebase/auth/facebook/auth_facebook_signin_sequence";
+import { logInWithEmailAndPassword } from "@/app/_lib/firebase/auth/auth_signin_password";
+import { googleSignInSequence } from "@/app/_lib/firebase/auth/google/auth_google_signin_sequence";
+import { facebookSignInSequence } from "@/app/_lib/firebase/auth/facebook/auth_facebook_signin_sequence";
 
 // Component Imports
-import { SubmitButton } from "@/src/app/_components/buttons/SubmitButton";
+import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/signin/SignInPage.module.scss";
@@ -52,7 +52,10 @@ const LoginPage = () => {
     <div className={styles.loginPage}>
       <div className={styles.onboardingHeader}>
         <Link href="/login" className={styles.backButton}>
-          <Image alt='Navigate back to Wisdm default login page' src={arrowLeftBrand} />
+          <Image
+            alt="Navigate back to Wisdm default login page"
+            src={arrowLeftBrand}
+          />
         </Link>
       </div>
       <Image src={wisdmLogoBrand} alt="Wisdm Logo" className={styles.logo} />
@@ -95,7 +98,7 @@ const LoginPage = () => {
             className={styles.authButton}
             onClick={facebookSignInSequence}
           >
-            <Image src={facebookIcon} alt="Facebook Icon"/>
+            <Image src={facebookIcon} alt="Facebook Icon" />
             Continue with Facebook
           </button>
         </div>

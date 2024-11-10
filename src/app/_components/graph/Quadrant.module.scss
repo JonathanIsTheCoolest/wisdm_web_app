@@ -1,0 +1,101 @@
+@import "styles/variables.scss";
+
+.pageContainer {
+  overflow-y: unset;
+  padding: unset;
+}
+
+.quadrantWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap-medium;
+}
+
+.horizontalLabels {
+  display: flex;
+  align-items: center;
+  gap: $gap-medium;
+}
+
+.quadrantContainer {
+  position: relative;
+  width: 50vh;
+  height: 50vh;
+  border-radius: $radius-large;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 70vw;
+    height: 70vw;
+  }
+}
+
+.gradientBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 200, 200, 0.2),
+    rgba(200, 200, 255, 0.2)
+  );
+}
+
+.gradientAxes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  .xAxis {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    top: 50%;
+    border-top: 2px dashed #ccc;
+  }
+
+  .yAxis {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 50%;
+    border-left: 2px dashed #ccc;
+  }
+}
+
+.gradientDot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  box-shadow: 0 0 0 2px $color-brand;
+}
+
+// Quadrant Labels
+.topLabel,
+.bottomLabel,
+.leftLabel,
+.rightLabel {
+  font-weight: 600;
+  color: var(--color-body-font);
+}
+
+.topLabel,
+.bottomLabel {
+  font-size: 14px;
+}
+
+.leftLabel,
+.rightLabel {
+  font-size: 14px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.leftLabel {
+  transform: rotate(180deg);
+}

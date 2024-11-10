@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '@/src/lib/hooks';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/src/app/_lib/firebase/auth/auth';
-import { login, logout } from '@/src/lib/features/authSlice';
-import { setUser } from '@/src/lib/features/userSlice';
-import { RootState } from '@/src/lib/store';
+import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/_lib/firebase/auth/auth";
+import { login, logout } from "@/lib/features/authSlice";
+import { setUser } from "@/lib/features/userSlice";
+import { RootState } from "@/lib/store";
 
 function AuthWrapper({
   children,
@@ -41,7 +41,7 @@ function AuthWrapper({
         if (!pathName?.includes('dashboard')) {
           router.push('/dashboard')
         } else {
-          router.push(pathName)
+          router.push(pathName);
         }
       } else {
         console.log("None or invalid credentials");

@@ -1,10 +1,10 @@
 // CLEAN UP THIS FILE
 
-@import "./styles/variables.scss";
+@import "styles/variables.scss";
 
 .timelineContainer {
-  padding: $padding-medium;
-  color: white;
+  padding: 20px 20px 100px 20px;
+  color: var(--color-body-font);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -13,10 +13,7 @@
   justify-content: center;
   align-items: center;
   gap: $gap-medium;
-
-  h3 {
-    color: var(--color-body-font);
-  }
+  background-color: var(--color-bg);
 
   .header {
     display: flex;
@@ -36,8 +33,12 @@
       display: flex;
     }
 
-    .pageTitle {
+    .timelineTitle {
       margin: 0;
+      text-align: center;
+      width: 100%;
+      line-height: 1;
+      font-size: 24px;
     }
   }
 
@@ -47,7 +48,6 @@
     align-items: center;
     width: 80%;
     position: relative;
-    margin-top: 2rem;
     gap: $gap-medium;
 
     @media (max-width: 767px) {
@@ -107,22 +107,22 @@
       .eventContainer {
         width: 45%;
         padding: $padding-small;
-        background-color: var(--color-timeline-event-bg);
-        border-radius: 5px;
+        background-color: var(--color-input);
+        border-radius: $radius-small;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
         .eventDate {
-          font-size: 0.9em;
+          font-size: 16px;
           color: var(--color-body-font);
-          margin-bottom: 5px;
         }
 
         .eventContent {
+          line-height: 24px;
           color: var(--color-body-font);
-        
+
           .eventTitle {
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 5px;
           }
 
           @media (max-width: 767px) {
@@ -137,10 +137,10 @@
         margin-right: auto;
       }
     }
-    
+
     .right {
       justify-content: flex-end;
-    
+
       .eventContainer {
         margin-left: auto;
       }
@@ -158,5 +158,26 @@
 
   .toggleCommentsButton:hover {
     background-color: #555;
+  }
+
+  .timelineImage {
+    width: 80%;
+    height: 25vh;
+    border-radius: $radius-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $shadow-box;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: $radius-large;
+    }
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
   }
 }

@@ -1,3 +1,25 @@
+.instructionsContent {
+  //put into variables.scss
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+  }
+}
+
+.questionIcon {
+  //move into common component with all the icons
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 // COLORS
 $color-brand: #855db9;
 $color-brand-light: #ded9fc;
@@ -195,7 +217,12 @@ $settings-slide-transition: 0.3s ease;
 }
 
 // TAG CLASSES
-.userTag {
+.tagContainer {
+  display: flex;
+  gap: $gap-medium;
+}
+
+.tagItem {
   background-color: $color-brand;
   border-radius: 14px;
   color: white;
@@ -297,17 +324,10 @@ $settings-slide-transition: 0.3s ease;
   display: flex;
   flex-direction: column;
   gap: $gap-medium;
-  height: 100%;
   overflow-y: auto;
   padding: $padding-medium;
   width: 100%;
-  margin-bottom: 100px;
-
-  .pageWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: $gap-medium;
-  }
+  padding-bottom: 100px;
 
   .pageTitle {
     display: flex;
@@ -374,6 +394,21 @@ $settings-slide-transition: 0.3s ease;
       width: 30px;
     }
   }
+}
+
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-medium;
+}
+
+// PROFILE COMPONENT STYLES
+.avatarSmall {
+  position: relative;
+  width: $profile-avatar-size;
+  height: $profile-avatar-size;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 // CARD COMPONENT STYLES

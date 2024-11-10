@@ -6,13 +6,17 @@ import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { onSignOut } from "@/src/app/_lib/firebase/auth/auth_sign_out";
-import { useAppDispatch, useAppSelector } from "@/src/lib/hooks";
-import { updateCurrentChannel } from "@/src/lib/features/userSlice";
+import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { updateCurrentChannel } from "@/lib/features/userSlice";
+import { Timeline } from "@/types";
 
 // Component Imports
-import ThemeToggle from "@/src/app/_components/buttons/ThemeToggle";
-import Sidebar from "@/src/app/_components/navigation/Sidebar";
+import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
+import Sidebar from "@/app/_components/navigation/Sidebar";
+import TimelineCard from "@/app/_components/cards/TimelineCard";
+import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
+import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
@@ -23,24 +27,26 @@ import {Timeline} from '@/src/types/index'
 import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
-import timeline_1 from "@/assets/images/timeline_1.png";
 
 const Home = () => {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://127.0.0.1:5000';
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_BASE_API_URL || "http://127.0.0.1:5000";
 
-  const idToken = useAppSelector((state: any) => state.auth.idToken)
-  const dispatch = useAppDispatch()
+  const idToken = useAppSelector((state: any) => state.auth.idToken);
+  const dispatch = useAppDispatch();
 
   const [timelines, setTimelines] = useState<Timeline[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
   const openSidebar = () => setIsSidebarOpen(true);
   const closeSidebar = () => setIsSidebarOpen(false);
+  const toggleOverlay = () => setIsOverlayVisible(!isOverlayVisible);
 
   useEffect(() => {
-    fetchFeed()
+    fetchFeed();
   }, [idToken]);
 
   const fetchFeed = async () => {
@@ -50,13 +56,16 @@ const Home = () => {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/timelines/get/timelines`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${idToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/api/timelines/get/timelines`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -78,7 +87,12 @@ const Home = () => {
         <h1>For You</h1>
         <div className={styles.iconContainer}>
           <ThemeToggle />
-          <div className={styles.questionIcon}>
+          <div
+            className={styles.questionIcon}
+            onClick={toggleOverlay}
+            role="button"
+            aria-label="Help"
+          >
             <Image src={questionIcon} alt="Question" />
           </div>
           <div
@@ -91,6 +105,10 @@ const Home = () => {
           </div>
         </div>
       </header>
+      <InstructionOverlay
+        isVisible={isOverlayVisible}
+        onClose={() => setIsOverlayVisible(false)}
+      />
       <div className={styles.searchBar}>
         <input type="text" placeholder="Search" aria-label="Search" />
         <div className={styles.searchIcon}>
@@ -110,23 +128,20 @@ const Home = () => {
               href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`} 
               key={timeline.timeline_id}
             >
-              <div className={styles.feedItem}>
-                <div className={styles.feedImage}>
-                  <Image
-                    src={timeline_1}
-                    alt={timeline.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                <div className={styles.feedContent}>
-                  <h3>{timeline.title}</h3>
-                </div>
-              </div>
+              <TimelineCard
+                {...timeline}
+                onClick={() =>
+                  dispatch(
+                    updateCurrentChannel({
+                      current_channel: timeline.timeline_id,
+                    })
+                  )
+                }
+              />
             </Link>
           ))
         ) : (
-          <p>No timelines available</p>
+          <LoadingSpinner />
         )}
       </section>
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />

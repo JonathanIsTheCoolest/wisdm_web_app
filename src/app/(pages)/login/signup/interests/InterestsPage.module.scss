@@ -1,49 +1,45 @@
 @import "./styles/variables.scss";
 
 .interestsPage {
-  padding: $padding-medium;
   display: flex;
   flex-direction: column;
   gap: $gap-medium;
-  text-align: center;
   margin-top: 8rem;
+  padding: $padding-medium;
+  text-align: center;
 
-    .interestsGrid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: $gap-medium;
-        margin-bottom: 100px;
+  .interestsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap-medium;
+    justify-content: center;
+    margin-bottom: 100px;
 
-        .interestItem {
-            display: flex;
-            gap: $gap-small;
-            margin: 0;
-            padding: 0;
-            flex: 1 1 calc(33.333% - 10px);
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+    .interestItem {
+      align-items: center;
+      border-radius: 8px;
+      box-sizing: border-box;
+      cursor: pointer;
+      flex-direction: column;
+      gap: $gap-medium;
+      transition: background-color 0.3s;
+      width: 175px;
 
-            &.selected img {
-                opacity: 0.5;
-            }
+      &.selected img {
+        opacity: 0.5;
+      }
 
-            img {
-                width: 100%;
-                height: auto;
-                border-radius: 8px;
-            }
+      img {
+        border-radius: 8px;
+        height: auto;
+        width: 100%;
+      }
 
-            p {
-                font-size: 10px;
-                font-family: $font-poppins-regular;
-                color: var(--color-body-font);
-            }
-        }
+      p {
+        color: var(--color-body-font);
+        font-family: $font-poppins-regular;
+        font-size: 10px;
+      }
     }
+  }
 }

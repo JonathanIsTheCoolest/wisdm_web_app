@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 // API/Database Imports
-import { ThemeProvider } from "@/src/app/_contexts/ThemeContext";
+import { ThemeProvider } from "@/app/_contexts/ThemeContext";
 
 // Component Imports
 import StoreProvider from "./StoreProvider";

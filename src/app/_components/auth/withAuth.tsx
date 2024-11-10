@@ -1,20 +1,21 @@
-'use client'
+"use client";
 
-import { useAppSelector } from '@/src/lib/hooks';
-import { RootState } from '@/src/lib/store';
-import { useRouter } from 'next/navigation';
-import React, { ComponentType, useEffect } from 'react';
+import { useAppSelector } from "@/lib/hooks";
+import { RootState } from "@/lib/store";
+import { useRouter } from "next/navigation";
+import React, { ComponentType, useEffect } from "react";
 
 // Higher Order Component Redirect
-const withAuth  = <P extends object>(WrappedComponent: ComponentType<P>): ComponentType<P> => {
-
+const withAuth = <P extends object>(
+  WrappedComponent: ComponentType<P>
+): ComponentType<P> => {
   return (props: P) => {
     const idToken = useAppSelector((state: RootState) => state.auth.idToken);
     const router = useRouter();
 
     useEffect(() => {
       if (!idToken) {
-        router.push('/login');
+        router.push("/login");
       }
     }, [idToken, router]);
 

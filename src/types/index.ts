@@ -32,28 +32,28 @@ export interface TimelineWithDetails {
 
 //Profile Tab
 export interface User {
-    username: string;
-    bio: string;
-    avatarUrl: string;
-    email: string;
-    joinDate: string;
-    tags: string[];
-  }
+  username: string;
+  bio: string;
+  avatarUrl: string;
+  email: string;
+  joinDate: string;
+  tags: string[];
+}
 
 export interface SavedTopic {
-    id: string;
-    title: string;
-    body: string;
-    comments: number;
-    imageUrl: string;
+  id: string;
+  title: string;
+  body: string;
+  comments: any[];
+  imageUrl?: string;
 }
 
 export interface Wisdom {
-    username: string;
-    time: string;
-    body: string;
-    upvotes: number;
-    comments: number;
+  username: string;
+  time: string;
+  body: string;
+  upvotes: number;
+  comments: number;
 }
 
 // Start Comment Interface
