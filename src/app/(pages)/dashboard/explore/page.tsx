@@ -1,7 +1,7 @@
 "use client";
 
 // System Imports
-import React from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -10,6 +10,7 @@ import placeholderData from "@/assets/placeholderData.json";
 
 // Component Imports
 import CommentCard from "@/app/_components/cards/CommentCard";
+import ExploreCard from "@/app/_components/cards/ExploreCard";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/explore/Explore.module.scss";
@@ -24,6 +25,7 @@ import featuredImage6 from "@/assets/images/explore_feed_6.png";
 import searchIcon from "@/assets/icons/search.svg";
 import settingsIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
+import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
 
 const Explore = () => {
   const images = [
@@ -32,15 +34,25 @@ const Explore = () => {
     featuredImage3,
     featuredImage4,
     featuredImage5,
-    featuredImage6
+    featuredImage6,
   ];
+
+  const scrollImages = [...images, ...images];
+
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const toggleOverlay = () => setIsOverlayVisible(!isOverlayVisible);
 
   return (
     <div className={styles.pageContainer}>
       <header className={styles.pageTitle}>
         <h1>Explore</h1>
         <div className={styles.iconContainer}>
-          <div className={styles.questionIcon}>
+          <div
+            className={styles.questionIcon}
+            onClick={toggleOverlay}
+            role="button"
+            aria-label="Help"
+          >
             <Image src={questionIcon} alt="Question" />
           </div>
           <div
@@ -53,6 +65,10 @@ const Explore = () => {
           </div>
         </div>
       </header>
+      <InstructionOverlay
+        isVisible={isOverlayVisible}
+        onClose={() => setIsOverlayVisible(false)}
+      />
       <div className={styles.searchBar}>
         <input type="text" placeholder="Search" aria-label="Search" />
         <div className={styles.searchIcon}>
@@ -66,20 +82,16 @@ const Explore = () => {
             SEE ALL
           </a>
         </div>
-        <div className={styles.exploreFeed}>
-          {images.map((image, index) => (
-            <div key={index} className={styles.exploreItem}>
-              <Image
-                src={image}
-                alt={`Featured ${index + 1}`}
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 768px) 100vw,
-                       (max-width: 1200px) 50vw,
-                       33vw"
+        <div className={styles.exploreFeedContainer}>
+          <div className={styles.exploreFeed}>
+            {scrollImages.map((image, index) => (
+              <ExploreCard
+                key={`scroll-${index}`}
+                image={image}
+                index={index}
               />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
       <div className={styles.sectionTitle}>

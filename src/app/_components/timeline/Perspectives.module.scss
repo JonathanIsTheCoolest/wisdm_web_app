@@ -1,56 +1,44 @@
-@import './styles/variables.scss';
+// CLEAN UP THIS FILE
+
+@import "./styles/variables.scss";
 
 .perspectivesContainer {
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    margin-top: 1rem;
-    gap: $gap-medium;
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: $gap-medium;
 
-    @media (max-width: 767px) {
-        width: 100%;
-    }
-}
-
-.timelineImage {
+  @media (max-width: 767px) {
     width: 100%;
-    height: 25%;
-    object-fit: cover;
-    margin-bottom: 1rem; // Add some margin to separate the image from the perspectives
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: $radius-large;
-    }
+  }
 }
 
 .perspective {
-    width: 50%;
-    border-radius: $radius-small;
-    padding: $padding-medium;
-    text-align: center;
-    
-    h2 {
-        font-family: $font-poppins-regular;
-        font-size: $font-size-event-date;
-        font-weight: 700;
-    }
+  width: 50%;
+  border-radius: $radius-small;
+  padding: $padding-medium;
+  text-align: center;
 
-    p {
-        font-family: $font-poppins-regular;
-        font-size: $font-size-event-date;
-        font-weight: 400;
-    }
+  h2 {
+    font-family: $font-poppins-regular;
+    font-size: $font-size-event-date;
+    font-weight: 700;
+  }
+
+  p {
+    font-family: $font-poppins-regular;
+    font-size: $font-size-event-date;
+    font-weight: 400;
+  }
 }
 
 .left {
-    background-color: $color-light-mode-timeline-left-perspective;
-    color: $color-light-mode-body-font;
+  background-color: var(--color-input);
+  color: var(--color-body-font);
 }
 
 .right {
-    background-color: $color-light-mode-timeline-right-perspective;
-    color: $color-dark-mode-body-font;
+  background-color: var(--color-input);
+  color: var(--color-body-font);
 }

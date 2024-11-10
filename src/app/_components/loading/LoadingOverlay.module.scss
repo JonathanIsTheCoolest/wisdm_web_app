@@ -1,0 +1,32 @@
+@import "styles/variables.scss";
+
+.overlayContainer {
+  align-items: center;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 9999;
+}
+
+.overlayText {
+  color: var(--color-body-font);
+  font-size: 18px;
+}
+
+.overlayTitle {
+  bottom: 10%;
+  color: $color-brand;
+  position: absolute;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+}

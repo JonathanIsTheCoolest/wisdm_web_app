@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@import "styles/variables.scss";
 
 .sidebarContainer {
   background-color: $color-background;
@@ -12,8 +12,8 @@
   top: 0;
   transition: right $settings-slide-transition;
   width: $settings-slide-width;
-  z-index: 1000;
-  
+  z-index: 1001;
+
   h1 {
     font-size: $font-size-page-header;
     line-height: 1;
@@ -50,9 +50,15 @@
   .sidebarHeader {
     align-items: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     padding: $padding-medium;
+    gap: $gap-medium;
+    height: 300px;
+
+    img {
+      width: 25%;
+    }
   }
 
   .sidebarSection {

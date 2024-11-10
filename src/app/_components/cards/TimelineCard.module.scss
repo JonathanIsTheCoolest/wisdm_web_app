@@ -1,0 +1,52 @@
+@import "styles/variables.scss";
+
+.timelineCard {
+  border-radius: $radius-large;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s ease;
+  width: 100%;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.timelineImage {
+  height: 60vh;
+  position: relative;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    height: 70vh;
+  }
+}
+
+.timelineOverlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.6)
+  );
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.timelineContent {
+  bottom: 0;
+  color: white;
+  left: 0;
+  padding: $padding-medium;
+  position: absolute;
+  right: 0;
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+  }
+}

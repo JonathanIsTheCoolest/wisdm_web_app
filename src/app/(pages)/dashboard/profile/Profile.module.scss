@@ -1,18 +1,37 @@
-// CLEAN UP THIS FILE
+@import "styles/variables.scss";
 
-@import "./styles/variables.scss";
+.pageWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: $padding-medium;
+  z-index: 100;
+  background-color: var(--color-bg);
+  min-height: 250px;
+}
+
+.pageContainer {
+  padding: 250px 20px 100px 20px;
+}
 
 .profileHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: $gap-medium;
 
-  .avatar {
-    position: relative;
-    width: $profile-avatar-size;
-    height: $profile-avatar-size;
-    border-radius: 50%;
-    overflow: hidden;
+  h2 {
+    font-size: $font-size-page-header;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-body-font);
+  }
+
+  p {
+    font-size: $font-size-body-text;
+    font-weight: 200;
+    color: var(--color-info-font);
   }
 }
 
@@ -20,23 +39,6 @@
   display: flex;
   flex-direction: column;
   gap: $gap-small;
-
-  .username {
-    font-size: $font-size-page-header;
-    line-height: 1;
-    color: var(--color-body-font);
-  }
-
-  .joined {
-    font-size: $font-size-body-text;
-    font-weight: 200;
-    color: var(--color-info-font);
-  }
-
-  .tags {
-    display: flex;
-    gap: $gap-medium;
-  }
 }
 
 .editButton {
@@ -45,69 +47,5 @@
   border-radius: 16px;
   background-color: var(--color-input);
   color: var(--color-body-font);
-  cursor: pointer;
-}
-
-.tabs {
-  display: flex;
-  overflow-x: auto;
-  gap: $gap-medium;
-
-  .tab {
-    color: var(--color-header-font);
-    text-wrap: nowrap;
-    padding: $profile-tab-padding;
-    border-radius: $radius-small;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-  }
-  .active {
-    background-color: var(--color-feed-item-bg);
-  }
-}
-
-//ONLY USED FOR THE TOGGLE SWITCH...
-.userSettingsContainer {
-  padding: 20px;
-}
-
-.settingItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.settingText {
-  flex: 1;
-}
-
-.settingText h3 {
-  margin: 0 0 5px 0;
-  font-size: 18px;
-}
-
-.settingText p {
-  margin: 0;
-  color: #666;
-  font-size: 14px;
-}
-
-.emailInput {
-  display: flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.emailInput input {
-  border: none;
-  background: transparent;
-  flex: 1;
-}
-
-.editIcon {
   cursor: pointer;
 }

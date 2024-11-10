@@ -1,38 +1,42 @@
-'use client'
+"use client";
 
-import React, { useEffect, useReducer } from "react"
+import React, { useEffect, useReducer } from "react";
 
-import { socket } from "@/src/app/_lib/socket"
+import { socket } from "@/app/_lib/socket";
 
 // Redux
-import { useAppDispatch } from "@/src/lib/hooks"
-import { apiHTTPWrapper } from "@/src/lib/features/authSlice"
+import { useAppDispatch } from "@/lib/hooks";
+import { apiHTTPWrapper } from "@/lib/features/authSlice";
 
 // Components
-import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay"
-import RootCommentInput from "../RootCommentInput/RootCommentInput"
+import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
+import RootCommentInput from "../RootCommentInput/RootCommentInput";
 
-import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer"
+import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer";
 
-import { CommentThread } from '@/src/types';
+import { CommentThread } from "@/types";
 
 interface CommentContainerProps {
-  threadId: string
+  threadId: string;
 }
 
-
 const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
-  const [commentState, commentDispatch] = useReducer(commentReducer, INIT_COMMENT_THREAD)
-  const dispatch = useAppDispatch()
+  const [commentState, commentDispatch] = useReducer(
+    commentReducer,
+    INIT_COMMENT_THREAD
+  );
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const loadComments = async () => {
       try {
-        const actionResult = await dispatch(apiHTTPWrapper({
-          url: `http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${threadId}`,
-        }));
+        const actionResult = await dispatch(
+          apiHTTPWrapper({
+            url: `http://127.0.0.1:5000/api/comments/get/get_comment_thread?thread_id=${threadId}`,
+          })
+        );
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {
           const result: CommentThread = actionResult.payload;
-          commentDispatch({type: 'setThread', payload: result})
+          commentDispatch({ type: "setThread", payload: result });
         } else {
           console.error("Failed to load comments:", actionResult.error);
         }
@@ -40,46 +44,45 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
         console.error("Error loading comments:", error);
       }
     };
-  
-    loadComments()
+
+    loadComments();
   }, []);
 
   useEffect(() => {
-    socket.on('receive_message', (response) => {
-      const comment = response.comment
+    socket.on("receive_message", (response) => {
+      const comment = response.comment;
 
       commentDispatch({
-        type: 'addComment', 
+        type: "addComment",
         payload: {
-          comment
-        }
-      })
+          comment,
+        },
+      });
     });
 
     return () => {
-      socket.off('receive_message')
+      socket.off("receive_message");
     };
-  }, [])
+  }, []);
 
-  return(
+  return (
     <div
-      id='comment_container'
+      id="comment_container"
       style={{
-        position: 'relative'
+        position: "relative",
       }}
     >
-      {
-        commentState.comments.root &&
+      {commentState.comments.root && (
         <RecursiveCommentDisplay
           commentsObject={commentState.comments}
           commentObject={commentState.comments.root}
           threadId={threadId}
           parentCollapsed={false}
         />
-      }
-      <RootCommentInput threadId={threadId}/>
+      )}
+      <RootCommentInput threadId={threadId} />
     </div>
-  )
-}
+  );
+};
 
-export default CommentContainer
+export default CommentContainer;

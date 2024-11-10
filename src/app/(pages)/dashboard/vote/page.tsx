@@ -16,10 +16,8 @@ const Vote = () => {
   const [voteItems, setVoteItems] = useState(placeholderData.voteItems);
 
   const handleVote = (id: string, vote: boolean) => {
-    setVoteItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, vote: vote } : item
-      )
+    setVoteItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, vote: vote } : item))
     );
   };
 

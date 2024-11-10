@@ -30,15 +30,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     <div
       className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}
     >
-      <div className={styles.closeButton} onClick={onClose}>
-        ×
-      </div>
       <header className={styles.sidebarHeader}>
-        <h1>Wisdm</h1>
         <Image
           src={theme === "light" ? wisdmLogoBrand : wisdmLogoWhite}
           alt="Wisdm Logo"
         />
+        <h1>WISDM</h1>
+        <p className={styles.closeButton} onClick={onClose}>
+          ×
+        </p>
       </header>
       <h2>Privacy and Security</h2>
       <div className={styles.sidebarSection}>

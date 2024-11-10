@@ -1,6 +1,6 @@
-@import "@/styles/variables.scss";
+@import "styles/variables.scss";
 
-.navbar {
+.navbarWrapper {
   display: flex;
   position: fixed;
   bottom: 0;
@@ -12,7 +12,7 @@
   color: var(--color-body-font);
   z-index: 1000;
 
-  .navWrapper {
+  .navbarContainer {
     display: flex;
     position: absolute;
     bottom: 0;
@@ -24,7 +24,7 @@
     box-shadow: var(--color-navbar-shadow);
   }
 
-  .navItem {
+  .navbarItem {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,13 +56,13 @@
     }
   }
 
-  .navItemActive {
+  .navbarItemActive {
     color: $color-brand;
     transform: translateY(-15px);
 
     img {
       filter: brightness(1.2);
-      transform: scale(1.0);
+      transform: scale(1);
       transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
       z-index: 2;
       height: auto;
@@ -76,7 +76,8 @@
     }
   }
 
-  .circle, .innerCircle {
+  .navbarCircle,
+  .navbarInnerCircle {
     transition: 0.3s ease-in-out;
     width: 50px;
     height: 50px;
@@ -85,22 +86,22 @@
     z-index: 1000;
   }
 
-  .circle {
+  .navbarCircle {
     background: transparent;
     position: fixed;
     bottom: 48px;
     left: -10%;
   }
 
-  .innerCircle {
-    background: #855DB9;
+  .navbarInnerCircle {
+    background: #855db9;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  .ellipse {
+  .navbarEllipse {
     width: 125px;
     height: 125px;
     background-color: transparent;
@@ -108,5 +109,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .navbarCurveBackground {
+    fill: var(--color-navbar-top) !important;
+    transition: fill var(--theme-transition-duration) ease;
+  }
+
+  .navbarCurveCircle {
+    fill: #855db9 !important;
+    transition: fill var(--theme-transition-duration) ease;
   }
 }

@@ -1,17 +1,46 @@
 @import "./styles/variables.scss";
 
-.exploreFeed {
-  display: flex;
-  flex-direction: row;
-  gap: $gap-medium;
+.exploreFeedContainer {
+  -webkit-overflow-scrolling: touch;
   overflow-x: auto;
+  position: relative;
+  width: 100%;
 
-  .exploreItem {
-    border-radius: 8px;
-    height: 240px;
-    min-width: 240px;
-    overflow: hidden;
-    position: relative;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100px;
+    z-index: 2;
+  }
+}
+
+.exploreFeed {
+  animation: scroll 40s linear infinite;
+  display: flex;
+  gap: 16px;
+  padding: 8px;
+  user-select: none;
+
+  &:active {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 

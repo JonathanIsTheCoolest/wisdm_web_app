@@ -1,13 +1,13 @@
 // System Imports
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
 // Stylesheet Imports
-import styles from '@/app/_components/cards/ActivityCard.module.scss';
+import styles from "@/app/_components/cards/ActivityCard.module.scss";
 
 // Asset Imports
-import upvoteIcon from '@/assets/icons/upvote.svg';
-import commentIcon from '@/assets/icons/comment.svg';
+import upvoteIcon from "@/assets/icons/upvote.svg";
+import commentIcon from "@/assets/icons/comment.svg";
 
 interface ActivityProps {
   topic?: string;
@@ -32,22 +32,19 @@ const ActivityCard: React.FC<ActivityProps> = ({
         <div className={styles.commentFooter}>
           <div className={styles.commentContainer}>
             <Image
-                src={upvoteIcon}
-                className={styles.upvoteIcon}
-                alt="Upvote"
+              src={upvoteIcon}
+              className={styles.upvoteIcon}
+              alt="Upvote"
             />
             <span>{upvotes}</span>
             <Image
-                src={upvoteIcon}
-                className={styles.downvoteIcon}
-                alt="Downvote"
+              src={upvoteIcon}
+              className={styles.downvoteIcon}
+              alt="Downvote"
             />
           </div>
           <div className={styles.commentCount}>
-            <Image
-                src={commentIcon}
-                alt="Comment"
-            />
+            <Image src={commentIcon} alt="Comment" />
             <span>{comments} comments</span>
           </div>
         </div>

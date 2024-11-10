@@ -22,6 +22,12 @@ import editIcon from "@/assets/icons/edit.svg";
 const Profile: React.FC = () => {
   const { savedTopics, wordsOfWisdom, comments, user } = placeholderData;
   const [showSettings, setShowSettings] = useState(false);
+  const [activeTab, setActiveTab] = useState("comments");
+
+  const quadrantData = {
+    xValue: 0.7,
+    yValue: 0.6,
+  };
 
   const toggleSettings = () => {
     setShowSettings(!showSettings);
@@ -33,35 +39,57 @@ const Profile: React.FC = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <header className={styles.pageTitle}>
-        <h1>Profile</h1>
-        <button className={styles.editButton} onClick={toggleSettings}>
-          Edit
-        </button>
-      </header>
-      <div className={styles.profileHeader}>
-        <div className={styles.avatar}>
-          <Image src={placeholderAvatar} alt={`${user.username}'s avatar`} width={80} height={80} />
-        </div>
-        <div className={styles.userInfo}>
-          <div className={styles.username}>Johnny Bravo</div>
-          <div className={styles.joined}>Joined 10/10/2024</div>
-          <div className={styles.tags}>
-            <div className={`${styles.userTag} ${styles.activeJusticeJuggernaut}`}>
-              Justice Juggernaut
-            </div>
-            <div className={`${styles.userTag} ${styles.activeDiplomacyDevotee}`}>
-              Diplomacy Devotee
+      <div className={styles.pageWrapper}>
+        <header className={styles.pageTitle}>
+          <h1>Profile</h1>
+          <button className={styles.editButton} onClick={toggleSettings}>
+            Edit
+          </button>
+        </header>
+        <div className={styles.profileHeader}>
+          <div className={styles.avatarSmall}>
+            <Image
+              src={placeholderAvatar}
+              alt={`${user.username}'s avatar`}
+              width={80}
+              height={80}
+            />
+          </div>
+          <div className={styles.userInfo}>
+            <h2>Johnny Bravo</h2>
+            <p>Joined 10/10/2024</p>
+            <div className={styles.tagContainer}>
+              <div
+                className={`${styles.tagItem} ${styles.activeJusticeJuggernaut}`}
+              >
+                Justice Juggernaut
+              </div>
+              <div
+                className={`${styles.tagItem} ${styles.activeDiplomacyDevotee}`}
+              >
+                Diplomacy Devotee
+              </div>
             </div>
           </div>
         </div>
+        <ProfileTabs
+          comments={comments}
+          savedTopics={savedTopics}
+          wisdmList={wordsOfWisdom}
+          quadrantData={quadrantData}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
       </div>
-      <ProfileTabs 
-        user={user}
-        comments={comments}
-        savedTopics={savedTopics}
-        wisdmList={wordsOfWisdom}
-      />
+      <div className={styles.scrollableContent}>
+        <ProfileTabs.Content
+          activeTab={activeTab}
+          comments={comments}
+          savedTopics={savedTopics}
+          wisdmList={wordsOfWisdom}
+          quadrantData={quadrantData}
+        />
+      </div>
     </div>
   );
 };
