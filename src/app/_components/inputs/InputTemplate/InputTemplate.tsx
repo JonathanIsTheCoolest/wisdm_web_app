@@ -37,10 +37,10 @@ const InputTemplate: React.FC<InputProps> = ({
 }) => {
   return (
     <div key={id} className={containerClass} style={{position: 'relative'}}>
-      {errorMessage && <span className={errorClass}>{errorMessage}</span>}
       <label htmlFor={id} className={labelClass}>
         {text}
       </label>
+      {errorMessage && <span className={errorClass}> {errorMessage}</span>}
       <input
         id={id}
         name={name}

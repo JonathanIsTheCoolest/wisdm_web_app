@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Comment } from "@/types";
 import Image from "next/image";
 import userDefaultImage from "@/assets/icons/user_avatar.svg";
-import { getElapsedTime } from "@/app/_lib/getElapsedTime";
+import { getElapsedTime } from "@/app/_lib/helper/time/getElapsedTime";
 
 import commentSVG from "@/assets/icons/comment.svg";
 import styles from "./CommentBody.module.scss";

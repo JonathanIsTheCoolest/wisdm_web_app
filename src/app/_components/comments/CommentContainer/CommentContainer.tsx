@@ -2,7 +2,7 @@
 
 import React, { useEffect, useReducer } from "react";
 
-import { socket } from "@/app/_lib/socket";
+import { socket } from "@/app/_lib/socket/socket";
 
 // Redux
 import { useAppDispatch } from "@/lib/hooks";

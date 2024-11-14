@@ -13,7 +13,7 @@ import {
   handleSocketConnection,
   handleRoomConnection,
   handleSocketCleanup,
-} from "@/app/_lib/socket";
+} from "@/app/_lib/socket/socket";
 
 // Component Imports
 import NavigationBar from "@/app/_components/navigation/NavigationBar";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import { apiSocketWrapper } from "@/lib/features/authSlice";
-import { socket } from "@/app/_lib/socket";
+import { socket } from "@/app/_lib/socket/socket";
 import Image from "next/image";
 import commentSVG from "@/assets/icons/comment.svg";
 import styles from "@/app/_components/comments/CommentInput/CommentInput.module.scss";

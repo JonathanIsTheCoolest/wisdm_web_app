@@ -1,6 +1,6 @@
 'use client'
 
-import { getDeviceType } from "../../getDeviceType"
+import { getDeviceType } from "@/app/_lib/helper/device/getDeviceType"
 
 export const  determineSignInSequence = (popUpSequence: Function, redirectSequence: Function) => {
   const deviceType = getDeviceType()

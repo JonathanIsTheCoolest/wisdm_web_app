@@ -16,7 +16,7 @@ import styles from "@/app/_components/timeline/TimelineComments.module.scss";
 import { Comment, CommentThread } from "@/types";
 import { RootState } from "@/lib/store";
 
-import { socket } from "@/app/_lib/socket";
+import { socket } from "@/app/_lib/socket/socket";
 import { apiSocketWrapper } from "@/lib/features/authSlice";
 
 import { apiHTTPWrapper } from "@/lib/features/authSlice";
