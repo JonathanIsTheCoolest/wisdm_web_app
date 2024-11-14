@@ -14,8 +14,6 @@ export const logInWithEmailAndPassword = async (email: string, password: string)
       }
     }
 
-    console.log(userInfo)
-
     return userInfo
   } catch(error: any) {
     const errorCode = error.code;

@@ -1,0 +1,19 @@
+@use 'styles/variables.scss' as *;
+
+.authButton {
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: $radius-small;
+  color: #000;
+  display: flex;
+  font-family: $font-poppins-regular;
+  font-size: 16px;
+  font-weight: 600;
+  gap: $gap-medium;
+  height: $button-height;
+  justify-content: center;
+  padding: $button-padding;
+  text-align: center;
+  width: 100%;
+}

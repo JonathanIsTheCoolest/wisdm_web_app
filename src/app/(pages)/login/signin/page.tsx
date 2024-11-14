@@ -12,6 +12,7 @@ import { facebookSignInSequence } from "@/app/_lib/firebase/auth/facebook/auth_f
 
 // Component Imports
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+import FederatedAuthButton from "@/app/_components/buttons/FederatedAuthButton/FederatedAuthButton";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/signin/SignInPage.module.scss";
@@ -90,17 +91,18 @@ const LoginPage = () => {
         </div>
 
         <div className={styles.authWrapper}>
-          <button className={styles.authButton} onClick={googleSignInSequence}>
-            <Image src={googleIcon} alt="Google Icon" />
-            Continue with Google
-          </button>
-          <button
-            className={styles.authButton}
+          <FederatedAuthButton
+            src={googleIcon}
+            alt="Google Icon"
+            text="Continue with Google"
+            onClick={googleSignInSequence}
+          />
+          <FederatedAuthButton
+            src={facebookIcon}
+            alt="Facebook Icon"
+            text="Continue with Facebook"
             onClick={facebookSignInSequence}
-          >
-            <Image src={facebookIcon} alt="Facebook Icon" />
-            Continue with Facebook
-          </button>
+          />
         </div>
         <SubmitButton
           text="Log In"
