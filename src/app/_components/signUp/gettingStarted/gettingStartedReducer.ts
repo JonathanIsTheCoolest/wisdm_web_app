@@ -5,7 +5,7 @@ export type State = {
   email: string;
   password: string;
   duplicatePassword: string;
-  nameError: string;
+  fullNameError: string;
   emailError: string;
   passwordError: string;
   duplicatePasswordError: string;
@@ -21,7 +21,7 @@ export const initialFormReducerState: State = {
   email: '',
   password: '',
   duplicatePassword: '',
-  nameError: '',
+  fullNameError: '',
   emailError: '',
   passwordError: '',
   duplicatePasswordError: '',

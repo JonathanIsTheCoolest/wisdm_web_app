@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useReducer } from "react";
+import { useRouter } from "next/navigation";
 import GettingStartedHeader from "@/app/_components/signUp/gettingStarted/GettingStartedHeaderHeader/GettingStartedHeader";
 import GettingStartedForm from "@/app/_components/signUp/gettingStarted/GettingStartedForm/GettingStartedForm";
 import FederatedAuthOptions from "@/app/_components/signUp/gettingStarted/FederatedAuthOptions/FederatedAuthOptions";
@@ -13,6 +14,7 @@ import styles from "@/app/(pages)/login/signup/SignUpPage.module.scss";
 const GettingStartedContainer = () => {
   const [formState, formDispatch] = useReducer(formReducer, initialFormReducerState);
   const { email, password, duplicatePassword, passwordError } = formState;
+  const router = useRouter();
 
   return (
     <div className={styles.signupPage}>
@@ -33,6 +35,7 @@ const GettingStartedContainer = () => {
         text="Next"
         onClick={() =>
           onClickFirebaseEmailPasswordSignUp(
+            router,
             email,
             password,
             duplicatePassword,
