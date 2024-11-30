@@ -13,7 +13,7 @@ import styles from "@/app/(pages)/login/signup/SignUpPage.module.scss";
 
 const GettingStartedContainer = () => {
   const [formState, formDispatch] = useReducer(formReducer, initialFormReducerState);
-  const { email, password, duplicatePassword, passwordError } = formState;
+  const { email, password, duplicatePassword, passwordError, fullName } = formState;
   const router = useRouter();
 
   return (
@@ -36,6 +36,7 @@ const GettingStartedContainer = () => {
         onClick={() =>
           onClickFirebaseEmailPasswordSignUp(
             router,
+            fullName,
             email,
             password,
             duplicatePassword,

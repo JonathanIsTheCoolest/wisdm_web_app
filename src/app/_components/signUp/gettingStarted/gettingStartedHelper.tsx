@@ -64,19 +64,36 @@ export const isPasswordVerified = (password: string, duplicatePassword: string) 
 
 export const onClickFirebaseEmailPasswordSignUp = async (
   router: any,
+  fullName: string,
   email: string,
   password: string,
   duplicatePassword: string,
   setField: (field: string, value: string) => void
 ) => {
+  if (fullName) {
+    try {
+      const moderationResponse = await fetch('http://127.0.0.1:5000/api/users/post/moderate_name', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          text: fullName
+        }),
+      })
+      const result = await moderationResponse.json()
+      console.log(result)
+    } catch (e) {
+      return e
+    }
+  }
   // if (isCorrectEmailFormat(email) && isPasswordVerified(password, duplicatePassword)) {
   //   try {
   //     const result = await signUpWithEmailAndPassword(email, password);
-  //     if (result?.user) router.push("/signup/personal");
+  //     if (result?.user) router.push("/login/signup/personal");
   //   } catch (error: any) {
   //     console.error(`Sign up error: ${error}`);
   //     setField("passwordError", error.message);
   //   }
   // }
-  router.push("/login/signup/personal")
 };
