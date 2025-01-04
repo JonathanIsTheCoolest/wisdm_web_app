@@ -27,7 +27,7 @@ import questionIcon from "@/assets/icons/questionmark.svg";
 
 const Home = () => {
   const API_BASE_URL =
-    process.env.NEXT_PUBLIC_BASE_API_URL || "http://127.0.0.1:5000";
+    process.env.BASE_API_URL || "http://127.0.0.1:5000";
 
   const idToken = useAppSelector((state: any) => state.auth.idToken);
   const dispatch = useAppDispatch();
