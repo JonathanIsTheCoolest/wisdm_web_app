@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 import { copyToClipboard } from "@/app/_lib/helper/clipboard/clipboard";
-import { generatePassword } from "@/app/_lib/password/generatePassword";
+import { generatePassword } from "@/app/_lib/user/password/generatePassword";
 
 interface SuggestedPasswordProps {
   password: string;

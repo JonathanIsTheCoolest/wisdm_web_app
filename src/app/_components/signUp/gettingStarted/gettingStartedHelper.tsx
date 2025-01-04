@@ -1,5 +1,5 @@
 import { signUpWithEmailAndPassword } from "@/app/_lib/firebase/auth/auth_signup_password";
-import { isCorrectEmailFormat } from "@/app/_lib/email/isCorrectEmailFormat";
+import { isCorrectEmailFormat } from "@/app/_lib/user/email/isCorrectEmailFormat";
 import { Filter } from "bad-words";
 
 const filter = new Filter();
@@ -27,6 +27,7 @@ export const nameErrorLogic = (
   const errorFieldName = `${name}Error`
   const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
   let errorMessage = ""
+  let isProfane = false
 
   if (!value.length) {
     setField(errorFieldName, errorMessage)
@@ -48,6 +49,35 @@ export const nameErrorLogic = (
   setField(errorFieldName, errorMessage)
 }
 
+// export const nameErrorLogic = (
+//   setField: (field: string, value: string) => void,
+//   e: React.ChangeEvent<HTMLInputElement>
+// ) => {
+//   const { value, name } = e.target  
+//   const errorFieldName = `${name}Error`
+//   const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
+//   let errorMessage = ""
+
+//   if (!value.length) {
+//     setField(errorFieldName, errorMessage)
+//     return
+//   }
+
+//   if (!namePattern.test(value)) {
+//     errorMessage = "Hmmm this doesn't look like a name..."
+//   }
+
+//   if (filter.isProfane(value)) {
+//     if (errorMessage.length) {
+//       errorMessage = `${errorMessage} and it might be inappropriate`
+//     } else {
+//       errorMessage = 'Hmmm this might be inappropriate'
+//     }
+//   }
+
+//   setField(errorFieldName, errorMessage)
+// }
+
 export const passwordErrorLogic = (
   setField: (field: string, value: string) => void,
   e: React.ChangeEvent<HTMLInputElement>,
@@ -62,6 +92,26 @@ export const passwordErrorLogic = (
 export const isPasswordVerified = (password: string, duplicatePassword: string) =>
   password === duplicatePassword && password.length > 0;
 
+const moderationRequest = async(name: string) => {
+  try {
+    const moderationResponse = await fetch('http://127.0.0.1:5000/api/users/post/moderate_name', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: name
+      }),
+    })
+    const result = await moderationResponse.json()
+    return result
+  } catch (e) {
+    return {
+      error: e
+    }
+  }
+}
+
 export const onClickFirebaseEmailPasswordSignUp = async (
   router: any,
   fullName: string,
@@ -71,22 +121,18 @@ export const onClickFirebaseEmailPasswordSignUp = async (
   setField: (field: string, value: string) => void
 ) => {
   if (fullName) {
-    try {
-      const moderationResponse = await fetch('http://127.0.0.1:5000/api/users/post/moderate_name', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          text: fullName
-        }),
-      })
-      const result = await moderationResponse.json()
-      console.log(result)
-    } catch (e) {
-      return e
+    const result = await moderationRequest(fullName)
+    if (result.error) {
+      console.error(result.error)
+      return
+    } else {
+      const {isProblematic, problematicWords} = result
+      if (isProblematic) {
+        setField('fullNameError', `We\'ve detected the use of the following profanity: ${problematicWords}. If you feel there's been a mistake please re-enter your name and try again.`)
+      }
     }
   }
+  console.log('success')
   // if (isCorrectEmailFormat(email) && isPasswordVerified(password, duplicatePassword)) {
   //   try {
   //     const result = await signUpWithEmailAndPassword(email, password);

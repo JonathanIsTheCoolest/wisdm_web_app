@@ -13,8 +13,35 @@ import styles from "@/app/(pages)/login/signup/SignUpPage.module.scss";
 
 const GettingStartedContainer = () => {
   const [formState, formDispatch] = useReducer(formReducer, initialFormReducerState);
-  const { email, password, duplicatePassword, passwordError, fullName } = formState;
+  const { fullName, email, password, duplicatePassword, fullNameError, emailError, passwordError, duplicatePasswordError } = formState;
   const router = useRouter();
+
+  const isReadyToSubmit = () => {
+    const errorArray = [fullNameError, emailError, passwordError, duplicatePasswordError]
+    const valueArray = [fullName, email, password, duplicatePassword]
+    for (let i = 0; i < errorArray.length; i++) {
+      if (errorArray[i].length) {
+        return false
+      }
+      if (!valueArray[i].length) {
+        return false
+      }
+    }
+    return true
+  }
+
+  const onClickNextButton = () => {
+    if (isReadyToSubmit()) {
+      onClickFirebaseEmailPasswordSignUp(
+        router,
+        fullName,
+        email,
+        password,
+        duplicatePassword,
+        (field, value) => setField(formDispatch, field, value)
+      )
+    }
+  }
 
   return (
     <div className={styles.signupPage}>
@@ -33,16 +60,7 @@ const GettingStartedContainer = () => {
       <TermsAndConditions passwordError={passwordError} />
       <SubmitButton
         text="Next"
-        onClick={() =>
-          onClickFirebaseEmailPasswordSignUp(
-            router,
-            fullName,
-            email,
-            password,
-            duplicatePassword,
-            (field, value) => setField(formDispatch, field, value)
-          )
-        }
+        onClick={onClickNextButton}
       />
     </div>
   );

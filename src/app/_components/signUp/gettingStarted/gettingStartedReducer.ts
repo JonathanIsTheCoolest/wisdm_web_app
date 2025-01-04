@@ -1,4 +1,4 @@
-import { generatePassword } from "@/app/_lib/password/generatePassword";
+import { generatePassword } from "@/app/_lib/user/password/generatePassword";
 
 export type State = {
   fullName: string;
