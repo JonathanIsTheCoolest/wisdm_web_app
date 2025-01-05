@@ -16,7 +16,7 @@ import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer";
 
 import { CommentThread } from "@/types";
 
-const BASE_API_URL = process.env.BASE_API_URL
+const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL
 
 interface CommentContainerProps {
   threadId: string;
@@ -33,7 +33,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
       try {
         const actionResult = await dispatch(
           apiHTTPWrapper({
-            url: `${BASE_API_URL}/api/comments/get/get_comment_thread?thread_id=${threadId}`,
+            url: `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}`,
           })
         );
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {

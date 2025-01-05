@@ -93,8 +93,7 @@ export const isPasswordVerified = (password: string, duplicatePassword: string) 
   password === duplicatePassword && password.length > 0;
 
 const moderationRequest = async(name: string) => {
-  const BASE_API_URL =
-    process.env.BASE_API_URL
+  const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL
   try {
     const moderationResponse = await fetch(`${BASE_API_URL}/api/users/post/moderate_name`, {
       method: 'POST',

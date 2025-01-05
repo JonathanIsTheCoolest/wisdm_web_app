@@ -7,9 +7,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "src/styles")],
   },
-  env: {
-    BASE_API_URL_DEV: "http://127.0.0.1:5000/api",
-  },
   images: {
     remotePatterns: [
       {

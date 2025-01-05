@@ -26,8 +26,7 @@ import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
 
 const Home = () => {
-  const API_BASE_URL =
-    process.env.BASE_API_URL || "http://127.0.0.1:5000";
+  const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
   const idToken = useAppSelector((state: any) => state.auth.idToken);
   const dispatch = useAppDispatch();
@@ -54,7 +53,7 @@ const Home = () => {
       }
 
       const response = await fetch(
-        `${API_BASE_URL}/api/timelines/get/timelines`,
+        `${API_BASE_URL}/timelines/get/timelines`,
         {
           method: "GET",
           headers: {

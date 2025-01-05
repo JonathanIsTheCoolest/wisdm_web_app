@@ -21,7 +21,7 @@ import styles from "@/app/(pages)/dashboard/timeline/Timeline.module.scss";
 import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
 import timeline_1 from "@/assets/images/timeline_1.png";
 
-const API_BASE_URL = process.env.BASE_API_URL || "http://127.0.0.1:5000/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 const Timeline = () => {
   const [timelineData, setTimelineData] = useState<TimelineWithDetails | null>(
