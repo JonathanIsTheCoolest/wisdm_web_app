@@ -5,7 +5,7 @@ import { io, Socket } from "socket.io-client";
 let BASE_API_URL = process.env.NEXT_PUBLIC_SOCKET_URL
 
 export const socket: Socket = io(
-  `ws://${BASE_API_URL}` || '', 
+  `wss://${BASE_API_URL}`, 
   {
     autoConnect: false, 
     transports: ['websocket']
