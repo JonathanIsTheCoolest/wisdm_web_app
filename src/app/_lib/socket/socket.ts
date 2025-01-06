@@ -2,10 +2,12 @@
 
 import { io, Socket } from "socket.io-client";
 
-let BASE_API_URL = process.env.NEXT_PUBLIC_SOCKET_URL
+const BASE_API_URL = process.env.NEXT_PUBLIC_SOCKET_URL
+const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT
+export const SOCKET_STANDARD = ENVIRONMENT === 'production' ? 'wss' : 'ws'
 
 export const socket: Socket = io(
-  `wss://${BASE_API_URL}`, 
+  `${SOCKET_STANDARD}://${BASE_API_URL}`, 
   {
     autoConnect: false, 
     transports: ['websocket']
