@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const path = require("path");
 
+const firebaseProjectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
@@ -30,6 +32,14 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/__/auth/:path*",
+        destination: `https://${firebaseProjectId}.firebaseapp.com/__/auth/:path*`,
+      },
+    ]
+  }
 };
 
 module.exports = nextConfig;
