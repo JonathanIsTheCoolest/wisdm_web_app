@@ -29,6 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <div
       className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}
+      style={{'overflow': 'scroll'}}
     >
       <header className={styles.sidebarHeader}>
         <Image
