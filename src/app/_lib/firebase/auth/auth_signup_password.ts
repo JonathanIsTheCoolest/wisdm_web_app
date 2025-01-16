@@ -19,12 +19,14 @@ export const signUpWithEmailAndPassword = async (email: string, password: string
     const errorCode = error.code;
     const errorMessage = error.message;
 
-    console.error({
-      errorCode,
-      errorMessage
-    })
+    const errorObject = {
+        errorCode,
+        errorMessage
+    }
 
-    return (error)
+    console.error(errorObject)
+
+    return errorObject
   } finally {
     // Run any cleanup
   }

@@ -49,35 +49,6 @@ export const nameErrorLogic = (
   setField(errorFieldName, errorMessage)
 }
 
-// export const nameErrorLogic = (
-//   setField: (field: string, value: string) => void,
-//   e: React.ChangeEvent<HTMLInputElement>
-// ) => {
-//   const { value, name } = e.target  
-//   const errorFieldName = `${name}Error`
-//   const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
-//   let errorMessage = ""
-
-//   if (!value.length) {
-//     setField(errorFieldName, errorMessage)
-//     return
-//   }
-
-//   if (!namePattern.test(value)) {
-//     errorMessage = "Hmmm this doesn't look like a name..."
-//   }
-
-//   if (filter.isProfane(value)) {
-//     if (errorMessage.length) {
-//       errorMessage = `${errorMessage} and it might be inappropriate`
-//     } else {
-//       errorMessage = 'Hmmm this might be inappropriate'
-//     }
-//   }
-
-//   setField(errorFieldName, errorMessage)
-// }
-
 export const passwordErrorLogic = (
   setField: (field: string, value: string) => void,
   e: React.ChangeEvent<HTMLInputElement>,
@@ -92,10 +63,10 @@ export const passwordErrorLogic = (
 export const isPasswordVerified = (password: string, duplicatePassword: string) =>
   password === duplicatePassword && password.length > 0;
 
-const moderationRequest = async(name: string) => {
+export const moderationRequest = async(name: string) => {
   const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL
   try {
-    const moderationResponse = await fetch(`${BASE_API_URL}/api/users/post/moderate_name`, {
+    const moderationResponse = await fetch(`${BASE_API_URL}/users/post/moderate_name`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -125,22 +96,32 @@ export const onClickFirebaseEmailPasswordSignUp = async (
     const result = await moderationRequest(fullName)
     if (result.error) {
       console.error(result.error)
-      return
+      return {error: result.error}
     } else {
       const {isProblematic, problematicWords} = result
       if (isProblematic) {
         setField('fullNameError', `We\'ve detected the use of the following profanity: ${problematicWords}. If you feel there's been a mistake please re-enter your name and try again.`)
+      } else {
+        if (isCorrectEmailFormat(email) && isPasswordVerified(password, duplicatePassword)) {
+          try {
+            const result: any = await signUpWithEmailAndPassword(email, password);
+            if (result?.user) {
+              // router.push("/login/signup/personal")
+            } else if (result?.errorCode) {
+              const { errorMessage, errorCode } = result
+              if (errorCode === "auth/weak-password") {
+                setField("passwordError", errorMessage)
+              } else {
+                setField("emailError", errorMessage)
+              }
+            }
+          } catch (error: any) {
+            console.error(`Sign up error: ${error}`);
+            setField("passwordError", error.message);
+          }
+        }
       }
     }
   }
   console.log('success')
-  // if (isCorrectEmailFormat(email) && isPasswordVerified(password, duplicatePassword)) {
-  //   try {
-  //     const result = await signUpWithEmailAndPassword(email, password);
-  //     if (result?.user) router.push("/login/signup/personal");
-  //   } catch (error: any) {
-  //     console.error(`Sign up error: ${error}`);
-  //     setField("passwordError", error.message);
-  //   }
-  // }
 };
