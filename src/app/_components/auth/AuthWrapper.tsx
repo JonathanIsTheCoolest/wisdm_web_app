@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/_lib/firebase/auth/auth";
@@ -17,13 +17,13 @@ function AuthWrapper({
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathName = usePathname();
+  const currentSearchParams = useSearchParams();
 
   const currentUser = useAppSelector((state: RootState) => state.user)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log('Checking credentials...')
-      console.log(pathName)
 
       if (user) {
         dispatch(login({
@@ -39,13 +39,17 @@ function AuthWrapper({
           username: user.displayName
         }))
         if (!pathName?.includes('dashboard')) {
+          console.log(`Redirecting you to: /dashboard`)
           router.push('/dashboard')
         } else {
-          router.push(pathName);
+          console.log(`Redirecting you to: ${pathName}`)
+          router.push(`${pathName}?${currentSearchParams}`);
         }
       } else {
         console.log("None or invalid credentials");
         dispatch(logout());
+        console.log(`Redirecting you to: /login`)
+        console.log(`Please try signing back in`)
         router.push("/login");
       }
     });
