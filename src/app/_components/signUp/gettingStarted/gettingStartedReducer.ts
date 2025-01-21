@@ -1,11 +1,9 @@
 import { generatePassword } from "@/app/_lib/user/password/generatePassword";
 
 export type State = {
-  fullName: string;
   email: string;
   password: string;
   duplicatePassword: string;
-  fullNameError: string;
   emailError: string;
   passwordError: string;
   duplicatePasswordError: string;
@@ -17,11 +15,9 @@ export type Action =
   | { type: 'RESET_FORM' };
 
 export const initialFormReducerState: State = {
-  fullName: '',
   email: '',
   password: '',
   duplicatePassword: '',
-  fullNameError: '',
   emailError: '',
   passwordError: '',
   duplicatePasswordError: '',

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useReducer } from "react";
-import { useRouter } from "next/navigation";
 import GettingStartedHeader from "@/app/_components/signUp/gettingStarted/GettingStartedHeaderHeader/GettingStartedHeader";
 import GettingStartedForm from "@/app/_components/signUp/gettingStarted/GettingStartedForm/GettingStartedForm";
 import FederatedAuthOptions from "@/app/_components/signUp/gettingStarted/FederatedAuthOptions/FederatedAuthOptions";
@@ -13,12 +12,11 @@ import styles from "@/app/(pages)/login/signup/SignUpPage.module.scss";
 
 const GettingStartedContainer = () => {
   const [formState, formDispatch] = useReducer(formReducer, initialFormReducerState);
-  const { fullName, email, password, duplicatePassword, fullNameError, emailError, passwordError, duplicatePasswordError } = formState;
-  const router = useRouter();
+  const { email, password, duplicatePassword, emailError, passwordError, duplicatePasswordError } = formState;
 
   const isReadyToSubmit = () => {
-    const errorArray = [fullNameError, emailError, passwordError, duplicatePasswordError]
-    const valueArray = [fullName, email, password, duplicatePassword]
+    const errorArray = [emailError, passwordError, duplicatePasswordError]
+    const valueArray = [email, password, duplicatePassword]
     for (let i = 0; i < errorArray.length; i++) {
       if (errorArray[i].length) {
         return false
@@ -33,8 +31,6 @@ const GettingStartedContainer = () => {
   const onClickNextButton = () => {
     if (isReadyToSubmit()) {
       onClickFirebaseEmailPasswordSignUp(
-        router,
-        fullName,
         email,
         password,
         duplicatePassword,

@@ -1,59 +1,48 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
-  avatar: string | null;
-  currentChannel: string | null;
+  photo_url: string | null;
+  current_channel: string | null;
   email: string | null;
-  lastPostId: string | null;
   locality: string | null;
-  numPosts: number | null;
   username: string | null;
+  name: string | null;
+  gender: string | null;
+  created_at: string | null;
+  last_sign_in_time: string | null;
+  disabled: boolean | null;
+  partial_data: boolean | null;
 }
 
 interface UpdateChannelPayload {
   current_channel: string | null;
 }
 
-interface UserAction {
-  avatar: string | null;
-  current_channel: string | null;
-  email: string | null;
-  last_post_id: string | null;
-  locality: string | null;
-  num_posts: number | null;
-  username: string | null;
-}
-
 const initialState: UserState = {
-  avatar: '',
-  currentChannel: null,
-  email: '',
-  lastPostId: '',
-  locality: '',
-  numPosts: 0,
-  username: ''
-}
+  photo_url: null,
+  current_channel: null,
+  email: null,
+  locality: null,
+  username: null,
+  name: null,
+  gender: null,
+  created_at: null,
+  last_sign_in_time: null,
+  disabled: null,
+  partial_data: null,
+};
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
-    setUser: (state: UserState, action: PayloadAction<UserAction>) => {
-      const { avatar, current_channel, email, last_post_id, locality, num_posts, username } = action.payload
-      return {
-        avatar: avatar ?? state.avatar,
-        currentChannel: current_channel ?? state.currentChannel,
-        email: email ?? state.email,
-        lastPostId: last_post_id ?? state.lastPostId,
-        locality: locality ?? state.locality,
-        numPosts: num_posts ?? state.numPosts,
-        username: username ?? state.username
-      };
+    setUser: (state, action: PayloadAction<Partial<UserState>>) => {
+      Object.assign(state, action.payload);
     },
-    updateCurrentChannel: (state, action: PayloadAction<UpdateChannelPayload>) => {
-      state.currentChannel = action.payload.current_channel;
-    }
-  }
+    updateCurrentChannel: (state: UserState, action: PayloadAction<UpdateChannelPayload>) => {
+      state.current_channel = action.payload.current_channel;
+    },
+  },
 });
 
 export const { setUser, updateCurrentChannel } = userSlice.actions;

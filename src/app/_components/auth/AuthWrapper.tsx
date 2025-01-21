@@ -8,6 +8,7 @@ import { auth } from "@/app/_lib/firebase/auth/auth";
 import { login, logout } from "@/lib/features/authSlice";
 import { setUser } from "@/lib/features/userSlice";
 import { RootState } from "@/lib/store";
+import { apiHTTPWrapper } from "@/lib/features/authSlice";
 
 function AuthWrapper({
   children,
@@ -21,24 +22,53 @@ function AuthWrapper({
 
   const currentUser = useAppSelector((state: RootState) => state.user)
 
+  const fetchUserDataFromDB = async (idToken?: string) => {
+    const getUserEndpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/get/user`
+    try {
+      const user = await dispatch(
+        apiHTTPWrapper({
+          url: getUserEndpoint,
+          options: {
+            method: 'GET'
+          },
+          idToken: idToken
+        })
+      )
+
+      return await user.payload
+    } catch(error) {
+      return error
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log('Checking credentials...')
 
       if (user) {
+        const idToken = await user.getIdToken()
+
         dispatch(login({
-          idToken: await user.getIdToken()
+          idToken: idToken
         }));
+        const user_data = await fetchUserDataFromDB()
         dispatch(setUser({
-          avatar: user.photoURL,
-          current_channel: currentUser.currentChannel ?? user.displayName,
-          email: user.email,
-          last_post_id: currentUser.lastPostId,
-          locality: currentUser.locality,
-          num_posts: currentUser.numPosts,
-          username: user.displayName
+          photo_url: user_data.photo_url,
+          current_channel: currentUser.current_channel ?? user_data.name,
+          email: user_data.email,
+          locality: user_data.locality,
+          username: user_data.username,
+          name: user_data.name,
+          gender: user_data.gender,
+          created_at: user_data.created_at,
+          last_sign_in_time: user_data.last_sign_in_time,
+          disabled: user_data.disabled,
+          partial_data: user_data.partial_data
         }))
-        if (!pathName?.includes('dashboard')) {
+        if (user_data.partial_data) {
+          console.log(`Great Let's finish signing you up!`)
+          router.push('/login/signup/personal')
+        } else if (!pathName?.includes('dashboard')) {
           console.log(`Redirecting you to: /dashboard`)
           router.push('/dashboard')
         } else {

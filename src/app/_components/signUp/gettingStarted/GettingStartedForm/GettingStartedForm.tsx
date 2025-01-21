@@ -1,7 +1,7 @@
 import React from "react";
 import InputTemplate from "@/app/_components/inputs/InputTemplate/InputTemplate";
 import SuggestedPassword from "@/app/_components/signUp/gettingStarted/SuggestedPassword/SuggestedPassword";
-import { handleChange, passwordErrorLogic, nameErrorLogic } from "@/app/_components/signUp/gettingStarted/gettingStartedHelper";
+import { handleChange, passwordErrorLogic } from "@/app/_components/signUp/gettingStarted/gettingStartedHelper";
 import styles from "@/app/(pages)/login/signup/SignUpPage.module.scss";
 
 const GettingStartedForm = ({ formState, setField }: {formState: any, setField: any}) => {
@@ -9,8 +9,6 @@ const GettingStartedForm = ({ formState, setField }: {formState: any, setField: 
     email,
     password,
     duplicatePassword,
-    fullName,
-    fullNameError,
     emailError,
     passwordError,
     duplicatePasswordError,
@@ -18,15 +16,6 @@ const GettingStartedForm = ({ formState, setField }: {formState: any, setField: 
   } = formState;
 
   const inputArray = [
-    {
-      id: "fullName",
-      type: "text",
-      value: fullName,
-      text: "Full Name",
-      placeholder: "Insert Name",
-      onChange: nameErrorLogic,
-      errorMessage: fullNameError,
-    },
     {
       id: "email",
       type: "email",

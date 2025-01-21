@@ -13,8 +13,17 @@ import arrowLeftWhite from "@/assets/icons/arrow_left_white.svg";
 import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle2 from "@/assets/icons/progress_circle_2.svg";
 
+// Redux imports
+import { useAppSelector } from "@/lib/hooks";
+
+// Firebase imports
+import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
+
+const genderOptionsArray = ['Female', 'Male', 'Other', 'Don\'t want to specify']
+
 const PersonalInfoPage = () => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
+  const user = useAppSelector(state => state.user)
 
   const handleButtonClick = (gender: string) => {
     setActiveButton((prev) => (prev === gender ? null : gender));
@@ -23,14 +32,24 @@ const PersonalInfoPage = () => {
   return (
     <div className={styles.personalInfoPage}>
       <div className={styles.onboardingHeader}>
-        <Link href="/login/signup" className={styles.backButton}>
-          <Image src={arrowLeftBrand} />
+        <Link onClick={onSignOut} href="/login/signup" className={styles.backButton}>
+          <Image src={arrowLeftBrand} alt="Back button"/>
         </Link>
-        <Image src={progressCircle2} className={styles.progressCircles} />
+        <Image src={progressCircle2} className={styles.progressCircles} alt="Loading Circle" />
       </div>
 
       <div className={styles.onboardingTextBlock}>
         <h1>Tell us a little about yourself</h1>
+      </div>
+
+      <div className={styles.labelWrapper}>
+        <label>Full Name</label>
+        <input
+          type="text"
+          placeholder="John Doe"
+          defaultValue={user.name ?? ''}
+          className={styles.inputField}
+        />
       </div>
 
       <div className={styles.labelWrapper}>
@@ -49,30 +68,19 @@ const PersonalInfoPage = () => {
       <div className={styles.labelWrapper}>
         <label>What is your gender?</label>
         <div className={styles.genderButtons}>
-          <button
-            className={`${styles.genderButton} ${activeButton === "Female" ? styles.active : ""}`}
-            onClick={() => handleButtonClick("Female")}
-          >
-            Female
-          </button>
-          <button
-            className={`${styles.genderButton} ${activeButton === "Male" ? styles.active : ""}`}
-            onClick={() => handleButtonClick("Male")}
-          >
-            Male
-          </button>
-          <button
-            className={`${styles.genderButton} ${activeButton === "Other" ? styles.active : ""}`}
-            onClick={() => handleButtonClick("Other")}
-          >
-            Other
-          </button>
-          <button
-            className={`${styles.genderButton} ${activeButton === "Don't want to specify" ? styles.active : ""}`}
-            onClick={() => handleButtonClick("Don't want to specify")}
-          >
-            Don't want to specify
-          </button>
+          {
+            genderOptionsArray.map(item => {
+              return (
+                <button
+                  key={item}
+                  className={`${styles.genderButton} ${activeButton === item ? styles.active : ""}`}
+                  onClick={() => handleButtonClick(item)}
+                >
+                  {item}
+                </button>
+              )
+            })
+          }
         </div>
       </div>
 

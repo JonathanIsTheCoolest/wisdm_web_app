@@ -12,11 +12,11 @@ const initialState: AuthState = {
 export const apiHTTPWrapper = createAsyncThunk(
   "auth/apiHTTPWrapper",
   async (
-    { url, options = {} }: { url: string; options?: RequestInit },
+    { url, options = {}, idToken }: { url: string; options?: RequestInit, idToken?: string },
     { getState }
   ) => {
     const state = getState() as RootState;
-    const token = state.auth.idToken;
+    const token = idToken ?? state.auth.idToken;
 
     const headers = {
       ...options.headers,
