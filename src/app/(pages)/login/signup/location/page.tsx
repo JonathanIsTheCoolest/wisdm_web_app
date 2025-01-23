@@ -6,6 +6,8 @@ import { useAppDispatch } from "@/lib/hooks";
 import { useAppSelector } from "@/lib/hooks";
 import { setSignupState } from "@/lib/features/signupSlice";
 
+import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+
 import { useRouter } from 'next/navigation';
 
 // System Imports
@@ -79,9 +81,9 @@ const LocationInfoPage = () => {
         <p className={styles.infoText}>
           You can customize the visibility of your information in the settings
         </p>
-        <Link href="/login/signup/tags" className={styles.nextButton}>
-          Next
-        </Link>
+        <SubmitButton 
+          onClick={handleSubmission}
+        />
       </div>
     </div>
   )

@@ -14,8 +14,34 @@ import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle5 from "@/assets/icons/progress_circle_5.svg";
 import tech from "@/assets/images/tech.png";
 
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
+import { apiHTTPWrapper } from "@/lib/features/authSlice";
+import { setSignupState } from "@/lib/features/signupSlice";
+
+import { useRouter } from "next/navigation";
+
+import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+
+const interestArray = [
+  { label: "Domestic Politics", image: tech.src },
+  { label: "International Relations", image: tech.src },
+  { label: "Policy & Legislation", image: tech.src },
+  { label: "AI & Technology", image: tech.src },
+  { label: "Elections & Campaigns", image: tech.src },
+  { label: "Human Rights", image: tech.src },
+  { label: "Entertainment Industry", image: tech.src },
+  { label: "Social Media", image: tech.src },
+  { label: "Environmental Policy", image: tech.src },
+  { label: "Economics", image: tech.src },
+  { label: "Global Health", image: tech.src },
+  { label: "Peace & Justice", image: tech.src },
+]
+
 const InterestsPage = () => {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const signupState = useAppSelector((state) => state.signup)
+  const dispatch = useAppDispatch()
+  const router = useRouter()
 
   const handleInterestClick = (label: string) => {
     setSelectedInterests((prev) =>
@@ -23,13 +49,45 @@ const InterestsPage = () => {
     );
   };
 
+  const handleSubmission = async () => {
+    if (selectedInterests.length >= 5) {
+      dispatch(setSignupState({...signupState, interests: selectedInterests}))
+      const endpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/post/create_user`
+      console.log()
+      try {
+        const response = await dispatch(
+          apiHTTPWrapper({
+            url: endpoint,
+            options: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(signupState)
+            }
+          })
+        )
+        console.log(response)
+        const result = await response.payload
+        console.log(result)
+
+        router.push('/dashboard')
+      } catch (error) {
+        console.error({
+          error: 'There was an error posting your information',
+          additionalDetails: error
+        })
+      }
+    }
+  }
+
   return (
     <div className={styles.interestsPage}>
       <div className={styles.onboardingHeader}>
         <Link href="/login/signup/tags" className={styles.backButton}>
-          <Image src={arrowLeftBrand} />
+          <Image src={arrowLeftBrand} alt="back button"/>
         </Link>
-        <Image src={progressCircle5} className={styles.progressCircles} />
+        <Image src={progressCircle5} alt="progress" className={styles.progressCircles} />
       </div>
 
       <div className={styles.onboardingTextBlock}>
@@ -38,20 +96,7 @@ const InterestsPage = () => {
       </div>
 
       <div className={styles.interestsGrid}>
-        {[
-          { label: "Domestic Politics", image: tech.src },
-          { label: "International Relations", image: tech.src },
-          { label: "Policy & Legislation", image: tech.src },
-          { label: "AI & Technology", image: tech.src },
-          { label: "Elections & Campaigns", image: tech.src },
-          { label: "Human Rights", image: tech.src },
-          { label: "Entertainment Industry", image: tech.src },
-          { label: "Social Media", image: tech.src },
-          { label: "Environmental Policy", image: tech.src },
-          { label: "Economics", image: tech.src },
-          { label: "Global Health", image: tech.src },
-          { label: "Peace & Justice", image: tech.src },
-        ].map((interest) => (
+        {interestArray.map((interest) => (
           <div
             key={interest.label}
             className={`${styles.interestItem} ${selectedInterests.includes(interest.label) ? styles.selected : ""}`}
@@ -64,9 +109,10 @@ const InterestsPage = () => {
       </div>
 
       <div className={styles.nextWrapper}>
-        <Link href="/dashboard" className={styles.nextButton}>
-          Finish
-        </Link>
+        <SubmitButton
+          text="Finish"
+          onClick={handleSubmission}
+        />
       </div>
     </div>
   );
