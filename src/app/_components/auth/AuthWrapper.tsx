@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/_lib/firebase/auth/auth";
 import { login, logout } from "@/lib/features/authSlice";
 import { setUser } from "@/lib/features/userSlice";
+import { setSignupState } from "@/lib/features/signupSlice";
 import { RootState } from "@/lib/store";
 import { apiHTTPWrapper } from "@/lib/features/authSlice";
 
@@ -21,6 +22,7 @@ function AuthWrapper({
   const currentSearchParams = useSearchParams();
 
   const currentUser = useAppSelector((state: RootState) => state.user)
+  const signupInfo = useAppSelector((state) => state.signup)
 
   const fetchUserDataFromDB = async (idToken?: string) => {
     const getUserEndpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/get/user`
@@ -67,6 +69,14 @@ function AuthWrapper({
         }))
         if (user_data.partial_data) {
           console.log(`Great Let's finish signing you up!`)
+          if (user_data.name) {
+            dispatch(setSignupState(
+              {
+                ...signupInfo, 
+                personalInfo: {...signupInfo.personalInfo, name: user_data.name}
+              }
+            ))
+          }
           router.push('/login/signup/personal')
         } else if (!pathName?.includes('dashboard')) {
           console.log(`Redirecting you to: /dashboard`)

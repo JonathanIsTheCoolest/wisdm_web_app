@@ -1,23 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface SignupState {
+export interface PersonalInfo {
   name: string | null;
   username: string | null;
+  gender: string | null;
+  [key: string]: string | null;
+}
+
+export interface SignupState {
+  personalInfo: PersonalInfo;
   locality: string | null;
   interests: Array<string>;
   traits: Array<string>;
 }
 
-const initialState: SignupState = {
-  name: null,
-  username: null,
+export const initialState: SignupState = {
+  personalInfo: {
+    name: null,
+    username: null,
+    gender: null,
+  },
   locality: null,
   interests: [],
   traits: [],
 };
 
 const signupSlice = createSlice({
-  name: "user",
+  name: "signup",
   initialState,
   reducers: {
     setSignupState: (state, action: PayloadAction<Partial<SignupState>>) => {

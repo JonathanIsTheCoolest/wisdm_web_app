@@ -2,20 +2,23 @@ import { Filter } from "bad-words";
 
 const filter = new Filter()
 
-export const basicNameModerationFilter = (value: string) => {
-  const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
-  let errorMessage = ""
+const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/
+const usernamePattern = /^[A-Za-z0-9!@#$%^&*()_+={}[\]:;'"<>,.?\/|-]+$/
+
+export const basicNameModerationFilter = (value: string, fieldName: string = 'name') => {
+  const pattern = fieldName === 'name' ? namePattern : usernamePattern;
+  let errorMessage = null
 
   if (!value.length) {
     return errorMessage
   }
 
-  if (!namePattern.test(value)) {
-    errorMessage = "Hmmm this doesn't look like a name..."
+  if (!pattern.test(value)) {
+    errorMessage = `Hmmm this doesn't look like a ${fieldName}...`
   }
 
   if (filter.isProfane(value)) {
-    if (errorMessage.length) {
+    if (errorMessage?.length) {
       errorMessage = `${errorMessage} and it might be inappropriate`
     } else {
       errorMessage = 'Hmmm this might be inappropriate'
@@ -25,7 +28,7 @@ export const basicNameModerationFilter = (value: string) => {
   return errorMessage
 }
 
-export const aiNameModerationRequest = async(name: string) => {
+export const aiNameModerationRequest = async(object: Object) => {
   const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL
   try {
     const moderationResponse = await fetch(`${BASE_API_URL}/users/post/moderate_name`, {
@@ -34,7 +37,7 @@ export const aiNameModerationRequest = async(name: string) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        text: name
+        object: object
       }),
     })
     const result = await moderationResponse.json()
