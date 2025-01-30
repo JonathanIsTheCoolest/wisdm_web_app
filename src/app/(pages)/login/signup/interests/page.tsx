@@ -51,7 +51,8 @@ const InterestsPage = () => {
 
   const handleSubmission = async () => {
     if (selectedInterests.length >= 5) {
-      dispatch(setSignupState({...signupState, interests: selectedInterests}))
+      const newSignupState = {...signupState, interests: selectedInterests}
+      dispatch(setSignupState(newSignupState))
       const endpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/post/create_user`
       console.log()
       try {
@@ -63,7 +64,7 @@ const InterestsPage = () => {
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify(signupState)
+              body: JSON.stringify(newSignupState)
             }
           })
         )

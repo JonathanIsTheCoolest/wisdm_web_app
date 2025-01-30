@@ -39,6 +39,7 @@ const Timeline = () => {
         });
 
         const result = await response.json();
+        console.log(result)
         setTimelineData(result);
       } catch (e) {
         console.error(

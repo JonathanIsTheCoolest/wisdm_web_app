@@ -63,6 +63,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
             vote={vote}
             vote_count={vote_count}
             comment_id={comment_id}
+            threadId={threadId}
           />
           <Image
             src={commentSVG}
