@@ -1,11 +1,11 @@
 // Types
-import { CommentThread, Comment } from "@/types";
+import { CommentThread, Comment, UpdateComment } from "@/types";
 
 export type CommentActions =
   | { type: 'setThread'; payload: CommentThread }
   | { type: 'addComment'; payload: { comment: Comment } }
-  | { type: 'updateComment'; payload: { threadId: string; comment: Comment } }
-  | { type: 'deleteComment'; payload: { threadId: string; commentId: string } };
+  | { type: 'updateComment'; payload: { comment: UpdateComment } }
+  | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
 
 export const INIT_COMMENT_THREAD: CommentThread = {
   comments: {}
@@ -35,21 +35,29 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
       return commentStateModel
     }
 
+    // This is used for all comment updates including vote actions!
     case 'updateComment': {
-      const { threadId, comment } = action.payload;
-      if (!state.comments[threadId]) return state;
-      return {
+      const { comment } = action.payload;
+      const parent_comment_id = comment.parent_comment_id || 'root';
+
+      const updatedStateModel = {
         ...state,
         comments: {
           ...state.comments,
-          [threadId]: {
-            ...state.comments[threadId],
-            [comment.comment_id]: comment
-          }
-        }
-      };
+          [parent_comment_id]: {
+            ...(state.comments[parent_comment_id] || {}), // Ensure parent exists
+            [comment.comment_index]: {
+              ...(state.comments[parent_comment_id]?.[comment.comment_index] || {}), // Ensure comment exists
+              ...comment, // Merge only provided fields
+            },
+          },
+        },
+      }
+    
+      return updatedStateModel
     }
 
+    // REQUIRES A COMPLETE REWRITE
     case 'deleteComment': {
       const { threadId, commentId } = action.payload;
       if (!state.comments[threadId]) return state;

@@ -38,6 +38,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
         );
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {
           const result: CommentThread = actionResult.payload;
+          console.log(result)
           commentDispatch({ type: "setThread", payload: result });
         } else {
           console.error("Failed to load comments:", actionResult.error);
@@ -51,7 +52,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
   }, []);
 
   useEffect(() => {
-    socket.on("receive_message", (response) => {
+    socket.on("receive_comment", (response) => {
       const comment = response.comment;
 
       commentDispatch({
@@ -63,9 +64,26 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
     });
 
     return () => {
-      socket.off("receive_message");
+      socket.off("receive_comment");
     };
   }, []);
+
+  useEffect(() => {
+    socket.on("receive_comment_update", (response) => {
+      const comment = response
+
+      commentDispatch({
+        type: "updateComment",
+        payload: {
+          comment
+        }
+      })
+    })
+
+    return () => {
+      socket.off("receive_comment_update")
+    };
+  }, [])
 
   return (
     <div

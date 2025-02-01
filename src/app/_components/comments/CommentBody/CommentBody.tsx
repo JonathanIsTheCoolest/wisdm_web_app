@@ -60,10 +60,8 @@ const CommentBody: React.FC<CommentBodyProps> = ({
         <div className={styles.commentText}>{body}</div>
         <div className={styles.commentFooter}>
           <VoteContainer
-            vote={vote}
-            vote_count={vote_count}
-            comment_id={comment_id}
             threadId={threadId}
+            comment={comment}
           />
           <Image
             src={commentSVG}

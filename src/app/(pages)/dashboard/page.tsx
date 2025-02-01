@@ -47,7 +47,7 @@ const Home = () => {
 
   const fetchFeed = async () => {
     try {
-      if (!idToken) {
+      if (!idToken) { // This is a redundant check, It needs to be removed.
         console.error("User not authenticated");
         return;
       }

@@ -27,7 +27,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
     dispatch(
       apiSocketWrapper({
         cb: (args: object) => {
-          socket.emit("send_message", args);
+          socket.emit("send_comment", args);
         },
         args: {
           room: threadId,
@@ -44,7 +44,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
   return (
     <label htmlFor="newComment" className={styles.labelContainer}>
       <input
-        id="newComment"
+        // id="newComment"
         name="newComment"
         type="text"
         value={newComment}
