@@ -38,7 +38,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
         );
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {
           const result: CommentThread = actionResult.payload;
-          console.log(result)
+
           commentDispatch({ type: "setThread", payload: result });
         } else {
           console.error("Failed to load comments:", actionResult.error);
