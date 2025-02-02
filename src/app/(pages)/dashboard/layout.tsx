@@ -49,17 +49,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     let cleanup: () => any | void = () => null;
-    if (socket.connected && user.currentChannel) {
-      handleRoomConnection(user.currentChannel);
+    if (socket.connected && user.current_channel) {
+      handleRoomConnection(user.current_channel);
       cleanup = () =>
         handleSocketCleanup(() =>
-          handleRoomConnection(user.currentChannel ?? "")
+          handleRoomConnection(user.current_channel ?? "")
         );
     }
     return () => {
       cleanup();
     };
-  }, [user.currentChannel, socket.connected]);
+  }, [user.current_channel, socket.connected]);
 
   useEffect(() => {
     routes.forEach((route) => {
@@ -68,7 +68,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     });
   }, [router]);
 
-  const shouldShowNavBar = !pathname.includes("/timeline");
+  const shouldShowNavBar = !pathname?.includes("/timeline");
 
   return (
     <div className={styles.onboardingWrapper}>
