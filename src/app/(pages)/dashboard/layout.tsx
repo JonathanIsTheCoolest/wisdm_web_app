@@ -19,7 +19,7 @@ import {
 import NavigationBar from "@/app/_components/navigation/NavigationBar";
 import Sidebar from "@/app/_components/navigation/Sidebar";
 import withAuth from "@/app/_components/auth/withAuth";
-import PageTransition from "@/app/_components/transitions/PageTransition";
+
 // import LoadingSpinner from "@/app/_components/loading/LoadingSpinner"; STILL YET TO BE CREATED
 
 // Stylesheet Imports
@@ -73,7 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={styles.onboardingWrapper}>
       {/* <Suspense fallback={<LoadingSpinner />}> */}
-      <PageTransition>{children}</PageTransition>
+      {children}
       {/* </Suspense> */}
       {shouldShowNavBar && <NavigationBar />}
       <Sidebar isOpen={showSidebar} onClose={toggleSidebar} />

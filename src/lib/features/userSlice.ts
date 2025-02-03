@@ -39,7 +39,10 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<Partial<UserState>>) => {
       Object.assign(state, action.payload);
     },
-    updateCurrentChannel: (state: UserState, action: PayloadAction<UpdateChannelPayload>) => {
+    updateCurrentChannel: (
+      state: UserState,
+      action: PayloadAction<UpdateChannelPayload>
+    ) => {
       state.current_channel = action.payload.current_channel;
     },
   },
