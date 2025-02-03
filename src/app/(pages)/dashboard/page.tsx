@@ -6,8 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { updateCurrentChannel } from "@/lib/features/userSlice";
+import { useAppSelector } from "@/lib/hooks";
 import { Timeline } from "@/types";
 
 // Component Imports
@@ -29,7 +28,6 @@ const Home = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
   const idToken = useAppSelector((state: any) => state.auth.idToken);
-  const dispatch = useAppDispatch();
 
   const [timelines, setTimelines] = useState<Timeline[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -119,20 +117,12 @@ const Home = () => {
           <p className={styles.errorMessage}>{error}</p>
         ) : timelines.length > 0 ? (
           timelines.map((timeline) => (
-            <Link 
-              onClick={() => dispatch(updateCurrentChannel({ current_channel: timeline.timeline_id }))}
+            <Link
               href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`} 
               key={timeline.timeline_id}
             >
               <TimelineCard
                 {...timeline}
-                onClick={() =>
-                  dispatch(
-                    updateCurrentChannel({
-                      current_channel: timeline.timeline_id,
-                    })
-                  )
-                }
               />
             </Link>
           ))
