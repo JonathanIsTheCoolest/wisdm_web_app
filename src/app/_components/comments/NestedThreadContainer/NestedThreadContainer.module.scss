@@ -1,5 +1,7 @@
+@import "./styles/variables.scss";
+
 .nestedThreadContainer {
-  margin-left: clamp(25px, 5%, 50px);
+  margin-left: clamp(50px, 5%, 50px);
   overflow: hidden;
   transition: 1s ease;
 }

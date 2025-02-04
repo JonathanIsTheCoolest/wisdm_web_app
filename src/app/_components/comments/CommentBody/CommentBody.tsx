@@ -42,8 +42,8 @@ const CommentBody: React.FC<CommentBodyProps> = ({
   }, [created_at]);
 
   return (
-    <div className={styles.commentBody}>
-      <div className={styles.commentHeader}>
+    <div className={styles.commentBodyContainer}>
+      <div className={styles.commentAvatar}>
         <Image
           id={comment_id}
           src={user_photo_url || userDefaultImage}
@@ -52,32 +52,35 @@ const CommentBody: React.FC<CommentBodyProps> = ({
           height={50}
           className={styles.userPhoto}
         />
-        <div className={styles.usernameElapsed}>
-          {username} · {elapsedTime}
-        </div>
       </div>
-      <div className={styles.commentContent}>
-        <div className={styles.commentText}>{body}</div>
-        <div className={styles.commentFooter}>
-          <VoteContainer
-            threadId={threadId}
-            comment={comment}
-          />
-          <Image
-            src={commentSVG}
-            alt="nested comment total"
-            height={20}
-            width={20}
-            className={styles.commentIcon}
-            onClick={() => setIsReplying((prev) => (prev ? false : true))}
-          />
-          <div className={styles.commentCount}>{comment_count}</div>
+      <div className={styles.commentContainer}>
+        <div className={styles.commentHeader}>
+          <div className={styles.usernameElapsed}>
+            {username} · {elapsedTime}
+          </div>
         </div>
-        <NestedCommentInput
-          threadId={threadId}
-          isReplying={isReplying}
-          parentCommentId={comment_id}
-        />
+        <div className={styles.commentContent}>
+          <div className={styles.commentText}>{body}</div>
+          <div className={styles.commentFooter}>
+            <VoteContainer threadId={threadId} comment={comment} />
+            <div className={styles.commentIconContainer}>
+              <Image
+                src={commentSVG}
+                alt="nested comment total"
+                height={20}
+                width={20}
+                className={styles.commentIcon}
+                onClick={() => setIsReplying((prev) => (prev ? false : true))}
+              />
+              <div className={styles.commentCount}>{comment_count}</div>
+            </div>
+          </div>
+          <NestedCommentInput
+            threadId={threadId}
+            isReplying={isReplying}
+            parentCommentId={comment_id}
+          />
+        </div>
       </div>
     </div>
   );

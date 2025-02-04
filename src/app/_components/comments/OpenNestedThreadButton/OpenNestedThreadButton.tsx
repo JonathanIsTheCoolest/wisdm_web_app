@@ -138,7 +138,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> =
               left: positions.verticalLinePositions.left,
               height: positions.verticalLinePositions.topToToggleHeight - 10,
               width: "2px",
-              backgroundColor: "black",
+              backgroundColor: "var(--color-comment-font-detail)",
               transform: "translateX(-50%)",
             }}
           />
@@ -169,7 +169,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> =
               left: positions.verticalLinePositions.left,
               height: positions.verticalLinePositions.toggleToBottomHeight - 25,
               width: "2px",
-              backgroundColor: "black",
+              backgroundColor: "var(--color-comment-font-detail)",
               transform: "translateX(-50%)",
             }}
           />
@@ -184,7 +184,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> =
                 left: child.centeredLeft,
                 height: "2px",
                 width: child.horizontalLineLength - 5,
-                backgroundColor: "black",
+                backgroundColor: "var(--color-comment-font-detail)",
                 transform: "translateX(-1px)",
               }}
             />

@@ -16,7 +16,7 @@ import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer";
 
 import { CommentThread } from "@/types";
 
-const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL
+const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 interface CommentContainerProps {
   threadId: string;
@@ -38,7 +38,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
         );
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {
           const result: CommentThread = actionResult.payload;
-          console.log(result)
+          console.log(result);
           commentDispatch({ type: "setThread", payload: result });
         } else {
           console.error("Failed to load comments:", actionResult.error);
@@ -70,20 +70,20 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
 
   useEffect(() => {
     socket.on("receive_comment_update", (response) => {
-      const comment = response
+      const comment = response;
 
       commentDispatch({
         type: "updateComment",
         payload: {
-          comment
-        }
-      })
-    })
+          comment,
+        },
+      });
+    });
 
     return () => {
-      socket.off("receive_comment_update")
+      socket.off("receive_comment_update");
     };
-  }, [])
+  }, []);
 
   return (
     <div
