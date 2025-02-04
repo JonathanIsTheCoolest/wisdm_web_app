@@ -4,6 +4,8 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { useAppDispatch } from "@/lib/hooks";
+import { updateCurrentChannel } from "@/lib/features/userSlice";
 
 // API/Database Imports
 import { TimelineWithDetails } from "@/types";
@@ -28,7 +30,9 @@ const Timeline = () => {
     null
   );
   const searchParams = useSearchParams();
-  const timelineId = searchParams?.get("timeline_id");
+  const timelineId: string = searchParams?.get("timeline_id") || '';
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const fetchTimelineDetails = async () => {
@@ -49,6 +53,15 @@ const Timeline = () => {
     };
     fetchTimelineDetails();
   }, [timelineId]);
+
+  useEffect(() => {
+    timelineId &&
+    dispatch(
+      updateCurrentChannel({
+        current_channel: timelineId
+      })
+    )
+  }, [timelineId])
 
   if (!timelineData) {
     return <LoadingOverlay isVisible={true} />;
