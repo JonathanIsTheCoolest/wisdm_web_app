@@ -1,8 +1,21 @@
+@import "./styles/variables.scss";
+
+.voteContainer {
+  display: flex;
+  align-items: center;
+  gap: $gap-small;
+}
+
 .voteArrow {
-  margin-right: 3px;
 }
 
 .downvote {
   transform: rotate(180deg);
-  margin-left: 3px;
+}
+
+.voteCount {
+  font-family: $font-poppins-thin;
+  font-size: $font-size-comment-details;
+  font-weight: 200;
+  color: var(--color-comment-font-detail);
 }

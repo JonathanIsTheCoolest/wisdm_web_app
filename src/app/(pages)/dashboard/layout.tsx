@@ -13,7 +13,6 @@ import { WebSocketProvider, useWebSocket } from "@/app/_lib/socket/socket";
 import NavigationBar from "@/app/_components/navigation/NavigationBar";
 import Sidebar from "@/app/_components/navigation/Sidebar";
 import withAuth from "@/app/_components/auth/withAuth";
-import PageTransition from "@/app/_components/transitions/PageTransition";
 
 import styles from "@/app/page.module.scss";
 
@@ -55,7 +54,9 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className={styles.onboardingWrapper}>
-      <PageTransition>{children}</PageTransition>
+      {/* <Suspense fallback={<LoadingSpinner />}> */}
+      {children}
+      {/* </Suspense> */}
       {shouldShowNavBar && <NavigationBar />}
       <Sidebar isOpen={showSidebar} onClose={toggleSidebar} />
     </div>

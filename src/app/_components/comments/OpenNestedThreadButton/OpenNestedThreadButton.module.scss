@@ -13,11 +13,11 @@
 
   &.collapsed {
     transform: rotate(-90deg) translateY(-50%);
-    background-color: black;
+    background-color: var(--color-comment-font-detail);
   }
 
   &.expanded {
     transform: rotate(0deg) translateX(-50%);
-    background-color: transparent;
+    background-color: var(--color-comment-font-detail);
   }
 }

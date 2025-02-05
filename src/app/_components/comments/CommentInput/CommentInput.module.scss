@@ -1,3 +1,5 @@
+@import "./styles/variables.scss";
+
 .labelContainer {
   width: 100%;
   position: relative;
@@ -9,6 +11,9 @@
   width: 100%;
   border-radius: 15px;
   padding: 10px;
+  border-color: var(--color-comment-font-detail);
+  background-color: var(--color-timeline-comment-bg);
+  color: var(--color-comment-font);
 }
 
 .sendIcon {
@@ -17,7 +22,7 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: greenyellow;
+  background-color: $color-brand;
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   opacity: 0;
   cursor: text;
