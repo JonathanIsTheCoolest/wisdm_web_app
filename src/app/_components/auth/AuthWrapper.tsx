@@ -55,6 +55,7 @@ function AuthWrapper({
             idToken: idToken,
           })
         );
+        
         const user_data = await fetchUserDataFromDB();
         dispatch(
           setUser({
@@ -68,8 +69,7 @@ function AuthWrapper({
             created_at: user_data.created_at,
             last_sign_in_time: user_data.last_sign_in_time,
             disabled: user_data.disabled,
-            partial_data: user_data.partial_data,
-            uid: user.uid,
+            partial_data: user_data.partial_data
           })
         );
         if (user_data.partial_data) {

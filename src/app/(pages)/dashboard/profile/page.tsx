@@ -35,7 +35,6 @@ interface UserState {
   partial_data: boolean;
   current_channel: string | null;
   last_sign_in_time: string | null;
-  uid: string | null;
 }
 
 interface UserSettingsProps {
@@ -59,7 +58,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     const fetchUserTraits = async () => {
       try {
-        if (!user?.uid) {
+        if (!user?.username) {
           console.log("No user ID available yet");
           return;
         }
@@ -67,7 +66,7 @@ const Profile: React.FC = () => {
         const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
         const traitsUrl = `${API_BASE_URL}/user_traits/get/traits`;
-        console.log("Fetching user traits for user ID:", user.uid);
+        console.log("Fetching user traits for username:", user.username);
         console.log("API URL:", traitsUrl);
 
         const traitsResponse = await dispatch(
@@ -97,7 +96,7 @@ const Profile: React.FC = () => {
     };
 
     fetchUserTraits();
-  }, [user?.uid, dispatch]);
+  }, [user?.username, dispatch]);
 
   const getTraitClassName = (trait: string) => {
     const formattedTrait = "active" + trait.replace(/[\s-]/g, "");
