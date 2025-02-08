@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { updateCurrentChannel } from "@/lib/features/userSlice";
 
+import { standardizePersonalRoomName } from "@/app/_lib/user/name/general";
+
 // Component Imports
 import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
 
@@ -32,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
           href="/dashboard"
           className={styles.backButton}
           onClick={() =>
-            dispatch(updateCurrentChannel({ current_channel: user.username }))
+            dispatch(updateCurrentChannel({ current_channel: standardizePersonalRoomName(user.username) }))
           }
         >
           <Image src={arrowLeftBrand} alt="Back" />

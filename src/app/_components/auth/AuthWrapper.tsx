@@ -10,6 +10,7 @@ import { setUser } from "@/lib/features/userSlice";
 import { setSignupState } from "@/lib/features/signupSlice";
 import { RootState } from "@/lib/store";
 import { apiHTTPWrapper } from "@/lib/features/authSlice";
+import { standardizePersonalRoomName } from "@/app/_lib/user/name/general";
 
 function AuthWrapper({
   children,
@@ -55,12 +56,13 @@ function AuthWrapper({
             idToken: idToken,
           })
         );
-        
+
         const user_data = await fetchUserDataFromDB();
+        const personalChannelName = standardizePersonalRoomName(user_data.username)
         dispatch(
           setUser({
             photo_url: user_data.photo_url,
-            current_channel: currentUser.current_channel ?? user_data.name,
+            current_channel: currentUser.current_channel ?? personalChannelName,
             email: user_data.email,
             locality: user_data.locality,
             username: user_data.username,

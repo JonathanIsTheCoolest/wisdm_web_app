@@ -5,6 +5,7 @@ import { socket } from "@/app/_lib/socket/socket";
 import Image from "next/image";
 import commentSVG from "@/assets/icons/comment.svg";
 import styles from "@/app/_components/comments/CommentInput/CommentInput.module.scss";
+import { useAppSelector } from "@/lib/hooks";
 
 interface CommentInputProps {
   threadId: string;
@@ -20,6 +21,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
   inputStyles,
 }) => {
   const dispatch = useAppDispatch();
+  const username = useAppSelector(state => state.user.username)
   const [newComment, setNewComment] = useState("");
 
   const onClickPostComment = (e: React.MouseEvent) => {
@@ -35,6 +37,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
           body: newComment,
           parent_comment_id: parentCommentId,
           reference_id: null,
+          username: username
         },
       })
     );
