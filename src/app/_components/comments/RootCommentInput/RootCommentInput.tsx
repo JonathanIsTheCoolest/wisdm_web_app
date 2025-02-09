@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/redux_lib/hooks";
 import userDefaultImage from "@/assets/icons/user_avatar.svg";
 import Image from "next/image";
 import styles from "./RootCommentInput.module.scss";

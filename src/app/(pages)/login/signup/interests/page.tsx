@@ -14,9 +14,9 @@ import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle5 from "@/assets/icons/progress_circle_5.svg";
 import tech from "@/assets/images/tech.png";
 
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { apiHTTPWrapper } from "@/lib/features/authSlice";
-import { setSignupState } from "@/lib/features/signupSlice";
+import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
+import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
+import { setSignupState } from "@/redux_lib/features/signupSlice";
 
 import { useRouter } from "next/navigation";
 

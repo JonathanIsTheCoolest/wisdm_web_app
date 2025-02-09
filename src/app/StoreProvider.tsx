@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 
 // API/Database Imports
-import { makeStore, AppStore } from '../lib/store'
+import { makeStore, AppStore } from '../redux_lib/store'
 import { Provider } from 'react-redux'
 
 export default function StoreProvider({

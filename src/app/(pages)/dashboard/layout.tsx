@@ -2,8 +2,8 @@
 "use client";
 
 import React, { ReactNode, useEffect, useState } from "react";
-import { useAppSelector } from "@/lib/hooks";
-import { RootState } from "@/lib/store";
+import { useAppSelector } from "@/redux_lib/hooks";
+import { RootState } from "@/redux_lib/store";
 import { usePathname, useRouter } from "next/navigation";
 
 // ✅ Import WebSocket Context Provider & Hook

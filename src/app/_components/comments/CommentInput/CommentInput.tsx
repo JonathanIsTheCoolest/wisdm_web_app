@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "@/lib/hooks";
-import { apiSocketWrapper } from "@/lib/features/authSlice";
+import { useAppDispatch } from "@/redux_lib/hooks";
+import { apiSocketWrapper } from "@/redux_lib/features/authSlice";
 import { socket } from "@/app/_lib/socket/socket";
 import Image from "next/image";
 import commentSVG from "@/assets/icons/comment.svg";
 import styles from "@/app/_components/comments/CommentInput/CommentInput.module.scss";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/redux_lib/hooks";
+import { standardizedPath } from "@/app/_lib/helper/navigation/path";
 
 interface CommentInputProps {
   threadId: string;
@@ -24,6 +25,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
   const username = useAppSelector(state => state.user.username)
   const [newComment, setNewComment] = useState("");
 
+  const path = standardizedPath()
+
   const onClickPostComment = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(
@@ -37,7 +40,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
           body: newComment,
           parent_comment_id: parentCommentId,
           reference_id: null,
-          username: username
+          username: username,
+          path: path
         },
       })
     );

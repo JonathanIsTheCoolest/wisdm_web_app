@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux_lib/hooks";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/_lib/firebase/auth/auth";
-import { login, logout } from "@/lib/features/authSlice";
-import { setUser } from "@/lib/features/userSlice";
-import { setSignupState } from "@/lib/features/signupSlice";
-import { RootState } from "@/lib/store";
-import { apiHTTPWrapper } from "@/lib/features/authSlice";
+import { login, logout } from "@/redux_lib/features/authSlice";
+import { setUser } from "@/redux_lib/features/userSlice";
+import { setSignupState } from "@/redux_lib/features/signupSlice";
+import { RootState } from "@/redux_lib/store";
+import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
 import { standardizePersonalRoomName } from "@/app/_lib/user/name/general";
 
 function AuthWrapper({

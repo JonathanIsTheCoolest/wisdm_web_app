@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-import { useAppDispatch } from "@/lib/hooks";
-import { useAppSelector } from "@/lib/hooks";
-import { setSignupState } from "@/lib/features/signupSlice";
+import { useAppDispatch } from "@/redux_lib/hooks";
+import { useAppSelector } from "@/redux_lib/hooks";
+import { setSignupState } from "@/redux_lib/features/signupSlice";
 
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 

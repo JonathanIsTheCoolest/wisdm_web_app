@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import userSlice from '@/lib/features/userSlice'
-import authSlice from '@/lib/features/authSlice'
-import signupSlice from '@/lib/features/signupSlice'
+import userSlice from '@/redux_lib/features/userSlice'
+import authSlice from '@/redux_lib/features/authSlice'
+import signupSlice from '@/redux_lib/features/signupSlice'
 
 export const makeStore = () => {
   return configureStore({

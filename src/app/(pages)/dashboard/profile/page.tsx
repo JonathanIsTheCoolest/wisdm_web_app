@@ -19,9 +19,9 @@ import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import editIcon from "@/assets/icons/edit.svg";
 
 // Redux imports
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { RootState } from "@/lib/store";
-import { apiHTTPWrapper } from "@/lib/features/authSlice";
+import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
+import { RootState } from "@/redux_lib/store";
+import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
 
 interface UserState {
   username: string | null;

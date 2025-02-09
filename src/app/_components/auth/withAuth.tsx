@@ -1,7 +1,7 @@
 "use client";
 
-import { useAppSelector } from "@/lib/hooks";
-import { RootState } from "@/lib/store";
+import { useAppSelector } from "@/redux_lib/hooks";
+import { RootState } from "@/redux_lib/store";
 import { useRouter } from "next/navigation";
 import React, { ComponentType, useEffect } from "react";
 

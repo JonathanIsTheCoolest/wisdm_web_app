@@ -19,8 +19,8 @@ import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 import progressCircle2 from "@/assets/icons/progress_circle_2.svg";
 
 // Redux imports
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { setSignupState, PersonalInfo } from "@/lib/features/signupSlice";
+import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
+import { setSignupState, PersonalInfo } from "@/redux_lib/features/signupSlice";
 
 // Firebase imports
 import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";

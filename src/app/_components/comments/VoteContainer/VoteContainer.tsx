@@ -5,11 +5,12 @@ import upVote from "@/assets/icons/upvote.svg";
 import upVoteFill from "@/assets/icons/upvote_fill.svg";
 import styles from "@/app/_components/comments/VoteContainer/VoteContainer.module.scss";
 
-import { useAppDispatch } from "@/lib/hooks";
-import { apiSocketWrapper } from "@/lib/features/authSlice";
+import { useAppDispatch } from "@/redux_lib/hooks";
+import { apiSocketWrapper } from "@/redux_lib/features/authSlice";
 import { socket } from "@/app/_lib/socket/socket";
 
 import { Comment } from "@/types";
+import { standardizedPath } from "@/app/_lib/helper/navigation/path";
 
 interface VoteContainerProps {
   threadId: string;
@@ -20,6 +21,8 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment }) => {
   const dispatch = useAppDispatch();
   const { vote, vote_count, comment_id } = comment;
   const [isBouncing, setIsBouncing] = useState(false);
+
+  const path = standardizedPath()
 
   const onClickUpdateVote = (e: React.MouseEvent, newValue: boolean | null) => {
     e.preventDefault();
@@ -34,6 +37,7 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment }) => {
             room: threadId,
             vote: newValue,
             comment,
+            path: path
           },
         })
       );

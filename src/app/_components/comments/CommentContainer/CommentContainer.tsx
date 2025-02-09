@@ -5,8 +5,8 @@ import React, { useEffect, useReducer } from "react";
 import { socket } from "@/app/_lib/socket/socket";
 
 // Redux
-import { useAppDispatch } from "@/lib/hooks";
-import { apiHTTPWrapper } from "@/lib/features/authSlice";
+import { useAppDispatch } from "@/redux_lib/hooks";
+import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
 
 // Components
 import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay";

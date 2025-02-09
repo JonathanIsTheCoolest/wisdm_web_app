@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "@/lib/store";
+import { RootState } from "@/redux_lib/store";
 
 interface AuthState {
   idToken: string | null;

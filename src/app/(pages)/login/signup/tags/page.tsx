@@ -5,8 +5,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { setSignupState } from "@/lib/features/signupSlice";
+import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
+import { setSignupState } from "@/redux_lib/features/signupSlice";
 import { useRouter } from "next/navigation";
 
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";

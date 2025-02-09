@@ -5,8 +5,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { updateCurrentChannel } from "@/lib/features/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux_lib/hooks";
+import { updateCurrentChannel } from "@/redux_lib/features/userSlice";
 
 import { standardizePersonalRoomName } from "@/app/_lib/user/name/general";
 
@@ -18,7 +18,7 @@ import styles from "@/app/(pages)/dashboard/timeline/Timeline.module.scss";
 
 // Asset Imports
 import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
-import { RootState } from "@/lib/store";
+import { RootState } from "@/redux_lib/store";
 
 interface HeaderProps {
   title: string;

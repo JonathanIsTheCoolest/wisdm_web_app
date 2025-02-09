@@ -4,8 +4,10 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { useAppDispatch } from "@/lib/hooks";
-import { updateCurrentChannel } from "@/lib/features/userSlice";
+import { useAppDispatch } from "@/redux_lib/hooks";
+import { updateCurrentChannel } from "@/redux_lib/features/userSlice";
+
+import { standardizedPath } from "@/app/_lib/helper/navigation/path";
 
 // API/Database Imports
 import { TimelineWithDetails } from "@/types";

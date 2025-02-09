@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // API/Database Imports
-import { useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/redux_lib/hooks";
 import { Timeline } from "@/types";
 
 // Component Imports

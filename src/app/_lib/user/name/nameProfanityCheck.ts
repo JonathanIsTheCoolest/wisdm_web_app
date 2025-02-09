@@ -1,5 +1,6 @@
 'use client'
 
+// I THINK THIS CAN BE DELETED
 interface NameProfanityCheckReturnValue {
   isProfane: boolean,
   identifiedProfanityList: string[]
