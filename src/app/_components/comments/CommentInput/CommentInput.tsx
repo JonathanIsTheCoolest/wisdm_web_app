@@ -45,9 +45,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
   };
 
   return (
-    <label htmlFor="newComment" className={styles.labelContainer}>
+    <label className={styles.labelContainer}>
       <input
-        // id="newComment"
         name="newComment"
         type="text"
         value={newComment}
