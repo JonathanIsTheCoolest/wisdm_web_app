@@ -6,7 +6,8 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 // WebSocket Context Provider & Hook
-import { WebSocketProvider, useWebSocket } from "@/app/_lib/socket/socket";
+import { WebSocketProvider, useWebSocket, socket } from "@/app/_lib/socket/socket";
+import { updateNotificationState } from "@/redux_lib/features/notificationsSlice";
 
 // Redux
 import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
@@ -47,7 +48,7 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
 
         if (notificationResponse.payload) {
           console.log(notificationResponse.payload)
-          dispatch(setNotificationState(notificationResponse.payload))
+          dispatch(setNotificationState(notificationResponse.payload.notifications))
         } else {
           console.log("You don't have any notifications")
         }
@@ -58,6 +59,18 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
 
     getNotifications()
   }, [])
+
+  useEffect(() => {
+    socket.on("receive_notification_update", (response) => {
+      const notification = response;
+
+      dispatch(updateNotificationState(notification));
+    });
+
+    return () => {
+      socket.off("receive_notification_update");
+    };
+  }, []);
 
   useEffect(() => {
     if (!isConnected || !user.current_channel) return;
