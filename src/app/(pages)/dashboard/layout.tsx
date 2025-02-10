@@ -2,12 +2,17 @@
 "use client";
 
 import React, { ReactNode, useEffect, useState } from "react";
-import { useAppSelector } from "@/redux_lib/hooks";
-import { RootState } from "@/redux_lib/store";
+
 import { usePathname, useRouter } from "next/navigation";
 
-// ✅ Import WebSocket Context Provider & Hook
+// WebSocket Context Provider & Hook
 import { WebSocketProvider, useWebSocket } from "@/app/_lib/socket/socket";
+
+// Redux
+import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
+import { RootState } from "@/redux_lib/store";
+import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
+import { setNotificationState } from "@/redux_lib/features/notificationsSlice";
 
 // Component Imports
 import NavigationBar from "@/app/_components/navigation/NavigationBar";
@@ -29,6 +34,30 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const user = useAppSelector((state: RootState) => state.user);
   const { isConnected, joinRoom, leaveRoom } = useWebSocket();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const getNotifications = async() => {
+      try {
+        const notificationResponse = await dispatch(
+          apiHTTPWrapper({
+            url: `${process.env.NEXT_PUBLIC_BASE_API_URL}/notifications/get/notifications`
+          })
+        )
+
+        if (notificationResponse.payload) {
+          console.log(notificationResponse.payload)
+          dispatch(setNotificationState(notificationResponse.payload))
+        } else {
+          console.log("You don't have any notifications")
+        }
+      } catch(error) {
+        console.error(`There was an error fetching your notifications: ${error}`)
+      }
+    }
+
+    getNotifications()
+  }, [])
 
   useEffect(() => {
     if (!isConnected || !user.current_channel) return;
@@ -42,6 +71,8 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
       leaveRoom(user.current_channel);
     };
   }, [isConnected, user.current_channel]);
+
+
 
   useEffect(() => {
     routes.forEach((route) => {

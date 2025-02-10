@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '@/redux_lib/features/userSlice'
 import authSlice from '@/redux_lib/features/authSlice'
 import signupSlice from '@/redux_lib/features/signupSlice'
+import notificationSlice from '@/redux_lib/features/notificationsSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       user: userSlice,
       auth: authSlice,
-      signup: signupSlice
+      signup: signupSlice,
+      notifications: notificationSlice
     }
   })
 }
