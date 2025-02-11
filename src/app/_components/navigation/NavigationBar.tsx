@@ -96,6 +96,24 @@ const NavigationBar = () => {
     },
   ];
 
+  const unreadNotificationCounter = () => {
+    const count = 
+      Object.values(notifications)
+      .reduce(
+        (previousValue, currentValue) => 
+          !currentValue.is_read ? previousValue += 1 : previousValue, 
+        0
+      )
+    return (
+      count > 0 &&
+      <div
+        className={`${styles.notificationCountContainer} ${currentView === 'notifications' ? styles.notificationCountContainerSelected : ''}`}
+      >
+        {count}
+      </div>
+    )
+  }
+
   const navOption = (
     name: string,
     href: string,
@@ -112,11 +130,16 @@ const NavigationBar = () => {
       }`}
       onClick={() => setCurrentView(name)}
     >
-      <Image
-        ref={currentView === name ? elementRef : null}
-        src={currentView === name ? activeIcon : inactiveIcon}
-        alt={alt}
-      />
+      <div
+        className={styles.navOptionImageContainer}
+      >
+        <Image
+          ref={currentView === name ? elementRef : null}
+          src={currentView === name ? activeIcon : inactiveIcon}
+          alt={alt}
+        />
+        {name === 'notifications' && unreadNotificationCounter()}
+      </div>
       {currentView === name && <span>{alt}</span>}
     </Link>
   );
