@@ -10,6 +10,8 @@ import styles from "./CommentBody.module.scss";
 import VoteContainer from "../VoteContainer/VoteContainer";
 import NestedCommentInput from "../NestedCommentInput/NestedCommentInput";
 
+import { standardizePathAnchorIds } from "@/app/_lib/helper/navigation/path";
+
 interface CommentBodyProps {
   comment: Comment;
   threadId: string;
@@ -42,7 +44,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
   }, [created_at]);
 
   return (
-    <div className={styles.commentBodyContainer}>
+    <div id={standardizePathAnchorIds(comment_id)} className={styles.commentBodyContainer}>
       <div className={styles.commentAvatar}>
         <Image
           id={comment_id}

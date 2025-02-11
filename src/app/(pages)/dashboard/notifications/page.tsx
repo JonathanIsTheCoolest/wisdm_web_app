@@ -23,7 +23,7 @@ const Notifications = () => {
         {
           Object.values(notifications).length ?
           Object.entries(notifications).map(([key, notification]) => {
-            const {count, action, created_at, path, username, is_read} = notification
+            const {count, action, created_at, path, username, is_read, reference_id} = notification
             return (
               <NotificationCard
                 key={key}
@@ -33,6 +33,7 @@ const Notifications = () => {
                 path={path}
                 username={username}
                 is_read={is_read}
+                reference_id={reference_id}
               />
             )
           }) :

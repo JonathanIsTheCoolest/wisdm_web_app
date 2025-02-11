@@ -11,8 +11,11 @@ import ArrowRightBrand from "@/assets/icons/arrow_right_brand.svg";
 
 import { DisplayNotification } from '@/redux_lib/features/notificationsSlice';
 
+import { standardizePathAnchorIds } from '@/app/_lib/helper/navigation/path';
+import { notificationMessage } from '@/app/_lib/helper/response/notifications';
+
 const NotificationCard: React.FC<DisplayNotification> = ({ 
-  count, action, created_at, path, username, is_read
+  count, action, created_at, path, username, is_read, reference_id
 }) => {
   const router = useRouter();
   return (
@@ -23,13 +26,11 @@ const NotificationCard: React.FC<DisplayNotification> = ({
           {action}
         </div>
         <div className={styles.cardBody}>
-          {username && <span>{username} </span>} {
-            count > 1 &&
-            `and ${count} other people`
-          } {action}ed on your post
+          {notificationMessage(username, count, action, created_at)}
         </div>
       </div>
       <div 
+        // onClick={() => router.push(`${path}#${standardizePathAnchorIds(reference_id)}`)}
         onClick={() => router.push(path)}
         className={styles.cardArrow}>
         <Image src={ArrowRightBrand} alt="arrow-right-brand" />
