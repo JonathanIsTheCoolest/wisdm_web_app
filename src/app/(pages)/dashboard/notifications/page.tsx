@@ -4,7 +4,6 @@
 import React from "react";
 
 // API/Database Imports
-import placeholderData from "@/assets/placeholderData.json";
 import { useAppSelector } from "@/redux_lib/hooks";
 
 // Stylesheet Imports
@@ -22,6 +21,7 @@ const Notifications = () => {
       </header>
       <div className={styles.pageWrapper}>
         {
+          Object.values(notifications).length ?
           Object.entries(notifications).map(([key, notification]) => {
             const {count, action, created_at, path, username, is_read} = notification
             return (
@@ -35,7 +35,8 @@ const Notifications = () => {
                 is_read={is_read}
               />
             )
-          })
+          }) :
+          <p>You have no notifications to display... Be more active</p>
         }
       </div>
     </div>

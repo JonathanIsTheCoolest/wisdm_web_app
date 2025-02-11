@@ -21,20 +21,21 @@ export interface DisplayNotification {
   path: string;
   username: string;
   is_read: boolean;
+  reference_id: string;
 }
 
 export interface NotificationState {
   [key: string]: DisplayNotification;
 }
 
-export const initialState: NotificationState = {}; // Fixed incorrect type
+export const initialState: NotificationState = {};
 
 const notificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
     setNotificationState: (_state, action: PayloadAction<NotificationState>) => {
-      return { ...action.payload }; // Avoids direct mutation
+      return { ...action.payload };
     },
     updateNotificationState: (state, action: PayloadAction<IncomingNotification>) => {
       const { created_at, reference_id, action: action_type, username, is_read } = action.payload;
