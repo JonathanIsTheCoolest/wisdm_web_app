@@ -20,6 +20,7 @@ export interface DisplayNotification {
   created_at: string;
   path: string;
   username: string;
+  is_read: boolean;
 }
 
 export interface NotificationState {
@@ -36,7 +37,7 @@ const notificationSlice = createSlice({
       return { ...action.payload }; // Avoids direct mutation
     },
     updateNotificationState: (state, action: PayloadAction<IncomingNotification>) => {
-      const { created_at, reference_id, action: action_type, username } = action.payload;
+      const { created_at, reference_id, action: action_type, username, is_read } = action.payload;
 
       const objectKey = `${reference_id}${action_type}`;
       const currentObject = state[objectKey] || { count: 0 };
@@ -47,7 +48,8 @@ const notificationSlice = createSlice({
         ...currentObject,
         count: currentCount,
         created_at,
-        username
+        username,
+        is_read
       };
     }
   }

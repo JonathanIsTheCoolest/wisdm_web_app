@@ -9,6 +9,7 @@ import {
 import { usePathname } from "next/navigation";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+import { useAppSelector } from "@/redux_lib/hooks";
 
 // Context Imports
 import { ThemeContext } from "@/app/_contexts/ThemeContext";
@@ -39,6 +40,7 @@ const NavigationBar = () => {
   const elementRef = useRef<HTMLImageElement | null>(null);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const pathname = usePathname();
+  const notifications = useAppSelector(state => state.notifications)
 
   function extractLastSegment(path: string) {
     const pattern = /\/([^\/?]+)(?=\?|$)/;
@@ -144,8 +146,10 @@ const NavigationBar = () => {
   };
 
   useEffect(() => {
-    const newView = extractLastSegment(pathname);
-    setCurrentView(newView);
+    if (pathname) {
+      const newView = extractLastSegment(pathname);
+      setCurrentView(newView);
+    }
   }, [pathname]);
 
   useLayoutEffect(() => {

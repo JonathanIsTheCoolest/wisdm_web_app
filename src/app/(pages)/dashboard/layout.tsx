@@ -47,7 +47,6 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
         )
 
         if (notificationResponse.payload) {
-          console.log(notificationResponse.payload)
           dispatch(setNotificationState(notificationResponse.payload.notifications))
         } else {
           console.log("You don't have any notifications")
