@@ -107,7 +107,10 @@ const NavigationBar = () => {
     return (
       count > 0 &&
       <div
-        className={`${styles.notificationCountContainer} ${currentView === 'notifications' ? styles.notificationCountContainerSelected : ''}`}
+        className={`
+          ${styles.notificationCountContainer} 
+          ${currentView === 'notifications' ? styles.notificationCountContainerSelected : ''}
+        `}
       >
         {count}
       </div>

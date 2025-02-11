@@ -5,6 +5,7 @@ import React from "react";
 
 // API/Database Imports
 import placeholderData from "@/assets/placeholderData.json";
+import { useAppSelector } from "@/redux_lib/hooks";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/notifications/Notifications.module.scss";
@@ -12,29 +13,30 @@ import styles from "@/app/(pages)/dashboard/notifications/Notifications.module.s
 // Component Imports
 import NotificationCard from "@/app/_components/cards/NotificationCard";
 
-interface NotificationItem {
-  icon: string;
-  title: string;
-  username?: string;
-  content: string;
-}
-
 const Notifications = () => {
+  const notifications = useAppSelector(state => state.notifications)
   return (
     <div className={styles.pageContainer}>
       <header className={styles.pageTitle}>
         <h1>Notifications</h1>
       </header>
       <div className={styles.pageWrapper}>
-        {placeholderData.notificationItems.map((notification, index) => (
-          <NotificationCard
-            key={index}
-            icon={notification.icon}
-            title={notification.title}
-            username={notification.username}
-            content={notification.content}
-          />
-        ))}
+        {
+          Object.entries(notifications).map(([key, notification]) => {
+            const {count, action, created_at, path, username, is_read} = notification
+            return (
+              <NotificationCard
+                key={key}
+                count={count}
+                action={action}
+                created_at={created_at}
+                path={path}
+                username={username}
+                is_read={is_read}
+              />
+            )
+          })
+        }
       </div>
     </div>
   );
