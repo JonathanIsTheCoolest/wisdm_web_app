@@ -22,7 +22,9 @@ const NotificationCard: React.FC<DisplayNotification> = ({
     const match = path.match(regex);
     return match ? match[1] : null;
   };
-  const newPath = `notifications/view?source_id=${extractPath(path, 'timeline_id')}&reference_id=${reference_id}`
+  const source_id = extractPath(path, 'timeline_id') || extractPath(path, 'source_id')
+  // This is super iffy We have to update the way we store the paths
+  const newPath = `notifications/view?source_id=${source_id}&reference_id=${reference_id}`
   return (
     <div className={styles.notificationCard}>
       <div className={styles.cardContent}>

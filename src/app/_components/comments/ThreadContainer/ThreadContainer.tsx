@@ -108,7 +108,7 @@ const ThreadContainer: React.FC<ThreadContainerProps> = ({
         {/* Comment */}
         <div className={styles.commentContainer}>
           {threadId ? (
-            <CommentContainer threadId={threadId} commentThreadRootName={threadId}/>
+            <CommentContainer threadId={threadId} rootCommentId={threadId}/>
           ) : (
             "Oooops looks like we can't find the comment thread please refresh and try again"
           )}

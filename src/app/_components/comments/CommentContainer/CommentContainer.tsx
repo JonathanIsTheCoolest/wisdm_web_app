@@ -22,19 +22,17 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 interface CommentContainerProps {
   threadId: string;
-  commentThreadRootName: string
+  rootCommentId: string
 }
 
-const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, commentThreadRootName }) => {
+const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId }) => {
   const [commentState, commentDispatch] = useReducer(
     commentReducer,
     INIT_COMMENT_THREAD
   );
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log('commentThreadRootId')
-    console.log(commentThreadRootName )
-    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentThreadRootName}`
+    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${rootCommentId}`
     const loadComments = async () => {
       try {
         const actionResult = await dispatch(
@@ -102,15 +100,15 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, commentTh
         commentState.comments.root &&
         <MainCommentDisplay comment={commentState.comments.root}/>
       }
-      {commentState.comments[commentThreadRootName] && (
+      {commentState.comments[rootCommentId] && (
         <RecursiveCommentDisplay
           commentsObject={commentState.comments}
-          commentObject={commentState.comments[commentThreadRootName]}
+          commentObject={commentState.comments[rootCommentId]}
           threadId={threadId}
           parentCollapsed={false}
         />
       )}
-      <RootCommentInput threadId={threadId} />
+      <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>
     </div>
   );
 };

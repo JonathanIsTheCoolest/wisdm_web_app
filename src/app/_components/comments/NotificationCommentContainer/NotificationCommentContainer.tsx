@@ -49,7 +49,7 @@ const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> 
       </Link>
       <CommentContainer
         threadId={sourceId}
-        commentThreadRootName={referenceId}
+        rootCommentId={referenceId}
       />
     </div>
   )
