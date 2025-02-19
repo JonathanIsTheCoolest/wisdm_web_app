@@ -100,7 +100,7 @@ export interface CommentsByParentId {
 }
 
 export interface CommentThread {
-    comments: CommentsByParentId;
+    comments: CommentsByParentId & {root?: Comment};
 }
 
 

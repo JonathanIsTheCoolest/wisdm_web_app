@@ -12,6 +12,8 @@ import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
 import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 import RootCommentInput from "../RootCommentInput/RootCommentInput";
 
+import MainCommentDisplay from "../MainCommentDisplay/MainCommentDisplay";
+
 import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer";
 
 import { CommentThread } from "@/types";
@@ -20,20 +22,24 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 interface CommentContainerProps {
   threadId: string;
+  commentThreadRootName: string
 }
 
-const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
+const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, commentThreadRootName }) => {
   const [commentState, commentDispatch] = useReducer(
     commentReducer,
     INIT_COMMENT_THREAD
   );
   const dispatch = useAppDispatch();
   useEffect(() => {
+    console.log('commentThreadRootId')
+    console.log(commentThreadRootName )
+    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentThreadRootName}`
     const loadComments = async () => {
       try {
         const actionResult = await dispatch(
           apiHTTPWrapper({
-            url: `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}`,
+            url: url,
           })
         );
         if (apiHTTPWrapper.fulfilled.match(actionResult)) {
@@ -92,10 +98,14 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId }) => {
         position: "relative",
       }}
     >
-      {commentState.comments.root && (
+      {
+        commentState.comments.root &&
+        <MainCommentDisplay comment={commentState.comments.root}/>
+      }
+      {commentState.comments[commentThreadRootName] && (
         <RecursiveCommentDisplay
           commentsObject={commentState.comments}
-          commentObject={commentState.comments.root}
+          commentObject={commentState.comments[commentThreadRootName]}
           threadId={threadId}
           parentCollapsed={false}
         />

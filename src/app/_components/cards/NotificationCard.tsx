@@ -11,13 +11,18 @@ import ArrowRightBrand from "@/assets/icons/arrow_right_brand.svg";
 
 import { DisplayNotification } from '@/redux_lib/features/notificationsSlice';
 
-import { standardizePathAnchorIds } from '@/app/_lib/helper/navigation/path';
 import { notificationMessage } from '@/app/_lib/helper/response/notifications';
 
 const NotificationCard: React.FC<DisplayNotification> = ({ 
   count, action, created_at, path, username, is_read, reference_id
 }) => {
   const router = useRouter();
+  const extractPath = (path: string, keyword: string): string | null => {
+    const regex = new RegExp(`${keyword}=([^?]*)`);
+    const match = path.match(regex);
+    return match ? match[1] : null;
+  };
+  const newPath = `notifications/view?source_id=${extractPath(path, 'timeline_id')}&reference_id=${reference_id}`
   return (
     <div className={styles.notificationCard}>
       <div className={styles.cardContent}>
@@ -30,8 +35,7 @@ const NotificationCard: React.FC<DisplayNotification> = ({
         </div>
       </div>
       <div 
-        // onClick={() => router.push(`${path}#${standardizePathAnchorIds(reference_id)}`)}
-        onClick={() => router.push(path)}
+        onClick={() => router.push(newPath)}
         className={styles.cardArrow}>
         <Image src={ArrowRightBrand} alt="arrow-right-brand" />
       </div>
