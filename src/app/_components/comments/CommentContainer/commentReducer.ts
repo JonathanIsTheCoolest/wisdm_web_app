@@ -1,10 +1,12 @@
 // Types
 import { CommentThread, Comment, UpdateComment } from "@/types";
 
+export type Order = 'ASC' | 'DESC'
+
 export type CommentActions =
   | { type: 'setThread'; payload: CommentThread }
-  | { type: 'addComment'; payload: { comment: Comment } }
-  | { type: 'updateComment'; payload: { comment: UpdateComment } }
+  | { type: 'addComment'; payload: { comment: Comment, order: Order } }
+  | { type: 'updateComment'; payload: { comment: UpdateComment, order: Order } }
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
 
 export const INIT_COMMENT_THREAD: CommentThread = {
@@ -18,7 +20,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
       return action.payload;
 
     case 'addComment': {
-      const { comment } = action.payload;
+      const { comment, order } = action.payload;
       const parent_comment_id = comment.parent_comment_id || 'root'
 
       const commentStateModel = {
@@ -37,7 +39,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
 
     // This is used for all comment updates including vote actions!
     case 'updateComment': {
-      const { comment } = action.payload;
+      const { comment, order } = action.payload;
       const parent_comment_id = comment.parent_comment_id || 'root';
 
       const updatedStateModel = {

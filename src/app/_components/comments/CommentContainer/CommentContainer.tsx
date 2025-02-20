@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 import { socket } from "@/app/_lib/socket/socket";
 
@@ -22,7 +22,7 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 interface CommentContainerProps {
   threadId: string;
-  rootCommentId: string
+  rootCommentId: string;
 }
 
 const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId }) => {
@@ -30,9 +30,10 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
     commentReducer,
     INIT_COMMENT_THREAD
   );
+  const [orderBy, setOrderBy] = useState<'ASC' | 'DESC'>('DESC')
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${rootCommentId}`
+    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${rootCommentId}&order_by=${orderBy}`
     const loadComments = async () => {
       try {
         const actionResult = await dispatch(
@@ -63,6 +64,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
         type: "addComment",
         payload: {
           comment,
+          order: orderBy
         },
       });
     });
@@ -80,6 +82,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
         type: "updateComment",
         payload: {
           comment,
+          order: orderBy
         },
       });
     });
