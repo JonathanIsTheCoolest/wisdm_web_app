@@ -14,7 +14,7 @@ import RootCommentInput from "../RootCommentInput/RootCommentInput";
 
 import MainCommentDisplay from "../MainCommentDisplay/MainCommentDisplay";
 
-import { commentReducer, INIT_COMMENT_THREAD } from "./commentReducer";
+import { commentReducer, INIT_COMMENT_THREAD, CommentOrder } from "./commentReducer";
 
 import { CommentThread } from "@/types";
 
@@ -30,7 +30,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
     commentReducer,
     INIT_COMMENT_THREAD
   );
-  const [orderBy, setOrderBy] = useState<'ASC' | 'DESC'>('DESC')
+  const [orderBy, setOrderBy] = useState<CommentOrder>('DESC')
   const dispatch = useAppDispatch();
   useEffect(() => {
     const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${rootCommentId}&order_by=${orderBy}`

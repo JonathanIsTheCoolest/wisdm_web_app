@@ -1,12 +1,12 @@
 // Types
 import { CommentThread, Comment, UpdateComment } from "@/types";
 
-export type Order = 'ASC' | 'DESC'
+export type CommentOrder = 'ASC' | 'DESC'
 
 export type CommentActions =
   | { type: 'setThread'; payload: CommentThread }
-  | { type: 'addComment'; payload: { comment: Comment, order: Order } }
-  | { type: 'updateComment'; payload: { comment: UpdateComment, order: Order } }
+  | { type: 'addComment'; payload: { comment: Comment, order: CommentOrder } }
+  | { type: 'updateComment'; payload: { comment: UpdateComment, order: CommentOrder } }
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
 
 export const INIT_COMMENT_THREAD: CommentThread = {
@@ -42,14 +42,16 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
       const { comment, order } = action.payload;
       const parent_comment_id = comment.parent_comment_id || 'root';
 
+      const index_name = `index_${comment.comment_index}`
+
       const updatedStateModel = {
         ...state,
         comments: {
           ...state.comments,
           [parent_comment_id]: {
             ...(state.comments[parent_comment_id] || {}), // Ensure parent exists
-            [comment.comment_index]: {
-              ...(state.comments[parent_comment_id]?.[comment.comment_index] || {}), // Ensure comment exists
+            [index_name]: {
+              ...(state.comments[parent_comment_id]?.[index_name] || {}), // Ensure comment exists
               ...comment, // Merge only provided fields
             },
           },
