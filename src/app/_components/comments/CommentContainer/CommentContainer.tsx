@@ -32,6 +32,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   );
   const [orderBy, setOrderBy] = useState<CommentOrder>('DESC')
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${rootCommentId}&order_by=${orderBy}`
     const loadComments = async () => {
@@ -54,7 +55,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
     };
 
     loadComments();
-  }, []);
+  }, [orderBy]);
 
   useEffect(() => {
     socket.on("receive_comment", (response) => {
@@ -72,7 +73,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
     return () => {
       socket.off("receive_comment");
     };
-  }, []);
+  }, [orderBy]);
 
   useEffect(() => {
     socket.on("receive_comment_update", (response) => {
@@ -81,8 +82,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
       commentDispatch({
         type: "updateComment",
         payload: {
-          comment,
-          order: orderBy
+          comment
         },
       });
     });
@@ -103,6 +103,9 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
         commentState.comments.root &&
         <MainCommentDisplay comment={commentState.comments.root}/>
       }
+      <h3>sort by:</h3>
+      <button onClick={() => setOrderBy('ASC')}>oldest</button>
+      <button  onClick={() => setOrderBy('DESC')}>newest</button>
       {commentState.comments[rootCommentId] && (
         <RecursiveCommentDisplay
           commentsObject={commentState.comments}

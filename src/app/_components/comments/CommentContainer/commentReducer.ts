@@ -6,12 +6,16 @@ export type CommentOrder = 'ASC' | 'DESC'
 export type CommentActions =
   | { type: 'setThread'; payload: CommentThread }
   | { type: 'addComment'; payload: { comment: Comment, order: CommentOrder } }
-  | { type: 'updateComment'; payload: { comment: UpdateComment, order: CommentOrder } }
+  | { type: 'updateComment'; payload: { comment: UpdateComment } }
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
 
 export const INIT_COMMENT_THREAD: CommentThread = {
   comments: {}
 };
+
+const standardizeIndexName = (index: number) => {
+  return `index_${index}`
+}
 
 // Reducer
 export const commentReducer = (state: CommentThread, action: CommentActions): CommentThread => {
@@ -23,13 +27,29 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
       const { comment, order } = action.payload;
       const parent_comment_id = comment.parent_comment_id || 'root'
 
+      const index_name = standardizeIndexName(comment.comment_index)
+
+      const insertBasedOnOrder = () => {
+        console.log(`Order By: ${order}`)
+        if (order === 'DESC') {
+          return {
+            [index_name]: comment,
+            ...state.comments[parent_comment_id],
+          }
+        } else {
+          return {
+            ...state.comments[parent_comment_id],
+            [index_name]: comment
+          }
+        }
+      }
+
       const commentStateModel = {
         ...state,
         comments: {
           ...state.comments,
           [parent_comment_id]: {
-            ...state.comments[parent_comment_id],
-            [comment.comment_index]: comment
+            ...insertBasedOnOrder()
           }
         }
       }
@@ -39,10 +59,10 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
 
     // This is used for all comment updates including vote actions!
     case 'updateComment': {
-      const { comment, order } = action.payload;
+      const { comment } = action.payload;
       const parent_comment_id = comment.parent_comment_id || 'root';
 
-      const index_name = `index_${comment.comment_index}`
+      const index_name = standardizeIndexName(comment.comment_index)
 
       const updatedStateModel = {
         ...state,
