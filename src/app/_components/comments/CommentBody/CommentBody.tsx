@@ -15,13 +15,11 @@ import { standardizePathAnchorIds } from "@/app/_lib/helper/navigation/path";
 interface CommentBodyProps {
   comment: Comment;
   threadId: string;
-  comment_count: number;
 }
 
 const CommentBody: React.FC<CommentBodyProps> = ({
   comment,
   threadId,
-  comment_count,
 }) => {
   const {
     body,
@@ -31,6 +29,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
     username,
     created_at,
     comment_id,
+    comment_count
   } = comment;
   const [elapsedTime, setElapsedTime] = useState(getElapsedTime(created_at));
   const [isReplying, setIsReplying] = useState<boolean>(false);

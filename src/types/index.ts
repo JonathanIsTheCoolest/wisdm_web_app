@@ -101,8 +101,8 @@ export interface CommentsByParentId {
 
 export interface CommentThread {
     comments: CommentsByParentId & {root?: Comment};
+    root_comment_count?: number;
 }
-
 
 //Vote Tab
 //Notifications Tab

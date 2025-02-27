@@ -113,6 +113,8 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
           commentObject={commentState.comments[rootCommentId]}
           threadId={threadId}
           parentCollapsed={false}
+          handleGetComments={handleGetComments}
+          parentCommentCount={commentState.root_comment_count}
         />
       )}
       <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>

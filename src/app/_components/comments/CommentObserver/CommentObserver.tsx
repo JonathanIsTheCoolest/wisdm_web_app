@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { socket } from "@/app/_lib/socket/socket";
 import { useAppSelector } from "@/redux_lib/hooks";
 
+import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
+
 type CommentObserverProps = {
-  onIntersect: (isIntersecting: boolean) => void;
+  onIntersect: HandleGetComments;
   index: number;
   currentCommentObjectLength: number;
-  totalCommentObjectLength?: number;
+  parent_comment_count: number;
   comment_id: string;
   body?: string;
   rootMargin?: string;
@@ -18,8 +20,8 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
   onIntersect,
   index,
   currentCommentObjectLength,
-  totalCommentObjectLength,
   comment_id,
+  parent_comment_count,
   body,
   rootMargin = "25px",
   threshold = 0.1,
@@ -32,15 +34,17 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
   useEffect(() => {
     if (!ref.current) return;
     if (index !== currentCommentObjectLength - 6) return;
-    // if (index !== currentCommentObjectLength - 6 && currentCommentObjectLength !== totalCommentObjectLength) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
-        onIntersect(entry.isIntersecting);
-        console.log(`Is catching the correct intersect at index ${index} with a comment object length of ${currentCommentObjectLength}`)
-        console.log(`Comment: ${body}`)
+        console.log(`Comment ID: ${comment_id}`)
         console.log(`Is intersecting: ${entry.isIntersecting}`)
+        console.log(`Comment: ${body}`)
+        console.log(`Offset: ${currentCommentObjectLength}`)
+        console.log(`Total Comment Count: ${parent_comment_count}`)
+        console.log(`Is catching the correct intersect at index ${index} with a comment object length of ${currentCommentObjectLength}`)
+        // onIntersect(comment_id, currentCommentObjectLength);
       },
       { rootMargin, threshold }
     );

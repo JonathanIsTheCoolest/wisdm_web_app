@@ -16,7 +16,7 @@ export type CommentActions =
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
 
 export const INIT_COMMENT_THREAD: CommentThread = {
-  comments: {}
+  comments: {},
 };
 
 const standardizeIndexName = (index: number) => {
@@ -57,8 +57,15 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
         }
       }
 
+      console.log(parent_comment_id)
+      console.log(parent_group_id)
+      console.log(comment_count)
+
+      const currentRootCount = !parent_group_id ? comment_count : state.root_comment_count
+
       const commentStateModel = {
         ...state,
+        root_comment_count: currentRootCount,
         comments: {
           ...state.comments,
           [parent_group_id]: {

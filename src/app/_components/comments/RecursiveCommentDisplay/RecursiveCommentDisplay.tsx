@@ -7,12 +7,16 @@ import styles from "./RecursiveCommentDisplay.module.scss";
 
 import CommentObserver from "../CommentObserver/CommentObserver";
 
+export type HandleGetComments = (commentId: string, offset: number) => void
+
 interface RecursiveCommentDisplayProps {
   commentsObject: CommentsByParentId;
   commentObject: CommentGroupByIndex;
   threadId: string;
   parentCollapsed: boolean;
   depth?: number;
+  handleGetComments: HandleGetComments;
+  parentCommentCount?: number; 
 }
 
 const initializeCollapsedStates = (
@@ -35,7 +39,7 @@ const initializeCollapsedStates = (
 };
 
 const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
-  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, depth = 0 }) => {
+  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, depth = 0, handleGetComments, parentCommentCount = 0 }) => {
     const [collapsedStates, setCollapsedStates] = useState<{
       [key: string]: boolean;
     }>(initializeCollapsedStates(commentObject, commentsObject));
@@ -55,16 +59,16 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
           return (
             <div className={styles.commentContainer} key={comment_id}>
               <CommentObserver
-                onIntersect={(isIntersecting) => {}}
+                onIntersect={handleGetComments}
                 index={index}
                 currentCommentObjectLength={Object.values(commentObject).length}
                 comment_id={comment_id}
+                parent_comment_count={parentCommentCount}
                 body={body}
               >
                 <CommentBody
                   comment={comment}
                   threadId={threadId}
-                  comment_count={comment_count}
                 />
               </CommentObserver>
               {comment_count > 0 && !parentCollapsed && (
@@ -87,6 +91,8 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                       collapsedStates[comment_id] || parentCollapsed
                     }
                     depth={depth + 1}
+                    handleGetComments={handleGetComments}
+                    parentCommentCount={comment_count}
                   />
                 )}
               </NestedThreadContainer>
