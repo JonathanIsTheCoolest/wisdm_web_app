@@ -33,39 +33,40 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   const [orderBy, setOrderBy] = useState<CommentOrder>('DESC')
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${rootCommentId}&order_by=${orderBy}`
-    const loadComments = async () => {
-      try {
-        const actionResult = await dispatch(
-          apiHTTPWrapper({
-            url: url,
-          })
-        );
-        if (apiHTTPWrapper.fulfilled.match(actionResult)) {
-          const result: CommentThread = actionResult.payload;
-          console.log(result);
-          commentDispatch({ type: "setThread", payload: result });
-        } else {
-          console.error("Failed to load comments:", actionResult.error);
-        }
-      } catch (error) {
-        console.error("Error loading comments:", error);
+  const handleGetComments = async (commentId: string, offset: number = 0) => {
+    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}`
+    try {
+      const actionResult = await dispatch(
+        apiHTTPWrapper({
+          url: url,
+        })
+      );
+      if (apiHTTPWrapper.fulfilled.match(actionResult)) {
+        const result: CommentThread = actionResult.payload;
+        console.log(result);
+        commentDispatch({ type: "setThread", payload: {commentThread: result, order: orderBy} });
+      } else {
+        console.error("Failed to load comments:", actionResult.error);
       }
-    };
+    } catch (error) {
+      console.error("Error loading comments:", error);
+    }
+  }
 
-    loadComments();
+  useEffect(() => {
+    handleGetComments(rootCommentId)
   }, [orderBy]);
 
   useEffect(() => {
     socket.on("receive_comment", (response) => {
-      const comment = response.comment;
+      const { comment, parent_comment } = response;
 
       commentDispatch({
         type: "addComment",
         payload: {
           comment,
-          order: orderBy
+          parentComment: parent_comment,
+          order: orderBy,
         },
       });
     });

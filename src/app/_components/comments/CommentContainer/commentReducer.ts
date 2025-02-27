@@ -3,9 +3,15 @@ import { CommentThread, Comment, UpdateComment } from "@/types";
 
 export type CommentOrder = 'ASC' | 'DESC'
 
+export interface ParentCommentReference {
+  parent_comment_id: string;
+  comment_count: number;
+  comment_index: number;
+}
+
 export type CommentActions =
-  | { type: 'setThread'; payload: CommentThread }
-  | { type: 'addComment'; payload: { comment: Comment, order: CommentOrder } }
+  | { type: 'setThread'; payload: {commentThread: CommentThread, order: CommentOrder} }
+  | { type: 'addComment'; payload: { comment: Comment, parentComment: ParentCommentReference, order: CommentOrder } }
   | { type: 'updateComment'; payload: { comment: UpdateComment } }
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
 
@@ -21,16 +27,23 @@ const standardizeIndexName = (index: number) => {
 export const commentReducer = (state: CommentThread, action: CommentActions): CommentThread => {
   switch (action.type) {
     case 'setThread':
-      return action.payload;
+      const { commentThread, order } = action.payload
+      // THIS IS ALSO GOING TO REQUIRE THE CHECKING OF THE INSERTION ORDER WHICH WILL REQUIRE FINDING THE COMMENT TO START INSERTING
+      // AFTER AND WHERE TO STOP INSERTING EFFECTIVELY SANDWICHING THE COMMENTS INTO THEIR CORRECT POSITIONS
+      return commentThread
 
     case 'addComment': {
-      const { comment, order } = action.payload;
+      const { comment, parentComment, order } = action.payload;
+
+      const { parent_comment_id: parent_group_id, comment_count, comment_index } = parentComment
+
       const parent_comment_id = comment.parent_comment_id || 'root'
+
+      const parent_index_name = standardizeIndexName(comment_index)
 
       const index_name = standardizeIndexName(comment.comment_index)
 
       const insertBasedOnOrder = () => {
-        console.log(`Order By: ${order}`)
         if (order === 'DESC') {
           return {
             [index_name]: comment,
@@ -48,6 +61,13 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
         ...state,
         comments: {
           ...state.comments,
+          [parent_group_id]: {
+          ...state.comments[parent_group_id],
+          [parent_index_name]: {
+            ...state.comments[parent_group_id]?.[parent_index_name],
+            comment_count: comment_count
+          }
+          },
           [parent_comment_id]: {
             ...insertBasedOnOrder()
           }
