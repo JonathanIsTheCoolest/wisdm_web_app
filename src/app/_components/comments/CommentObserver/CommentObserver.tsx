@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { socket } from "@/app/_lib/socket/socket";
-import { useAppSelector } from "@/redux_lib/hooks";
 
 import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 
@@ -9,7 +7,7 @@ type CommentObserverProps = {
   index: number;
   currentCommentObjectLength: number;
   parent_comment_count: number;
-  comment_id: string;
+  parent_comment_id: string | any;
   body?: string;
   rootMargin?: string;
   threshold?: number | number[];
@@ -20,7 +18,7 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
   onIntersect,
   index,
   currentCommentObjectLength,
-  comment_id,
+  parent_comment_id,
   parent_comment_count,
   body,
   rootMargin = "25px",
@@ -29,22 +27,17 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const currentChannel = useAppSelector((state) => state.user.current_channel)
 
   useEffect(() => {
     if (!ref.current) return;
-    if (index !== currentCommentObjectLength - 6) return;
+    if (index !== currentCommentObjectLength - 6 || parent_comment_count <= currentCommentObjectLength ) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-        console.log(`Comment ID: ${comment_id}`)
-        console.log(`Is intersecting: ${entry.isIntersecting}`)
-        console.log(`Comment: ${body}`)
-        console.log(`Offset: ${currentCommentObjectLength}`)
-        console.log(`Total Comment Count: ${parent_comment_count}`)
-        console.log(`Is catching the correct intersect at index ${index} with a comment object length of ${currentCommentObjectLength}`)
-        // onIntersect(comment_id, currentCommentObjectLength);
+        if (entry.isIntersecting && !isIntersecting) {
+          setIsIntersecting(true);
+          onIntersect(parent_comment_id, currentCommentObjectLength, false, () => setIsIntersecting(false));
+        }
       },
       { rootMargin, threshold }
     );

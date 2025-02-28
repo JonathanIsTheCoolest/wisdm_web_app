@@ -50,6 +50,7 @@ const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> 
       <CommentContainer
         threadId={sourceId}
         rootCommentId={referenceId}
+        displayMainComment={true}
       />
     </div>
   )

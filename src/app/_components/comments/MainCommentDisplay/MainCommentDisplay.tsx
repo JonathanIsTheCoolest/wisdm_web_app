@@ -26,6 +26,7 @@ const MainCommentDisplay: React.FC<MainCommentDisplayProps> = ({comment}) => {
         "borderBottom": '1px lightblue solid',
       }}
     >
+      <div>comment count: {comment_count}</div>
       <Image 
         src={user_photo_url ? user_photo_url : userImageFallback} 
         alt={`image for ${username}`}

@@ -23,9 +23,10 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 interface CommentContainerProps {
   threadId: string;
   rootCommentId: string;
+  displayMainComment?: boolean;
 }
 
-const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId }) => {
+const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId, displayMainComment = false }) => {
   const [commentState, commentDispatch] = useReducer(
     commentReducer,
     INIT_COMMENT_THREAD
@@ -33,7 +34,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   const [orderBy, setOrderBy] = useState<CommentOrder>('DESC')
   const dispatch = useAppDispatch();
 
-  const handleGetComments = async (commentId: string, offset: number = 0) => {
+  const handleGetComments = async (commentId: string, offset: number = 0, reset = false, cb = () => null) => {
     const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}`
     try {
       const actionResult = await dispatch(
@@ -43,18 +44,19 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
       );
       if (apiHTTPWrapper.fulfilled.match(actionResult)) {
         const result: CommentThread = actionResult.payload;
-        console.log(result);
-        commentDispatch({ type: "setThread", payload: {commentThread: result, order: orderBy} });
+        commentDispatch({ type: "setThread", payload: {commentThread: result, order: orderBy, reset: reset } });
       } else {
         console.error("Failed to load comments:", actionResult.error);
       }
     } catch (error) {
       console.error("Error loading comments:", error);
+    } finally {
+      cb()
     }
   }
 
   useEffect(() => {
-    handleGetComments(rootCommentId)
+    handleGetComments(rootCommentId, 0, true)
   }, [orderBy]);
 
   useEffect(() => {
@@ -101,7 +103,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
       }}
     >
       {
-        commentState.comments.root &&
+        commentState.comments.root && displayMainComment &&
         <MainCommentDisplay comment={commentState.comments.root}/>
       }
       <h3>sort by:</h3>
@@ -114,7 +116,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
           threadId={threadId}
           parentCollapsed={false}
           handleGetComments={handleGetComments}
-          parentCommentCount={commentState.root_comment_count}
+          parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
         />
       )}
       <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>

@@ -7,7 +7,7 @@ import styles from "./RecursiveCommentDisplay.module.scss";
 
 import CommentObserver from "../CommentObserver/CommentObserver";
 
-export type HandleGetComments = (commentId: string, offset: number) => void
+export type HandleGetComments = (commentId: string, offset: number, reset?: boolean, cb?: any) => void
 
 interface RecursiveCommentDisplayProps {
   commentsObject: CommentsByParentId;
@@ -54,7 +54,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
     return (
       <div>
         {Object.values(commentObject).map((comment: Comment, index) => {
-          const { comment_id, body, comment_count } = comment;
+          const { comment_id, body, comment_count, parent_comment_id } = comment;
 
           return (
             <div className={styles.commentContainer} key={comment_id}>
@@ -62,7 +62,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 onIntersect={handleGetComments}
                 index={index}
                 currentCommentObjectLength={Object.values(commentObject).length}
-                comment_id={comment_id}
+                parent_comment_id={parent_comment_id}
                 parent_comment_count={parentCommentCount}
                 body={body}
               >
@@ -77,6 +77,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                   setIsCollapsed={() => toggleCollapse(comment_id)}
                   comment_id={comment_id}
                   comment_object={commentsObject[comment_id]}
+                  handleGetComments={handleGetComments}
                 />
               )}
               <NestedThreadContainer

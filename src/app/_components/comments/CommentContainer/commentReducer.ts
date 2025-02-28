@@ -10,7 +10,7 @@ export interface ParentCommentReference {
 }
 
 export type CommentActions =
-  | { type: 'setThread'; payload: {commentThread: CommentThread, order: CommentOrder} }
+  | { type: 'setThread'; payload: {commentThread: CommentThread, order: CommentOrder, reset?: boolean} }
   | { type: 'addComment'; payload: { comment: Comment, parentComment: ParentCommentReference, order: CommentOrder } }
   | { type: 'updateComment'; payload: { comment: UpdateComment } }
   | { type: 'deleteComment'; payload: { threadId: string; commentId: string } }
@@ -27,10 +27,42 @@ const standardizeIndexName = (index: number) => {
 export const commentReducer = (state: CommentThread, action: CommentActions): CommentThread => {
   switch (action.type) {
     case 'setThread':
-      const { commentThread, order } = action.payload
-      // THIS IS ALSO GOING TO REQUIRE THE CHECKING OF THE INSERTION ORDER WHICH WILL REQUIRE FINDING THE COMMENT TO START INSERTING
-      // AFTER AND WHERE TO STOP INSERTING EFFECTIVELY SANDWICHING THE COMMENTS INTO THEIR CORRECT POSITIONS
-      return commentThread
+      const { commentThread, order, reset = false } = action.payload
+
+      const { start_comment_id = '', root_comment_count, comments } = commentThread
+
+      if (reset) return {root_comment_count, comments}
+
+      if (state.comments.root) {
+        delete comments.root
+      }
+
+      const additionalComments = comments[start_comment_id]
+
+      const insertBasedOnOrder = () => {
+        if (order === 'DESC') {
+          return {
+            ...state.comments[start_comment_id],
+            ...additionalComments,
+          }
+        } else {
+          return {
+            ...state.comments[start_comment_id],
+            ...additionalComments,
+          }
+        }
+      }
+
+      const commentObject = {
+        root_comment_count,
+        comments: {
+          ...state.comments,
+          ...comments,
+          [start_comment_id]: insertBasedOnOrder(),
+        }
+      }
+
+      return commentObject
 
     case 'addComment': {
       const { comment, parentComment, order } = action.payload;
@@ -57,10 +89,6 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
         }
       }
 
-      console.log(parent_comment_id)
-      console.log(parent_group_id)
-      console.log(comment_count)
-
       const currentRootCount = !parent_group_id ? comment_count : state.root_comment_count
 
       const commentStateModel = {
@@ -75,9 +103,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
             comment_count: comment_count
           }
           },
-          [parent_comment_id]: {
-            ...insertBasedOnOrder()
-          }
+          [parent_comment_id]: insertBasedOnOrder()
         }
       }
 
