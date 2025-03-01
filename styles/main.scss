@@ -2,7 +2,12 @@
 @import "./globals.scss";
 
 // DECLARED VARIABLES FROM THE FIGMA
-$gradient-splash: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
+$gradient-splash: linear-gradient(
+  180deg,
+  rgba(77, 35, 167, 0.79) 0%,
+  #bf64f7 64.5%,
+  #d55cff 94.5%
+);
 
 :root {
   --max-width: 1100px;
@@ -93,12 +98,6 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 a {
@@ -111,14 +110,20 @@ button {
   font-family: $font-poppins-regular;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: $font-poppins-regular;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: $radius-small;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-poppins-semibold;
   margin: 0;
   line-height: 1;

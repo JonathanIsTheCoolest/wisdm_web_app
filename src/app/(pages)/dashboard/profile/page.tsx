@@ -9,6 +9,7 @@ import Image from "next/image";
 // Component Imports
 import ProfileTabs from "@/app/_components/profile/ProfileTabs";
 import UserSettings from "@/app/_components/profile/UserSettings";
+import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/profile/Profile.module.scss";
@@ -22,6 +23,7 @@ import editIcon from "@/assets/icons/edit.svg";
 import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
 import { RootState } from "@/redux_lib/store";
 import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
+import { useLoadingState } from "@/hooks/useLoadingState";
 
 interface UserState {
   username: string | null;
@@ -54,6 +56,8 @@ const Profile: React.FC = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [activeTab, setActiveTab] = useState("comments");
   const [userTraits, setUserTraits] = useState<UserTrait[]>([]);
+  const [comments, setComments] = useState<any[]>([]);
+  const { isLoading, setLoaded } = useLoadingState(["userTraits", "comments"]);
 
   useEffect(() => {
     const fetchUserTraits = async () => {
@@ -92,10 +96,49 @@ const Profile: React.FC = () => {
       } catch (error) {
         console.error("Error fetching user traits:", error);
         setUserTraits([]);
+      } finally {
+        setLoaded("userTraits");
       }
     };
 
     fetchUserTraits();
+  }, [user?.username, dispatch]);
+
+  // Fetch the relevant comments using the backend API endpoint
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        if (!user?.username) {
+          console.log("No user ID available yet for comments");
+          return;
+        }
+        const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
+        const commentsUrl = `${API_BASE_URL}/comments/get_recent`;
+        console.log("Fetching comments for user:", user.username);
+        console.log("Comments API URL:", commentsUrl);
+        const commentsResponse = await dispatch(
+          apiHTTPWrapper({
+            url: commentsUrl,
+            options: { method: "GET" },
+          })
+        );
+        console.log("Comments response:", commentsResponse);
+        if (commentsResponse.payload) {
+          const payload = commentsResponse.payload;
+          setComments(payload.comments || []);
+        } else {
+          console.log("No comments in response");
+          setComments([]);
+        }
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+        setComments([]);
+      } finally {
+        setLoaded("comments");
+      }
+    };
+
+    fetchComments();
   }, [user?.username, dispatch]);
 
   const getTraitClassName = (trait: string) => {
@@ -103,10 +146,8 @@ const Profile: React.FC = () => {
     return styles[formattedTrait] || "";
   };
 
-  // For demo purposes, default empty arrays for other data
   const savedTopics: any[] = [];
   const wordsOfWisdom: any[] = [];
-  const comments: any[] = [];
 
   const toggleSettings = () => {
     setShowSettings(!showSettings);
@@ -172,13 +213,19 @@ const Profile: React.FC = () => {
         />
       </div>
       <div className={styles.scrollableContent}>
-        <ProfileTabs.Content
-          activeTab={activeTab}
-          comments={comments}
-          savedTopics={savedTopics}
-          wisdmList={wordsOfWisdom}
-          quadrantData={{ xValue: 0.7, yValue: 0.6 }}
-        />
+        {isLoading ? (
+          <div className={styles.spinnerWrapper}>
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <ProfileTabs.Content
+            activeTab={activeTab}
+            comments={comments}
+            savedTopics={savedTopics}
+            wisdmList={wordsOfWisdom}
+            quadrantData={{ xValue: 0.7, yValue: 0.6 }}
+          />
+        )}
       </div>
     </div>
   );

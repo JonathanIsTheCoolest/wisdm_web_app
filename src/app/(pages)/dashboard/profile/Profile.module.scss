@@ -37,8 +37,18 @@
 
 .userInfo {
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
   gap: $gap-small;
+
+  .tagContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 60%;
+    flex-wrap: wrap;
+    gap: $gap-small;
+  }
 }
 
 .editButton {

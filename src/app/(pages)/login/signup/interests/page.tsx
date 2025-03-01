@@ -21,6 +21,8 @@ import { setSignupState } from "@/redux_lib/features/signupSlice";
 import { useRouter } from "next/navigation";
 
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
+import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
 
 const interestArray = [
   { label: "Domestic Politics", image: tech.src },
@@ -35,60 +37,68 @@ const interestArray = [
   { label: "Economics", image: tech.src },
   { label: "Global Health", image: tech.src },
   { label: "Peace & Justice", image: tech.src },
-]
+];
 
 const InterestsPage = () => {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const signupState = useAppSelector((state) => state.signup)
-  const dispatch = useAppDispatch()
-  const router = useRouter()
+  const signupState = useAppSelector((state) => state.signup);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
 
   const handleInterestClick = (label: string) => {
     setSelectedInterests((prev) =>
-      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]
+      prev.includes(label)
+        ? prev.filter((item) => item !== label)
+        : [...prev, label]
     );
   };
 
   const handleSubmission = async () => {
     if (selectedInterests.length >= 5) {
-      const newSignupState = {...signupState, interests: selectedInterests}
-      dispatch(setSignupState(newSignupState))
-      const endpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/post/create_user`
-      console.log()
+      startLoading();
+      const newSignupState = { ...signupState, interests: selectedInterests };
+      dispatch(setSignupState(newSignupState));
+      const endpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/post/create_user`;
+      console.log();
       try {
         const response = await dispatch(
           apiHTTPWrapper({
             url: endpoint,
             options: {
-              method: 'POST',
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
               },
-              body: JSON.stringify(newSignupState)
-            }
+              body: JSON.stringify(newSignupState),
+            },
           })
-        )
-        console.log(response)
-        const result = await response.payload
-        console.log(result)
+        );
 
-        router.push('/dashboard')
+        if (response.error) {
+          throw new Error(response.error);
+        }
+
+        await router.push("/dashboard");
       } catch (error) {
-        console.error({
-          error: 'There was an error posting your information',
-          additionalDetails: error
-        })
+        console.error("Submission failed:", error);
+        stopLoading();
       }
     }
-  }
+  };
 
   return (
     <div className={styles.interestsPage}>
+      <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link href="/login/signup/tags" className={styles.backButton}>
-          <Image src={arrowLeftBrand} alt="back button"/>
+          <Image src={arrowLeftBrand} alt="back button" />
         </Link>
-        <Image src={progressCircle5} alt="progress" className={styles.progressCircles} />
+        <Image
+          src={progressCircle5}
+          alt="progress"
+          className={styles.progressCircles}
+        />
       </div>
 
       <div className={styles.onboardingTextBlock}>
@@ -100,7 +110,9 @@ const InterestsPage = () => {
         {interestArray.map((interest) => (
           <div
             key={interest.label}
-            className={`${styles.interestItem} ${selectedInterests.includes(interest.label) ? styles.selected : ""}`}
+            className={`${styles.interestItem} ${
+              selectedInterests.includes(interest.label) ? styles.selected : ""
+            }`}
             onClick={() => handleInterestClick(interest.label)}
           >
             <img src={interest.image} alt={interest.label} />
@@ -110,10 +122,7 @@ const InterestsPage = () => {
       </div>
 
       <div className={styles.nextWrapper}>
-        <SubmitButton
-          text="Finish"
-          onClick={handleSubmission}
-        />
+        <SubmitButton text="Finish" onClick={handleSubmission} />
       </div>
     </div>
   );

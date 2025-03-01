@@ -177,8 +177,13 @@ $radius-small: 8px;
 $radius-large: 16px;
 
 // MARGINS, BORDERS, GAPS, PADDING
+$margin-large: 40px;
+$margin-medium: 20px;
+$margin-small: 10px;
+$gap-large: 40px;
 $gap-medium: 20px;
 $gap-small: 10px;
+$padding-large: 40px;
 $padding-medium: 20px;
 $padding-small: 10px;
 
@@ -578,7 +583,7 @@ $settings-slide-transition: 0.3s ease;
 .labelWrapper {
   display: flex;
   flex-direction: column;
-  gap: $gap-small;
+  gap: $gap-medium;
   width: 100%;
 
   .labelContainer {

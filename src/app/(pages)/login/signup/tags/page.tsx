@@ -10,6 +10,8 @@ import { setSignupState } from "@/redux_lib/features/signupSlice";
 import { useRouter } from "next/navigation";
 
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
+import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
+import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/signup/tags/TagsInfoPage.module.scss";
@@ -41,14 +43,17 @@ const tagMap = [
   { label: "Cultural Creative", className: "CulturalCreative" },
   { label: "Justice Juggernaut", className: "JusticeJuggernaut" },
   { label: "Equality Evangelist", className: "EqualityEvangelist" },
-]
+];
 
 const TagsInfoPage = () => {
-  const dispatch = useAppDispatch()
-  const router = useRouter()
-  const signup = useAppSelector((state) => state.signup)
-  const traits = signup.traits
-  const [activeTags, setActiveTags] = useState<string[]>(traits.length ? traits : []);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const signup = useAppSelector((state) => state.signup);
+  const traits = signup.traits;
+  const [activeTags, setActiveTags] = useState<string[]>(
+    traits.length ? traits : []
+  );
+  const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
 
   const handleTagClick = (tag: string) => {
     setActiveTags((prevTags) => {
@@ -60,20 +65,26 @@ const TagsInfoPage = () => {
     });
   };
 
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
     if (activeTags.length >= 5) {
-      dispatch(setSignupState({...signup, traits: activeTags}))
-      router.push('/login/signup/interests')
+      startLoading();
+      dispatch(setSignupState({ ...signup, traits: activeTags }));
+      await router.push("/login/signup/interests");
     }
-  }
+  };
 
   return (
     <div className={styles.tagsInfoPage}>
+      <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link href="/login/signup/location" className={styles.backButton}>
           <Image src={arrowLeftBrand} alt="Back Button" />
         </Link>
-        <Image src={progressCircle4} alt="Progress" className={styles.progressCircles} />
+        <Image
+          src={progressCircle4}
+          alt="Progress"
+          className={styles.progressCircles}
+        />
       </div>
 
       <div className={styles.onboardingTextBlock}>
@@ -85,7 +96,15 @@ const TagsInfoPage = () => {
         {tagMap.map(({ label, className }) => (
           <button
             key={label}
-            className={`${styles.tagButton} ${activeTags.includes(className) ? styles[`active${className.charAt(0).toUpperCase()}${className.slice(1)}`] : ""}`}
+            className={`${styles.tagButton} ${
+              activeTags.includes(className)
+                ? styles[
+                    `active${className
+                      .charAt(0)
+                      .toUpperCase()}${className.slice(1)}`
+                  ]
+                : ""
+            }`}
             onClick={() => handleTagClick(className)}
           >
             {label}
@@ -94,9 +113,7 @@ const TagsInfoPage = () => {
       </div>
 
       <div className={styles.nextWrapper}>
-        <SubmitButton
-          onClick={handleSubmission}
-        />
+        <SubmitButton onClick={handleSubmission} />
       </div>
     </div>
   );

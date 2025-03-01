@@ -1,5 +1,5 @@
 // System Imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 // API/Database Imports
@@ -14,12 +14,12 @@ import Quadrant from "@/app/_components/graph/Quadrant";
 // Stylesheet Imports
 import styles from "@/app/_components/profile/ProfileTabs.module.scss";
 
-// CommentsTab Component
+// CommentsTab Component - receives comments as a prop
 const CommentsTab: React.FC<{ comments: Comment[] }> = ({ comments }) => {
   return (
     <div className={styles.pageWrapper}>
       {comments.map((comment, index) => (
-        <ActivityCard key={index} {...comment} />
+        <ActivityCard key={index} content={comment.body} {...comment} />
       ))}
     </div>
   );
@@ -54,7 +54,7 @@ const WordsOfWisdmTab: React.FC<{ wisdmList: Wisdom[] }> = ({ wisdmList }) => {
   return (
     <div className={styles.pageWrapper}>
       {wisdmList.map((wisdm, index) => (
-        <CommentCard key={index} {...wisdm} />
+        <CommentCard key={index} content={wisdm.body} {...wisdm} />
       ))}
     </div>
   );
@@ -74,6 +74,17 @@ interface ProfileTabsProps {
 }
 
 // Create a separate content component
+interface ProfileTabsContentProps {
+  activeTab: string;
+  comments: Comment[];
+  savedTopics: SavedTopic[];
+  wisdmList: Wisdom[];
+  quadrantData: {
+    xValue: number;
+    yValue: number;
+  };
+}
+
 const ProfileTabsContent: React.FC<ProfileTabsContentProps> = ({
   activeTab,
   comments,
@@ -81,6 +92,7 @@ const ProfileTabsContent: React.FC<ProfileTabsContentProps> = ({
   wisdmList,
   quadrantData,
 }) => {
+  console.log("Active tab:", activeTab);
   return (
     <div className={styles.tabContent}>
       {activeTab === "comments" && <CommentsTab comments={comments} />}

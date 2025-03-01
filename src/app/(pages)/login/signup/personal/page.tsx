@@ -26,66 +26,78 @@ import { setSignupState, PersonalInfo } from "@/redux_lib/features/signupSlice";
 import { onSignOut } from "@/app/_lib/firebase/auth/auth_sign_out";
 
 // Name Moderation
-import { basicNameModerationFilter, aiNameModerationRequest } from "@/app/_lib/helper/moderation/nameModeration";
+import {
+  basicNameModerationFilter,
+  aiNameModerationRequest,
+} from "@/app/_lib/helper/moderation/nameModeration";
 
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 import { headers } from "next/headers";
+import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
+import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
 
 interface ModerationResult {
   [key: string]: {
-    isProblematic: boolean,
-    problematicWords: [...any]
-  }
+    isProblematic: boolean;
+    problematicWords: [...any];
+  };
 }
 
-const genderOptionsArray = ['Female', 'Male', 'Other', 'Don\'t want to specify']
+const genderOptionsArray = ["Female", "Male", "Other", "Don't want to specify"];
 
 const INIT_ERROR_STATE: PersonalInfo = {
   name: null,
   username: null,
   gender: null,
-}
+};
 
 const PersonalInfoPage = () => {
-  const signupState = useAppSelector(state => state.signup)
-  const personalInfoState = signupState.personalInfo
+  const signupState = useAppSelector((state) => state.signup);
+  const personalInfoState = signupState.personalInfo;
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
 
-  const [errorState, setErrorState] = useState(INIT_ERROR_STATE)
+  const [errorState, setErrorState] = useState(INIT_ERROR_STATE);
 
   const handleFieldUpdate = (formFieldName: string, newValue: string) => {
-    dispatch(setSignupState({ ...signupState, personalInfo: {...personalInfoState, [formFieldName]: newValue }}));
+    dispatch(
+      setSignupState({
+        ...signupState,
+        personalInfo: { ...personalInfoState, [formFieldName]: newValue },
+      })
+    );
   };
 
   const handleErrorState = (formFieldName: string, error: string | null) => {
-    setErrorState((state) => ({...state, [formFieldName]: error}))
-  }
+    setErrorState((state) => ({ ...state, [formFieldName]: error }));
+  };
 
   const handleNameInputs = (formFieldName: string, newValue: string) => {
-    const error = basicNameModerationFilter(newValue, formFieldName)
-    handleErrorState(formFieldName, error)
-    handleFieldUpdate(formFieldName, newValue)
-  }
+    const error = basicNameModerationFilter(newValue, formFieldName);
+    handleErrorState(formFieldName, error);
+    handleFieldUpdate(formFieldName, newValue);
+  };
 
   const handleSelection = (formFieldName: string, newValue: string) => {
-    newValue ? handleErrorState(formFieldName, null) : null
-    handleFieldUpdate(formFieldName, newValue)
-  }
+    newValue ? handleErrorState(formFieldName, null) : null;
+    handleFieldUpdate(formFieldName, newValue);
+  };
 
   const handleSubmission = async () => {
+    startLoading();
     let isError = false;
     const newErrorObject = { ...INIT_ERROR_STATE };
-  
+
     Object.keys(personalInfoState).forEach((key) => {
       const value = personalInfoState[key];
       const error = errorState[key];
-  
+
       if (!value?.length) {
         isError = true;
         newErrorObject[key] = `${key} is required`;
       }
-  
+
       if (error) {
         isError = true;
         newErrorObject[key] = error;
@@ -94,31 +106,35 @@ const PersonalInfoPage = () => {
 
     if (!isError) {
       try {
-        const getUsernameExistsEndpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/get/username_exists?username=${personalInfoState.username}`
-        const usernameExists = await fetch(getUsernameExistsEndpoint)
-        const result = await usernameExists.json()
+        const getUsernameExistsEndpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/get/username_exists?username=${personalInfoState.username}`;
+        const usernameExists = await fetch(getUsernameExistsEndpoint);
+        const result = await usernameExists.json();
         if (result.username_exists) {
           isError = true;
-          newErrorObject.username = 'Sorry your desired username is already in use'
+          newErrorObject.username =
+            "Sorry your desired username is already in use";
         }
       } catch (error) {
         console.error({
-          error: 'There was an error checking the username in the database',
+          error: "There was an error checking the username in the database",
           additionalDetails: error,
-        })
+        });
       }
     }
-  
+
     if (!isError) {
       const { name, username } = personalInfoState;
-  
+
       try {
-        const moderationResult: ModerationResult = await aiNameModerationRequest({name, username});
-        console.log(moderationResult)
+        const moderationResult: ModerationResult =
+          await aiNameModerationRequest({ name, username });
+        console.log(moderationResult);
         for (const [key, value] of Object.entries(moderationResult)) {
           if (value?.isProblematic) {
             isError = true;
-            newErrorObject[key] = `The following problematic words were detected in your ${key} entry: ${value.problematicWords}`
+            newErrorObject[
+              key
+            ] = `The following problematic words were detected in your ${key} entry: ${value.problematicWords}`;
           }
         }
       } catch (error) {
@@ -129,54 +145,71 @@ const PersonalInfoPage = () => {
         isError = true;
       }
     }
-  
+
     setErrorState(newErrorObject);
     if (!isError) {
-      router.push("/login/signup/location");
+      await router.push("/login/signup/location");
     }
   };
-  
 
   const inputFieldArray = [
-    { type: 'text', placeholder: 'John Doe', value: personalInfoState.name, name: 'name', label: 'Full Name', error: errorState.name },
-    { type: 'text', placeholder: 'teacher.s_pet123', value: personalInfoState.username, name: 'username', label: 'Choose a unique username', error: errorState.username }
-  ]
+    {
+      type: "text",
+      placeholder: "John Doe",
+      value: personalInfoState.name,
+      name: "name",
+      label: "Full Name",
+      error: errorState.name,
+    },
+    {
+      type: "text",
+      placeholder: "teacher.s_pet123",
+      value: personalInfoState.username,
+      name: "username",
+      label: "Choose a unique username",
+      error: errorState.username,
+    },
+  ];
 
   return (
     <div className={styles.personalInfoPage}>
+      <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
-        <Link onClick={onSignOut} href="/login/signup" className={styles.backButton}>
-          <Image src={arrowLeftBrand} alt="Back button"/>
+        <Link
+          onClick={onSignOut}
+          href="/login/signup"
+          className={styles.backButton}
+        >
+          <Image src={arrowLeftBrand} alt="Back button" />
         </Link>
-        <Image src={progressCircle2} className={styles.progressCircles} alt="Progress Indicator step 2" />
+        <Image
+          src={progressCircle2}
+          className={styles.progressCircles}
+          alt="Progress Indicator step 2"
+        />
       </div>
 
       <div className={styles.onboardingTextBlock}>
         <h1>Tell us a little about yourself</h1>
       </div>
 
-      {
-        inputFieldArray.map((item) => {
-          const {name, type, placeholder, value, label, error} = item
-          return (
-            <div 
-              className={styles.labelWrapper}
-              key={name}
-            >
-              <label>{label}</label>
-              <div>{error}</div>
-              <input
-                className={styles.inputField}
-                name={name}
-                type={type}
-                placeholder={placeholder}
-                value={value ?? ''}
-                onChange={(e) => handleNameInputs(name, e.target.value)}
-              />
-            </div>
-          )
-        })
-      }
+      {inputFieldArray.map((item) => {
+        const { name, type, placeholder, value, label, error } = item;
+        return (
+          <div className={styles.labelWrapper} key={name}>
+            <label>{label}</label>
+            <div>{error}</div>
+            <input
+              className={styles.inputField}
+              name={name}
+              type={type}
+              placeholder={placeholder}
+              value={value ?? ""}
+              onChange={(e) => handleNameInputs(name, e.target.value)}
+            />
+          </div>
+        );
+      })}
 
       <p className={styles.infoText}>
         Want to go anonymous? You can change it in the settings.
@@ -186,19 +219,19 @@ const PersonalInfoPage = () => {
         <label>What is your gender?</label>
         <div>{errorState.gender}</div>
         <div className={styles.genderButtons}>
-          {
-            genderOptionsArray.map(item => {
-              return (
-                <button
-                  key={item}
-                  className={`${styles.genderButton} ${personalInfoState.gender === item ? styles.active : ""}`}
-                  onClick={() => handleSelection('gender', item)}
-                >
-                  {item}
-                </button>
-              )
-            })
-          }
+          {genderOptionsArray.map((item) => {
+            return (
+              <button
+                key={item}
+                className={`${styles.genderButton} ${
+                  personalInfoState.gender === item ? styles.active : ""
+                }`}
+                onClick={() => handleSelection("gender", item)}
+              >
+                {item}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -206,10 +239,7 @@ const PersonalInfoPage = () => {
         <p className={styles.infoText}>
           You can customize the visibility of your information in the settings
         </p>
-        <SubmitButton
-          text="Next"
-          onClick={handleSubmission}
-        />
+        <SubmitButton text="Next" onClick={handleSubmission} />
       </div>
     </div>
   );
