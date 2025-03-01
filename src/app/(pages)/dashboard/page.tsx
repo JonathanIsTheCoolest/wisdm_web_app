@@ -45,21 +45,19 @@ const Home = () => {
 
   const fetchFeed = async () => {
     try {
-      if (!idToken) { // This is a redundant check, It needs to be removed.
+      if (!idToken) {
+        // This is a redundant check, It needs to be removed.
         console.error("User not authenticated");
         return;
       }
 
-      const response = await fetch(
-        `${API_BASE_URL}/timelines/get/timelines`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/timelines/get/timelines`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -109,6 +107,15 @@ const Home = () => {
           <Image src={searchIcon} alt="Search Icon" />
         </div>
       </div>
+
+      <div className={styles.sectionTitle} style={{ marginBottom: "16px" }}>
+        <Link href="/dashboard/placeholder-timeline">
+          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+            View Placeholder Timeline
+          </button>
+        </Link>
+      </div>
+
       <div className={styles.sectionTitle}>
         <h2>Domestic Politics 🇺🇸</h2>
       </div>
@@ -118,12 +125,10 @@ const Home = () => {
         ) : timelines.length > 0 ? (
           timelines.map((timeline) => (
             <Link
-              href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`} 
+              href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
               key={timeline.timeline_id}
             >
-              <TimelineCard
-                {...timeline}
-              />
+              <TimelineCard {...timeline} />
             </Link>
           ))
         ) : (

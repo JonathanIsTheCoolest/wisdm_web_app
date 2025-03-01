@@ -1,0 +1,178 @@
+@import "./styles/variables.scss";
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.popupInnerContent {
+  height: auto;
+  max-height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: $gap-medium;
+  box-sizing: content-box;
+  flex: 1;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-brand-light);
+    border-radius: 4px;
+  }
+}
+
+.popupContent {
+  background-color: var(--color-timeline-event-bg);
+  color: var(--color-body-font);
+  padding: $padding-large;
+  border-radius: $radius-large;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+
+  h2 {
+    font-size: $font-size-large-header;
+  }
+
+  h4 {
+    font-size: $font-size-body-text;
+  }
+
+  p {
+    font-size: $font-size-body-text;
+    line-height: 1.25rem;
+  }
+
+  .popupHeader {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-small;
+    position: relative;
+
+    .eventDate {
+      font-size: $font-size-body-text;
+      color: var(--color-comment-font-detail);
+    }
+  }
+
+  // Tab navigation
+  .tabContainer {
+    display: flex;
+    gap: $gap-medium;
+    width: 100%;
+
+    .tabItem {
+      color: var(--color-header-font);
+      text-wrap: nowrap;
+      padding: $padding-small $padding-medium;
+      border-radius: $radius-small;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      width: -webkit-fill-available;
+      background-color: transparent;
+
+      &:hover {
+        background-color: var(--color-hover-bg, rgba(0, 0, 0, 0.05));
+      }
+
+      &.activeTab {
+        background-color: var(--color-feed-item-bg);
+      }
+
+      &.leftTab {
+        &:hover {
+          background-color: var(--color-left-hover, rgba(0, 0, 255, 0.05));
+        }
+
+        &.activeTab {
+          background-color: var(--color-left-active, rgba(0, 0, 255, 0.1));
+        }
+      }
+
+      &.rightTab {
+        &:hover {
+          background-color: var(--color-right-hover, rgba(255, 0, 0, 0.05));
+        }
+
+        &.activeTab {
+          background-color: var(--color-right-active, rgba(255, 0, 0, 0.1));
+        }
+      }
+    }
+  }
+
+  .tabContentContainer {
+    position: relative;
+    min-height: 400px;
+
+    .tabContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .perspectiveBox {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-medium;
+
+    .quoteContainer {
+      display: flex;
+      flex-direction: column;
+      gap: $gap-small;
+
+      .quoteText {
+        display: flex;
+        flex-direction: column;
+        gap: $gap-small;
+        font-style: italic;
+        padding-left: $padding-small;
+        border-left: 2px solid var(--color-comment-font-detail);
+
+        p {
+          line-height: 1.5rem;
+        }
+      }
+    }
+
+    .sourcesContainer {
+      display: flex;
+      flex-direction: column;
+      gap: $gap-small;
+
+      .sourcesList {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: $gap-medium;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+}
