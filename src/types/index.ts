@@ -99,7 +99,9 @@ export interface CommentsByParentId {
 }
 
 export interface CommentThread {
-  comments: CommentsByParentId;
+  comments: CommentsByParentId & {root?: Comment};
+  root_comment_count?: number;
+  start_comment_id?: string
 }
 
 //Vote Tab

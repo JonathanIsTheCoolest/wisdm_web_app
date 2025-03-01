@@ -7,8 +7,6 @@ import Image from "next/image";
 import { useAppDispatch } from "@/redux_lib/hooks";
 import { updateCurrentChannel } from "@/redux_lib/features/userSlice";
 
-import { standardizedPath } from "@/app/_lib/helper/navigation/path";
-
 // API/Database Imports
 import { TimelineWithDetails } from "@/types";
 

@@ -1,0 +1,53 @@
+import React, { useState, useEffect, useRef } from "react";
+
+import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
+
+type CommentObserverProps = {
+  onIntersect: HandleGetComments;
+  index: number;
+  currentCommentObjectLength: number;
+  parent_comment_count: number;
+  parent_comment_id: string | any;
+  body?: string;
+  rootMargin?: string;
+  threshold?: number | number[];
+  children: React.ReactNode;
+};
+
+const CommentObserver: React.FC<CommentObserverProps> = ({
+  onIntersect,
+  index,
+  currentCommentObjectLength,
+  parent_comment_id,
+  parent_comment_count,
+  body,
+  rootMargin = "25px",
+  threshold = 0.1,
+  children,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    if (index !== currentCommentObjectLength - 6 || parent_comment_count <= currentCommentObjectLength ) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isIntersecting) {
+          setIsIntersecting(true);
+          onIntersect(parent_comment_id, currentCommentObjectLength, false, () => setIsIntersecting(false));
+        }
+      },
+      { rootMargin, threshold }
+    );
+
+    observer.observe(ref.current);
+
+    return () => observer.disconnect();
+  }, [rootMargin, threshold, onIntersect]);
+
+  return <div ref={ref}>{children}</div>;
+};
+
+export default CommentObserver;

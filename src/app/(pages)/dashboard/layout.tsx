@@ -93,7 +93,7 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
     });
   }, [router]);
 
-  const shouldShowNavBar = !pathname?.includes("/timeline");
+  const shouldShowNavBar = !pathname?.includes("/timeline") && !pathname?.includes("/notifications/view");
 
   return (
     <div className={styles.onboardingWrapper}>
