@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/types";
+import { CommentOrder } from "../CommentContainer/commentReducer";
 import CommentBody from "../CommentBody/CommentBody";
 import NestedThreadContainer from "../NestedThreadContainer/NestedThreadContainer";
 import OpenNestedThreadButton from "../OpenNestedThreadButton/OpenNestedThreadButton";
@@ -7,13 +8,14 @@ import styles from "./RecursiveCommentDisplay.module.scss";
 
 import CommentObserver from "../CommentObserver/CommentObserver";
 
-export type HandleGetComments = (commentId: string, offset: number, reset?: boolean, cb?: any) => void
+export type HandleGetComments = (commentId: string, offset: number, reset?: boolean, cb?: () => any) => void
 
 interface RecursiveCommentDisplayProps {
   commentsObject: CommentsByParentId;
   commentObject: CommentGroupByIndex;
   threadId: string;
   parentCollapsed: boolean;
+  orderBy: CommentOrder;
   depth?: number;
   handleGetComments: HandleGetComments;
   parentCommentCount?: number; 
@@ -39,7 +41,7 @@ const initializeCollapsedStates = (
 };
 
 const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
-  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, depth = 0, handleGetComments, parentCommentCount = 0 }) => {
+  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0 }) => {
     const [collapsedStates, setCollapsedStates] = useState<{
       [key: string]: boolean;
     }>(initializeCollapsedStates(commentObject, commentsObject));
@@ -55,7 +57,6 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
       <div>
         {Object.values(commentObject).map((comment: Comment, index) => {
           const { comment_id, body, comment_count, parent_comment_id } = comment;
-
           return (
             <div className={styles.commentContainer} key={comment_id}>
               <CommentObserver
@@ -78,6 +79,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                   comment_id={comment_id}
                   comment_object={commentsObject[comment_id]}
                   handleGetComments={handleGetComments}
+                  orderBy={orderBy}
                 />
               )}
               <NestedThreadContainer
@@ -91,6 +93,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                     parentCollapsed={
                       collapsedStates[comment_id] || parentCollapsed
                     }
+                    orderBy={orderBy}
                     depth={depth + 1}
                     handleGetComments={handleGetComments}
                     parentCommentCount={comment_count}

@@ -31,7 +31,10 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
 
       const { start_comment_id = '', root_comment_count, comments } = commentThread
 
-      if (reset) return {root_comment_count, comments}
+      if (reset) {
+        const newCommentObject = {root_comment_count, comments}
+        return newCommentObject
+      }
 
       if (state.comments.root) {
         delete comments.root
