@@ -26,6 +26,11 @@ interface CommentContainerProps {
   displayMainComment?: boolean;
 }
 
+interface ButtonProp {
+  name: CommentOrder;
+  text: string;
+}
+
 const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId, displayMainComment = false }) => {
   const [commentState, commentDispatch] = useReducer(
     commentReducer,
@@ -33,6 +38,8 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   );
   const [orderBy, setOrderBy] = useState<CommentOrder>('DESC')
   const dispatch = useAppDispatch();
+
+  const orderByButtonArray: ButtonProp[] = [{name: 'ASC', text: 'oldest'}, {name: 'DESC', text: 'newest'}]
 
   const handleGetComments = async (commentId: string, offset: number = 0, reset = false, cb = () => null) => {
     const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}`
@@ -107,10 +114,25 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
         <MainCommentDisplay comment={commentState.comments.root}/>
       }
       <h3>sort by:</h3>
-      <button onClick={() => setOrderBy('ASC')}>oldest</button>
-      <button  onClick={() => setOrderBy('DESC')}>newest</button>
+      {
+        orderByButtonArray.map((button) => {
+          const { name, text } = button
+          return (
+            <button
+              key={text}
+              onClick={() => name !== orderBy ? setOrderBy(name) : null}
+              style={{
+                opacity : orderBy === name ? 0.5 : 1
+              }}
+            >
+              {text}
+            </button>
+          )
+        })
+      }
       {commentState.comments[rootCommentId] && (
         <RecursiveCommentDisplay
+          key={orderBy}
           commentsObject={commentState.comments}
           commentObject={commentState.comments[rootCommentId]}
           threadId={threadId}
