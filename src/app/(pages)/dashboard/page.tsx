@@ -11,10 +11,10 @@ import { Timeline } from "@/types";
 
 // Component Imports
 import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
-import Sidebar from "@/app/_components/navigation/Sidebar";
 import TimelineCard from "@/app/_components/cards/TimelineCard";
 import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
 import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
+import { useSidebar } from "@/app/(pages)/dashboard/layout";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
@@ -28,16 +28,27 @@ const Home = () => {
   const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
   const idToken = useAppSelector((state: any) => state.auth.idToken);
+  const { openSidebar } = useSidebar();
 
   const [timelines, setTimelines] = useState<Timeline[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [overlayTriggerPosition, setOverlayTriggerPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
-  const openSidebar = () => setIsSidebarOpen(true);
-  const closeSidebar = () => setIsSidebarOpen(false);
-  const toggleOverlay = () => setIsOverlayVisible(!isOverlayVisible);
+  const toggleOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isOverlayVisible) {
+      // Get the exact coordinates where the user clicked
+      setOverlayTriggerPosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    }
+    setIsOverlayVisible(!isOverlayVisible);
+  };
 
   useEffect(() => {
     fetchFeed();
@@ -78,7 +89,6 @@ const Home = () => {
       <header className={styles.pageTitle}>
         <h1>For You</h1>
         <div className={styles.iconContainer}>
-          <ThemeToggle />
           <div
             className={styles.questionIcon}
             onClick={toggleOverlay}
@@ -100,6 +110,7 @@ const Home = () => {
       <InstructionOverlay
         isVisible={isOverlayVisible}
         onClose={() => setIsOverlayVisible(false)}
+        triggerPosition={overlayTriggerPosition}
       />
       <div className={styles.searchBar}>
         <input type="text" placeholder="Search" aria-label="Search" />
@@ -110,9 +121,7 @@ const Home = () => {
 
       <div className={styles.sectionTitle} style={{ marginBottom: "16px" }}>
         <Link href="/dashboard/placeholder-timeline">
-          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
-            View Placeholder Timeline
-          </button>
+          <button>View Placeholder Timeline</button>
         </Link>
       </div>
 
@@ -135,7 +144,6 @@ const Home = () => {
           <LoadingSpinner />
         )}
       </section>
-      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
     </div>
   );
 };

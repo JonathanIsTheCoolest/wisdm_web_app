@@ -1,7 +1,7 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .voteCard {
-  border-radius: $radius-large;
+  border-radius: vars.$radius-large;
   cursor: pointer;
   display: flex;
   height: 200px;
@@ -20,8 +20,8 @@
 }
 
 .cardContent {
-    justify-content: center;
-    text-align: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .voteContainer {
@@ -29,18 +29,18 @@
   background-color: transparent;
   cursor: pointer;
   display: flex;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
   width: 100%;
 
   .voteButton {
     background-color: transparent;
     border: none;
-    border-radius: $radius-large;
+    border-radius: vars.$radius-large;
     cursor: pointer;
-    font-size: 30px;
+    font-size: vars.$font-size-header-large;
     line-height: 1;
-    padding: $padding-medium;
-    transition: background-color 0.3s, color 0.3s;
+    padding: vars.$padding-medium;
+    transition: background-color vars.$transition-duration;
 
     &.selected {
       background-color: rgba(255, 255, 255, 0.2);

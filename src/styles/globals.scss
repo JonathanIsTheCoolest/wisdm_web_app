@@ -1,0 +1,37 @@
+:root {
+  --color-bg: #ffffff;
+  --color-font-body: #111111;
+  --color-comment-font: #3c3c3c;
+  --color-comment-font-detail: #5b5b5b;
+  --color-feed-item-bg: #eaeaea;
+  --color-header-font: #111111;
+  --color-info-font: #5b5b5b;
+  --color-input: #eaeaea;
+  --color-input-border: #3c3c3c;
+  --color-navbar: #eaeaea;
+  --color-navbar-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+  --color-navbar-top: #ffffff;
+  --color-notification-bg: #e8e8e8;
+  --color-timeline-comment-bg: #eaeaea;
+  --color-timeline-event-bg: #dedede;
+  --transition-duration: 0.3s ease-in-out;
+}
+
+[data-theme="dark"] {
+  --color-bg: #232323;
+  --color-font-body: #ffffff;
+  --color-comment-font: #f5f5f5;
+  --color-comment-font-detail: #adadad;
+  --color-feed-item-bg: #3c3c3c;
+  --color-header-font: #ffffff;
+  --color-info-font: #b1b1b1;
+  --color-input: #3c3c3c;
+  --color-input-border: #eaeaea;
+  --color-navbar: #2d2d2d;
+  --color-navbar-shadow: 0px 0px 12px 0px rgba(35, 35, 35, 0.8);
+  --color-navbar-top: #232323;
+  --color-notification-bg: #282828;
+  --color-timeline-comment-bg: #2e2e2e;
+  --color-timeline-event-bg: #2e2e2e;
+  --transition-duration: 0.3s ease-in-out;
+}

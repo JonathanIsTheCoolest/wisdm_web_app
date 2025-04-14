@@ -10,11 +10,11 @@ import arrowLeftWhite from "@/assets/icons/arrow_left_white.svg";
 import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
 
 interface NavigationActions {
-  [key: string]: () => void
+  [key: string]: () => void;
 }
 
 const ForgotPasswordPage = ({ login }: NavigationActions) => (
-  <div className={styles.forgotPasswordPage}>
+  <div className={styles.loginContainer}>
     <div className={styles.onboardingHeader}>
       <Link href="/login/signin" className={styles.backButton}>
         <Image src={arrowLeftBrand} />
@@ -26,7 +26,7 @@ const ForgotPasswordPage = ({ login }: NavigationActions) => (
     </div>
     <div className={styles.labelWrapper}>
       <label>Email</label>
-      <input type="email" placeholder="Email"/>
+      <input type="email" placeholder="Email" />
     </div>
 
     <div className={styles.nextWrapper}>
@@ -34,11 +34,11 @@ const ForgotPasswordPage = ({ login }: NavigationActions) => (
         By continuing you agree to our <a href="/terms">Terms of Service</a> and{" "}
         <a href="/privacy">Privacy Policy</a>.
       </p>
-      <Link href='' className={styles.nextButton}>
+      <Link href="" className={styles.nextButton}>
         Next
       </Link>
     </div>
   </div>
 );
 
-export default ForgotPasswordPage
+export default ForgotPasswordPage;

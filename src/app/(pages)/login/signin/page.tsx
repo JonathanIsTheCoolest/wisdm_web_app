@@ -60,7 +60,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles.loginPage}>
+    <div className={styles.loginContainer}>
       <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link href="/login" className={styles.backButton}>

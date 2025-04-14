@@ -1,16 +1,16 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .container {
   position: fixed;
   display: flex;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
   bottom: 0;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: $padding-medium;
+  padding: vars.$padding-medium;
   background-color: transparent;
   z-index: 100;
 }

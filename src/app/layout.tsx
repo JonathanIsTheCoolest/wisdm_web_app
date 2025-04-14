@@ -9,10 +9,8 @@ import StoreProvider from "./StoreProvider";
 import AuthWrapper from "./_components/auth/AuthWrapper";
 
 // Stylesheet Imports
-import "../../styles/variables.scss";
-import "../../styles/globals.scss";
-import "../../styles/main.scss";
-import styles from "@/app/page.module.scss";
+import "@/styles/globals.scss";
+import "@/styles/main.scss";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className={styles.main}>
+        <main>
           <StoreProvider>
             <ThemeProvider>
               <AuthWrapper>{children}</AuthWrapper>

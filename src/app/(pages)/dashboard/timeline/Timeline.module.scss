@@ -1,19 +1,32 @@
 // CLEAN UP THIS FILE
-
-@import "styles/variables.scss";
+// TIMELINE DASHBOARD PAGE
 
 .timelineContainer {
-  padding: 20px 20px 100px 20px;
-  color: var(--color-body-font);
+  padding: vars.$padding-medium vars.$padding-large 100px vars.$padding-medium;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
   overflow-y: auto;
   width: 100%;
   justify-content: center;
   align-items: center;
-  gap: $gap-medium;
-  background-color: var(--color-bg);
+  gap: vars.$gap-medium;
+
+  .timelineImage {
+    width: 80%;
+    height: 25vh;
+    border-radius: vars.$radius-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: vars.$shadow-box;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: vars.$radius-large;
+    }
+  }
 
   .header {
     display: flex;
@@ -37,8 +50,6 @@
       margin: 0;
       text-align: center;
       width: 100%;
-      line-height: 1;
-      font-size: 24px;
     }
   }
 
@@ -48,13 +59,12 @@
     align-items: center;
     width: 80%;
     position: relative;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
 
     @media (max-width: 767px) {
       width: 100%;
     }
 
-    // Timeline Vertical Dot Styling
     .timelineDots {
       position: absolute;
       top: 0;
@@ -84,7 +94,7 @@
       &.largeDot {
         width: 8px;
         height: 8px;
-        background-color: $color-brand;
+        background-color: vars.$color-brand;
       }
 
       @media (max-width: 767px) {
@@ -107,30 +117,26 @@
 
       .eventContainer {
         width: 45%;
-        padding: $padding-small;
+        padding: vars.$padding-medium;
         background-color: var(--color-timeline-event-bg);
-        border-radius: $radius-small;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: vars.$radius-large;
+        box-shadow: vars.$shadow-box;
         cursor: pointer;
         position: relative;
         overflow: hidden;
 
-        .eventDate {
-          font-size: 16px;
-          color: var(--color-body-font);
-        }
-
         .eventContent {
-          line-height: 24px;
-          color: var(--color-body-font);
-
-          .eventTitle {
-            font-size: 16px;
-            font-weight: bold;
+          .eventDate {
+            h3 {
+              font-weight: bold;
+            }
           }
 
-          @media (max-width: 767px) {
-            font-size: 12px;
+          .eventTitle {
+            h3 {
+              font-size: vars.$font-size-header-small;
+              font-weight: lighter;
+            }
           }
         }
       }
@@ -151,87 +157,25 @@
     }
   }
 
+  .highlightedEvent {
+    z-index: 10;
+
+    .eventContainer {
+      box-shadow: vars.$shadow-box;
+    }
+  }
+
+  // Comments
   .toggleCommentsButton {
-    padding: $profile-tab-padding;
+    padding: vars.$profile-tab-padding;
     background-color: var(--color-timeline-comment-bg);
-    color: var(--color-body-font);
+    color: vars.$color-font-body;
     border: none;
-    border-radius: 5px;
+    border-radius: vars.$radius-small;
     cursor: pointer;
   }
 
   .toggleCommentsButton:hover {
     background-color: #555;
-  }
-
-  .timelineImage {
-    width: 80%;
-    height: 25vh;
-    border-radius: $radius-large;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: $shadow-box;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: $radius-large;
-    }
-
-    @media (max-width: 767px) {
-      width: 100%;
-    }
-  }
-}
-
-.highlightedEvent {
-  z-index: 10;
-
-  .eventContainer {
-    box-shadow: 0 0 15px rgba(var(--color-brand-rgb, 0, 123, 255), 0.7) !important;
-    border-color: var(--color-brand) !important;
-    background-color: var(--color-timeline-event-bg) !important;
-    transform: scale(1.03) !important;
-
-    &::after {
-      opacity: 1;
-      background: linear-gradient(
-        to right,
-        transparent,
-        var(--color-brand, #007bff),
-        transparent
-      );
-      height: 4px;
-    }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid var(--color-brand);
-    border-radius: $radius-small;
-    animation: pulse 1.5s infinite;
-    pointer-events: none;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
   }
 }

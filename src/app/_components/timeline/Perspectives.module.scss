@@ -1,13 +1,11 @@
 // CLEAN UP THIS FILE
 
-@import "./styles/variables.scss";
-
 .perspectivesContainer {
   display: flex;
   width: 80%;
   justify-content: space-between;
   margin-top: 1rem;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 
   @media (max-width: 767px) {
     width: 100%;
@@ -16,29 +14,17 @@
 
 .perspective {
   width: 50%;
-  border-radius: $radius-small;
-  padding: $padding-medium;
+  border-radius: vars.$radius-small;
+  padding: vars.$padding-medium;
   text-align: center;
-
-  h2 {
-    font-family: $font-poppins-regular;
-    font-size: $font-size-event-date;
-    font-weight: 700;
-  }
-
-  p {
-    font-family: $font-poppins-regular;
-    font-size: $font-size-event-date;
-    font-weight: 400;
-  }
 }
 
 .left {
   background-color: var(--color-input);
-  color: var(--color-body-font);
+  color: vars.$color-font-body;
 }
 
 .right {
   background-color: var(--color-input);
-  color: var(--color-body-font);
+  color: vars.$color-font-body;
 }

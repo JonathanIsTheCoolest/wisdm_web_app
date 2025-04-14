@@ -1,32 +1,44 @@
-@import "styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .overlayContainer {
-  align-items: center;
-  background-color: var(--color-bg);
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  left: 0;
   position: fixed;
   top: 0;
-  width: 100vw;
-  z-index: 9999;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: vars.$color-background;
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; //REMOVE
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  will-change: transform;
 }
 
 .overlayText {
-  color: var(--color-body-font);
-  font-size: 18px;
+  color: vars.$color-font-body;
+  font-size: vars.$font-size-header-medium;
 }
 
 .overlayTitle {
   bottom: 10%;
-  color: $color-brand;
+  color: vars.$color-brand;
   position: absolute;
 
   h2 {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-size: vars.$font-size-header-large;
+    letter-spacing: 0.05em; // REMOVE
   }
 }

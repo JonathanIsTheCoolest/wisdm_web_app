@@ -35,6 +35,10 @@ import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 import { headers } from "next/headers";
 import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
 import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
+import { useOnboardingErrors } from "@/hooks/useOnboardingErrors";
+import { validateRequired } from "@/app/_lib/validation/onboardingValidation";
+import OnboardingError from "@/app/_components/errors/OnboardingError";
+import OnboardingErrorSummary from "@/app/_components/errors/OnboardingErrorSummary";
 
 interface ModerationResult {
   [key: string]: {
@@ -57,8 +61,13 @@ const PersonalInfoPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
-
-  const [errorState, setErrorState] = useState(INIT_ERROR_STATE);
+  const {
+    fieldErrors,
+    setFieldError,
+    clearFieldErrors,
+    formError,
+    setFormError,
+  } = useOnboardingErrors();
 
   const handleFieldUpdate = (formFieldName: string, newValue: string) => {
     dispatch(
@@ -69,86 +78,125 @@ const PersonalInfoPage = () => {
     );
   };
 
-  const handleErrorState = (formFieldName: string, error: string | null) => {
-    setErrorState((state) => ({ ...state, [formFieldName]: error }));
-  };
-
   const handleNameInputs = (formFieldName: string, newValue: string) => {
     const error = basicNameModerationFilter(newValue, formFieldName);
-    handleErrorState(formFieldName, error);
+    if (error) {
+      setFieldError(formFieldName, error);
+    } else {
+      setFieldError(formFieldName, null);
+    }
     handleFieldUpdate(formFieldName, newValue);
   };
 
   const handleSelection = (formFieldName: string, newValue: string) => {
-    newValue ? handleErrorState(formFieldName, null) : null;
+    if (newValue) {
+      setFieldError(formFieldName, null);
+    }
     handleFieldUpdate(formFieldName, newValue);
   };
 
   const handleSubmission = async () => {
     startLoading();
-    let isError = false;
-    const newErrorObject = { ...INIT_ERROR_STATE };
+    clearFieldErrors();
+    setFormError(null);
 
-    Object.keys(personalInfoState).forEach((key) => {
-      const value = personalInfoState[key];
-      const error = errorState[key];
+    const safetyTimeout = setTimeout(() => {
+      stopLoading();
+    }, 5000);
 
-      if (!value?.length) {
-        isError = true;
-        newErrorObject[key] = `${key} is required`;
-      }
+    let isValid = true;
+    let errorFields: string[] = [];
 
-      if (error) {
-        isError = true;
-        newErrorObject[key] = error;
-      }
-    });
+    try {
+      for (const field of ["name", "username", "gender"]) {
+        const value = personalInfoState[field];
+        const validation = validateRequired(
+          value,
+          field.charAt(0).toUpperCase() + field.slice(1)
+        );
 
-    if (!isError) {
-      try {
-        const getUsernameExistsEndpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/get/username_exists?username=${personalInfoState.username}`;
-        const usernameExists = await fetch(getUsernameExistsEndpoint);
-        const result = await usernameExists.json();
-        if (result.username_exists) {
-          isError = true;
-          newErrorObject.username =
-            "Sorry your desired username is already in use";
+        if (!validation.isValid) {
+          setFieldError(field, validation.errorMessage);
+          errorFields.push(field);
+          isValid = false;
         }
-      } catch (error) {
-        console.error({
-          error: "There was an error checking the username in the database",
-          additionalDetails: error,
-        });
       }
-    }
 
-    if (!isError) {
-      const { name, username } = personalInfoState;
+      for (const field of ["name", "username"]) {
+        const error = basicNameModerationFilter(
+          personalInfoState[field] || "",
+          field
+        );
+        if (error) {
+          setFieldError(field, error);
+          errorFields.push(field);
+          isValid = false;
+        }
+      }
 
-      try {
-        const moderationResult: ModerationResult =
-          await aiNameModerationRequest({ name, username });
-        console.log(moderationResult);
-        for (const [key, value] of Object.entries(moderationResult)) {
-          if (value?.isProblematic) {
-            isError = true;
-            newErrorObject[
-              key
-            ] = `The following problematic words were detected in your ${key} entry: ${value.problematicWords}`;
+      if (isValid) {
+        try {
+          const getUsernameExistsEndpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/get/username_exists?username=${personalInfoState.username}`;
+          const usernameExists = await fetch(getUsernameExistsEndpoint);
+          const result = await usernameExists.json();
+
+          if (result.username_exists) {
+            setFieldError(
+              "username",
+              "Sorry your desired username is already in use"
+            );
+            errorFields.push("username");
+            isValid = false;
           }
+        } catch (error) {
+          console.error({
+            error: "There was an error checking the username in the database",
+            additionalDetails: error,
+          });
         }
-      } catch (error) {
-        console.error({
-          error: "Moderation request failed",
-          additionalDetails: error,
-        });
-        isError = true;
       }
-    }
 
-    setErrorState(newErrorObject);
-    if (!isError) {
-      await router.push("/login/signup/location");
+      if (isValid) {
+        const { name, username } = personalInfoState;
+
+        try {
+          const moderationResult: ModerationResult =
+            await aiNameModerationRequest({ name, username });
+
+          for (const [key, value] of Object.entries(moderationResult)) {
+            if (value?.isProblematic) {
+              setFieldError(
+                key,
+                `The following problematic words were detected in your ${key} entry: ${value.problematicWords}`
+              );
+              errorFields.push(key);
+              isValid = false;
+            }
+          }
+        } catch (error) {
+          console.error({
+            error: "Moderation request failed",
+            additionalDetails: error,
+          });
+          isValid = false;
+        }
+      }
+
+      if (!isValid) {
+        setFormError(
+          `Please fix the following errors: ${errorFields
+            .map((f) => f.charAt(0).toUpperCase() + f.slice(1))
+            .join(", ")}`
+        );
+      } else {
+        await router.push("/login/signup/location");
+      }
+    } catch (error) {
+      console.error("Error in form submission:", error);
+      setFormError("An unexpected error occurred. Please try again.");
+    } finally {
+      clearTimeout(safetyTimeout);
+      stopLoading();
     }
   };
 
@@ -159,7 +207,6 @@ const PersonalInfoPage = () => {
       value: personalInfoState.name,
       name: "name",
       label: "Full Name",
-      error: errorState.name,
     },
     {
       type: "text",
@@ -167,12 +214,11 @@ const PersonalInfoPage = () => {
       value: personalInfoState.username,
       name: "username",
       label: "Choose a unique username",
-      error: errorState.username,
     },
   ];
 
   return (
-    <div className={styles.personalInfoPage}>
+    <div className={styles.loginContainer}>
       <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link
@@ -194,11 +240,10 @@ const PersonalInfoPage = () => {
       </div>
 
       {inputFieldArray.map((item) => {
-        const { name, type, placeholder, value, label, error } = item;
+        const { name, type, placeholder, value, label } = item;
         return (
           <div className={styles.labelWrapper} key={name}>
             <label>{label}</label>
-            <div>{error}</div>
             <input
               className={styles.inputField}
               name={name}
@@ -217,7 +262,6 @@ const PersonalInfoPage = () => {
 
       <div className={styles.labelWrapper}>
         <label>What is your gender?</label>
-        <div>{errorState.gender}</div>
         <div className={styles.genderButtons}>
           {genderOptionsArray.map((item) => {
             return (
@@ -235,10 +279,17 @@ const PersonalInfoPage = () => {
         </div>
       </div>
 
+      <OnboardingErrorSummary
+        formError={formError}
+        fieldErrors={fieldErrors}
+        className="errorSummaryContainer"
+      />
+
       <div className={styles.nextWrapper}>
         <p className={styles.infoText}>
           You can customize the visibility of your information in the settings
         </p>
+
         <SubmitButton text="Next" onClick={handleSubmission} />
       </div>
     </div>

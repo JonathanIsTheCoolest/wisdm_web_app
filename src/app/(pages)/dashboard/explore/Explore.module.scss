@@ -1,4 +1,4 @@
-@import "./styles/variables.scss";
+// EXPLORE DASHBOARD PAGE
 
 .exploreFeedContainer {
   -webkit-overflow-scrolling: touch;
@@ -45,8 +45,7 @@
 }
 
 .seeAll {
-  color: $color-brand;
-  font-family: $font-poppins-regular;
-  font-weight: 600;
+  color: vars.$color-brand;
+  @include vars.use-font("regular");
   text-decoration: none;
 }

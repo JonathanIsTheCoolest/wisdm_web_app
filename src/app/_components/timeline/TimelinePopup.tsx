@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from "./TimelinePopup.module.scss";
 import SourceCard from "@/app/_components/cards/SourceCard";
+import { TimelinePopupProps } from "@/types";
 
 export type TimelineEvent = {
   title: string;
@@ -10,14 +11,6 @@ export type TimelineEvent = {
   domElement?: HTMLElement;
   eventId?: string;
 };
-
-interface TimelinePopupProps {
-  event: TimelineEvent;
-  isOpen: boolean;
-  onClose: () => void;
-  narrativeBias?: "left" | "right";
-  timelineData?: any;
-}
 
 const TimelinePopup: React.FC<TimelinePopupProps> = ({
   event,
@@ -88,7 +81,7 @@ const TimelinePopup: React.FC<TimelinePopupProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            duration: 0.25,
+            duration: 0.3,
             type: "tween",
             ease: "easeInOut",
           }}
@@ -113,14 +106,14 @@ const TimelinePopup: React.FC<TimelinePopupProps> = ({
             }}
             style={{
               backgroundColor: "var(--color-timeline-event-bg)",
-              color: "var(--color-body-font)",
+              color: "vars.$color-font-body",
             }}
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{
-                duration: 0.2,
+                duration: 0.3,
                 type: "tween",
                 ease: "easeOut",
                 delay: 0.05,
@@ -152,7 +145,7 @@ const TimelinePopup: React.FC<TimelinePopupProps> = ({
                     className={`${styles.tabItem} ${
                       activeTab === tab ? styles.activeTab : ""
                     } ${tab === "left" ? styles.leftTab : styles.rightTab}`}
-                    onClick={() => setActiveTab(tab as any)}
+                    onClick={() => setActiveTab(tab as "left" | "right")}
                   >
                     {tab === "left" ? "Left Perspective" : "Right Perspective"}
                   </div>
@@ -160,127 +153,79 @@ const TimelinePopup: React.FC<TimelinePopupProps> = ({
               </div>
 
               <div className={styles.tabContentContainer}>
-                <AnimatePresence mode="wait" initial={false}>
+                {activeTab === "left" && (
                   <motion.div
-                    key={activeTab}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{
-                      duration: 0.2,
-                      ease: "linear",
-                    }}
-                    className={styles.tabContent}
+                    transition={{ duration: 0.3 }}
+                    className={`${styles.tabContent} ${styles.perspectiveBox}`}
                   >
-                    {activeTab === "left" && eventData?.left_perspective && (
-                      <motion.div
-                        className={`${styles.perspectiveBox}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        <p className={styles.perspectiveContent}>
-                          {eventData.left_perspective.viewpoint}
+                    <h3>Left Perspective</h3>
+                    <div className={styles.quoteContainer}>
+                      <div className={styles.quoteText}>
+                        <p>
+                          {typeof eventData?.left_perspective === "object"
+                            ? JSON.stringify(eventData.left_perspective)
+                            : eventData?.left_perspective ||
+                              "Left perspective data not available for this event."}
                         </p>
-
-                        {eventData.left_perspective.quotes &&
-                          eventData.left_perspective.quotes.length > 0 && (
-                            <div className={styles.quoteContainer}>
-                              <h3>Quotes</h3>
-                              <div className={styles.quoteText}>
-                                {eventData.left_perspective.quotes.map(
-                                  (quote: string, i: number) => (
-                                    <motion.p
-                                      key={i}
-                                      initial={{ opacity: 0 }}
-                                      animate={{ opacity: 1 }}
-                                      transition={{ delay: i * 0.1 }}
-                                    >
-                                      "{quote}"
-                                    </motion.p>
-                                  )
-                                )}
+                      </div>
+                    </div>
+                    {eventData?.left_sources &&
+                    eventData.left_sources.length > 0 ? (
+                      <div className={styles.sourcesContainer}>
+                        <h3>Sources</h3>
+                        <div className={styles.sourcesList}>
+                          {eventData.left_sources.map(
+                            (source: any, index: number) => (
+                              <div key={`left-source-${index}`}>
+                                {renderSourceWithLink(source)}
                               </div>
-                            </div>
+                            )
                           )}
-
-                        {eventData.left_perspective.sources &&
-                          eventData.left_perspective.sources.length > 0 && (
-                            <div className={styles.sourcesContainer}>
-                              <h3>Sources</h3>
-                              <div className={styles.sourcesList}>
-                                {eventData.left_perspective.sources.map(
-                                  (source: any, i: number) => (
-                                    <motion.div
-                                      key={i}
-                                      initial={{ opacity: 0 }}
-                                      animate={{ opacity: 1 }}
-                                      transition={{ delay: 0.1 + i * 0.05 }}
-                                    >
-                                      {renderSourceWithLink(source)}
-                                    </motion.div>
-                                  )
-                                )}
-                              </div>
-                            </div>
-                          )}
-                      </motion.div>
-                    )}
-
-                    {activeTab === "right" && eventData?.right_perspective && (
-                      <motion.div
-                        className={`${styles.perspectiveBox}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        <p className={styles.perspectiveContent}>
-                          {eventData.right_perspective.viewpoint}
-                        </p>
-
-                        {eventData.right_perspective.quotes &&
-                          eventData.right_perspective.quotes.length > 0 && (
-                            <div className={styles.quoteContainer}>
-                              <h3>Quotes</h3>
-                              <div className={styles.quoteText}>
-                                {eventData.right_perspective.quotes.map(
-                                  (quote: string, i: number) => (
-                                    <motion.p
-                                      key={i}
-                                      initial={{ opacity: 0 }}
-                                      animate={{ opacity: 1 }}
-                                      transition={{ delay: i * 0.1 }}
-                                    >
-                                      "{quote}"
-                                    </motion.p>
-                                  )
-                                )}
-                              </div>
-                            </div>
-                          )}
-
-                        {eventData.right_perspective.sources &&
-                          eventData.right_perspective.sources.length > 0 && (
-                            <div className={styles.sourcesContainer}>
-                              <h3>Sources</h3>
-                              <div className={styles.sourcesList}>
-                                {eventData.right_perspective.sources.map(
-                                  (source: any, i: number) => (
-                                    <motion.div
-                                      key={i}
-                                      initial={{ opacity: 0 }}
-                                      animate={{ opacity: 1 }}
-                                      transition={{ delay: 0.1 + i * 0.05 }}
-                                    >
-                                      {renderSourceWithLink(source)}
-                                    </motion.div>
-                                  )
-                                )}
-                              </div>
-                            </div>
-                          )}
-                      </motion.div>
-                    )}
+                        </div>
+                      </div>
+                    ) : null}
                   </motion.div>
-                </AnimatePresence>
+                )}
+
+                {activeTab === "right" && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`${styles.tabContent} ${styles.perspectiveBox}`}
+                  >
+                    <h3>Right Perspective</h3>
+                    <div className={styles.quoteContainer}>
+                      <div className={styles.quoteText}>
+                        <p>
+                          {typeof eventData?.right_perspective === "object"
+                            ? JSON.stringify(eventData.right_perspective)
+                            : eventData?.right_perspective ||
+                              "Right perspective data not available for this event."}
+                        </p>
+                      </div>
+                    </div>
+                    {eventData?.right_sources &&
+                    eventData.right_sources.length > 0 ? (
+                      <div className={styles.sourcesContainer}>
+                        <h3>Sources</h3>
+                        <div className={styles.sourcesList}>
+                          {eventData.right_sources.map(
+                            (source: any, index: number) => (
+                              <div key={`right-source-${index}`}>
+                                {renderSourceWithLink(source)}
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    ) : null}
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           </motion.div>

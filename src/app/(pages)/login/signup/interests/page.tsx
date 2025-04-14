@@ -23,6 +23,8 @@ import { useRouter } from "next/navigation";
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
 import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
+import { useOnboardingErrors } from "@/hooks/useOnboardingErrors";
+import OnboardingErrorSummary from "@/app/_components/errors/OnboardingErrorSummary";
 
 const interestArray = [
   { label: "Domestic Politics", image: tech.src },
@@ -45,50 +47,64 @@ const InterestsPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
+  const { formError, setFormError, fieldErrors } = useOnboardingErrors();
 
   const handleInterestClick = (label: string) => {
-    setSelectedInterests((prev) =>
-      prev.includes(label)
+    setSelectedInterests((prev) => {
+      const newInterests = prev.includes(label)
         ? prev.filter((item) => item !== label)
-        : [...prev, label]
-    );
+        : [...prev, label];
+
+      // Clear error if at least 5 interests are selected
+      if (newInterests.length >= 5) {
+        setFormError(null);
+      }
+
+      return newInterests;
+    });
   };
 
   const handleSubmission = async () => {
-    if (selectedInterests.length >= 5) {
-      startLoading();
-      const newSignupState = { ...signupState, interests: selectedInterests };
-      dispatch(setSignupState(newSignupState));
-      const endpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/post/create_user`;
-      console.log();
-      try {
-        const response = await dispatch(
-          apiHTTPWrapper({
-            url: endpoint,
-            options: {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(newSignupState),
+    if (selectedInterests.length < 5) {
+      setFormError(
+        `Please select at least 5 interests (${selectedInterests.length}/5 selected)`
+      );
+      return;
+    }
+
+    startLoading();
+    const newSignupState = { ...signupState, interests: selectedInterests };
+    dispatch(setSignupState(newSignupState));
+    const endpoint = `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/post/create_user`;
+
+    try {
+      const response = await dispatch(
+        apiHTTPWrapper({
+          url: endpoint,
+          options: {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          })
-        );
+            body: JSON.stringify(newSignupState),
+          },
+        })
+      );
 
-        if (response.error) {
-          throw new Error(response.error);
-        }
-
-        await router.push("/dashboard");
-      } catch (error) {
-        console.error("Submission failed:", error);
-        stopLoading();
+      if (response && typeof response === "object" && "error" in response) {
+        throw new Error(response.error as string);
       }
+
+      await router.push("/dashboard");
+    } catch (error) {
+      console.error("Submission failed:", error);
+      setFormError("Failed to create your account. Please try again.");
+      stopLoading();
     }
   };
 
   return (
-    <div className={styles.interestsPage}>
+    <div className={styles.loginContainer}>
       <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link href="/login/signup/tags" className={styles.backButton}>
@@ -104,6 +120,9 @@ const InterestsPage = () => {
       <div className={styles.onboardingTextBlock}>
         <h1>What are you interested in?</h1>
         <p>Pick 5 to customize your news feed</p>
+        <p className={styles.interestCounter}>
+          Selected: {selectedInterests.length}/5 (minimum)
+        </p>
       </div>
 
       <div className={styles.interestsGrid}>
@@ -121,8 +140,22 @@ const InterestsPage = () => {
         ))}
       </div>
 
+      <OnboardingErrorSummary
+        formError={formError}
+        fieldErrors={fieldErrors}
+        className="errorSummaryContainer"
+      />
+
       <div className={styles.nextWrapper}>
-        <SubmitButton text="Finish" onClick={handleSubmission} />
+        <SubmitButton
+          text={
+            selectedInterests.length < 5
+              ? `Select ${5 - selectedInterests.length} more`
+              : "Finish"
+          }
+          onClick={handleSubmission}
+          disabled={selectedInterests.length < 5}
+        />
       </div>
     </div>
   );

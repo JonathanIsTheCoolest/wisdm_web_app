@@ -40,7 +40,7 @@ const NavigationBar = () => {
   const elementRef = useRef<HTMLImageElement | null>(null);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const pathname = usePathname();
-  const notifications = useAppSelector(state => state.notifications)
+  const notifications = useAppSelector((state) => state.notifications);
 
   function extractLastSegment(path: string) {
     const pattern = /\/([^\/?]+)(?=\?|$)/;
@@ -97,25 +97,28 @@ const NavigationBar = () => {
   ];
 
   const unreadNotificationCounter = () => {
-    const count = 
-      Object.values(notifications)
-      .reduce(
-        (previousValue, currentValue) => 
-          !currentValue.is_read ? previousValue += 1 : previousValue, 
-        0
-      )
+    const count = Object.values(notifications).reduce(
+      (previousValue, currentValue) =>
+        !currentValue.is_read ? (previousValue += 1) : previousValue,
+      0
+    );
     return (
-      count > 0 &&
-      <div
-        className={`
+      count > 0 && (
+        <div
+          className={`
           ${styles.notificationCountContainer} 
-          ${currentView === 'notifications' ? styles.notificationCountContainerSelected : ''}
+          ${
+            currentView === "notifications"
+              ? styles.notificationCountContainerSelected
+              : ""
+          }
         `}
-      >
-        {count}
-      </div>
-    )
-  }
+        >
+          {count}
+        </div>
+      )
+    );
+  };
 
   const navOption = (
     name: string,
@@ -133,15 +136,13 @@ const NavigationBar = () => {
       }`}
       onClick={() => setCurrentView(name)}
     >
-      <div
-        className={styles.navOptionImageContainer}
-      >
+      <div className={styles.navOptionImageContainer}>
         <Image
           ref={currentView === name ? elementRef : null}
           src={currentView === name ? activeIcon : inactiveIcon}
           alt={alt}
         />
-        {name === 'notifications' && unreadNotificationCounter()}
+        {name === "notifications" && unreadNotificationCounter()}
       </div>
       {currentView === name && <span>{alt}</span>}
     </Link>

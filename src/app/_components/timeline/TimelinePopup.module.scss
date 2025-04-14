@@ -1,4 +1,4 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .popupOverlay {
   position: fixed;
@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001;
   overflow: hidden;
 }
 
@@ -21,7 +21,7 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
   box-sizing: content-box;
   flex: 1;
 
@@ -35,15 +35,15 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: var(--color-brand-light);
-    border-radius: 4px;
+    border-radius: vars.$radius-small;
   }
 }
 
 .popupContent {
   background-color: var(--color-timeline-event-bg);
-  color: var(--color-body-font);
-  padding: $padding-large;
-  border-radius: $radius-large;
+  color: vars.$color-font-body;
+  padding: vars.$padding-large;
+  border-radius: vars.$radius-large;
   width: 90%;
   max-width: 800px;
   max-height: 85vh;
@@ -51,27 +51,13 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
 
-  h2 {
-    font-size: $font-size-large-header;
-  }
-
-  h4 {
-    font-size: $font-size-body-text;
-  }
-
-  p {
-    font-size: $font-size-body-text;
-    line-height: 1.25rem;
-  }
-
   .popupHeader {
     display: flex;
     flex-direction: column;
-    gap: $gap-small;
+    gap: vars.$gap-small;
     position: relative;
 
     .eventDate {
-      font-size: $font-size-body-text;
       color: var(--color-comment-font-detail);
     }
   }
@@ -79,17 +65,16 @@
   // Tab navigation
   .tabContainer {
     display: flex;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
     width: 100%;
 
     .tabItem {
       color: var(--color-header-font);
       text-wrap: nowrap;
-      padding: $padding-small $padding-medium;
-      border-radius: $radius-small;
+      padding: vars.$padding-small vars.$padding-medium;
+      border-radius: vars.$radius-small;
       cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
+
       text-align: center;
       width: -webkit-fill-available;
       background-color: transparent;
@@ -140,19 +125,19 @@
   .perspectiveBox {
     display: flex;
     flex-direction: column;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
 
     .quoteContainer {
       display: flex;
       flex-direction: column;
-      gap: $gap-small;
+      gap: vars.$gap-small;
 
       .quoteText {
         display: flex;
         flex-direction: column;
-        gap: $gap-small;
+        gap: vars.$gap-small;
         font-style: italic;
-        padding-left: $padding-small;
+        padding-left: vars.$padding-small;
         border-left: 2px solid var(--color-comment-font-detail);
 
         p {
@@ -164,12 +149,12 @@
     .sourcesContainer {
       display: flex;
       flex-direction: column;
-      gap: $gap-small;
+      gap: vars.$gap-small;
 
       .sourcesList {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-        gap: $gap-medium;
+        gap: vars.$gap-medium;
         width: 100%;
         max-width: 100%;
       }

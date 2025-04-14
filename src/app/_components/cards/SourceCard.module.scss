@@ -1,12 +1,12 @@
-@import "styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .sourceCard {
   position: relative;
   height: 180px;
-  border-radius: $radius-large;
+  border-radius: vars.$radius-large;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: 0.2s;
+  transition: transform vars.$transition-duration;
   background-color: var(--color-input);
   background-size: cover;
   background-position: center;
@@ -50,7 +50,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  padding: $padding-medium;
+  padding: vars.$padding-medium;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,7 +58,7 @@
 }
 
 .sourceCardTitle {
-  font-size: $font-size-body-text;
+  font-size: vars.$font-size-body-medium;
   line-height: 1.25rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -70,6 +70,6 @@
 .sourceCardDetails {
   display: flex;
   flex-direction: column;
-  font-size: $font-size-comment-details;
+  font-size: vars.$font-size-body-small;
   color: var(--color-comment-font-detail);
 }

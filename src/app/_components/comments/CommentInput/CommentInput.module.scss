@@ -1,4 +1,4 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .labelContainer {
   width: 100%;
@@ -7,23 +7,13 @@
   align-items: center;
 }
 
-.inputField {
-  width: 100%;
-  border-radius: 15px;
-  padding: 10px;
-  border-color: var(--color-comment-font-detail);
-  background-color: var(--color-timeline-comment-bg);
-  color: var(--color-comment-font);
-}
-
 .sendIcon {
   border-radius: 50%;
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: $color-brand;
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  background-color: vars.$color-brand;
   opacity: 0;
   cursor: text;
 }

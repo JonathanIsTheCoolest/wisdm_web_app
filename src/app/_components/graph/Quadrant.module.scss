@@ -1,4 +1,4 @@
-@import "styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .pageContainer {
   overflow-y: unset;
@@ -9,20 +9,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 }
 
 .horizontalLabels {
   display: flex;
   align-items: center;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 }
 
 .quadrantContainer {
   position: relative;
   width: 50vh;
   height: 50vh;
-  border-radius: $radius-large;
+  border-radius: vars.$radius-large;
   overflow: hidden;
 
   @media (max-width: 768px) {
@@ -72,7 +72,7 @@
   background-color: var(--color-primary);
   border-radius: 50%;
   transform: translate(-50%, 50%);
-  box-shadow: 0 0 0 2px $color-brand;
+  box-shadow: 0 0 0 2px vars.$color-brand;
 }
 
 // Quadrant Labels
@@ -80,18 +80,17 @@
 .bottomLabel,
 .leftLabel,
 .rightLabel {
-  font-weight: 600;
-  color: var(--color-body-font);
+  color: vars.$color-font-body;
 }
 
 .topLabel,
 .bottomLabel {
-  font-size: 14px;
+  font-size: vars.$font-size-body-large;
 }
 
 .leftLabel,
 .rightLabel {
-  font-size: 14px;
+  font-size: vars.$font-size-body-large;
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }

@@ -25,9 +25,9 @@ const Vote = () => {
     <div className={styles.pageContainer}>
       <header className={styles.pageTitle}>
         <h1>Vote</h1>
-        <h2>Vote on the hottest takes 🔥</h2>
       </header>
       <div className={styles.pageWrapper}>
+        <p>Vote on the hottest takes 🔥</p>
         {voteItems.map((item) => (
           <VoteCard
             key={item.id}

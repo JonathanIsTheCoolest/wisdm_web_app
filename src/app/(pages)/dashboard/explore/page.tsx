@@ -15,6 +15,7 @@ import CommentCard from "@/app/_components/cards/CommentCard";
 import ExploreCard from "@/app/_components/cards/ExploreCard";
 import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
 import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
+import { useSidebar } from "@/app/(pages)/dashboard/layout";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/explore/Explore.module.scss";
@@ -47,10 +48,19 @@ const Explore = () => {
   const scrollImages = [...images, ...images];
 
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [overlayTriggerPosition, setOverlayTriggerPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
   const [trendingComments, setTrendingComments] = useState<Comment[]>([]);
   const { isLoading, setLoaded } = useLoadingState(["trending", "featured"]);
-
-  const toggleOverlay = () => setIsOverlayVisible(!isOverlayVisible);
+  const { openSidebar } = useSidebar();
+  const toggleOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isOverlayVisible) {
+      setOverlayTriggerPosition({ x: e.clientX, y: e.clientY });
+    }
+    setIsOverlayVisible(!isOverlayVisible);
+  };
 
   useEffect(() => {
     const fetchTrendingComments = async () => {
@@ -75,7 +85,6 @@ const Explore = () => {
     fetchTrendingComments();
   }, [dispatch]);
 
-  // Simulate featured content loading
   useEffect(() => {
     setTimeout(() => {
       setLoaded("featured");
@@ -97,7 +106,7 @@ const Explore = () => {
           </div>
           <div
             className={styles.settingsIcon}
-            onClick={() => console.log("toggleSidebar")}
+            onClick={openSidebar}
             role="button"
             aria-label="Settings"
           >
@@ -108,6 +117,7 @@ const Explore = () => {
       <InstructionOverlay
         isVisible={isOverlayVisible}
         onClose={() => setIsOverlayVisible(false)}
+        triggerPosition={overlayTriggerPosition}
       />
       <div className={styles.searchBar}>
         <input type="text" placeholder="Search" aria-label="Search" />
@@ -141,14 +151,14 @@ const Explore = () => {
         </div>
       </section>
       <div className={styles.sectionTitle}>
-        <h2>Weekly Words of Wisdom 💬</h2>
+        <h2>Weekly Words of Wisdm 💬</h2>
       </div>
       <section className={styles.pageWrapper}>
         {isLoading ? (
           <div className={styles.spinnerWrapper}>
             <LoadingSpinner />
           </div>
-        ) : (
+        ) : trendingComments.length > 0 ? (
           trendingComments.map((comment) => {
             const {
               comment_id,
@@ -167,8 +177,6 @@ const Explore = () => {
                     (1000 * 60 * 60 * 24)
                 )
               : 0;
-
-            // Convert the numeric time difference to a string format
             const timeString = `${timeDiff}d ago`;
 
             return (
@@ -184,6 +192,10 @@ const Explore = () => {
               />
             );
           })
+        ) : (
+          <div className={styles.emptyStateMessage}>
+            Nothing interesting has been happening this last week :(
+          </div>
         )}
       </section>
     </div>

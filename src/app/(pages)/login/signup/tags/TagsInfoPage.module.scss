@@ -1,32 +1,13 @@
-@import "./styles/variables.scss";
-
 // TAGS INFO PAGE
-.tagsInfoPage {
-  padding: $padding-medium;
-  display: flex;
-  flex-direction: column;
-  gap: $gap-medium;
-  text-align: center;
-  margin-top: 8rem;
+// CLEAN UP THIS FILE
+.loginContainer {
+  .tagCounter {
+    opacity: 0.8;
+  }
 
-  .tagsButtons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $gap-medium;
-
-    .tagButton {
-      flex: 0 1 auto;
-      min-width: 100px;
-      max-width: fit-content;
-      white-space: nowrap;
-      overflow: visible;
-      padding: 1rem;
-      border: 0;
-      border-radius: 8px;
-      background-color: var(--color-feed-item-bg);
-      font-family: $font-poppins-regular;
-      color: var(--color-body-font);
-      cursor: pointer;
-    }
+  .errorMessage {
+    color: #ff4d4f;
+    font-size: vars.$font-size-body-medium;
+    text-align: center;
   }
 }

@@ -1,9 +1,7 @@
-import GettingStartedContainer from "@/app/_components/signUp/gettingStarted/GettingStartedContainer/GettingStartedContainer"
+import GettingStartedContainer from "@/app/_components/signUp/gettingStarted/GettingStartedContainer/GettingStartedContainer";
 
 const SignUpPage = () => {
-  return (
-    <GettingStartedContainer/>
-  )
-}
+  return <GettingStartedContainer />;
+};
 
-export default SignUpPage
+export default SignUpPage;

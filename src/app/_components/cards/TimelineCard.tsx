@@ -29,11 +29,11 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
 
   return (
     <div className={styles.timelineCard} onClick={onClick}>
-      <div className={styles.timelineImage}>
+      <div className={styles.timelineCardImage}>
         <Image src={imageSource} alt={title} layout="fill" objectFit="cover" />
-        <div className={styles.timelineOverlay}></div>
+        <div className={styles.timelineCardOverlay}></div>
       </div>
-      <div className={styles.timelineContent}>
+      <div className={styles.timelineCardContent}>
         <h3>{title}</h3>
       </div>
     </div>

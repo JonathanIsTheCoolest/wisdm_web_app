@@ -1,0 +1,236 @@
+@use "sass:map";
+@use "sass:color";
+
+// COLORS
+$color-brand: #855db9;
+$color-brand-light: #ded9fc;
+$color-background: var(--color-bg);
+$color-font-body: var(--color-font-body);
+$color-notification-username: #a855f7;
+$color-divider: #606060;
+$color-vote-text-description: #888888;
+
+// TRANSITIONS
+$transition-duration: 0.3s ease-in-out;
+
+// GRADIENTS
+$gradient-splash: linear-gradient(
+  180deg,
+  rgba(77, 35, 167, 0.79) 0%,
+  #bf64f7 64.5%,
+  #d55cff 94.5%
+);
+$gradient-quad: conic-gradient(
+  from 0deg at 50% 50%,
+  #b0853b 3.6deg,
+  #8f3d3d 93.6deg,
+  rgba(94, 64, 115, 0.9) 180deg,
+  #406b8f 270deg
+);
+$gradient-quad2: linear-gradient(
+    90deg,
+    rgba(254, 45, 80, 0.5) 0%,
+    rgba(166, 121, 185, 0.5) 61%,
+    rgba(110, 169, 252, 0.5) 100%
+  ),
+  #3c3c3c;
+$gradient-overlay: linear-gradient(
+  180deg,
+  rgba(0, 0, 0, 0) 0%,
+  rgba(0, 0, 0, 0.8) 100%
+);
+$gradient-vote-item-overlay: linear-gradient(
+  180deg,
+  rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)
+);
+
+// FONTS
+@mixin font-face($name, $file, $style) {
+  @font-face {
+    font-family: $name;
+    src: url("/fonts/Poppins/#{$file}.ttf") format("truetype");
+    font-style: $style;
+    font-weight: normal;
+    font-display: swap;
+  }
+}
+
+$fonts: (
+  thin: (
+    name: "Poppins-Thin",
+    file: "Poppins-Thin",
+    style: "normal",
+  ),
+  regular: (
+    name: "Poppins-Regular",
+    file: "Poppins-Regular",
+    style: "normal",
+  ),
+  bold: (
+    name: "Poppins-Bold",
+    file: "Poppins-Bold",
+    style: "normal",
+  ),
+);
+
+@mixin use-font($font-key) {
+  $font: map.get($fonts, $font-key);
+  font-family: map.get($font, name), sans-serif;
+  font-style: map.get($font, style);
+}
+
+@each $type, $font in $fonts {
+  @include font-face(
+    map.get($font, name),
+    map.get($font, file),
+    map.get($font, style)
+  );
+}
+
+// FONT SIZES
+$font-size-header-large: 24px;
+$font-size-header-medium: 20px;
+$font-size-header-small: 16px;
+$font-size-body-large: 14px;
+$font-size-body-medium: 12px;
+$font-size-body-small: 10px;
+
+// SHADOWS
+$shadow-box: 0px 0px 14px 0px rgba(0, 0, 0, 0.12),
+  0px 14px 14px 0px rgba(0, 0, 0, 0.24);
+
+// BUTTONS, INPUT FIELDS
+$button-height: 44px;
+$button-width: 187px;
+$button-width-small: 127px;
+
+// LOGOS
+$logo-wisdm: 36px;
+$logo-wisdm-splash: 60px;
+
+// MARGINS, BORDERS, GAPS, PADDING, RADIUS
+$margin-large: 40px;
+$margin-medium: 20px;
+$margin-small: 10px;
+
+$gap-large: 40px;
+$gap-medium: 20px;
+$gap-small: 10px;
+
+$padding-button: 10px 30px;
+$padding-large: 40px;
+$padding-medium: 20px;
+$padding-small: 10px;
+
+$radius-large: 16px;
+$radius-medium: 12px;
+$radius-small: 8px;
+
+// PROFILE SPECIFIC STYLES
+$profile-avatar-large: 160px;
+$profile-avatar-medium: 80px;
+$profile-tag-padding: 5px 10px;
+$profile-tab-padding: 10px 20px; //USE COMMON CLASS CONTAINER PADDING
+
+// SETTINGS SPECIFIC STYLES
+$settings-slide-width: 300px;
+
+// TAG STYLES
+$color-left-liberal: #4d5fff;
+$color-right-rebel: #ff4d4d;
+$color-middle-man: #b78f00;
+$color-eco-warrior: #1bab03;
+$color-tech-geek: #45a5a5;
+$color-freedom-fanatic: #ff4de3;
+$color-socialist-spark: #ac5e5e;
+$color-capitalist-crusader: #a98e00;
+$color-cultural-creative: #ad5f16;
+$color-green-guardian: #69ae63;
+$color-planet-preserver: #667e3e;
+$color-diplomacy-devotee: #59518b;
+$color-justice-juggernaut: #50779b;
+$color-fiscal-hawk: #3a5e00;
+$color-urban-utopian: #c65f00;
+$color-rural-revolutionary: #653378;
+$color-equality-evangelist: #000000;
+
+.activeLeftLiberal {
+  background-color: $color-left-liberal !important;
+  color: white !important;
+}
+
+.activeRightRebel {
+  background-color: $color-right-rebel !important;
+  color: white !important;
+}
+
+.activeMiddleMan {
+  background-color: $color-middle-man !important;
+  color: white !important;
+}
+
+.activeEcoWarrior {
+  background-color: $color-eco-warrior !important;
+  color: white !important;
+}
+
+.activeTechGeek {
+  background-color: $color-tech-geek !important;
+  color: white !important;
+}
+
+.activeFreedomFanatic {
+  background-color: $color-freedom-fanatic !important;
+  color: white !important;
+}
+
+.activeSocialistSpark {
+  background-color: $color-socialist-spark !important;
+  color: white !important;
+}
+
+.activeCapitalistCrusader {
+  background-color: $color-capitalist-crusader !important;
+  color: white !important;
+}
+
+.activeCulturalCreative {
+  background-color: $color-cultural-creative !important;
+  color: white !important;
+}
+
+.activeGreenGuardian {
+  background-color: $color-green-guardian !important;
+  color: white !important;
+}
+
+.activePlanetPreserver {
+  background-color: $color-planet-preserver !important;
+  color: white !important;
+}
+
+.activeDiplomacyDevotee {
+  background-color: $color-diplomacy-devotee !important;
+  color: white !important;
+}
+
+.activeJusticeJuggernaut {
+  background-color: $color-justice-juggernaut !important;
+  color: white !important;
+}
+
+.activeFiscalHawk {
+  background-color: $color-fiscal-hawk !important;
+  color: white !important;
+}
+
+.activeUrbanUtopian {
+  background-color: $color-urban-utopian !important;
+  color: white !important;
+}
+
+.activeRuralRevolutionary {
+  background-color: $color-rural-revolutionary !important;
+  color: white !important;
+}

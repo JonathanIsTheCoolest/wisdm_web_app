@@ -7,8 +7,10 @@ import Image from "next/image";
 import timeline_1 from "@/assets/images/timeline_1.png";
 import TimelinePopup from "@/app/_components/timeline/TimelinePopup";
 
+import { SelectedPopupEvent, TimelinePopupProps } from "@/types";
+
 interface TimelineProps {
-  timeline: any; // Using any for now, but you should create a proper type
+  timeline: any;
   showComments?: boolean;
 }
 
@@ -16,11 +18,9 @@ const Timeline: React.FC<TimelineProps> = ({
   timeline,
   showComments = true,
 }) => {
-  // Transform the placeholder timeline data into the format expected by TimelineEvents
   const transformEventsForTimelineEvents = () => {
     if (!timeline || !timeline.timeline) return [];
 
-    // Create an array of timeline events in the format expected by TimelineEvents
     return [
       timeline.timeline.map((item: any, index: number) => ({
         body: `${item.date}: ${item.event}`,
@@ -35,43 +35,35 @@ const Timeline: React.FC<TimelineProps> = ({
 
   const transformedEvents = transformEventsForTimelineEvents();
 
-  // Add state and handler for the popup
-  const [selectedPopupEvent, setSelectedPopupEvent] = useState(null);
+  const [selectedPopupEvent, setSelectedPopupEvent] =
+    useState<SelectedPopupEvent | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [activeEventElement, setActiveEventElement] =
     useState<HTMLElement | null>(null);
 
-  // Customize the event click handler
   const customEventClickHandler = (event: any, e: React.MouseEvent) => {
-    // Store the clicked element
     const eventElement = e.currentTarget as HTMLElement;
 
-    // Remove highlight from previously active event if exists
     if (activeEventElement) {
       activeEventElement.classList.remove(styles.highlightedEvent);
     }
 
-    // Add highlight to the clicked event
     eventElement.classList.add(styles.highlightedEvent);
     setActiveEventElement(eventElement);
 
-    // Extract the event index
     const eventIndex = event.event_index;
 
-    // Create the event data for the popup
     const popupEvent = {
       title: event.body.split(":")[1]?.trim() || event.body,
       index: eventIndex,
       eventId: event.event_id,
     };
 
-    // Get the click position
     const rect = eventElement.getBoundingClientRect();
     const initialX =
       rect.left + (event.narrative_bias === "left" ? rect.width : 0);
     const initialY = rect.top + rect.height / 2;
 
-    // Set the popup data
     setSelectedPopupEvent({
       event: popupEvent,
       position: { x: initialX, y: initialY },
@@ -81,9 +73,7 @@ const Timeline: React.FC<TimelineProps> = ({
     setIsPopupOpen(true);
   };
 
-  // Handle closing the popup
   const handlePopupClose = () => {
-    // Remove highlight from event when popup closes
     if (activeEventElement) {
       activeEventElement.classList.remove(styles.highlightedEvent);
       setActiveEventElement(null);

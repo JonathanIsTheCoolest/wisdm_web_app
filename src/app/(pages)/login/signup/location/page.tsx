@@ -9,6 +9,9 @@ import { setSignupState } from "@/redux_lib/features/signupSlice";
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
 import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
+import { useOnboardingErrors } from "@/hooks/useOnboardingErrors";
+import { validateRequired } from "@/app/_lib/validation/onboardingValidation";
+import OnboardingErrorSummary from "@/app/_components/errors/OnboardingErrorSummary";
 
 import { useRouter } from "next/navigation";
 
@@ -33,28 +36,35 @@ interface Country {
 const countryMap: Country[] = countries;
 
 const LocationInfoPage = () => {
-  const [locationError, setLocationError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const signup = useAppSelector((state) => state.signup);
   const location = signup.locality;
   const router = useRouter();
   const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
+  const { formError, setFormError, fieldErrors } = useOnboardingErrors();
 
   const handleUpdate = (value: string) => {
     dispatch(setSignupState({ ...signup, locality: value }));
-    locationError && location ? setLocationError(null) : null;
+    if (value) {
+      setFormError(null);
+    }
   };
 
   const handleSubmission = async () => {
-    if (!location) {
-      setLocationError("You need to make a selection");
-    } else {
+    const validation = validateRequired(location, "Location");
+
+    if (validation.isValid) {
+      setFormError(null);
       startLoading();
       await router.push("/login/signup/tags");
+    } else {
+      setFormError("Please select your country");
+      stopLoading();
     }
   };
+
   return (
-    <div className={styles.locationInfoPage}>
+    <div className={styles.loginContainer}>
       <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link href="/login/signup/personal" className={styles.backButton}>
@@ -77,19 +87,38 @@ const LocationInfoPage = () => {
           <select
             className={styles.inputField}
             onChange={(e) => handleUpdate(e.target.value)}
+            value={location || ""}
           >
+            <option value="" disabled>
+              Select your country
+            </option>
             {countryMap.map((item) => {
-              return <option key={item.code}>{item.name}</option>;
+              return (
+                <option key={item.code} value={item.name}>
+                  {item.name}
+                </option>
+              );
             })}
           </select>
         </label>
       </div>
 
+      <OnboardingErrorSummary
+        formError={formError}
+        fieldErrors={fieldErrors}
+        className="errorSummaryContainer"
+      />
+
       <div className={styles.nextWrapper}>
         <p className={styles.infoText}>
           You can customize the visibility of your information in the settings
         </p>
-        <SubmitButton onClick={handleSubmission} />
+
+        <SubmitButton
+          onClick={handleSubmission}
+          text="Next"
+          disabled={!location}
+        />
       </div>
     </div>
   );

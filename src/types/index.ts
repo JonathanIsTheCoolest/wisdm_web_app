@@ -1,3 +1,5 @@
+// CLEAN UP THIS FILE
+
 // Timeline Summary
 export interface Summary {
   summary: string;
@@ -22,6 +24,9 @@ export interface Timeline {
   parent_event_id: string;
   title: string;
   image: string;
+  summary?: string;
+  methodology?: string;
+  topic_statement?: string;
 }
 
 export interface TimelineWithDetails {
@@ -30,7 +35,38 @@ export interface TimelineWithDetails {
   events: Event[][];
 }
 
-//Profile Tab
+// Define the popup event interface
+export interface SelectedPopupEvent {
+  event: {
+    title: string;
+    index: number;
+    eventId: string;
+  };
+  position: {
+    x: number;
+    y: number;
+  };
+  bias: "left" | "right";
+}
+
+// TimelinePopup Props
+export interface TimelinePopupProps {
+  event: {
+    title: string;
+    index?: number;
+    eventId?: string;
+  };
+  isOpen: boolean;
+  onClose: () => void;
+  initialClickPosition?: {
+    x: number;
+    y: number;
+  };
+  narrativeBias?: "left" | "right";
+  timelineData?: any;
+}
+
+// Profile Tab
 export interface User {
   username: string;
   bio: string;
@@ -48,16 +84,13 @@ export interface SavedTopic {
   imageUrl?: string;
 }
 
-export interface Wisdom {
+export interface Wisdm {
   username: string;
   time: string;
   body: string;
   upvotes: number;
   comments: number;
 }
-
-// Start Comment Interface
-// add tag and tag class name
 
 interface BaseComment {
   created_at: string;
@@ -99,12 +132,7 @@ export interface CommentsByParentId {
 }
 
 export interface CommentThread {
-  comments: CommentsByParentId & {root?: Comment};
+  comments: CommentsByParentId & { root?: Comment };
   root_comment_count?: number;
-  start_comment_id?: string
+  start_comment_id?: string;
 }
-
-//Vote Tab
-//Notifications Tab
-
-//Timeline

@@ -1,12 +1,12 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .themeToggle {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .loginThemeToggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 10;
-  }
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}

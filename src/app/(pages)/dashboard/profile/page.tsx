@@ -16,8 +16,6 @@ import styles from "@/app/(pages)/dashboard/profile/Profile.module.scss";
 
 // Asset Imports
 import placeholderAvatar from "@/assets/icons/user_avatar.svg";
-import arrowLeftBrand from "@/assets/icons/arrow_left_brand.svg";
-import editIcon from "@/assets/icons/edit.svg";
 
 // Redux imports
 import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
@@ -84,7 +82,6 @@ const Profile: React.FC = () => {
 
         console.log("Traits response:", traitsResponse);
 
-        // If our backend returns {"traits": [...]}, extract that field.
         if (traitsResponse.payload) {
           const payload = traitsResponse.payload;
           console.log("Setting user traits:", payload);
@@ -104,7 +101,6 @@ const Profile: React.FC = () => {
     fetchUserTraits();
   }, [user?.username, dispatch]);
 
-  // Fetch the relevant comments using the backend API endpoint
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -147,7 +143,7 @@ const Profile: React.FC = () => {
   };
 
   const savedTopics: any[] = [];
-  const wordsOfWisdom: any[] = [];
+  const wordsOfWisdm: any[] = [];
 
   const toggleSettings = () => {
     setShowSettings(!showSettings);
@@ -157,15 +153,14 @@ const Profile: React.FC = () => {
     if (!user?.username) {
       return <div>Loading...</div>;
     }
-    // Convert nullable fields to required format for UserSettings
     const userSettingsData = {
       username: user.username || "",
       email: user.email || "",
+      photo_url: user.photo_url,
     };
     return <UserSettings user={userSettingsData} onBack={toggleSettings} />;
   }
 
-  // Update the created_at date formatting to handle null
   const joinedDate = user?.created_at
     ? new Date(user.created_at).toLocaleDateString()
     : "Loading...";
@@ -180,7 +175,7 @@ const Profile: React.FC = () => {
           </button>
         </header>
         <div className={styles.profileHeader}>
-          <div className={styles.avatarSmall}>
+          <div className={styles.avatarLarge}>
             <Image
               src={user?.photo_url || placeholderAvatar}
               alt={`${user?.username || "User"}'s avatar`}
@@ -206,7 +201,7 @@ const Profile: React.FC = () => {
         <ProfileTabs
           comments={comments}
           savedTopics={savedTopics}
-          wisdmList={wordsOfWisdom}
+          wisdmList={wordsOfWisdm}
           quadrantData={{ xValue: 0.7, yValue: 0.6 }}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -222,7 +217,7 @@ const Profile: React.FC = () => {
             activeTab={activeTab}
             comments={comments}
             savedTopics={savedTopics}
-            wisdmList={wordsOfWisdom}
+            wisdmList={wordsOfWisdm}
             quadrantData={{ xValue: 0.7, yValue: 0.6 }}
           />
         )}

@@ -54,7 +54,7 @@ const SourceCard: React.FC<SourceCardProps> = ({
       }}
     >
       <div className={styles.sourceCardOverlay}>
-        <h4 className={styles.sourceCardTitle}>{title}</h4>
+        <h3 className={styles.sourceCardTitle}>{title}</h3>
         <div className={styles.sourceCardDetails}>
           {author && <span className={styles.sourceCardAuthor}>{author}</span>}
           <span className={styles.sourceCardPublication}>{publication}</span>

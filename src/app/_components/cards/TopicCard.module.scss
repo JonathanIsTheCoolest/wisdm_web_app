@@ -1,17 +1,8 @@
-@import './styles/variables.scss';
+// CLEAN UP THIS FILE
 
 .topicCard {
-  border-radius: $radius-large;
-  height: fit-content;
+  border-radius: vars.$radius-large;
+  cursor: pointer;
   overflow: hidden;
   position: relative;
-  width: 100%;
-
-  h3 {
-    color: white;
-  }
-
-  p {
-    color: #D9D9D9;
-  }
 }

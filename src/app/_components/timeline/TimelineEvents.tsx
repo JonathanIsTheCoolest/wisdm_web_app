@@ -155,41 +155,23 @@ const TimelineEvents: React.FC<TimelineEventsProps> = ({
               className={styles.eventContainer}
               layoutId={`event-container-${event.event_id}`}
               whileHover={{
-                scale: 1.03,
                 boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-                backgroundColor: "var(--color-input-hover, #f5f5f5)",
               }}
-              whileTap={{ scale: 0.98 }}
               transition={{
                 type: "tween",
-                duration: 0.2,
+                duration: 0.3,
               }}
               onClick={(e) => handleEventClick(event, e)}
             >
               <div className={styles.eventContent}>
-                {event.body.includes(":") ? (
-                  <>
-                    <motion.div
-                      className={styles.eventDate}
-                      layoutId={`event-date-${event.event_id}`}
-                    >
-                      {event.body.split(":")[0]}
-                    </motion.div>
-                    <motion.div
-                      className={styles.eventTitle}
-                      layoutId={`event-title-${event.event_id}`}
-                    >
-                      {event.body.split(":")[1]}
-                    </motion.div>
-                  </>
-                ) : (
-                  <motion.div
-                    className={styles.eventTitle}
-                    layoutId={`event-title-${event.event_id}`}
-                  >
-                    {event.body}
-                  </motion.div>
-                )}
+                <motion.div layoutId={`event-title-${event.event_id}`}>
+                  <h3 className={styles.eventDate}>
+                    {event.body.split(":")[0]}
+                  </h3>
+                  <div className={styles.eventTitle}>
+                    <h3>{event.body.split(":")[1]}</h3>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>

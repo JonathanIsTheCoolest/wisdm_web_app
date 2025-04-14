@@ -1,5 +1,3 @@
-@import "styles/variables.scss";
-
 .navbarWrapper {
   display: flex;
   position: fixed;
@@ -9,7 +7,7 @@
   height: 100px;
   justify-content: space-around;
   background-color: var(--color-navbar-top);
-  color: var(--color-body-font);
+  color: vars.$color-font-body;
   z-index: 1000;
 
   .navbarContainer {
@@ -26,17 +24,17 @@
 
   .notificationCountContainer {
     transform: translateX(0%) translateY(0%);
-    font-size: 10px;
+    font-size: vars.$font-size-body-small;
     transition: 0.5s ease;
     position: absolute;
     top: 0;
     right: 0;
-    color: var(--color-body-font);
+    color: vars.$color-font-body;
   }
 
   .notificationCountContainerSelected {
     transform: translateX(50%) translateY(-50%);
-    font-size: 20px;
+    font-size: vars.$font-size-header-medium;
   }
 
   .navOptionImageContainer {
@@ -64,8 +62,6 @@
     }
 
     span {
-      font-size: 12px;
-      color: var(--color-body-font);
       transition: color 0.5s ease;
       white-space: nowrap;
     }
@@ -76,7 +72,7 @@
   }
 
   .navbarItemActive {
-    color: $color-brand;
+    color: vars.$color-brand;
     transform: translateY(-15px);
 
     img {
@@ -90,8 +86,6 @@
 
     span {
       margin-top: 20px;
-      color: var(--color-body-font);
-      font-family: var(--font-poppins-regular);
     }
   }
 
@@ -100,7 +94,7 @@
     transition: 0.3s ease-in-out;
     width: 50px;
     height: 50px;
-    padding: $padding-small;
+    padding: vars.$padding-small;
     border-radius: 50%;
     z-index: 1000;
   }
@@ -131,11 +125,11 @@
   }
   .navbarCurveBackground {
     fill: var(--color-navbar-top) !important;
-    transition: fill var(--theme-transition-duration) ease;
+    transition: fill var(--transition-duration) !important;
   }
 
   .navbarCurveCircle {
     fill: #855db9 !important;
-    transition: fill var(--theme-transition-duration) ease;
+    transition: fill var(--transition-duration) !important;
   }
 }

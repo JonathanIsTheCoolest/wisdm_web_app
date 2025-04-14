@@ -12,7 +12,7 @@ export interface SavedTopic {
   imageUrl: string;
 }
 
-export interface Wisdom {
+export interface Wisdm {
   username: string;
   time: string;
   body: string;
@@ -33,12 +33,4 @@ export interface SavedTopic {
   body: string;
   comments: number;
   imageUrl: string;
-}
-
-export interface Wisdom {
-  username: string;
-  time: string;
-  body: string;
-  upvotes: number;
-  comments: number;
 }

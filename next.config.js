@@ -1,27 +1,28 @@
 /** @type {import('next').NextConfig} */
 const path = require("path");
 
-const firebaseProjectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+const firebaseProjectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 
 const nextConfig = {
   reactStrictMode: true,
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  pageExtensions: ["tsx", "ts", "jsx", "js"],
   sassOptions: {
     includePaths: [path.join(__dirname, "src/styles")],
+    prependData: `@use "@/styles/variables.scss" as vars; @use "@/styles/classes.scss" as classes;`,
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'localhost',
+        protocol: "https",
+        hostname: "localhost",
       },
       {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
       },
       {
-        protocol: 'https',
-        hostname: 'graph.facebook.com',
+        protocol: "https",
+        hostname: "graph.facebook.com",
       },
     ],
   },
@@ -38,8 +39,8 @@ const nextConfig = {
         source: "/__/auth/:path*",
         destination: `https://${firebaseProjectId}.firebaseapp.com/__/auth/:path*`,
       },
-    ]
-  }
+    ];
+  },
 };
 
 module.exports = nextConfig;

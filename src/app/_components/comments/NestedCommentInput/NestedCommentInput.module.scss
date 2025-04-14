@@ -1,11 +1,10 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .commentContainer {
   overflow: hidden;
-  transition: opacity 0.5s ease, max-height 0.5s ease, margin-top 0.5s ease;
   opacity: 0;
   max-height: 0;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 
   &.show {
     opacity: 1;
