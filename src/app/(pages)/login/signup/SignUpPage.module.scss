@@ -1,36 +1,86 @@
-@use "./styles/variables.scss" as *; 
-
 // SIGN-UP PAGE
-.signupPage {
-  display: flex;
-  flex-direction: column;
-  gap: $gap-medium;
-  padding: $padding-medium;
-  margin-top: 8rem;
-  
+// CLEAN UP THIS FILE
+
+.loginContainer {
   .orDivider {
+    margin: vars.$margin-medium 0;
     display: flex;
     align-items: center;
     text-align: center;
-    font-family: $font-poppins-regular;
-    font-size: 14px;
-    font-weight: 400;
-    color: $color-divider;
-  
+    color: vars.$color-divider;
+
     &::before,
     &::after {
-      content: '';
+      content: "";
       flex: 1;
       height: 1px;
-      background-color: $color-divider;
+      background-color: vars.$color-divider;
     }
-  
+
     &::before {
       margin-right: 1rem;
     }
-  
+
     &::after {
       margin-left: 1rem;
     }
   }
+
+  .suggestedPassword {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: vars.$gap-small;
+    width: 100%;
+  }
+
+  .containerClass {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: vars.$gap-small;
+
+    .buttonContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: vars.$gap-small;
+    }
+
+    .standardButton {
+      border-radius: vars.$radius-small;
+      width: fit-content;
+      height: vars.$button-height;
+      padding: vars.$padding-button;
+      border-color: transparent;
+      background-color: var(--color-input);
+      color: vars.$color-font-body;
+      cursor: pointer;
+
+      &:hover {
+        background-color: vars.$color-brand;
+      }
+    }
+
+    .passwordContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      width: fit-content;
+      gap: vars.$gap-small;
+      padding: vars.$padding-small;
+      border-radius: vars.$radius-small;
+      background-color: var(--color-input);
+
+      .passwordText {
+        font-size: vars.$font-size-body-small;
+      }
+    }
+  }
+}
+
+.nextWrapper {
+  display: flex;
+  justify-content: center;
 }

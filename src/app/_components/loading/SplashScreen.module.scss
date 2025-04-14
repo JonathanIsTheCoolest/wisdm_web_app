@@ -1,4 +1,4 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .main {
   position: relative;
@@ -11,26 +11,26 @@
 }
 
 .splashScreen {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: $gradient-splash;
-    opacity: 1;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-  
-    img {
-      height: $logo-wisdm-splash;
-      margin: auto;
-    }
-  
-    &.fadeOut {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: vars.$gradient-splash;
+  opacity: 1;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+
+  img {
+    height: vars.$logo-wisdm-splash;
+    margin: auto;
   }
+
+  &.fadeOut {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
 
 .splashContent {
   display: flex;
@@ -40,12 +40,11 @@
 }
 
 .onBoarding {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  
-    &.fadeIn {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 
+  &.fadeIn {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

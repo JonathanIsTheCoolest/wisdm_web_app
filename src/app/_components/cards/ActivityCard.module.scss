@@ -1,21 +1,32 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .activityCard {
-    background-color: $color-background;
-    border-bottom: 1px solid var(--color-feed-item-bg);
+  background-color: vars.$color-background;
+  border-bottom: 1px solid var(--color-feed-item-bg);
+  display: flex;
+  flex-direction: column;
+  gap: vars.$gap-medium;
+
+  .commentFooter {
+    align-items: center;
     display: flex;
-    flex-direction: column;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
+    justify-content: flex-end;
+  }
 
-    h3 {
-        color: var(--color-header-font);
-    }
+  .commentVotes {
+    display: flex;
+    align-items: center;
+    gap: vars.$gap-small;
 
-    p {
-        color: var(--color-comment-font);
+    .downvoteIcon {
+      transform: rotate(180deg);
     }
+  }
 
-    span {
-        color: var(--color-comment-font-detail);
-    }
+  .commentCount {
+    display: flex;
+    align-items: center;
+    gap: vars.$gap-small;
+  }
 }

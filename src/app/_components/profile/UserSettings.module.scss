@@ -1,31 +1,22 @@
-@import "styles/variables.scss";
-
 .userSettingsContainer {
   display: flex;
   flex-direction: column;
-  gap: $gap-medium;
-  background-color: $color-background;
+  gap: vars.$gap-medium;
+  background-color: vars.$color-background;
   overflow-y: auto;
-  padding: $padding-medium;
-  height: 100vh; // FIX THIS
+  padding: vars.$padding-medium;
+  height: 100vh;
+}
 
-  h1 {
-    font-size: $font-size-page-header;
-    color: $color-brand;
-    width: 100%;
-  }
+.pageTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: vars.$gap-medium;
 
-  p {
-    font-size: 14px;
-    color: $color-light-mode-info-font;
-  }
-
-  .pageTitle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $gap-medium;
-    text-align: center;
+  img {
+    border-radius: 50%;
   }
 }
 
@@ -42,17 +33,17 @@
 
 .settingsContainer {
   display: flex;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 
   label {
-    color: var(--color-body-font);
-    font-size: 14px;
+    color: vars.$color-font-body;
+    font-size: vars.$font-size-body-large;
   }
 
   .settingsBody {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: $gap-small;
+    gap: vars.$gap-small;
   }
 }

@@ -31,17 +31,19 @@ const ActivityCard: React.FC<ActivityProps> = ({
         </div>
         <div className={styles.commentFooter}>
           <div className={styles.commentContainer}>
-            <Image
-              src={upvoteIcon}
-              className={styles.upvoteIcon}
-              alt="Upvote"
-            />
-            <span>{upvotes}</span>
-            <Image
-              src={upvoteIcon}
-              className={styles.downvoteIcon}
-              alt="Downvote"
-            />
+            <div className={styles.commentVotes}>
+              <Image
+                src={upvoteIcon}
+                className={styles.upvoteIcon}
+                alt="Upvote"
+              />
+              <span>{upvotes}</span>
+              <Image
+                src={upvoteIcon}
+                className={styles.downvoteIcon}
+                alt="Downvote"
+              />
+            </div>
           </div>
           <div className={styles.commentCount}>
             <Image src={commentIcon} alt="Comment" />

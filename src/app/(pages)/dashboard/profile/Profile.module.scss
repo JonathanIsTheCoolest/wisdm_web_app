@@ -1,51 +1,44 @@
-@import "styles/variables.scss";
+// PROFILE DASHBOARD PAGE
 
-.pageWrapper {
-  position: fixed;
+.pageContent {
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
-  padding: $padding-medium;
+  padding: vars.$padding-medium;
   z-index: 100;
-  background-color: var(--color-bg);
+  background-color: vars.$color-background;
   min-height: 250px;
-}
-
-.pageContainer {
-  padding: 250px 20px 100px 20px;
 }
 
 .profileHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: $gap-medium;
-
-  h2 {
-    font-size: $font-size-page-header;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--color-body-font);
-  }
-
-  p {
-    font-size: $font-size-body-text;
-    font-weight: 200;
-    color: var(--color-info-font);
-  }
+  gap: vars.$gap-medium;
 }
 
 .userInfo {
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
-  gap: $gap-small;
+  gap: vars.$gap-small;
+
+  .tagContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 60%;
+    flex-wrap: wrap;
+    gap: vars.$gap-small;
+  }
 }
 
 .editButton {
-  padding: $profile-tab-padding;
+  padding: vars.$profile-tab-padding;
   border: 0;
-  border-radius: 16px;
+  border-radius: vars.$radius-small;
   background-color: var(--color-input);
-  color: var(--color-body-font);
+  color: vars.$color-font-body;
   cursor: pointer;
 }

@@ -1,13 +1,26 @@
 // src/app/layout.tsx
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+} from "react";
 
 import { usePathname, useRouter } from "next/navigation";
 
 // WebSocket Context Provider & Hook
-import { WebSocketProvider, useWebSocket, socket } from "@/app/_lib/socket/socket";
+import {
+  WebSocketProvider,
+  useWebSocket,
+  socket,
+} from "@/app/_lib/socket/socket";
 import { updateNotificationState } from "@/redux_lib/features/notificationsSlice";
+
+// Stylesheet Imports
+import styles from "@/app/(pages)/dashboard/Home.module.scss";
 
 // Redux
 import { useAppSelector, useAppDispatch } from "@/redux_lib/hooks";
@@ -20,9 +33,25 @@ import NavigationBar from "@/app/_components/navigation/NavigationBar";
 import Sidebar from "@/app/_components/navigation/Sidebar";
 import withAuth from "@/app/_components/auth/withAuth";
 
-import styles from "@/app/page.module.scss";
-
 const routes = ["home", "explore", "profile", "vote", "notifications"];
+
+// Create a context for sidebar state
+interface SidebarContextType {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+  openSidebar: () => void;
+  closeSidebar: () => void;
+}
+
+export const SidebarContext = createContext<SidebarContextType>({
+  isOpen: false,
+  toggleSidebar: () => {},
+  openSidebar: () => {},
+  closeSidebar: () => {},
+});
+
+// Custom hook to use the sidebar context
+export const useSidebar = () => useContext(SidebarContext);
 
 interface LayoutProps {
   children: ReactNode;
@@ -31,6 +60,8 @@ interface LayoutProps {
 const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
+  const openSidebar = () => setShowSidebar(true);
+  const closeSidebar = () => setShowSidebar(false);
   const pathname = usePathname();
   const router = useRouter();
   const user = useAppSelector((state: RootState) => state.user);
@@ -38,26 +69,30 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const getNotifications = async() => {
+    const getNotifications = async () => {
       try {
         const notificationResponse = await dispatch(
           apiHTTPWrapper({
-            url: `${process.env.NEXT_PUBLIC_BASE_API_URL}/notifications/get/notifications`
+            url: `${process.env.NEXT_PUBLIC_BASE_API_URL}/notifications/get/notifications`,
           })
-        )
+        );
 
         if (notificationResponse.payload) {
-          dispatch(setNotificationState(notificationResponse.payload.notifications))
+          dispatch(
+            setNotificationState(notificationResponse.payload.notifications)
+          );
         } else {
-          console.log("You don't have any notifications")
+          console.log("You don't have any notifications");
         }
-      } catch(error) {
-        console.error(`There was an error fetching your notifications: ${error}`)
+      } catch (error) {
+        console.error(
+          `There was an error fetching your notifications: ${error}`
+        );
       }
-    }
+    };
 
-    getNotifications()
-  }, [])
+    getNotifications();
+  }, []);
 
   useEffect(() => {
     socket.on("receive_notification_update", (response) => {
@@ -79,12 +114,10 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
 
     return () => {
       console.log("🏁 Cleaning up. Leaving room:", user.current_channel);
-      if (!user.current_channel) return
+      if (!user.current_channel) return;
       leaveRoom(user.current_channel);
     };
   }, [isConnected, user.current_channel]);
-
-
 
   useEffect(() => {
     routes.forEach((route) => {
@@ -93,16 +126,25 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
     });
   }, [router]);
 
-  const shouldShowNavBar = !pathname?.includes("/timeline") && !pathname?.includes("/notifications/view");
+  const shouldShowNavBar =
+    !pathname?.includes("/timeline") &&
+    !pathname?.includes("/notifications/view");
 
   return (
-    <div className={styles.onboardingWrapper}>
-      {/* <Suspense fallback={<LoadingSpinner />}> */}
-      {children}
-      {/* </Suspense> */}
-      {shouldShowNavBar && <NavigationBar />}
-      <Sidebar isOpen={showSidebar} onClose={toggleSidebar} />
-    </div>
+    <SidebarContext.Provider
+      value={{
+        isOpen: showSidebar,
+        toggleSidebar,
+        openSidebar,
+        closeSidebar,
+      }}
+    >
+      <div className={styles.onboardingWrapper}>
+        {children}
+        {shouldShowNavBar && <NavigationBar />}
+        <Sidebar isOpen={showSidebar} onClose={closeSidebar} />
+      </div>
+    </SidebarContext.Provider>
   );
 };
 

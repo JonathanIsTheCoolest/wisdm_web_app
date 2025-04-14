@@ -1,9 +1,8 @@
 // System Imports
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
 
 // API/Database Imports
-import { User, SavedTopic, Wisdom, Comment } from "@/types";
+import { User, SavedTopic, Wisdm, Comment } from "@/types";
 
 // Component Imports
 import ActivityCard from "@/app/_components/cards/ActivityCard";
@@ -14,18 +13,16 @@ import Quadrant from "@/app/_components/graph/Quadrant";
 // Stylesheet Imports
 import styles from "@/app/_components/profile/ProfileTabs.module.scss";
 
-// CommentsTab Component
 const CommentsTab: React.FC<{ comments: Comment[] }> = ({ comments }) => {
   return (
     <div className={styles.pageWrapper}>
       {comments.map((comment, index) => (
-        <ActivityCard key={index} {...comment} />
+        <ActivityCard key={index} content={comment.body} {...comment} />
       ))}
     </div>
   );
 };
 
-// QuadrantTab Component
 const QuadrantTab: React.FC<{
   quadrantData: { xValue: number; yValue: number };
 }> = ({ quadrantData }) => {
@@ -38,7 +35,6 @@ const QuadrantTab: React.FC<{
   );
 };
 
-// SavedTopicsTab Component
 const SavedTopicsTab: React.FC<{ topics: SavedTopic[] }> = ({ topics }) => {
   return (
     <div className={styles.pageWrapper}>
@@ -49,22 +45,20 @@ const SavedTopicsTab: React.FC<{ topics: SavedTopic[] }> = ({ topics }) => {
   );
 };
 
-// WordsOfWisdmTab Component
-const WordsOfWisdmTab: React.FC<{ wisdmList: Wisdom[] }> = ({ wisdmList }) => {
+const WordsOfWisdmTab: React.FC<{ wisdmList: Wisdm[] }> = ({ wisdmList }) => {
   return (
     <div className={styles.pageWrapper}>
       {wisdmList.map((wisdm, index) => (
-        <CommentCard key={index} {...wisdm} />
+        <CommentCard key={index} content={wisdm.body} {...wisdm} />
       ))}
     </div>
   );
 };
 
-// Main ProfileTabs Component
 interface ProfileTabsProps {
   comments: Comment[];
   savedTopics: SavedTopic[];
-  wisdmList: Wisdom[];
+  wisdmList: Wisdm[];
   quadrantData: {
     xValue: number;
     yValue: number;
@@ -73,7 +67,17 @@ interface ProfileTabsProps {
   setActiveTab: (tab: string) => void;
 }
 
-// Create a separate content component
+interface ProfileTabsContentProps {
+  activeTab: string;
+  comments: Comment[];
+  savedTopics: SavedTopic[];
+  wisdmList: Wisdm[];
+  quadrantData: {
+    xValue: number;
+    yValue: number;
+  };
+}
+
 const ProfileTabsContent: React.FC<ProfileTabsContentProps> = ({
   activeTab,
   comments,
@@ -81,6 +85,7 @@ const ProfileTabsContent: React.FC<ProfileTabsContentProps> = ({
   wisdmList,
   quadrantData,
 }) => {
+  console.log("Active tab:", activeTab);
   return (
     <div className={styles.tabContent}>
       {activeTab === "comments" && <CommentsTab comments={comments} />}
@@ -93,17 +98,9 @@ const ProfileTabsContent: React.FC<ProfileTabsContentProps> = ({
   );
 };
 
-// Split the ProfileTabs component into two parts: tabs and content
 const ProfileTabs: React.FC<ProfileTabsProps> & {
   Content: React.FC<ProfileTabsContentProps>;
-} = ({
-  comments,
-  savedTopics,
-  wisdmList,
-  quadrantData,
-  activeTab,
-  setActiveTab,
-}) => {
+} = ({ activeTab, setActiveTab }) => {
   return (
     <div className={styles.tabContainer}>
       <div

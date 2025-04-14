@@ -1,36 +1,72 @@
+// CLEAN UP THIS FILE
+
 // Timeline Summary
 export interface Summary {
-    summary: string;
-    summary_id: string;
-    timeline_id: string;
-    version: number;
+  summary: string;
+  summary_id: string;
+  timeline_id: string;
+  version: number;
 }
 
 // Timeline Events
 interface Event {
-    body: string;
-    event_id: string;
-    event_index: number;
-    narrative_bias: "left" | "right";
-    timeline_id: string;
-    version: number;
-  }
+  body: string;
+  event_id: string;
+  event_index: number;
+  narrative_bias: "left" | "right";
+  timeline_id: string;
+  version: number;
+}
 
 // Timeline
 export interface Timeline {
-    timeline_id: string;
-    parent_event_id: string;
-    title: string;
-    image: string;
-  }
-
-export interface TimelineWithDetails {
-    timeline: Timeline;
-    summary: Summary;
-    events: Event[][];
+  timeline_id: string;
+  parent_event_id: string;
+  title: string;
+  image: string;
+  summary?: string;
+  methodology?: string;
+  topic_statement?: string;
 }
 
-//Profile Tab
+export interface TimelineWithDetails {
+  timeline: Timeline;
+  summary: Summary;
+  events: Event[][];
+}
+
+// Define the popup event interface
+export interface SelectedPopupEvent {
+  event: {
+    title: string;
+    index: number;
+    eventId: string;
+  };
+  position: {
+    x: number;
+    y: number;
+  };
+  bias: "left" | "right";
+}
+
+// TimelinePopup Props
+export interface TimelinePopupProps {
+  event: {
+    title: string;
+    index?: number;
+    eventId?: string;
+  };
+  isOpen: boolean;
+  onClose: () => void;
+  initialClickPosition?: {
+    x: number;
+    y: number;
+  };
+  narrativeBias?: "left" | "right";
+  timelineData?: any;
+}
+
+// Profile Tab
 export interface User {
   username: string;
   bio: string;
@@ -48,16 +84,13 @@ export interface SavedTopic {
   imageUrl?: string;
 }
 
-export interface Wisdom {
+export interface Wisdm {
   username: string;
   time: string;
   body: string;
   upvotes: number;
   comments: number;
 }
-
-// Start Comment Interface
-// add tag and tag class name
 
 interface BaseComment {
   created_at: string;
@@ -77,6 +110,7 @@ export interface Comment extends BaseComment {
   vote_count: number;
   comment_count: number;
   vote: boolean | null;
+  timeline_title?: string;
 }
 
 export interface UpdateComment extends BaseComment {
@@ -89,23 +123,16 @@ export interface UpdateComment extends BaseComment {
   vote?: boolean | null;
 }
 
-
 export interface CommentGroupByIndex {
-    [commentIndex: string]: Comment;
+  [commentIndex: string]: Comment;
 }
 
-
 export interface CommentsByParentId {
-    [parentCommentId: string]: CommentGroupByIndex;
+  [parentCommentId: string]: CommentGroupByIndex;
 }
 
 export interface CommentThread {
-    comments: CommentsByParentId & {root?: Comment};
-    root_comment_count?: number;
-    start_comment_id?: string
+  comments: CommentsByParentId & { root?: Comment };
+  root_comment_count?: number;
+  start_comment_id?: string;
 }
-
-//Vote Tab
-//Notifications Tab
-
-//Timeline

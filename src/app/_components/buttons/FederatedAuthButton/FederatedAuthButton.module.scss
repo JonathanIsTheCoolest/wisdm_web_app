@@ -1,19 +1,18 @@
-@use 'styles/variables.scss' as *;
+// CLEAN UP THIS FILE
 
 .authButton {
   align-items: center;
   background-color: #fff;
   border: 2px solid #000;
-  border-radius: $radius-small;
+  border-radius: vars.$radius-small;
   color: #000;
   display: flex;
-  font-family: $font-poppins-regular;
-  font-size: 16px;
-  font-weight: 600;
-  gap: $gap-medium;
-  height: $button-height;
+  @include vars.use-font("regular");
+  font-size: vars.$font-size-header-small;
+  gap: vars.$gap-medium;
+  height: vars.$button-height;
   justify-content: center;
-  padding: $button-padding;
+  padding: vars.$padding-button;
   text-align: center;
   width: 100%;
 }

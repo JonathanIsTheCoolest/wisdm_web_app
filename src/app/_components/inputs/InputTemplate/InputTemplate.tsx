@@ -1,4 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
+
+import styles from "src/app/(pages)/login/signup/SignUpPage.module.scss";
 
 interface InputProps {
   id: string;
@@ -8,7 +10,6 @@ interface InputProps {
   name: string;
   placeholder?: string;
   errorMessage?: string;
-  containerClass?: string;
   labelClass?: string;
   inputClass?: string;
   errorClass?: string;
@@ -24,23 +25,21 @@ const InputTemplate: React.FC<InputProps> = ({
   value,
   text,
   name,
-  placeholder = '',
-  errorMessage = '',
-  containerClass = '',
-  labelClass = '',
-  inputClass = '',
-  errorClass = '',
+  placeholder = "",
+  errorMessage = "",
+  labelClass = "",
+  inputClass = "",
+  errorClass = "",
   onClick,
   onChange,
   onBlur,
-  children
+  children,
 }) => {
   return (
-    <div key={id} className={containerClass} style={{position: 'relative'}}>
+    <div key={id} className={styles.containerClass}>
       <label htmlFor={id} className={labelClass}>
         {text}
       </label>
-      {errorMessage && <span className={errorClass}> {errorMessage}</span>}
       <input
         id={id}
         name={name}

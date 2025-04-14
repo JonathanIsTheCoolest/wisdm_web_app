@@ -1,12 +1,10 @@
-@import "styles/variables.scss";
-
 .tabContainer {
   position: sticky;
   top: 0;
   background-color: var(--color-background);
   display: flex;
   overflow-x: auto;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
@@ -17,11 +15,10 @@
   .tabItem {
     color: var(--color-header-font);
     text-wrap: nowrap;
-    padding: $profile-tab-padding;
-    border-radius: $radius-small;
+    padding: vars.$profile-tab-padding;
+    border-radius: vars.$radius-small;
     cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: vars.$font-size-header-small;
   }
 
   .activeTab {

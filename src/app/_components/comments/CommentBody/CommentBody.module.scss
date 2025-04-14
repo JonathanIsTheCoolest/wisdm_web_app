@@ -1,9 +1,9 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .commentBodyContainer {
   display: flex;
   flex-direction: row;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 
   .commentContainer {
     width: 100%;
@@ -14,12 +14,12 @@
   .commentFooter {
     display: flex;
     align-items: center;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
 
     .commentIconContainer {
       display: flex;
       align-items: center;
-      gap: $gap-small;
+      gap: vars.$gap-small;
     }
 
     img {
@@ -33,7 +33,7 @@
 .commentHeader {
   display: flex;
   align-items: center;
-  color: var(--color-body-font);
+  color: vars.$color-font-body;
   height: 50px;
 }
 
@@ -44,24 +44,22 @@
 }
 
 .usernameElapsed {
-  font-family: $font-poppins-regular;
-  font-size: $font-size-body-text;
-  font-weight: 400;
-  color: var(--color-body-font);
-  /* Additional styling for username and elapsed time display */
+  @include vars.use-font("regular");
+  font-size: vars.$font-size-body-medium;
+  color: vars.$color-font-body;
 }
 
 .commentContent {
   display: flex;
   flex-direction: column;
-  gap: $gap-small;
+  gap: vars.$gap-small;
 }
 
 .commentText {
-  font-family: $font-poppins-thin;
-  font-size: $font-size-comment-details;
-  font-weight: 200;
-  color: var(--color-body-font);
+  @include vars.use-font("thin");
+  font-size: vars.$font-size-body-small;
+
+  color: vars.$color-font-body;
 }
 
 .commentIcon {
@@ -69,9 +67,7 @@
 }
 
 .commentCount {
-  font-family: $font-poppins-thin;
-  font-size: $font-size-comment-details;
-  font-weight: 200;
+  @include vars.use-font("thin");
+  font-size: vars.$font-size-body-small;
   color: var(--color-comment-font-detail);
-  /* Additional styling for comment count display */
 }

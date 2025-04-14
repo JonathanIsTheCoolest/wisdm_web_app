@@ -1,7 +1,7 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .commentContainer {
   display: flex;
   flex-direction: column;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
 }

@@ -1,58 +1,57 @@
 // CLEAN UP THIS FILE
 
-@import './styles/variables.scss';
-
 .commentCard {
   background-color: var(--color-feed-item-bg);
-  border-radius: $radius-small;
-  color: var(--color-body-font);
+  border-radius: vars.$radius-small;
+  color: vars.$color-font-body;
 
   .commentContent {
-    border-left: 1px solid #ADADAD;
-    color: var(--color-body-font);
+    border-left: 1px solid #adadad;
+    color: vars.$color-font-body;
     display: flex;
     flex-direction: column;
-    font-size: $font-size-body-text;
-    gap: $gap-small;
-    padding-left: $padding-medium;
+    font-size: vars.$font-size-body-medium;
+    gap: vars.$gap-small;
+    padding-left: vars.$padding-medium;
 
     .userWrapper {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .userName {
         align-items: center;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-    
-        .userName {
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          font-size: $font-size-body-text;
-          gap: $gap-medium;
+        gap: vars.$gap-medium;
 
-          .userIcon {
-              background-color: var(--color-icon);
-              border-radius: 50%;
-              height: 40px;
-              width: 40px;
-          }
+        .userIcon {
+          background-color: var(--color-icon);
+          border-radius: 50%;
+          height: 40px;
+          width: 40px;
         }
       }
     }
+  }
 
   .commentFooter {
     align-items: center;
     display: flex;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
     justify-content: flex-end;
   }
 
+  .commentVotes {
+    display: flex;
+    align-items: center;
+    gap: vars.$gap-small;
+  }
+
   .commentCount {
-    span {
-      color: var(--color-body-font);
-    }
+    display: flex;
+    align-items: center;
+    gap: vars.$gap-small;
   }
 }
-
-  
- 
-  

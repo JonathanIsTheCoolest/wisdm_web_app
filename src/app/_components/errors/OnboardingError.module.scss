@@ -1,0 +1,68 @@
+// CLEAN UP THIS FILE
+// PASS TO ONBOARDING PAGES
+
+.errorContainer {
+  margin-top: 0.5rem;
+  width: 100%;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.errorMessage {
+  color: #ff4d4f;
+  font-size: vars.$font-size-body-medium;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: vars.$radius-small;
+
+  &.field {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+
+  &.alert {
+    background-color: rgba(255, 77, 79, 0.1);
+    border: 1px solid rgba(255, 77, 79, 0.2);
+    padding: 0.5rem 1rem;
+  }
+}
+
+// Error Summary Styles
+.errorSummary {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: vars.$radius-small;
+  background-color: rgba(255, 77, 79, 0.1);
+  border: 1px solid rgba(255, 77, 79, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.errorSummaryTitle {
+  color: #ff4d4f;
+  font-size: vars.$font-size-body-large;
+}
+
+.errorList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.errorItem {
+  color: #ff4d4f;
+  font-size: vars.$font-size-body-medium;
+  line-height: 1.4;
+}
+
+.errorField {
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

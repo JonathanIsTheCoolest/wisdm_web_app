@@ -8,6 +8,7 @@ import { ThemeContext } from "@/app/_contexts/ThemeContext";
 
 // Component Imports
 import ToggleSwitch from "@/app/_components/buttons/ToggleSwitch";
+import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
 
 // Stylesheet Imports
 import styles from "@/app/_components/navigation/Sidebar.module.scss";
@@ -29,7 +30,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <div
       className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}
-      style={{'overflow': 'scroll'}}
     >
       <header className={styles.sidebarHeader}>
         <Image
@@ -51,12 +51,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
         <div className={styles.sidebarItem}>
           <p>Security Settings</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
-        </div>
-        <div className={styles.sidebarItem}>
-          <p>Blocked Users</p>
           <span>
             <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
@@ -93,6 +87,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <span>
             <Image src={arrowRightBrand} alt="Arrow Right" />
           </span>
+        </div>
+        <div className={styles.sidebarItem}>
+          <p>Dark/Light Mode</p>
+          <ThemeToggle />
         </div>
       </div>
       <h2>Support and Feedback</h2>

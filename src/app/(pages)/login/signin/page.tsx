@@ -13,6 +13,8 @@ import { facebookSignInSequence } from "@/app/_lib/firebase/auth/facebook/auth_f
 // Component Imports
 import { SubmitButton } from "@/app/_components/buttons/SubmitButton";
 import FederatedAuthButton from "@/app/_components/buttons/FederatedAuthButton/FederatedAuthButton";
+import LoadingOverlay from "@/app/_components/loading/LoadingOverlay";
+import { useOnboardingLoadingState } from "@/hooks/useOnboardingLoadingState";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/login/signin/SignInPage.module.scss";
@@ -26,6 +28,7 @@ import facebookIcon from "@/assets/icons/facebook.svg";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { isLoading, startLoading, stopLoading } = useOnboardingLoadingState();
 
   const inputArray = [
     {
@@ -43,14 +46,22 @@ const LoginPage = () => {
       set: setPassword,
     },
   ];
-  const onClickFirebaseEmailPasswordLogin = () => {
+  const onClickFirebaseEmailPasswordLogin = async () => {
     if (email && password) {
-      logInWithEmailAndPassword(email, password);
+      startLoading();
+      try {
+        await logInWithEmailAndPassword(email, password);
+      } catch (error) {
+        console.error("Login failed:", error);
+      } finally {
+        stopLoading();
+      }
     }
   };
 
   return (
-    <div className={styles.loginPage}>
+    <div className={styles.loginContainer}>
+      <LoadingOverlay isVisible={isLoading} />
       <div className={styles.onboardingHeader}>
         <Link href="/login" className={styles.backButton}>
           <Image

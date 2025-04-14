@@ -1,9 +1,9 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .voteContainer {
   display: flex;
   align-items: center;
-  gap: $gap-small;
+  gap: vars.$gap-small;
 }
 
 .voteArrow {
@@ -14,8 +14,7 @@
 }
 
 .voteCount {
-  font-family: $font-poppins-thin;
-  font-size: $font-size-comment-details;
-  font-weight: 200;
+  @include vars.use-font("thin");
+  font-size: vars.$font-size-body-small;
   color: var(--color-comment-font-detail);
 }

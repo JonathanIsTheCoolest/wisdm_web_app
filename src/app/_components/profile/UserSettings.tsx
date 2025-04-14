@@ -17,6 +17,7 @@ interface UserSettingsProps {
   user: {
     username: string;
     email: string;
+    photo_url?: string | null;
   };
   onBack: () => void;
 }
@@ -30,7 +31,7 @@ const UserSettings: React.FC<UserSettingsProps> = ({ user, onBack }) => {
       <header className={styles.pageTitle}>
         <h1>User Settings</h1>
         <Image
-          src={placeholderAvatar}
+          src={user.photo_url || placeholderAvatar}
           alt={`${user.username}'s avatar`}
           width={160}
           height={160}

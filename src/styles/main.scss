@@ -1,12 +1,6 @@
-@import "./variables.scss";
-@import "./globals.scss";
-
-// DECLARED VARIABLES FROM THE FIGMA
-$gradient-splash: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64.5%, #D55CFF 94.5%);
-
 :root {
   --max-width: 1100px;
-  --border-radius: 12px;
+  --border-radius: vars.$radius-medium;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
@@ -86,53 +80,90 @@ $gradient-splash: linear-gradient(180deg, rgba(77, 35, 167, 0.79) 0%, #BF64F7 64
 }
 
 html,
-body {
+body,
+main {
+  @include vars.use-font("regular");
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: vars.$color-background;
+  color: vars.$color-font-body;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+* {
+  transition: background-color vars.$transition-duration,
+    color vars.$transition-duration, border-color vars.$transition-duration,
+    box-shadow vars.$transition-duration;
 }
 
 button {
   cursor: pointer;
-  font-family: $font-poppins-regular;
+  @include vars.use-font("regular");
+  color: vars.$color-font-body;
+  cursor: pointer;
 }
 
-input, textarea {
-  font-family: $font-poppins-regular;
+input,
+textarea {
+  @include vars.use-font("regular");
   padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: $radius-small;
+  border: 1px solid var(--color-input-border);
+  border-radius: vars.$radius-small;
+  background-color: var(--color-input);
+  color: vars.$color-font-body;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-poppins-semibold;
+h1,
+h2,
+h3 {
+  @include vars.use-font("bold");
   margin: 0;
   line-height: 1;
+  color: var(--color-header-font);
 }
 
-p {
+h1 {
+  font-size: vars.$font-size-header-large;
+}
+
+h2 {
+  font-size: vars.$font-size-header-medium;
+}
+
+h3 {
+  font-size: vars.$font-size-header-small;
+}
+
+p,
+a {
+  @include vars.use-font("regular");
+  color: vars.$color-font-body;
   line-height: 1;
   margin: 0;
+  font-size: vars.$font-size-body-medium;
+}
+
+a {
+  color: vars.$color-brand;
+  text-decoration: none;
+}
+
+span {
+  @include vars.use-font("thin");
+  font-size: vars.$font-size-body-medium;
+  color: vars.$color-font-body;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: $gap-medium;
+  gap: vars.$gap-medium;
+}
+
+input {
+  background-color: var(--color-input);
+  color: vars.$color-font-body;
 }
 
 @media (prefers-color-scheme: dark) {

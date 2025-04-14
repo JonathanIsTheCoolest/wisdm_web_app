@@ -1,18 +1,11 @@
-@import "./styles/variables.scss";
-
 // PERSONAL INFO PAGE
-.personalInfoPage {
-  padding: $padding-medium;
-  display: flex;
-  flex-direction: column;
-  gap: $gap-medium;
-  text-align: center;
-  margin-top: 8rem;
+// CLEAN UP THIS FILE
 
+.loginContainer {
   .genderButtons {
     display: flex;
     flex-wrap: wrap;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
     justify-content: center;
 
     .genderButton {
@@ -20,11 +13,8 @@
       min-width: 100px;
       padding: 1rem;
       border: 0;
-      border-radius: 8px;
+      border-radius: vars.$radius-large;
       background-color: var(--color-feed-item-bg);
-      font-family: $font-poppins-regular;
-      color: var(--color-body-font);
-      cursor: pointer;
       box-sizing: border-box;
       border: 2px solid transparent;
 

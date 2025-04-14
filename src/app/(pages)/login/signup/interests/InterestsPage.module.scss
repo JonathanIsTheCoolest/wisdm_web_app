@@ -1,28 +1,24 @@
-@import "./styles/variables.scss";
-
-.interestsPage {
-  display: flex;
-  flex-direction: column;
-  gap: $gap-medium;
-  margin-top: 8rem;
-  padding: $padding-medium;
-  text-align: center;
+// INTERESTS PAGE
+// CLEAN UP THIS FILE
+.loginContainer {
+  .interestCounter {
+    opacity: 0.8;
+  }
 
   .interestsGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: $gap-medium;
+    gap: vars.$gap-medium;
     justify-content: center;
     margin-bottom: 100px;
 
     .interestItem {
       align-items: center;
-      border-radius: 8px;
+      border-radius: vars.$radius-small;
       box-sizing: border-box;
       cursor: pointer;
       flex-direction: column;
-      gap: $gap-medium;
-      transition: background-color 0.3s;
+      gap: vars.$gap-medium;
       width: 175px;
 
       &.selected img {
@@ -30,15 +26,9 @@
       }
 
       img {
-        border-radius: 8px;
+        border-radius: vars.$radius-small;
         height: auto;
         width: 100%;
-      }
-
-      p {
-        color: var(--color-body-font);
-        font-family: $font-poppins-regular;
-        font-size: 10px;
       }
     }
   }

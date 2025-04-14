@@ -1,40 +1,40 @@
-@import "./styles/variables.scss";
+// CLEAN UP THIS FILE
 
 .notificationCard {
   align-items: center;
   background-color: var(--color-notification-bg);
-  border-radius: $radius-large;
+  border-radius: vars.$radius-large;
   display: flex;
   justify-content: space-between;
 
   .cardContent {
-    color: var(--color-body-font);
+    color: vars.$color-font-body;
     display: flex;
     flex-direction: column;
-    gap: $gap-small;
+    gap: vars.$gap-small;
     width: 100%;
 
     .cardHeader {
       align-items: center;
-      gap: $gap-small;
+      gap: vars.$gap-small;
       justify-content: unset;
     }
 
     .cardBody {
-      color: var(--color-body-font);
+      color: vars.$color-font-body;
       display: unset;
-      font-size: 14px;
+      font-size: vars.$font-size-body-large;
 
       span {
-        color: $color-notification-username;
-        font-size: 14px;
+        color: vars.$color-notification-username;
+        font-size: vars.$font-size-body-large;
       }
     }
   }
 
   .cardArrow {
-    color: $color-brand;
-    font-size: $notification-icon-size;
-    padding: $padding-medium;
+    color: vars.$color-brand;
+    font-size: vars.$font-size-body-medium;
+    padding: vars.$padding-medium;
   }
 }

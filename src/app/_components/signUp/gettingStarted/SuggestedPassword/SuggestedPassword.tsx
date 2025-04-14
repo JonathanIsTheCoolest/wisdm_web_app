@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
+import styles from "@/app/(pages)/login/signup/SignUpPage.module.scss";
+
 import { copyToClipboard } from "@/app/_lib/helper/clipboard/clipboard";
 import { generatePassword } from "@/app/_lib/user/password/generatePassword";
 
@@ -14,13 +16,16 @@ const SuggestedPassword = ({
   password,
   suggestedPassword,
   duplicatePassword,
-  setField
+  setField,
 }: SuggestedPasswordProps) => {
-  const isUsingSuggestedPassword = password === suggestedPassword && duplicatePassword === suggestedPassword;
-  const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const isUsingSuggestedPassword =
+    password === suggestedPassword && duplicatePassword === suggestedPassword;
+  const escapeRegex = (str: string) =>
+    str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const isIncluded = new RegExp(escapeRegex(password)).test(suggestedPassword);
 
-  const [clipboardIsTransitioning, setClipboardIsTransitioning] = useState(false);
+  const [clipboardIsTransitioning, setClipboardIsTransitioning] =
+    useState(false);
 
   useEffect(() => {
     if (clipboardIsTransitioning) {
@@ -33,57 +38,65 @@ const SuggestedPassword = ({
 
   const handleCopyClick = useCallback(() => {
     if (isUsingSuggestedPassword) {
-      copyToClipboard({ text: suggestedPassword, name: 'Password' });
+      copyToClipboard({ text: suggestedPassword, name: "Password" });
       setClipboardIsTransitioning(true);
     }
   }, [isUsingSuggestedPassword, suggestedPassword]);
 
   const handleUsePasswordClick = useCallback(() => {
-    setField('password', suggestedPassword);
-    setField('duplicatePassword', suggestedPassword);
-    setField('duplicatePasswordError', '');
+    setField("password", suggestedPassword);
+    setField("duplicatePassword", suggestedPassword);
+    setField("duplicatePasswordError", "");
   }, [setField, suggestedPassword]);
 
   const handleGenerateNewPasswordClick = useCallback(() => {
-    setField('suggestedPassword', generatePassword());
-    setField('password', '');
-    setField('duplicatePassword', '');
-    setField('duplicatePasswordError', '');
+    setField("suggestedPassword", generatePassword());
+    setField("password", "");
+    setField("duplicatePassword", "");
+    setField("duplicatePasswordError", "");
   }, [setField]);
 
   if (password.length && !isIncluded) return null;
 
   return (
-    <div style={{ cursor: 'pointer', position: 'relative' }}>
-      <button
-        onClick={isUsingSuggestedPassword ? handleCopyClick : handleUsePasswordClick}
-        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-        aria-label={isUsingSuggestedPassword ? 'Copy suggested password' : 'Use suggested password'}
-      >
-        {!clipboardIsTransitioning ? (
-          <>
-            <span>{isUsingSuggestedPassword ? 'Copy to Clipboard' : 'Use Suggested Password'}: </span>
-            <span>{suggestedPassword}</span>
-          </>
-        ) : (
-          <span
-            style={{
-              backgroundColor: 'green',
-              color: 'white',
-              border: '1px solid black',
-              borderRadius: '5px',
-              padding: '2px'
-            }}
+    <div className={styles.suggestedPassword}>
+      <div className={styles.buttonContainer}>
+        {!isUsingSuggestedPassword && (
+          <button
+            className={styles.standardButton}
+            onClick={handleGenerateNewPasswordClick}
           >
-            Copied!
-          </span>
+            Generate new password
+          </button>
         )}
-      </button>
-      {!isUsingSuggestedPassword && (
-        <button onClick={handleGenerateNewPasswordClick} style={{ marginTop: '8px' }}>
-          Generate new password
+        <button
+          className={styles.standardButton}
+          onClick={
+            isUsingSuggestedPassword ? handleCopyClick : handleUsePasswordClick
+          }
+          aria-label={
+            isUsingSuggestedPassword
+              ? "Copy suggested password"
+              : "Use suggested password"
+          }
+        >
+          {!clipboardIsTransitioning ? (
+            <>
+              <span>
+                {isUsingSuggestedPassword
+                  ? "Copy to Clipboard"
+                  : "Use Suggested Password"}
+              </span>
+            </>
+          ) : (
+            <span className={styles.standardButton}>Copied!</span>
+          )}
         </button>
-      )}
+      </div>
+      <div className={styles.passwordContainer}>
+        <p>Suggested Password:</p>
+        <p className={styles.passwordText}>{suggestedPassword}</p>
+      </div>
     </div>
   );
 };
