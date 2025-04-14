@@ -17,6 +17,7 @@ import styles from "@/app/_components/navigation/Sidebar.module.scss";
 import wisdmLogoBrand from "@/assets/logos/wisdm_logo_brand.svg";
 import wisdmLogoWhite from "@/assets/logos/wisdm_logo_white.svg";
 import arrowRightBrand from "@/assets/icons/arrow_right_brand.svg";
+import closeIcon from "@/assets/icons/close.svg";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -32,13 +33,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       className={`${styles.sidebarContainer} ${isOpen ? styles.active : ""}`}
     >
       <header className={styles.sidebarHeader}>
-        <Image
-          src={theme === "light" ? wisdmLogoBrand : wisdmLogoWhite}
-          alt="Wisdm Logo"
-        />
-        <h1>WISDM</h1>
+        <div className={styles.logoContainer}>
+          <Image
+            src={theme === "light" ? wisdmLogoBrand : wisdmLogoWhite}
+            alt="Wisdm Logo"
+          />
+          <h1>WISDM</h1>
+        </div>
         <p className={styles.closeButton} onClick={onClose}>
-          ×
+          <Image src={closeIcon} alt="Close" />
         </p>
       </header>
       <h2>Privacy and Security</h2>

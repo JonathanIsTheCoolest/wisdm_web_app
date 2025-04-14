@@ -6,10 +6,10 @@
   gap: vars.$gap-medium;
   height: 100%;
   position: fixed;
-  right: -(vars.$settings-slide-width);
+  right: -25%;
   top: 0;
   transition: right vars.$transition-duration;
-  width: vars.$settings-slide-width;
+  width: 25%;
   z-index: 1001;
   overflow: none;
 
@@ -21,14 +21,22 @@
     right: 0;
   }
 
+  .logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: vars.$gap-medium;
+  }
+
   .closeButton {
     color: vars.$color-brand;
     cursor: pointer;
-    font-size: vars.$font-size-header-large;
-    position: absolute;
-    right: 5%;
-    text-align: right;
-    top: 5%;
+
+    img {
+      width: 24px !important;
+      height: 24px !important;
+    }
   }
 
   .sidebarHeader {
@@ -38,7 +46,7 @@
     justify-content: center;
     padding: vars.$padding-medium;
     gap: vars.$gap-medium;
-    height: 300px;
+    height: 200px;
 
     img {
       width: 25%;
