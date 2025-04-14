@@ -17,27 +17,39 @@
   p {
     color: white;
   }
+
+  .voteFinishedContainer {
+    gap: vars.$gap-medium;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .cardContent {
   justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
 .voteContainer {
   align-items: center;
   background-color: transparent;
+  justify-content: space-between;
   cursor: pointer;
   display: flex;
   gap: vars.$gap-medium;
-  width: 100%;
+  width: 60%;
 
   .voteButton {
     background-color: transparent;
     border: none;
     border-radius: vars.$radius-large;
     cursor: pointer;
-    font-size: vars.$font-size-header-large;
+    font-size: 48px;
     line-height: 1;
     padding: vars.$padding-medium;
     transition: background-color vars.$transition-duration;
