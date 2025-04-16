@@ -28,6 +28,9 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment }) => {
     e.preventDefault();
     if (!isBouncing) {
       setIsBouncing(true);
+      console.log('COMMENT ID')
+      console.log(comment_id)
+      console.log('')
       dispatch(
         apiSocketWrapper({
           cb: (args: object) => {
@@ -48,6 +51,11 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment }) => {
     socket.on("receive_vote_update_success", (response) => {
       const { comment_id: id, status } = response;
 
+      console.log('COMMENT ID')
+      console.log(comment_id)
+      console.log('RESPONSE COMMENT ID')
+      console.log(id)
+      console.log('')
       if (id === comment_id) {
         setIsBouncing(false);
       }

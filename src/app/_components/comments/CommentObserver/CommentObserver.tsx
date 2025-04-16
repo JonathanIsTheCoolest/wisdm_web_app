@@ -47,7 +47,11 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
     return () => observer.disconnect();
   }, [rootMargin, threshold, onIntersect]);
 
-  return <div ref={ref}>{children}</div>;
+  return ( 
+    <div ref={ref}>
+      {children}
+    </div>
+  );
 };
 
 export default CommentObserver;

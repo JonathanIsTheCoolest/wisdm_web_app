@@ -132,7 +132,6 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
       }
       {commentState.comments[rootCommentId] && (
         <RecursiveCommentDisplay
-          key={orderBy}
           commentsObject={commentState.comments}
           commentObject={commentState.comments[rootCommentId]}
           threadId={threadId}
@@ -140,6 +139,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
           orderBy={orderBy}
           handleGetComments={handleGetComments}
           parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
+          commentId={rootCommentId}
         />
       )}
       <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>

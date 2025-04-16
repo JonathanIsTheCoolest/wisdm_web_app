@@ -78,17 +78,23 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
 
       const index_name = standardizeIndexName(comment.comment_index)
 
+      const currentObjectLength = state.comments[parent_comment_id] ? 
+        Object.values(state.comments[parent_comment_id]).length + 1 :
+        1
+
       const insertBasedOnOrder = () => {
         if (order === 'DESC') {
           return {
             [index_name]: comment,
             ...state.comments[parent_comment_id],
           }
-        } else {
+        } else if (order === 'ASC' && currentObjectLength === comment_count ) {
           return {
             ...state.comments[parent_comment_id],
             [index_name]: comment
           }
+        } else {
+          return {...state.comments[parent_comment_id]}
         }
       }
 

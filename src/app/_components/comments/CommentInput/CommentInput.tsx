@@ -27,8 +27,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
 
   const path = standardizedPath()
 
-  const onClickPostComment = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const postComment = () => {
     dispatch(
       apiSocketWrapper({
         cb: (args: object) => {
@@ -48,6 +47,19 @@ const CommentInput: React.FC<CommentInputProps> = ({
     setNewComment("");
   };
 
+  const onClickPostComment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (newComment.length) {
+      postComment();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && newComment.length) {
+      postComment();
+    }
+  };
+
   return (
     <label className={styles.labelContainer}>
       <input
@@ -60,10 +72,11 @@ const CommentInput: React.FC<CommentInputProps> = ({
         style={{
           ...inputStyles,
         }}
+        onKeyDown={handleKeyDown}
       />
 
       <Image
-        onClick={(e) => newComment.length && onClickPostComment(e)}
+        onClick={onClickPostComment}
         src={commentSVG}
         alt="send comment button"
         width={25}

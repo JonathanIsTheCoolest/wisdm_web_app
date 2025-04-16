@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction, useRef, useState, useLayoutEffect } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState, useLayoutEffect, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
 import collapseSVG from "@/assets/icons/collapse_comments_triangle.svg";
+import LoadingSpinner from "../../loading/LoadingSpinner";
 import styles from "./OpenNestedThreadButton.module.scss";
 import { CommentGroupByIndex } from "@/types";
 import { CommentOrder } from "../CommentContainer/commentReducer";
@@ -18,7 +19,7 @@ interface OpenNestedThreadButtonProps {
 }
 
 const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo(
-    ({ isCollapsed, setIsCollapsed, comment_id, comment_object, renderChildComments, handleGetComments, orderBy }) => {
+    ({ comment_id, comment_object, renderChildComments, handleGetComments, orderBy, isCollapsed, setIsCollapsed }) => {
         const commentContainerRef = useRef<HTMLElement | null>(null);
         const [positions, setPositions] = useState<{
             togglePosition: { top: number; left: number } | null;
@@ -132,7 +133,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
 
         const handleClick = () => {
             setIsCollapsed((prev) => !prev);
-            if (!comment_object) {
+            if (!comment_object && isCollapsed) {
                 handleGetComments(comment_id, 0);
             }
         };
