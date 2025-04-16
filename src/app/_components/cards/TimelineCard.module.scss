@@ -33,3 +33,32 @@
     }
   }
 }
+
+.timelineCardCompact {
+  min-width: 384px;
+  max-width: 768px;
+  width: 100%;
+  height: fit-content;
+  border-radius: vars.$radius-small;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin: 0;
+  padding: 0;
+
+  .timelineCardImage {
+    width: 100%;
+    position: relative;
+  }
+
+  .timelineCardContent {
+    padding: 8px 10px;
+    h3 {
+      font-size: 1rem;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      word-break: break-word;
+      text-overflow: ellipsis;
+    }
+  }
+}

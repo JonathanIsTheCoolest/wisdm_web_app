@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "motion/react";
 
 // API/Database Imports
 import { useAppSelector } from "@/redux_lib/hooks";
@@ -14,13 +15,13 @@ import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
 import TimelineCard from "@/app/_components/cards/TimelineCard";
 import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
 import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
+import SearchBar from "@/app/_components/navigation/SearchBar";
 import { useSidebar } from "@/app/(pages)/dashboard/layout";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/Home.module.scss";
 
 // Asset Imports
-import searchIcon from "@/assets/icons/search.svg";
 import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
 
@@ -41,7 +42,6 @@ const Home = () => {
 
   const toggleOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isOverlayVisible) {
-      // Get the exact coordinates where the user clicked
       setOverlayTriggerPosition({
         x: e.clientX,
         y: e.clientY,
@@ -57,7 +57,6 @@ const Home = () => {
   const fetchFeed = async () => {
     try {
       if (!idToken) {
-        // This is a redundant check, It needs to be removed.
         console.error("User not authenticated");
         return;
       }
@@ -112,12 +111,7 @@ const Home = () => {
         onClose={() => setIsOverlayVisible(false)}
         triggerPosition={overlayTriggerPosition}
       />
-      <div className={styles.searchBar}>
-        <input type="text" placeholder="Search" aria-label="Search" />
-        <div className={styles.searchIcon}>
-          <Image src={searchIcon} alt="Search Icon" />
-        </div>
-      </div>
+      <SearchBar idToken={idToken} />
 
       <div className={styles.sectionTitle} style={{ marginBottom: "16px" }}>
         <Link href="/dashboard/placeholder-timeline">
@@ -129,9 +123,7 @@ const Home = () => {
         <h2>Domestic Politics 🇺🇸</h2>
       </div>
       <section className={styles.feedSection}>
-        {error ? (
-          <p className={styles.errorMessage}>{error}</p>
-        ) : timelines.length > 0 ? (
+        {timelines.length > 0 ? (
           timelines.map((timeline) => (
             <Link
               href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}

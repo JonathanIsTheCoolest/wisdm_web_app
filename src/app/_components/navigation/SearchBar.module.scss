@@ -1,0 +1,77 @@
+// CLEAN UP THIS FILE
+
+.searchBar {
+  align-items: center;
+  background-color: var(--color-input);
+  border-radius: vars.$radius-small;
+  display: flex;
+  height: 44px;
+  padding: vars.$padding-small;
+
+  input {
+    background: none;
+    border: none;
+    flex: 1;
+    font-size: vars.$font-size-body-medium;
+    outline: none;
+  }
+
+  .searchIcon {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.searchBarFocused {
+  box-shadow: 0 0 0 2px #0070f3;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.searchDropdown {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$gap-large;
+  z-index: 10;
+  background-color: var(--color-input);
+
+  .searchDropdownSection {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$gap-small;
+  }
+}
+
+.searchDropdownMasonry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: vars.$gap-small;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.dropdownEventItem,
+.dropdownSummaryItem {
+  background: #252525;
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: #fff;
+}
+
+.dropdownLoading,
+.dropdownError,
+.dropdownNoResults {
+  text-align: center;
+  color: #fff;
+  padding: 16px 0;
+}
+
+.searchBackdrop {
+  z-index: 5;
+}
