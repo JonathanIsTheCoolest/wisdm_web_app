@@ -1,1 +1,7 @@
 // HOME DASHBOARD PAGE
+
+.feedSection {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$gap-large;
+}

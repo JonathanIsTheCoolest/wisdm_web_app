@@ -17,6 +17,7 @@ const imageMap: { [key: string]: any } = {
 
 interface TimelineCardProps extends Timeline {
   onClick?: () => void;
+  variant?: "default" | "compact";
 }
 
 const TimelineCard: React.FC<TimelineCardProps> = ({
@@ -24,14 +25,22 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   title,
   image,
   onClick,
+  variant = "default",
 }) => {
   const imageSource = imageMap[image] || timeline_1;
 
   return (
-    <div className={styles.timelineCard} onClick={onClick}>
+    <div
+      className={
+        variant === "compact"
+          ? `${styles.timelineCard} ${styles.timelineCardCompact}`
+          : styles.timelineCard
+      }
+      onClick={onClick}
+    >
       <div className={styles.timelineCardImage}>
         <Image src={imageSource} alt={title} layout="fill" objectFit="cover" />
-        <div className={styles.timelineCardOverlay}></div>
+        {variant !== "compact" && <div className={styles.timelineCardOverlay}></div>}
       </div>
       <div className={styles.timelineCardContent}>
         <h3>{title}</h3>
