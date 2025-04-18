@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 
 import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 
@@ -12,6 +12,8 @@ type CommentObserverProps = {
   rootMargin?: string;
   threshold?: number | number[];
   children: React.ReactNode;
+  isLoadingMoreComments: boolean;
+  setIsLoadingMoreComments: Dispatch<SetStateAction<boolean>>
 };
 
 const CommentObserver: React.FC<CommentObserverProps> = ({
@@ -24,9 +26,10 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
   rootMargin = "25px",
   threshold = 0.1,
   children,
+  isLoadingMoreComments,
+  setIsLoadingMoreComments
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -34,9 +37,14 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isIntersecting) {
-          setIsIntersecting(true);
-          onIntersect(parent_comment_id, currentCommentObjectLength, false, () => setIsIntersecting(false));
+        if (entry.isIntersecting && !isLoadingMoreComments) {
+          setIsLoadingMoreComments(true)
+          onIntersect(
+            parent_comment_id, 
+            currentCommentObjectLength, 
+            false, 
+            () => setIsLoadingMoreComments(false)
+          );
         }
       },
       { rootMargin, threshold }

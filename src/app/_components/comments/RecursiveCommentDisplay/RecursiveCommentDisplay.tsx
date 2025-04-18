@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/types";
 import { CommentOrder } from "../CommentContainer/commentReducer";
 import CommentBody from "../CommentBody/CommentBody";
 import NestedThreadContainer from "../NestedThreadContainer/NestedThreadContainer";
 import styles from "./RecursiveCommentDisplay.module.scss";
+import LoadingSpinner from "../../loading/LoadingSpinner";
 
 import CommentObserver from "../CommentObserver/CommentObserver";
 
@@ -23,6 +24,7 @@ export interface RecursiveCommentDisplayProps {
 
 const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
   React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0, commentId }) => {
+    const [isLoadingMoreComments, setIsLoadingMoreComments] = useState<boolean>(false)
 
     return (
       <div>
@@ -37,6 +39,8 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 parent_comment_id={parent_comment_id}
                 parent_comment_count={parentCommentCount}
                 body={body}
+                isLoadingMoreComments={isLoadingMoreComments}
+                setIsLoadingMoreComments={setIsLoadingMoreComments}
               >
                 <CommentBody
                   comment={comment}
@@ -58,6 +62,9 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
             </div>
           );
         })}
+        {isLoadingMoreComments &&
+          <LoadingSpinner/>
+        }
       </div>
     );
   });

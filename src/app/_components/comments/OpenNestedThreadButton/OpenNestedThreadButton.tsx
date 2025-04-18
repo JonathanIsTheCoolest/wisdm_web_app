@@ -21,6 +21,7 @@ interface OpenNestedThreadButtonProps {
 const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo(
     ({ comment_id, comment_object, renderChildComments, handleGetComments, orderBy, isCollapsed, setIsCollapsed }) => {
         const commentContainerRef = useRef<HTMLElement | null>(null);
+        const [isLoadingNestedComments, setIsLoadingNestedComments] = useState<boolean>(false)
         const [positions, setPositions] = useState<{
             togglePosition: { top: number; left: number } | null;
             verticalLinePositions: {
@@ -134,7 +135,8 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
         const handleClick = () => {
             setIsCollapsed((prev) => !prev);
             if (!comment_object && isCollapsed) {
-                handleGetComments(comment_id, 0);
+                setIsLoadingNestedComments(true)
+                handleGetComments(comment_id, 0, false, () => setIsLoadingNestedComments(false));
             }
         };
 
@@ -164,7 +166,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
                         zIndex: 1,
                     }}
                 >
-                    <Image src={collapseSVG} alt="collapse nested comment thread" height={10} width={10} />
+                  <Image src={collapseSVG} alt="collapse nested comment thread" height={10} width={10} />
                 </div>
                 {!isCollapsed && positions.verticalLinePositions && (
                     <div
@@ -179,21 +181,34 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
                         }}
                     />
                 )}
+                {isLoadingNestedComments && positions.verticalLinePositions &&
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: positions.verticalLinePositions.bottomStartPosition + positions.verticalLinePositions.toggleToBottomHeight + 25,
+                      left: positions.verticalLinePositions.left + 25,
+                    }}
+                  >
+                    <LoadingSpinner sideLength={25}/>
+                  </div>
+                }
                 {!isCollapsed && positions.childPositionsArray &&
-                    positions.childPositionsArray.map((child) => (
-                        <div
-                            key={child.top}
-                            style={{
-                                position: "absolute",
-                                top: child.center,
-                                left: child.centeredLeft,
-                                height: "2px",
-                                width: child.horizontalLineLength - 5,
-                                backgroundColor: "var(--color-comment-font-detail)",
-                                transform: "translateX(-1px)",
-                            }}
-                        />
-                    ))}
+                  positions.childPositionsArray.map((child) => (
+                      <div
+                          key={child.top}
+                          style={{
+                              position: "absolute",
+                              top: child.center,
+                              left: child.centeredLeft,
+                              height: "2px",
+                              width: child.horizontalLineLength - 5,
+                              backgroundColor: "var(--color-comment-font-detail)",
+                              transform: "translateX(-1px)",
+                          }}
+                      />
+                    )
+                  )
+                }
                 {!isCollapsed && renderChildComments && comment_object && renderChildComments(comment_object)}
             </div>,
             commentContainerRef.current
