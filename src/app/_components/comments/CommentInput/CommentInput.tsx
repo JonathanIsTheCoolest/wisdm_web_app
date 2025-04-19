@@ -70,6 +70,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
         onChange={({ target: { value } }) => setNewComment(value)}
         className={styles.inputField}
         style={{
+          fontSize: '16px',
+          border: '1px solid',
           ...inputStyles,
         }}
         onKeyDown={handleKeyDown}

@@ -11,13 +11,15 @@ import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
 // Components
 import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 import RootCommentInput from "../RootCommentInput/RootCommentInput";
-import LoadingOverlay from "../../loading/LoadingOverlay";
+import LoadingComments from "../../loading/LoadingComments/LoadingComments";
 
 import MainCommentDisplay from "../MainCommentDisplay/MainCommentDisplay";
 
 import { commentReducer, INIT_COMMENT_THREAD, CommentOrder } from "./commentReducer";
 
 import { CommentThread } from "@/types";
+
+import styles from '@/app/_components/comments/CommentContainer/CommentContainer.module.scss'
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
@@ -104,50 +106,52 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   }, []);
 
   return (
-    !commentState.comments[rootCommentId] ?
-    <LoadingOverlay isVisible/> :
     <div
     id="comment_container"
-    style={{
-      position: "relative",
-    }}
+    className={styles.commentContainer}
   >
     {
-      commentState.comments.root && displayMainComment &&
-      <MainCommentDisplay comment={commentState.comments.root}/>
+      !commentState.comments[rootCommentId] ?
+      <LoadingComments additionalText="From your mom..."/> :
+      <>
+        {
+          commentState.comments.root && displayMainComment &&
+          <MainCommentDisplay comment={commentState.comments.root}/>
+        }
+        <h3>sort by:</h3>
+        {
+          orderByButtonArray.map((button) => {
+            const { name, text } = button
+            return (
+              <button
+                key={text}
+                onClick={() => name !== orderBy ? setOrderBy(name) : null}
+                style={{
+                  opacity : orderBy === name ? 0.5 : 1
+                }}
+              >
+                {text}
+              </button>
+            )
+          })
+        }
+        {commentState.comments[rootCommentId] && (
+          <RecursiveCommentDisplay
+            commentsObject={commentState.comments}
+            commentObject={commentState.comments[rootCommentId]}
+            threadId={threadId}
+            parentCollapsed={false}
+            orderBy={orderBy}
+            handleGetComments={handleGetComments}
+            parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
+            commentId={rootCommentId}
+          />
+        )}
+        <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>
+      </>
     }
-    <h3>sort by:</h3>
-    {
-      orderByButtonArray.map((button) => {
-        const { name, text } = button
-        return (
-          <button
-            key={text}
-            onClick={() => name !== orderBy ? setOrderBy(name) : null}
-            style={{
-              opacity : orderBy === name ? 0.5 : 1
-            }}
-          >
-            {text}
-          </button>
-        )
-      })
-    }
-    {commentState.comments[rootCommentId] && (
-      <RecursiveCommentDisplay
-        commentsObject={commentState.comments}
-        commentObject={commentState.comments[rootCommentId]}
-        threadId={threadId}
-        parentCollapsed={false}
-        orderBy={orderBy}
-        handleGetComments={handleGetComments}
-        parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
-        commentId={rootCommentId}
-      />
-    )}
-    <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>
   </div>
-  );
+  )
 };
 
 export default CommentContainer;
