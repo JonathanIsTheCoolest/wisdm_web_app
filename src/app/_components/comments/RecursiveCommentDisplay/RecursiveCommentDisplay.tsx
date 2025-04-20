@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, Dispatch, SetStateAction} from "react";
 import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/types";
 import { CommentOrder } from "../CommentContainer/commentReducer";
 import CommentBody from "../CommentBody/CommentBody";
 import NestedThreadContainer from "../NestedThreadContainer/NestedThreadContainer";
 import styles from "./RecursiveCommentDisplay.module.scss";
 import LoadingSpinner from "../../loading/LoadingSpinner";
+
+import { CommentActions } from "../CommentContainer/commentReducer";
 
 import CommentObserver from "../CommentObserver/CommentObserver";
 
@@ -20,10 +22,11 @@ export interface RecursiveCommentDisplayProps {
   depth?: number;
   handleGetComments: HandleGetComments;
   parentCommentCount?: number;
+  commentDispatch: Dispatch<CommentActions>;
 }
 
 const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
-  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0, commentId }) => {
+  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0, commentId, commentDispatch }) => {
     const [isLoadingMoreComments, setIsLoadingMoreComments] = useState<boolean>(false)
 
     return (
@@ -45,6 +48,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 <CommentBody
                   comment={comment}
                   threadId={threadId}
+                  commentDispatch={commentDispatch}
                 />
               </CommentObserver>
               <NestedThreadContainer
@@ -58,6 +62,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 depth={depth + 1}
                 handleGetComments={handleGetComments}
                 parentCommentCount={comment_count}
+                commentDispatch={commentDispatch}
               />
             </div>
           );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 
 import Image from "next/image";
 import upVote from "@/assets/icons/upvote.svg";
@@ -10,27 +10,35 @@ import { apiSocketWrapper } from "@/redux_lib/features/authSlice";
 import { socket } from "@/app/_lib/socket/socket";
 
 import { Comment } from "@/types";
+import { CommentActions } from "../CommentContainer/commentReducer";
 import { standardizedPath } from "@/app/_lib/helper/navigation/path";
 
 interface VoteContainerProps {
   threadId: string;
   comment: Comment;
+  commentDispatch: Dispatch<CommentActions>
 }
 
-const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment }) => {
+const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment, commentDispatch }) => {
   const dispatch = useAppDispatch();
-  const { vote, vote_count, comment_id } = comment;
-  const [isBouncing, setIsBouncing] = useState(false);
+  const { vote, vote_count, comment_id, is_vote_bouncing } = comment;
 
   const path = standardizedPath()
 
+  const updateIsVoteBouncing = (isBouncing: boolean, comment: Comment) => {
+    const newComment = {...comment, is_vote_bouncing: isBouncing}
+    commentDispatch({
+      type: 'updateComment', 
+      payload: {
+        comment: newComment
+      }
+    })
+  }
+
   const onClickUpdateVote = (e: React.MouseEvent, newValue: boolean | null) => {
     e.preventDefault();
-    if (!isBouncing) {
-      setIsBouncing(true);
-      console.log('COMMENT ID')
-      console.log(comment_id)
-      console.log('')
+    if (!is_vote_bouncing) {
+      updateIsVoteBouncing(true, comment)
       dispatch(
         apiSocketWrapper({
           cb: (args: object) => {
@@ -47,28 +55,20 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment }) => {
     }
   };
 
-  useEffect(() => {
-    socket.on("receive_vote_update_success", (response) => {
-      const { comment_id: id, status } = response;
-
-      console.log('COMMENT ID')
-      console.log(comment_id)
-      console.log('RESPONSE COMMENT ID')
-      console.log(id)
-      console.log('')
-      if (id === comment_id) {
-        setIsBouncing(false);
-      }
-    });
-    return () => {
-      socket.off("receive_vote_update_success");
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket.on("receive_vote_update_success", (response) => {
+  //     const { comment: returnedComment } = response;
+  //     updateIsVoteBouncing(false, returnedComment)
+  //   });
+  //   return () => {
+  //     socket.off("receive_vote_update_success");
+  //   };
+  // }, []);
   return (
     <div
       className={styles.voteContainer}
       style={{
-        opacity: isBouncing ? 0.5 : 1,
+        opacity: is_vote_bouncing ? 0.5 : 1,
       }}
     >
       <Image

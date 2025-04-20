@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Dispatch} from "react";
 import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 import OpenNestedThreadButton from "../OpenNestedThreadButton/OpenNestedThreadButton";
 import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/types";
 import { CommentOrder } from "../CommentContainer/commentReducer";
 import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
+import { CommentActions } from "../CommentContainer/commentReducer";
 
 import styles from "@/app/_components/comments/NestedThreadContainer/NestedThreadContainer.module.scss";
 
@@ -18,13 +19,14 @@ interface NestedThreadContainerProps {
   depth?: number;
   handleGetComments: HandleGetComments;
   parentCommentCount?: number;
+  commentDispatch: Dispatch<CommentActions>
 }
 
 const NestedThreadContainer = (
   props: React.PropsWithChildren<NestedThreadContainerProps>
 ) => {
   const { parentCollapsed, comment_count, commentsObject, 
-    commentObject, commentId, threadId, orderBy, depth = 0, handleGetComments, parentCommentCount 
+    commentObject, commentId, threadId, orderBy, depth = 0, handleGetComments, parentCommentCount, commentDispatch 
   } = props;
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -63,6 +65,7 @@ const NestedThreadContainer = (
           depth={depth + 1}
           handleGetComments={handleGetComments}
           parentCommentCount={comment_count}
+          commentDispatch={commentDispatch}
         />
       )}
     </div>

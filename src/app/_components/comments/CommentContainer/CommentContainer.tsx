@@ -90,12 +90,14 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
 
   useEffect(() => {
     socket.on("receive_comment_update", (response) => {
-      const comment = response;
-
+      let updatedComment = response;
+      if ('vote' in response) {
+        updatedComment = { ...response, is_vote_bouncing: false };
+      }
       commentDispatch({
         type: "updateComment",
         payload: {
-          comment
+          comment: updatedComment,
         },
       });
     });
@@ -145,6 +147,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
             handleGetComments={handleGetComments}
             parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
             commentId={rootCommentId}
+            commentDispatch={commentDispatch}
           />
         )}
         <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>

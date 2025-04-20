@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Dispatch } from "react";
 import { Comment } from "@/types";
 import Image from "next/image";
 import userDefaultImage from "@/assets/icons/user_avatar.svg";
 import { getElapsedTime } from "@/app/_lib/helper/time/getElapsedTime";
+import { CommentActions } from "../CommentContainer/commentReducer"; 
 
 import commentSVG from "@/assets/icons/comment.svg";
 import styles from "./CommentBody.module.scss";
@@ -15,11 +16,13 @@ import { standardizePathAnchorIds } from "@/app/_lib/helper/navigation/path";
 interface CommentBodyProps {
   comment: Comment;
   threadId: string;
+  commentDispatch: Dispatch<CommentActions>
 }
 
 const CommentBody: React.FC<CommentBodyProps> = ({
   comment,
   threadId,
+  commentDispatch
 }) => {
   const {
     body,
@@ -63,7 +66,11 @@ const CommentBody: React.FC<CommentBodyProps> = ({
         <div className={styles.commentContent}>
           <div className={styles.commentText}>{body}</div>
           <div className={styles.commentFooter}>
-            <VoteContainer threadId={threadId} comment={comment} />
+            <VoteContainer 
+              threadId={threadId} 
+              comment={comment}
+              commentDispatch={commentDispatch} 
+            />
             <div className={styles.commentIconContainer}>
               <Image
                 src={commentSVG}
