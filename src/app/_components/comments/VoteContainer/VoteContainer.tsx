@@ -54,16 +54,6 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment, commen
       );
     }
   };
-
-  // useEffect(() => {
-  //   socket.on("receive_vote_update_success", (response) => {
-  //     const { comment: returnedComment } = response;
-  //     updateIsVoteBouncing(false, returnedComment)
-  //   });
-  //   return () => {
-  //     socket.off("receive_vote_update_success");
-  //   };
-  // }, []);
   return (
     <div
       className={styles.voteContainer}

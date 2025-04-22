@@ -44,8 +44,8 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
 
   const orderByButtonArray: ButtonProp[] = [{name: 'ASC', text: 'oldest'}, {name: 'DESC', text: 'newest'}]
 
-  const handleGetComments = async (commentId: string, offset: number = 0, reset = false, cb = () => null) => {
-    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}`
+  const handleGetComments = async (commentId: string, offset: number = 0, reset = false, cb = () => null, limit: number = 20) => {
+    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}&limit=${limit}`
     try {
       const actionResult = await dispatch(
         apiHTTPWrapper({

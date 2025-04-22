@@ -33,7 +33,7 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
 
   useEffect(() => {
     if (!ref.current) return;
-    if (index !== currentCommentObjectLength - 6 || parent_comment_count <= currentCommentObjectLength ) return;
+    if (index !== currentCommentObjectLength - 11 || parent_comment_count <= currentCommentObjectLength ) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -45,6 +45,7 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
             false, 
             () => setIsLoadingMoreComments(false)
           );
+          console.log('Is this intersecting?')
         }
       },
       { rootMargin, threshold }
