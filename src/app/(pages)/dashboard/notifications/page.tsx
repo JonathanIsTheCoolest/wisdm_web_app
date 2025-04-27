@@ -1,7 +1,7 @@
 "use client";
 
 // System Imports
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"; 
 
 // API/Database Imports
 import { useAppSelector } from "@/redux_lib/hooks";
@@ -51,6 +51,7 @@ const Notifications = () => {
                   username,
                   is_read,
                   reference_id,
+                  thread_type
                 } = notification;
                 return (
                   <NotificationCard
@@ -62,6 +63,7 @@ const Notifications = () => {
                     username={username}
                     is_read={is_read}
                     reference_id={reference_id}
+                    thread_type={thread_type}
                   />
                 );
               })

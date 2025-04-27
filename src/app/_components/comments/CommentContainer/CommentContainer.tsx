@@ -26,6 +26,7 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 interface CommentContainerProps {
   threadId: string;
   rootCommentId: string;
+  threadType: string;
   displayMainComment?: boolean;
 }
 
@@ -34,7 +35,7 @@ interface ButtonProp {
   text: string;
 }
 
-const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId, displayMainComment = false }) => {
+const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId, threadType, displayMainComment = false }) => {
   const [commentState, commentDispatch] = useReducer(
     commentReducer,
     INIT_COMMENT_THREAD
@@ -72,6 +73,8 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   useEffect(() => {
     socket.on("receive_comment", (response) => {
       const { comment, parent_comment } = response;
+
+      console.log(comment)
 
       commentDispatch({
         type: "addComment",
@@ -148,9 +151,10 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
             parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
             commentId={rootCommentId}
             commentDispatch={commentDispatch}
+            threadType={threadType}
           />
         )}
-        <RootCommentInput threadId={threadId} parentCommentId={rootCommentId}/>
+        <RootCommentInput threadId={threadId} parentCommentId={rootCommentId} threadType={threadType}/>
       </>
     }
   </div>

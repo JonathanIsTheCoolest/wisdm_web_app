@@ -19,14 +19,16 @@ interface NestedThreadContainerProps {
   depth?: number;
   handleGetComments: HandleGetComments;
   parentCommentCount?: number;
-  commentDispatch: Dispatch<CommentActions>
+  commentDispatch: Dispatch<CommentActions>;
+  threadType: string;
 }
 
 const NestedThreadContainer = (
   props: React.PropsWithChildren<NestedThreadContainerProps>
 ) => {
   const { parentCollapsed, comment_count, commentsObject, 
-    commentObject, commentId, threadId, orderBy, depth = 0, handleGetComments, parentCommentCount, commentDispatch 
+    commentObject, commentId, threadId, orderBy, depth = 0, handleGetComments, parentCommentCount, commentDispatch,
+    threadType 
   } = props;
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -66,6 +68,7 @@ const NestedThreadContainer = (
           handleGetComments={handleGetComments}
           parentCommentCount={comment_count}
           commentDispatch={commentDispatch}
+          threadType={threadType}
         />
       )}
     </div>

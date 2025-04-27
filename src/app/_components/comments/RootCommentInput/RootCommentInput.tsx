@@ -9,9 +9,10 @@ import CommentInput from "../CommentInput/CommentInput";
 interface RootCommentInputProps {
   threadId: string;
   parentCommentId: string;
+  threadType: string;
 }
 
-const RootCommentInput: React.FC<RootCommentInputProps> = ({ threadId, parentCommentId }) => {
+const RootCommentInput: React.FC<RootCommentInputProps> = ({ threadId, parentCommentId, threadType }) => {
   const user = useAppSelector((state) => state.user);
 
   return (
@@ -23,7 +24,7 @@ const RootCommentInput: React.FC<RootCommentInputProps> = ({ threadId, parentCom
         height={50}
         className={styles.userImage}
       />
-      <CommentInput threadId={threadId} parentCommentId={parentCommentId}/>
+      <CommentInput threadId={threadId} parentCommentId={parentCommentId} threadType={threadType}/>
     </div>
   );
 };

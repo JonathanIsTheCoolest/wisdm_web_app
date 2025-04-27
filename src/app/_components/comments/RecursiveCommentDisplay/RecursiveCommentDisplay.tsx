@@ -23,10 +23,11 @@ export interface RecursiveCommentDisplayProps {
   handleGetComments: HandleGetComments;
   parentCommentCount?: number;
   commentDispatch: Dispatch<CommentActions>;
+  threadType: string;
 }
 
 const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
-  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0, commentId, commentDispatch }) => {
+  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0, commentId, commentDispatch, threadType }) => {
     const [isLoadingMoreComments, setIsLoadingMoreComments] = useState<boolean>(false)
 
     return (
@@ -49,6 +50,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                   comment={comment}
                   threadId={threadId}
                   commentDispatch={commentDispatch}
+                  threadType={threadType}
                 />
               </CommentObserver>
               <NestedThreadContainer
@@ -63,6 +65,7 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 handleGetComments={handleGetComments}
                 parentCommentCount={comment_count}
                 commentDispatch={commentDispatch}
+                threadType={threadType}
               />
             </div>
           );

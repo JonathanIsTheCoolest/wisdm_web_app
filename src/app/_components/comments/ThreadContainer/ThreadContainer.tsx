@@ -13,6 +13,7 @@ import styles from "@/app/_components/comments/ThreadContainer/ThreadContainer.m
 interface ThreadContainerProps {
   threadId: string | null | undefined;
   commentHeader?: string;
+  threadType: string;
 }
 
 const getThreadContainerHeight = () => window.innerHeight * 0.9;
@@ -27,6 +28,7 @@ const OPEN_POSITION_STATE = {
 const ThreadContainer: React.FC<ThreadContainerProps> = ({
   threadId,
   commentHeader = "Comments",
+  threadType
 }) => {
   const [containerHeight, setContainerHeight] = useState(
     getThreadContainerHeight()
@@ -108,7 +110,7 @@ const ThreadContainer: React.FC<ThreadContainerProps> = ({
         {/* Comment */}
         <div className={styles.commentContainer}>
           {threadId ? (
-            <CommentContainer threadId={threadId} rootCommentId={threadId}/>
+            <CommentContainer threadId={threadId} rootCommentId={threadId} threadType={threadType}/>
           ) : (
             "Oooops looks like we can't find the comment thread please refresh and try again"
           )}

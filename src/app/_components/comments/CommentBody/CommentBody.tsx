@@ -17,12 +17,14 @@ interface CommentBodyProps {
   comment: Comment;
   threadId: string;
   commentDispatch: Dispatch<CommentActions>
+  threadType: string;
 }
 
 const CommentBody: React.FC<CommentBodyProps> = ({
   comment,
   threadId,
-  commentDispatch
+  commentDispatch,
+  threadType
 }) => {
   const {
     body,
@@ -87,6 +89,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
             threadId={threadId}
             isReplying={isReplying}
             parentCommentId={comment_id}
+            threadType={threadType}
           />
         </div>
       </div>

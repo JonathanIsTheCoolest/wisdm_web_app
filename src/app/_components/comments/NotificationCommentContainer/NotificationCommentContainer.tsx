@@ -15,15 +15,14 @@ import styles from "@/app/(pages)/dashboard/timeline/Timeline.module.scss";
 import arrowLeftBrand from '@/assets/icons/arrow_left_brand.svg';
 
 interface NotificationCommentContainerProps {
-  // threadId: string;
 }
 
 const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> = ({
-  // threadId
 }) => {
   const searchParams = useSearchParams()
   const sourceId: string = searchParams?.get("source_id") || '';
   const referenceId: string = searchParams?.get("reference_id") || ''; 
+  const threadType: string = searchParams?.get("thread") || ''; 
 
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.user)
@@ -51,6 +50,7 @@ const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> 
         threadId={sourceId}
         rootCommentId={referenceId}
         displayMainComment={true}
+        threadType={threadType}
       />
     </div>
   )
