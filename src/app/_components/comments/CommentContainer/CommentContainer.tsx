@@ -72,15 +72,12 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
 
   useEffect(() => {
     socket.on("receive_comment", (response) => {
-      const { comment, parent_comment } = response;
-
-      console.log(comment)
+      const { comment, parent_comment, comment_count_total, root_comment_count } = response;
 
       commentDispatch({
         type: "addComment",
         payload: {
-          comment,
-          parentComment: parent_comment,
+          ...response,
           order: orderBy,
         },
       });
