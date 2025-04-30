@@ -45,7 +45,6 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
             false, 
             () => setIsLoadingMoreComments(false)
           );
-          console.log('Is this intersecting?')
         }
       },
       { rootMargin, threshold }

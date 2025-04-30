@@ -145,19 +145,35 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
 
       const index_name = standardizeIndexName(comment.comment_index)
 
+      const innerStateModel = () => {
+        const rootComment = state?.comments?.root
+        if (rootComment?.comment_id === comment.comment_id) {
+          return {
+            root: {
+              ...rootComment,
+              ...comment
+            }
+          }
+        } else {
+          return {
+            [parent_comment_id]: {
+              ...(state.comments[parent_comment_id] || {}), // Ensure parent exists
+              [index_name]: {
+                ...(state.comments[parent_comment_id]?.[index_name] || {}), // Ensure comment exists
+                ...comment, // Merge only provided fields
+              },
+            },
+          }
+        }
+      }
+
       const updatedStateModel = {
         ...state,
         comments: {
           ...state.comments,
-          [parent_comment_id]: {
-            ...(state.comments[parent_comment_id] || {}), // Ensure parent exists
-            [index_name]: {
-              ...(state.comments[parent_comment_id]?.[index_name] || {}), // Ensure comment exists
-              ...comment, // Merge only provided fields
-            },
-          },
+          ...innerStateModel()
         },
-      }
+      } as CommentThread
     
       return updatedStateModel
     }

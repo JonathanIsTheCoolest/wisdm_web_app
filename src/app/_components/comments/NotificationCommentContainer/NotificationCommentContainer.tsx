@@ -34,18 +34,32 @@ const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> 
   }, [sourceId])
   return (
     <div>
-      <Link
-        href="/dashboard/notifications"
-        // className={styles.backButton}
+      <div
         style={{
-          "marginLeft": '20px'
+          'position': "fixed",
+          'width': '100%',
+          'height': '50px',
+          'backgroundColor': 'var(--color-bg)',
+          'borderBottom': '1px solid var(--color-comment-font-detail)',
+          'zIndex': '1000'
         }}
-        onClick={() =>
-          dispatch(updateCurrentChannel({ current_channel: standardizePersonalRoomName(user.username) }))
-        }
       >
-        <Image src={arrowLeftBrand} alt="Back" />
-      </Link>
+        <Link
+          href="/dashboard/notifications"
+          // className={styles.backButton}
+          style={{
+            'position': "absolute",
+            'top': '50%',
+            'left': '20px',
+            'transform': 'translateY(-50%)'
+          }}
+          onClick={() =>
+            dispatch(updateCurrentChannel({ current_channel: standardizePersonalRoomName(user.username) }))
+          }
+        >
+          <Image src={arrowLeftBrand} alt="Back" />
+        </Link>
+      </div>
       <CommentContainer
         threadId={sourceId}
         rootCommentId={referenceId}

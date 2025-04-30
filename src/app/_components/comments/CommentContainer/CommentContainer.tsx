@@ -118,9 +118,8 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
       <>
         {
           commentState.comments.root && displayMainComment &&
-          <MainCommentDisplay comment={commentState.comments.root}/>
+          <MainCommentDisplay comment={commentState.comments.root} commentDispatch={commentDispatch}/>
         }
-        <h3>sort by:</h3>
         {
           orderByButtonArray.map((button) => {
             const { name, text } = button
@@ -129,7 +128,14 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
                 key={text}
                 onClick={() => name !== orderBy ? setOrderBy(name) : null}
                 style={{
-                  opacity : orderBy === name ? 0.5 : 1
+                  opacity : orderBy === name ? 0.5 : 1,
+                  cursor : orderBy === name ? 'not-allowed' : 'pointer',
+                  margin: '0 7.5px 25px 0',
+                  padding: '5px 10px',
+                  color: 'var(--color-bg)',
+                  backgroundColor: 'var(--color-font-body)',
+                  border: '1px solid var(--color-comment-font)',
+                  borderRadius: '10px',
                 }}
               >
                 {text}
