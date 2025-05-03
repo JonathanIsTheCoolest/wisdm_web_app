@@ -6,7 +6,7 @@
   border-radius: vars.$radius-large;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform vars.$transition-duration;
+  transition: transform vars.$transition-duration-short;
   background-color: var(--color-input);
   background-size: cover;
   background-position: center;

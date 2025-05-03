@@ -1,7 +1,37 @@
 // HOME DASHBOARD PAGE
 
+.feedWrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.feedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .feedSection {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
   gap: vars.$gap-large;
+
+  a {
+    width: 100%;
+  }
+}
+
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

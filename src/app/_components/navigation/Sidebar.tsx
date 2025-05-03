@@ -48,24 +48,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       <div className={styles.sidebarSection}>
         <div className={styles.sidebarItem}>
           <p>Privacy Settings</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
         <div className={styles.sidebarItem}>
           <p>Security Settings</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
       </div>
       <h2>Notifications</h2>
       <div className={styles.sidebarSection}>
         <div className={styles.sidebarItem}>
           <p>Email Notifications</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
         <div className={styles.sidebarItem}>
           <p>Push Notifications</p>
@@ -81,15 +75,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       <div className={styles.sidebarSection}>
         <div className={styles.sidebarItem}>
           <p>Themes</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
         <div className={styles.sidebarItem}>
           <p>Languages</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
         <div className={styles.sidebarItem}>
           <p>Dark/Light Mode</p>
@@ -100,15 +90,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       <div className={styles.sidebarSection}>
         <div className={styles.sidebarItem}>
           <p>Help Center</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
         <div className={styles.sidebarItem}>
           <p onClick={onSignOut}>Log Out</p>
-          <span>
-            <Image src={arrowRightBrand} alt="Arrow Right" />
-          </span>
+          <Image src={arrowRightBrand} alt="Arrow Right" />
         </div>
       </div>
     </div>

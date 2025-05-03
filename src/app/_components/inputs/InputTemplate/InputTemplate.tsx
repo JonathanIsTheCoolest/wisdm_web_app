@@ -37,9 +37,6 @@ const InputTemplate: React.FC<InputProps> = ({
 }) => {
   return (
     <div key={id} className={styles.containerClass}>
-      <label htmlFor={id} className={labelClass}>
-        {text}
-      </label>
       <input
         id={id}
         name={name}

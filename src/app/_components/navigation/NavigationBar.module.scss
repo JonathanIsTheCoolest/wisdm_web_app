@@ -125,11 +125,11 @@
   }
   .navbarCurveBackground {
     fill: var(--color-navbar-top) !important;
-    transition: fill var(--transition-duration) !important;
+    transition: fill var(--transition-duration-short) !important;
   }
 
   .navbarCurveCircle {
     fill: #855db9 !important;
-    transition: fill var(--transition-duration) !important;
+    transition: fill var(--transition-duration-short) !important;
   }
 }

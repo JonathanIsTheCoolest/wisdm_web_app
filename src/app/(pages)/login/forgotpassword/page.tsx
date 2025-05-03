@@ -25,7 +25,6 @@ const ForgotPasswordPage = ({ login }: NavigationActions) => (
       <p>A verification code will be sent to your email</p>
     </div>
     <div className={styles.labelWrapper}>
-      <label>Email</label>
       <input type="email" placeholder="Email" />
     </div>
 

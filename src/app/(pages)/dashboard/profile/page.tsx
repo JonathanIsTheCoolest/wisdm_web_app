@@ -149,17 +149,11 @@ const Profile: React.FC = () => {
     setShowSettings(!showSettings);
   };
 
-  if (showSettings) {
-    if (!user?.username) {
-      return <div>Loading...</div>;
-    }
-    const userSettingsData = {
-      username: user.username || "",
-      email: user.email || "",
-      photo_url: user.photo_url,
-    };
-    return <UserSettings user={userSettingsData} onBack={toggleSettings} />;
-  }
+  const userSettingsData = {
+    username: user?.username || "",
+    email: user?.email || "",
+    photo_url: user?.photo_url,
+  };
 
   const joinedDate = user?.created_at
     ? new Date(user.created_at).toLocaleDateString()
@@ -207,6 +201,7 @@ const Profile: React.FC = () => {
           setActiveTab={setActiveTab}
         />
       </div>
+      <UserSettings user={userSettingsData} onBack={toggleSettings} isOpen={showSettings} />
       <div className={styles.scrollableContent}>
         {isLoading ? (
           <div className={styles.spinnerWrapper}>

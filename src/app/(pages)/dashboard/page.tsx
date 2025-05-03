@@ -11,11 +11,9 @@ import { useAppSelector } from "@/redux_lib/hooks";
 import { Timeline } from "@/types";
 
 // Component Imports
-import ThemeToggle from "@/app/_components/buttons/ThemeToggle";
 import TimelineCard from "@/app/_components/cards/TimelineCard";
 import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
 import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
-import SearchBar from "@/app/_components/navigation/SearchBar";
 import { useSidebar } from "@/app/(pages)/dashboard/layout";
 
 // Stylesheet Imports
@@ -83,6 +81,107 @@ const Home = () => {
     }
   };
 
+  // Helper function to fetch timelines by category
+  async function fetchTimelinesByCategory(categoryId: string, idToken: string) {
+    const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
+    const response = await fetch(
+      `${API_BASE_URL}/timelines/get/timelines_by_category?category_id=${categoryId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.timelines;
+  }
+
+  // --- CATEGORY SWIPE ARROWS ---
+  // Add your categories here
+  const categories = [
+    {
+      id: "c68e142e-2097-e9a5-c426-e005f21d64c9",
+      title: "Domestic Politics ",
+    },
+    {
+      id: "095e7a0f-8519-586c-b7a6-b0c298a280f4",
+      title: "Entertainment ",
+    },
+    // Add more categories as needed
+  ];
+
+  const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
+  const selectedCategory = categories[selectedCategoryIdx];
+
+  // Store all timelines for all categories
+  const [allCategoryTimelines, setAllCategoryTimelines] = useState<{
+    [key: string]: Timeline[];
+  }>({});
+  const [allCategoryErrors, setAllCategoryErrors] = useState<{
+    [key: string]: string | null;
+  }>({});
+  const [allLoading, setAllLoading] = useState(true);
+
+  // Fetch all timelines for all categories on mount or when idToken changes
+  useEffect(() => {
+    if (!idToken) return;
+    setAllLoading(true);
+    const fetchAll = async () => {
+      const timelinesMap: { [key: string]: Timeline[] } = {};
+      const errorsMap: { [key: string]: string | null } = {};
+      await Promise.all(
+        categories.map(async (cat) => {
+          try {
+            const timelines = await fetchTimelinesByCategory(cat.id, idToken);
+            timelinesMap[cat.id] = timelines;
+            errorsMap[cat.id] = null;
+          } catch (e) {
+            timelinesMap[cat.id] = [];
+            errorsMap[cat.id] = "Failed to fetch category timelines.";
+          }
+        })
+      );
+      setAllCategoryTimelines(timelinesMap);
+      setAllCategoryErrors(errorsMap);
+      setAllLoading(false);
+    };
+    fetchAll();
+  }, [idToken]);
+
+  // Get timelines and error for selected category
+  const categoryTimelines = allCategoryTimelines[selectedCategory.id] || [];
+  const categoryError = allCategoryErrors[selectedCategory.id] || null;
+  const categoryLoading = allLoading;
+
+  // --- SWIPE DIRECTION STATE ---
+  const [direction, setDirection] = useState(0);
+
+  // Arrow navigation handlers (set direction)
+  const goLeft = () => {
+    setDirection(-1);
+    setSelectedCategoryIdx((idx) => Math.max(0, idx - 1));
+  };
+  const goRight = () => {
+    setDirection(1);
+    setSelectedCategoryIdx((idx) => Math.min(categories.length - 1, idx + 1));
+  };
+
+  // Card swipe variants (no opacity, just x)
+  const swipeVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+    }),
+    center: { x: 0 },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+    }),
+  };
+
   return (
     <div className={styles.pageContainer}>
       <header className={styles.pageTitle}>
@@ -111,31 +210,84 @@ const Home = () => {
         onClose={() => setIsOverlayVisible(false)}
         triggerPosition={overlayTriggerPosition}
       />
-      <SearchBar idToken={idToken} />
-
-      <div className={styles.sectionTitle} style={{ marginBottom: "16px" }}>
-        <Link href="/dashboard/placeholder-timeline">
-          <button>View Placeholder Timeline</button>
-        </Link>
-      </div>
-
       <div className={styles.sectionTitle}>
-        <h2>Domestic Politics 🇺🇸</h2>
+        <h2>{selectedCategory.title}</h2>
       </div>
-      <section className={styles.feedSection}>
-        {timelines.length > 0 ? (
-          timelines.map((timeline) => (
-            <Link
-              href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
-              key={timeline.timeline_id}
-            >
-              <TimelineCard {...timeline} />
-            </Link>
-          ))
-        ) : (
-          <LoadingSpinner />
-        )}
-      </section>
+      <div>
+        {/* Left Arrow */}
+        <button
+          onClick={goLeft}
+          disabled={selectedCategoryIdx === 0}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: selectedCategoryIdx === 0 ? "not-allowed" : "pointer",
+            fontSize: 40,
+            color: "#f44336",
+            marginRight: 40,
+            visibility: selectedCategoryIdx === 0 ? "hidden" : "visible",
+          }}
+          aria-label="Previous Category"
+        >
+          &#8592;
+        </button>
+        {/* Right Arrow */}
+        <button
+          onClick={goRight}
+          disabled={selectedCategoryIdx === categories.length - 1}
+          style={{
+            background: "none",
+            border: "none",
+            cursor:
+              selectedCategoryIdx === categories.length - 1
+                ? "not-allowed"
+                : "pointer",
+            fontSize: 40,
+            color: "#f44336",
+            marginLeft: 40,
+            visibility:
+              selectedCategoryIdx === categories.length - 1
+                ? "hidden"
+                : "visible",
+          }}
+          aria-label="Next Category"
+        >
+          &#8594;
+        </button>
+      </div>
+      <div className={styles.feedWrapper}>
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={selectedCategory.id}
+            custom={direction}
+            variants={swipeVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className={styles.feedContainer}
+          >
+            <section className={styles.feedSection}>
+              {categoryLoading ? (
+                <LoadingSpinner />
+              ) : categoryError ? (
+                <div>{categoryError}</div>
+              ) : categoryTimelines.length > 0 ? (
+                categoryTimelines.map((timeline) => (
+                  <Link
+                    href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
+                    key={timeline.timeline_id}
+                  >
+                    <TimelineCard {...timeline} />
+                  </Link>
+                ))
+              ) : (
+                <div>No timelines found for this category.</div>
+              )}
+            </section>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

@@ -20,14 +20,20 @@ interface UserSettingsProps {
     photo_url?: string | null;
   };
   onBack: () => void;
+  isOpen: boolean;
 }
 
-const UserSettings: React.FC<UserSettingsProps> = ({ user, onBack }) => {
+const UserSettings: React.FC<UserSettingsProps> = ({ user, onBack, isOpen }) => {
   const [displayUsername, setDisplayUsername] = useState(false);
   const [displayLabels, setDisplayLabels] = useState(false);
 
   return (
-    <div className={styles.userSettingsContainer}>
+    <div
+      className={
+        styles.userSettingsContainer +
+        (isOpen ? ' ' + styles.active : '')
+      }
+    >
       <header className={styles.pageTitle}>
         <h1>User Settings</h1>
         <Image
@@ -78,10 +84,12 @@ const UserSettings: React.FC<UserSettingsProps> = ({ user, onBack }) => {
             with posts.
           </p>
         </div>
-        <ToggleSwitch
-          isOn={displayUsername}
-          handleToggle={() => setDisplayUsername(!displayUsername)}
-        />
+        <div className={styles.toggleContainer}>
+          <ToggleSwitch
+            isOn={displayUsername}
+            handleToggle={() => setDisplayUsername(!displayUsername)}
+          />
+        </div>
       </div>
       <div className={styles.settingsContainer}>
         <div className={styles.settingsBody}>
@@ -91,10 +99,12 @@ const UserSettings: React.FC<UserSettingsProps> = ({ user, onBack }) => {
             interact with posts.
           </p>
         </div>
-        <ToggleSwitch
-          isOn={displayLabels}
-          handleToggle={() => setDisplayLabels(!displayLabels)}
-        />
+        <div className={styles.toggleContainer}>
+          <ToggleSwitch
+            isOn={displayLabels}
+            handleToggle={() => setDisplayLabels(!displayLabels)}
+          />
+        </div>
       </div>
     </div>
   );

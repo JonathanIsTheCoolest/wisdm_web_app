@@ -33,6 +33,7 @@
     text-align: center;
   }
 
+  // REMOVE
   .searchBar {
     align-items: center;
     background-color: var(--color-input);
@@ -50,6 +51,11 @@
     }
 
     .searchIcon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
       height: 20px;
       width: 20px;
     }
@@ -108,7 +114,7 @@
 }
 
 .overlay {
-  background: rgba(50, 50, 50, 0.7);
+  background: vars.$overlay-background;
   height: 100%;
   left: 0;
   position: absolute;

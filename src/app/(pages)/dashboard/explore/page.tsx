@@ -16,6 +16,7 @@ import ExploreCard from "@/app/_components/cards/ExploreCard";
 import LoadingSpinner from "@/app/_components/loading/LoadingSpinner";
 import InstructionOverlay from "@/app/_components/overlay/InstructionOverlay";
 import { useSidebar } from "@/app/(pages)/dashboard/layout";
+import SearchBar from "@/app/_components/navigation/SearchBar";
 
 // Stylesheet Imports
 import styles from "@/app/(pages)/dashboard/explore/Explore.module.scss";
@@ -27,7 +28,6 @@ import featuredImage3 from "@/assets/images/explore_feed_3.png";
 import featuredImage4 from "@/assets/images/explore_feed_4.png";
 import featuredImage5 from "@/assets/images/explore_feed_5.png";
 import featuredImage6 from "@/assets/images/explore_feed_6.png";
-import searchIcon from "@/assets/icons/search.svg";
 import settingsIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
 
@@ -119,12 +119,7 @@ const Explore = () => {
         onClose={() => setIsOverlayVisible(false)}
         triggerPosition={overlayTriggerPosition}
       />
-      <div className={styles.searchBar}>
-        <input type="text" placeholder="Search" aria-label="Search" />
-        <div className={styles.searchIcon}>
-          <Image src={searchIcon} alt="Search Icon" />
-        </div>
-      </div>
+      <SearchBar />
       <section className={styles.pageWrapper}>
         <div className={styles.sectionTitle}>
           <h2>Featured 🔍</h2>

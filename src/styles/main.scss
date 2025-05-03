@@ -92,9 +92,10 @@ main {
 }
 
 * {
-  transition: background-color vars.$transition-duration,
-    color vars.$transition-duration, border-color vars.$transition-duration,
-    box-shadow vars.$transition-duration;
+  transition: background-color vars.$transition-duration-short,
+    color vars.$transition-duration-short,
+    border-color vars.$transition-duration-short,
+    box-shadow vars.$transition-duration-short;
 }
 
 button {

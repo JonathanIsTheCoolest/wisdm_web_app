@@ -1,0 +1,86 @@
+---
+description: Rules for styling
+globs: *.scss, *.css, /styles
+alwaysApply: true
+---
+## Styling rules
+
+### General Styling Rules:
+This project uses SASS (.scss) styling.
+
+### Naming Conventions:
+
+Please use this naming convention for all classes: lowercase first letter, uppercase letter for following word, no dash, such as seen below:
+.pageWrapper, .pageContainer, .pageContent
+
+Furthermore, variables are named as such, using the example of font-size:
+$font-size-header-small -> $(variable)-(where?)-(what?)
+
+### Consolidation of Styling:
+
+Refer to all consolidated style-rules in these files:
+[classes.scss](mdc:styles/classes.scss) - Stores all common classes, such as wrappers, containers, buttons, forms, custom classes, etc.
+[variables.scss](mdc:styles/variables.scss) - Stores all the variables for use, such as: font-families, borders, paddings, margins, gaps, etc.
+[globals.scss](mdc:styles/globals.scss) - Stores all global styles that should be inherited across all pages and components, such as the light/dark mode.
+[main.scss](mdc:styles/main.scss) - The "root" of all styles for which the codebase inherits, particularly pertaining to fonts.
+
+All common classes across the pages should be stored and inherited from the classes.scss file.
+All common variables across the pages should be stored and inherited from the variables.scss file.
+
+### Layers:
+
+Use these layered levels for all established classes, using the example of "page":
+.pageWrapper {
+  .pageContainer {
+    .pageContent {
+    }
+  }
+}
+
+### Format for sizing and styling of classes:
+
+Do NOT use rem or em for styling sizes. Instead, refer to size variables outlined in the [variables.scss](mdc:styles/variables.scss) file.
+
+Example of margin styling:
+.buttonWrapper {
+  margin: $margin-medium;
+  border-radius: $button-radius;
+}
+
+### Inheritance of font styling
+All custom font-styles should be inherited from the highest layer of the styling classes, so that they can pass on their values to the children. We want to refrain from using customized styling at each level, and must pass from parent-child as much as possible. If not already inherited in the [main.scss](mdc:styles/main.scss), this should be inherited at the next possible highest level. In some cases, where for example we want to use custom colors for the fonts, this would be acceptable.
+
+Correct example:
+.startScreenWrapper {
+  h1 {
+    font-size: $font-size-header-small;
+    color: var(--color-header-font);
+  }
+
+  h2 {
+    color: $color-brand;
+    text-align: center;
+  }
+
+  .signupButton,
+  .loginButton {
+  }
+}
+
+Incorrect example:
+.startScreenWrapper {
+  .signupButton,
+  .loginButton {
+    h1 {
+      font-size: $font-size-header-small;
+      color: var(--color-header-font);
+    }
+    
+    h2 {
+      color: $color-brand;
+      text-align: center;
+    }
+  }
+}
+
+

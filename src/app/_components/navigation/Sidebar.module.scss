@@ -8,7 +8,7 @@
   position: fixed;
   right: -25%;
   top: 0;
-  transition: right vars.$transition-duration;
+  transition: right vars.$transition-duration-short;
   width: 25%;
   z-index: 1001;
   overflow: none;
@@ -71,5 +71,11 @@
     &:last-child {
       border-bottom: none;
     }
+  }
+
+  @media (max-width: 800px) {
+    right: -100%;
+    width: 100%;
+    overflow: scroll;
   }
 }
