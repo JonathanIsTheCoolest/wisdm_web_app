@@ -53,6 +53,7 @@
 
 .commentContainer {
   overflow: scroll;
+  // padding: vars.$padding-medium vars.$padding-medium 0px vars.$padding-medium;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

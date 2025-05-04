@@ -1,0 +1,13 @@
+.loadingContainer {
+  box-sizing: border-box;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  transform: translate(- vars.$padding-medium, - vars.$padding-medium);
+}

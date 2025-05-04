@@ -58,7 +58,7 @@ function AuthWrapper({
         );
 
         const user_data = await fetchUserDataFromDB();
-        const personalChannelName = standardizePersonalRoomName(user_data.username)
+        const personalChannelName = standardizePersonalRoomName(user_data.username) || ''
         dispatch(
           setUser({
             photo_url: user_data.photo_url,

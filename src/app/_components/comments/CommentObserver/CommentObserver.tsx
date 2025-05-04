@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 
 import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 
@@ -12,6 +12,8 @@ type CommentObserverProps = {
   rootMargin?: string;
   threshold?: number | number[];
   children: React.ReactNode;
+  isLoadingMoreComments: boolean;
+  setIsLoadingMoreComments: Dispatch<SetStateAction<boolean>>
 };
 
 const CommentObserver: React.FC<CommentObserverProps> = ({
@@ -24,19 +26,25 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
   rootMargin = "25px",
   threshold = 0.1,
   children,
+  isLoadingMoreComments,
+  setIsLoadingMoreComments
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
     if (!ref.current) return;
-    if (index !== currentCommentObjectLength - 6 || parent_comment_count <= currentCommentObjectLength ) return;
+    if (index !== currentCommentObjectLength - 11 || parent_comment_count <= currentCommentObjectLength ) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isIntersecting) {
-          setIsIntersecting(true);
-          onIntersect(parent_comment_id, currentCommentObjectLength, false, () => setIsIntersecting(false));
+        if (entry.isIntersecting && !isLoadingMoreComments) {
+          setIsLoadingMoreComments(true)
+          onIntersect(
+            parent_comment_id, 
+            currentCommentObjectLength, 
+            false, 
+            () => setIsLoadingMoreComments(false)
+          );
         }
       },
       { rootMargin, threshold }
@@ -47,7 +55,11 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
     return () => observer.disconnect();
   }, [rootMargin, threshold, onIntersect]);
 
-  return <div ref={ref}>{children}</div>;
+  return ( 
+    <div ref={ref}>
+      {children}
+    </div>
+  );
 };
 
 export default CommentObserver;

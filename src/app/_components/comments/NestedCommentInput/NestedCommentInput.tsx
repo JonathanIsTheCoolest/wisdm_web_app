@@ -6,12 +6,14 @@ interface NestedCommentInputProps {
   parentCommentId: string;
   isReplying: boolean;
   threadId: string;
+  threadType: string;
 }
 
 const NestedCommentInput: React.FC<NestedCommentInputProps> = ({
   parentCommentId,
   isReplying,
   threadId,
+  threadType
 }) => {
   return (
     <div>
@@ -24,6 +26,7 @@ const NestedCommentInput: React.FC<NestedCommentInputProps> = ({
           parentCommentId={parentCommentId}
           threadId={threadId}
           placeholder="⬆ Reply to this comment ⬆"
+          threadType={threadType}
         />
       </div>
     </div>

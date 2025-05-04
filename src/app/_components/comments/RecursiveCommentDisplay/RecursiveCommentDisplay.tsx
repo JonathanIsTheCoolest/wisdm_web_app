@@ -1,61 +1,39 @@
-import React, { useState } from "react";
+import React, {useState, Dispatch, SetStateAction} from "react";
 import { Comment, CommentsByParentId, CommentGroupByIndex } from "@/types";
+import { CommentOrder } from "../CommentContainer/commentReducer";
 import CommentBody from "../CommentBody/CommentBody";
 import NestedThreadContainer from "../NestedThreadContainer/NestedThreadContainer";
-import OpenNestedThreadButton from "../OpenNestedThreadButton/OpenNestedThreadButton";
 import styles from "./RecursiveCommentDisplay.module.scss";
+import LoadingSpinner from "../../loading/LoadingSpinner";
+
+import { CommentActions } from "../CommentContainer/commentReducer";
 
 import CommentObserver from "../CommentObserver/CommentObserver";
 
-export type HandleGetComments = (commentId: string, offset: number, reset?: boolean, cb?: any) => void
+export type HandleGetComments = (commentId: string, offset: number, reset?: boolean, cb?: () => any) => void
 
-interface RecursiveCommentDisplayProps {
+export interface RecursiveCommentDisplayProps {
   commentsObject: CommentsByParentId;
   commentObject: CommentGroupByIndex;
+  commentId: string;
   threadId: string;
   parentCollapsed: boolean;
+  orderBy: CommentOrder;
   depth?: number;
   handleGetComments: HandleGetComments;
-  parentCommentCount?: number; 
+  parentCommentCount?: number;
+  commentDispatch: Dispatch<CommentActions>;
+  threadType: string;
 }
 
-const initializeCollapsedStates = (
-  comments: CommentGroupByIndex,
-  commentsObject: CommentsByParentId
-): { [key: string]: boolean } => {
-  const collapsedState: { [key: string]: boolean } = {};
-
-  const initializeStateRecursively = (currentComments: CommentGroupByIndex) => {
-    Object.values(currentComments).forEach((comment) => {
-      collapsedState[comment.comment_id] = true;
-      if (commentsObject[comment.comment_id]) {
-        initializeStateRecursively(commentsObject[comment.comment_id]);
-      }
-    });
-  };
-
-  initializeStateRecursively(comments);
-  return collapsedState;
-};
-
 const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
-  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, depth = 0, handleGetComments, parentCommentCount = 0 }) => {
-    const [collapsedStates, setCollapsedStates] = useState<{
-      [key: string]: boolean;
-    }>(initializeCollapsedStates(commentObject, commentsObject));
-
-    const toggleCollapse = (commentId: string) => {
-      setCollapsedStates((prevState) => ({
-        ...prevState,
-        [commentId]: !prevState[commentId],
-      }));
-    };
+  React.memo(({ commentsObject, commentObject, threadId, parentCollapsed, orderBy, depth = 0, handleGetComments, parentCommentCount = 0, commentId, commentDispatch, threadType }) => {
+    const [isLoadingMoreComments, setIsLoadingMoreComments] = useState<boolean>(false)
 
     return (
       <div>
         {Object.values(commentObject).map((comment: Comment, index) => {
           const { comment_id, body, comment_count, parent_comment_id } = comment;
-
           return (
             <div className={styles.commentContainer} key={comment_id}>
               <CommentObserver
@@ -65,41 +43,36 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 parent_comment_id={parent_comment_id}
                 parent_comment_count={parentCommentCount}
                 body={body}
+                isLoadingMoreComments={isLoadingMoreComments}
+                setIsLoadingMoreComments={setIsLoadingMoreComments}
               >
                 <CommentBody
                   comment={comment}
                   threadId={threadId}
+                  commentDispatch={commentDispatch}
+                  threadType={threadType}
                 />
               </CommentObserver>
-              {comment_count > 0 && !parentCollapsed && (
-                <OpenNestedThreadButton
-                  isCollapsed={collapsedStates[comment_id] || parentCollapsed}
-                  setIsCollapsed={() => toggleCollapse(comment_id)}
-                  comment_id={comment_id}
-                  comment_object={commentsObject[comment_id]}
-                  handleGetComments={handleGetComments}
-                />
-              )}
               <NestedThreadContainer
-                isCollapsed={collapsedStates[comment_id] || parentCollapsed}
-              >
-                {commentsObject[comment_id] && (
-                  <RecursiveCommentDisplay
-                    commentsObject={commentsObject}
-                    commentObject={commentsObject[comment_id]}
-                    threadId={threadId}
-                    parentCollapsed={
-                      collapsedStates[comment_id] || parentCollapsed
-                    }
-                    depth={depth + 1}
-                    handleGetComments={handleGetComments}
-                    parentCommentCount={comment_count}
-                  />
-                )}
-              </NestedThreadContainer>
+                comment_count={comment_count}
+                parentCollapsed={parentCollapsed}
+                commentsObject={commentsObject}
+                commentObject={commentsObject[comment_id]}
+                commentId={comment_id}
+                threadId={threadId}
+                orderBy={orderBy}
+                depth={depth + 1}
+                handleGetComments={handleGetComments}
+                parentCommentCount={comment_count}
+                commentDispatch={commentDispatch}
+                threadType={threadType}
+              />
             </div>
           );
         })}
+        {isLoadingMoreComments &&
+          <LoadingSpinner/>
+        }
       </div>
     );
   });

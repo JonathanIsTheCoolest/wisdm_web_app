@@ -15,15 +15,14 @@ import styles from "@/app/(pages)/dashboard/timeline/Timeline.module.scss";
 import arrowLeftBrand from '@/assets/icons/arrow_left_brand.svg';
 
 interface NotificationCommentContainerProps {
-  // threadId: string;
 }
 
 const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> = ({
-  // threadId
 }) => {
   const searchParams = useSearchParams()
   const sourceId: string = searchParams?.get("source_id") || '';
   const referenceId: string = searchParams?.get("reference_id") || ''; 
+  const threadType: string = searchParams?.get("thread") || ''; 
 
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.user)
@@ -35,22 +34,37 @@ const NotificationCommentContainer: React.FC<NotificationCommentContainerProps> 
   }, [sourceId])
   return (
     <div>
-      <Link
-        href="/dashboard/notifications"
-        // className={styles.backButton}
+      <div
         style={{
-          "marginLeft": '20px'
+          'position': "fixed",
+          'width': '100%',
+          'height': '50px',
+          'backgroundColor': 'var(--color-bg)',
+          'borderBottom': '1px solid var(--color-comment-font-detail)',
+          'zIndex': '1000'
         }}
-        onClick={() =>
-          dispatch(updateCurrentChannel({ current_channel: standardizePersonalRoomName(user.username) }))
-        }
       >
-        <Image src={arrowLeftBrand} alt="Back" />
-      </Link>
+        <Link
+          href="/dashboard/notifications"
+          // className={styles.backButton}
+          style={{
+            'position': "absolute",
+            'top': '50%',
+            'left': '20px',
+            'transform': 'translateY(-50%)'
+          }}
+          onClick={() =>
+            dispatch(updateCurrentChannel({ current_channel: standardizePersonalRoomName(user.username) }))
+          }
+        >
+          <Image src={arrowLeftBrand} alt="Back" />
+        </Link>
+      </div>
       <CommentContainer
         threadId={sourceId}
         rootCommentId={referenceId}
         displayMainComment={true}
+        threadType={threadType}
       />
     </div>
   )

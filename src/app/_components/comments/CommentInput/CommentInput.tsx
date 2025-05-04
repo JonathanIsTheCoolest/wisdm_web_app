@@ -13,6 +13,7 @@ interface CommentInputProps {
   parentCommentId?: string;
   placeholder?: string;
   inputStyles?: object;
+  threadType: string;
 }
 
 const CommentInput: React.FC<CommentInputProps> = ({
@@ -20,6 +21,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
   parentCommentId = null,
   placeholder = "Join the conversation",
   inputStyles,
+  threadType
 }) => {
   const dispatch = useAppDispatch();
   const username = useAppSelector(state => state.user.username)
@@ -27,8 +29,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
 
   const path = standardizedPath()
 
-  const onClickPostComment = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const postComment = () => {
     dispatch(
       apiSocketWrapper({
         cb: (args: object) => {
@@ -37,6 +38,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
         args: {
           room: threadId,
           thread_id: threadId,
+          thread_type: threadType,
           body: newComment,
           parent_comment_id: parentCommentId,
           reference_id: null,
@@ -46,6 +48,19 @@ const CommentInput: React.FC<CommentInputProps> = ({
       })
     );
     setNewComment("");
+  };
+
+  const onClickPostComment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (newComment.length) {
+      postComment();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && newComment.length) {
+      postComment();
+    }
   };
 
   return (
@@ -58,12 +73,15 @@ const CommentInput: React.FC<CommentInputProps> = ({
         onChange={({ target: { value } }) => setNewComment(value)}
         className={styles.inputField}
         style={{
+          fontSize: '16px',
+          border: '1px solid',
           ...inputStyles,
         }}
+        onKeyDown={handleKeyDown}
       />
 
       <Image
-        onClick={(e) => newComment.length && onClickPostComment(e)}
+        onClick={onClickPostComment}
         src={commentSVG}
         alt="send comment button"
         width={25}

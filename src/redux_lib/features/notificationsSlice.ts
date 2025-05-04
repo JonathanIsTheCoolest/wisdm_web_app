@@ -22,6 +22,7 @@ export interface DisplayNotification {
   username: string;
   is_read: boolean;
   reference_id: string;
+  thread_type: string;
 }
 
 export interface NotificationState {

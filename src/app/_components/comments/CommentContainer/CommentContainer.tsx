@@ -11,6 +11,7 @@ import { apiHTTPWrapper } from "@/redux_lib/features/authSlice";
 // Components
 import RecursiveCommentDisplay from "../RecursiveCommentDisplay/RecursiveCommentDisplay";
 import RootCommentInput from "../RootCommentInput/RootCommentInput";
+import LoadingComments from "../../loading/LoadingComments/LoadingComments";
 
 import MainCommentDisplay from "../MainCommentDisplay/MainCommentDisplay";
 
@@ -22,21 +23,23 @@ import {
 
 import { CommentThread } from "@/types";
 
-import styles from "./CommentContainer.module.scss";
+import styles from '@/app/_components/comments/CommentContainer/CommentContainer.module.scss'
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 interface CommentContainerProps {
   threadId: string;
   rootCommentId: string;
+  threadType: string;
   displayMainComment?: boolean;
 }
 
-const CommentContainer: React.FC<CommentContainerProps> = ({
-  threadId,
-  rootCommentId,
-  displayMainComment = false,
-}) => {
+interface ButtonProp {
+  name: CommentOrder;
+  text: string;
+}
+
+const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootCommentId, threadType, displayMainComment = false }) => {
   const [commentState, commentDispatch] = useReducer(
     commentReducer,
     INIT_COMMENT_THREAD
@@ -44,13 +47,11 @@ const CommentContainer: React.FC<CommentContainerProps> = ({
   const [orderBy, setOrderBy] = useState<CommentOrder>("DESC");
   const dispatch = useAppDispatch();
 
-  const handleGetComments = async (
-    commentId: string,
-    offset: number = 0,
-    reset = false,
-    cb = () => null
-  ) => {
-    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}`;
+  const orderByButtonArray: ButtonProp[] = [{name: 'ASC', text: 'oldest'}, {name: 'DESC', text: 'newest'}]
+
+  const handleGetComments = async (commentId: string, offset: number = 0, reset = false, cb = () => null, limit: number = 20) => {
+    const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}&limit=${limit}`
+    
     try {
       const actionResult = await dispatch(
         apiHTTPWrapper({
@@ -79,13 +80,12 @@ const CommentContainer: React.FC<CommentContainerProps> = ({
 
   useEffect(() => {
     socket.on("receive_comment", (response) => {
-      const { comment, parent_comment } = response;
+      const { comment, parent_comment, comment_count_total, root_comment_count } = response;
 
       commentDispatch({
         type: "addComment",
         payload: {
-          comment,
-          parentComment: parent_comment,
+          ...response,
           order: orderBy,
         },
       });
@@ -98,12 +98,14 @@ const CommentContainer: React.FC<CommentContainerProps> = ({
 
   useEffect(() => {
     socket.on("receive_comment_update", (response) => {
-      const comment = response;
-
+      let updatedComment = response;
+      if ('vote' in response) {
+        updatedComment = { ...response, is_vote_bouncing: false };
+      }
       commentDispatch({
         type: "updateComment",
         payload: {
-          comment,
+          comment: updatedComment,
         },
       });
     });
@@ -114,42 +116,60 @@ const CommentContainer: React.FC<CommentContainerProps> = ({
   }, []);
 
   return (
-    <div id="comment_container" className={styles.commentThreadContainer}>
-      {commentState.comments.root && displayMainComment && (
-        <MainCommentDisplay comment={commentState.comments.root} />
-      )}
-      <div className={styles.commentSortContainer}>
-        <h3>Sort by:</h3>
-        <button
-          className={styles.commentSortButton}
-          onClick={() => setOrderBy("ASC")}
-        >
-          Oldest
-        </button>
-        <button
-          className={styles.commentSortButton}
-          onClick={() => setOrderBy("DESC")}
-        >
-          Newest
-        </button>
-      </div>
-      {commentState.comments[rootCommentId] && (
-        <RecursiveCommentDisplay
-          commentsObject={commentState.comments}
-          commentObject={commentState.comments[rootCommentId]}
-          threadId={threadId}
-          parentCollapsed={false}
-          handleGetComments={handleGetComments}
-          parentCommentCount={
-            rootCommentId === threadId
-              ? commentState.root_comment_count
-              : commentState.comments.root?.comment_count
-          }
-        />
-      )}
-      <RootCommentInput threadId={threadId} parentCommentId={rootCommentId} />
-    </div>
-  );
+  <div
+    id="comment_container"
+    className={styles.commentContainer}
+  >
+    {
+      !commentState.comments[rootCommentId] ?
+      <LoadingComments additionalText="From your mom..."/> :
+      <>
+        {
+          commentState.comments.root && displayMainComment &&
+          <MainCommentDisplay comment={commentState.comments.root} commentDispatch={commentDispatch}/>
+        }
+        {
+          orderByButtonArray.map((button) => {
+            const { name, text } = button
+            return (
+              <button
+                key={text}
+                onClick={() => name !== orderBy ? setOrderBy(name) : null}
+                style={{
+                  opacity : orderBy === name ? 0.5 : 1,
+                  cursor : orderBy === name ? 'not-allowed' : 'pointer',
+                  margin: '0 7.5px 25px 0',
+                  padding: '5px 10px',
+                  color: 'var(--color-bg)',
+                  backgroundColor: 'var(--color-font-body)',
+                  border: '1px solid var(--color-comment-font)',
+                  borderRadius: '10px',
+                }}
+              >
+                {text}
+              </button>
+            )
+          })
+        }
+        {commentState.comments[rootCommentId] && (
+          <RecursiveCommentDisplay
+            commentsObject={commentState.comments}
+            commentObject={commentState.comments[rootCommentId]}
+            threadId={threadId}
+            parentCollapsed={false}
+            orderBy={orderBy}
+            handleGetComments={handleGetComments}
+            parentCommentCount={ rootCommentId === threadId ? commentState.root_comment_count : commentState.comments.root?.comment_count}
+            commentId={rootCommentId}
+            commentDispatch={commentDispatch}
+            threadType={threadType}
+          />
+        )}
+        <RootCommentInput threadId={threadId} parentCommentId={rootCommentId} threadType={threadType}/>
+      </>
+    }
+  </div>
+  )
 };
 
 export default CommentContainer;

@@ -159,7 +159,7 @@ const Timeline = () => {
             />
           )}
         </div>
-        <ThreadContainer threadId={timelineId} />
+        <ThreadContainer threadId={timelineId} threadType="timelines"/>
       </>
     )
   );

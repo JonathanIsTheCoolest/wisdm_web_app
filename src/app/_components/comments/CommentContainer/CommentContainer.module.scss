@@ -1,3 +1,4 @@
+// Maybe DELETE Start Here
 .commentThreadContainer {
   padding: vars.$padding-medium;
   display: flex;
@@ -24,4 +25,10 @@
       background-color: var(--color-navbar);
     }
   }
+}
+// End Here
+
+.commentContainer {
+  position: relative;
+  padding: vars.$padding-medium vars.$padding-medium 80px vars.$padding-medium
 }

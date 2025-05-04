@@ -4,12 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 60px;
+  // min-height: 60px;
 }
 
 .spinnerCircle {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
   border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   border-top-color: vars.$color-brand;

@@ -100,6 +100,7 @@ interface BaseComment {
   reference_id: string | null;
   thread_id: string;
   user_photo_url: string | null;
+  is_vote_bouncing?: boolean;
 }
 
 export interface Comment extends BaseComment {
