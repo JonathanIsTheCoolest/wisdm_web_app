@@ -1,3 +1,33 @@
+// Maybe DELETE Start Here
+.commentThreadContainer {
+  padding: vars.$padding-medium;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$gap-medium;
+  position: relative;
+}
+
+.commentSortContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  border-radius: vars.$radius-medium;
+  gap: vars.$gap-small;
+
+  .commentSortButton {
+    padding: vars.$padding-small;
+    background-color: var(--color-input);
+    border-radius: vars.$radius-medium;
+    border: none;
+
+    &:hover {
+      background-color: var(--color-navbar);
+    }
+  }
+}
+// End Here
+
 .commentContainer {
   position: relative;
   padding: vars.$padding-medium vars.$padding-medium 80px vars.$padding-medium

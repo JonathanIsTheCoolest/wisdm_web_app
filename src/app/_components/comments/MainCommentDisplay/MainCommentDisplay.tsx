@@ -82,7 +82,7 @@ const MainCommentDisplay: React.FC<MainCommentDisplayProps> = ({comment, comment
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MainCommentDisplay
+export default MainCommentDisplay;

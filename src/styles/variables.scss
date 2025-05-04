@@ -11,7 +11,11 @@ $color-divider: #606060;
 $color-vote-text-description: #888888;
 
 // TRANSITIONS
-$transition-duration: 0.3s ease-in-out;
+$transition-duration-short: 0.3s ease-in-out;
+$transition-duration-long: 0.6s ease-in-out;
+
+// OVERLAYS
+$overlay-background: rgba(0, 0, 0, 0.7);
 
 // GRADIENTS
 $gradient-splash: linear-gradient(
@@ -153,7 +157,7 @@ $color-justice-juggernaut: #50779b;
 $color-fiscal-hawk: #3a5e00;
 $color-urban-utopian: #c65f00;
 $color-rural-revolutionary: #653378;
-$color-equality-evangelist: #000000;
+$color-equality-evangelist: #988af5;
 
 .activeLeftLiberal {
   background-color: $color-left-liberal !important;
@@ -232,5 +236,10 @@ $color-equality-evangelist: #000000;
 
 .activeRuralRevolutionary {
   background-color: $color-rural-revolutionary !important;
+  color: white !important;
+}
+
+.activeEqualityEvangelist {
+  background-color: $color-equality-evangelist !important;
   color: white !important;
 }

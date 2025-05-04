@@ -21,7 +21,7 @@
 
   .circleExpand {
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: vars.$overlay-background;
     width: 40px;
     height: 40px;
     transform-origin: center center;

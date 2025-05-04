@@ -11,10 +11,9 @@
   --color-navbar: #eaeaea;
   --color-navbar-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
   --color-navbar-top: #ffffff;
-  --color-notification-bg: #e8e8e8;
   --color-timeline-comment-bg: #eaeaea;
   --color-timeline-event-bg: #dedede;
-  --transition-duration: 0.3s ease-in-out;
+  --transition-duration-short: vars.$transition-duration-short-short;
 }
 
 [data-theme="dark"] {
@@ -30,8 +29,7 @@
   --color-navbar: #2d2d2d;
   --color-navbar-shadow: 0px 0px 12px 0px rgba(35, 35, 35, 0.8);
   --color-navbar-top: #232323;
-  --color-notification-bg: #282828;
   --color-timeline-comment-bg: #2e2e2e;
   --color-timeline-event-bg: #2e2e2e;
-  --transition-duration: 0.3s ease-in-out;
+  --transition-duration-short: vars.$transition-duration-short-short;
 }

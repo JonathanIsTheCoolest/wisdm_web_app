@@ -53,14 +53,7 @@ const VoteCard: React.FC<VoteItem> = ({
   const imageSource = imageMap[image] || explore_feed_1;
 
   return (
-    <motion.div
-      className={styles.voteCard}
-      onClick={handleClick}
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
-      style={{ position: "relative", overflow: "hidden" }}
-    >
+    <motion.div className={styles.voteCard} onClick={handleClick}>
       <div className={styles.cardImage}>
         <Image src={imageSource} alt={title} layout="fill" objectFit="cover" />
         <div className={styles.overlay}></div>

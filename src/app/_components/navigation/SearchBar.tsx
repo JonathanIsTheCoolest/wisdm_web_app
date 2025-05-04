@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
@@ -30,6 +30,24 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
     null
   );
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!searchFocused) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setSearchFocused(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchFocused]);
 
   useEffect(() => {
     if (debounceTimeout) {
@@ -84,23 +102,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             className={styles.searchBackdrop}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              background: "#000",
-              zIndex: 5,
-            }}
             onClick={() => setSearchFocused(false)}
           />
         )}
       </AnimatePresence>
-      <div
-        className={`${styles.searchBar} ${className}`}
-        style={{ position: "relative", zIndex: 10 }}
-      >
+      <div ref={containerRef} className={`${styles.searchBar} ${className}`}>
         <input
           type="text"
           placeholder={placeholder}
@@ -108,8 +114,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={() => setSearchFocused(true)}
-          onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
-          className={searchFocused ? styles.searchBarFocused : ""}
         />
         <div className={styles.searchIcon}>
           <Image src={searchIcon} alt="Search Icon" />
@@ -120,20 +124,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18 }}
+              transition={{ duration: 0.3 }}
               className={styles.searchDropdown}
-              style={{
-                position: "absolute",
-                top: "110%",
-                left: 0,
-                right: 0,
-                borderRadius: 8,
-                boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-                padding: "20px",
-                maxHeight: 800,
-                overflowY: "auto",
-                scrollbarWidth: "none",
-              }}
             >
               {isSearching ? (
                 <div className={styles.dropdownLoading}>

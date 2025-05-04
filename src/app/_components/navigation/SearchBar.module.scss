@@ -7,6 +7,8 @@
   display: flex;
   height: 44px;
   padding: vars.$padding-small;
+  position: relative;
+  z-index: 10;
 
   input {
     background: none;
@@ -15,23 +17,16 @@
     font-size: vars.$font-size-body-medium;
     outline: none;
   }
-
-  .searchIcon {
-    height: 20px;
-    width: 20px;
-  }
 }
 
-.searchBarFocused {
-  box-shadow: 0 0 0 2px #0070f3;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
+.searchBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 5;
 }
 
 .searchDropdown {
@@ -40,38 +35,51 @@
   gap: vars.$gap-large;
   z-index: 10;
   background-color: var(--color-input);
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  border-radius: vars.$radius-small;
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  max-height: 800px;
+  overflow-y: auto;
+  scrollbar-width: none;
 
   .searchDropdownSection {
     display: flex;
     flex-direction: column;
     gap: vars.$gap-small;
   }
-}
 
-.searchDropdownMasonry {
-  display: flex;
-  flex-wrap: wrap;
-  gap: vars.$gap-small;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
+  .dropdownEventItem,
+  .dropdownSummaryItem {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$gap-small;
+    background: var(--color-bg);
+    border-radius: vars.$radius-small;
+    padding: vars.$padding-small;
+    color: vars.$color-font-body;
+  }
 
-.dropdownEventItem,
-.dropdownSummaryItem {
-  background: #252525;
-  border-radius: 6px;
-  padding: 12px 16px;
-  color: #fff;
-}
+  .dropdownLoading,
+  .dropdownError,
+  .dropdownNoResults {
+    text-align: center;
+    color: vars.$color-font-body;
+  }
 
-.dropdownLoading,
-.dropdownError,
-.dropdownNoResults {
-  text-align: center;
-  color: #fff;
-  padding: 16px 0;
-}
+  .searchDropdownMasonry {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: vars.$gap-medium;
 
-.searchBackdrop {
-  z-index: 5;
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }

@@ -15,7 +15,11 @@ import LoadingComments from "../../loading/LoadingComments/LoadingComments";
 
 import MainCommentDisplay from "../MainCommentDisplay/MainCommentDisplay";
 
-import { commentReducer, INIT_COMMENT_THREAD, CommentOrder } from "./commentReducer";
+import {
+  commentReducer,
+  INIT_COMMENT_THREAD,
+  CommentOrder,
+} from "./commentReducer";
 
 import { CommentThread } from "@/types";
 
@@ -40,13 +44,14 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
     commentReducer,
     INIT_COMMENT_THREAD
   );
-  const [orderBy, setOrderBy] = useState<CommentOrder>('DESC')
+  const [orderBy, setOrderBy] = useState<CommentOrder>("DESC");
   const dispatch = useAppDispatch();
 
   const orderByButtonArray: ButtonProp[] = [{name: 'ASC', text: 'oldest'}, {name: 'DESC', text: 'newest'}]
 
   const handleGetComments = async (commentId: string, offset: number = 0, reset = false, cb = () => null, limit: number = 20) => {
     const url = `${BASE_API_URL}/comments/get/get_comment_thread?thread_id=${threadId}&start_comment_id=${commentId}&order_by=${orderBy}&offset=${offset}&limit=${limit}`
+    
     try {
       const actionResult = await dispatch(
         apiHTTPWrapper({
@@ -55,19 +60,22 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
       );
       if (apiHTTPWrapper.fulfilled.match(actionResult)) {
         const result: CommentThread = actionResult.payload;
-        commentDispatch({ type: "setThread", payload: {commentThread: result, order: orderBy, reset: reset } });
+        commentDispatch({
+          type: "setThread",
+          payload: { commentThread: result, order: orderBy, reset: reset },
+        });
       } else {
         console.error("Failed to load comments:", actionResult.error);
       }
     } catch (error) {
       console.error("Error loading comments:", error);
     } finally {
-      cb()
+      cb();
     }
-  }
+  };
 
   useEffect(() => {
-    handleGetComments(rootCommentId, 0, true)
+    handleGetComments(rootCommentId, 0, true);
   }, [orderBy]);
 
   useEffect(() => {
@@ -108,7 +116,7 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
   }, []);
 
   return (
-    <div
+  <div
     id="comment_container"
     className={styles.commentContainer}
   >

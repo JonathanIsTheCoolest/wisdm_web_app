@@ -1,7 +1,7 @@
 // System Imports
-import React from 'react';
+import React from "react";
 import Image from "next/image";
-import {useRouter} from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 // Stylesheet Imports
 import styles from "@/app/_components/cards/NotificationCard.module.scss";
@@ -9,9 +9,9 @@ import styles from "@/app/_components/cards/NotificationCard.module.scss";
 // Asset Imports
 import ArrowRightBrand from "@/assets/icons/arrow_right_brand.svg";
 
-import { DisplayNotification } from '@/redux_lib/features/notificationsSlice';
+import { DisplayNotification } from "@/redux_lib/features/notificationsSlice";
 
-import { notificationMessage } from '@/app/_lib/helper/response/notifications';
+import { notificationMessage } from "@/app/_lib/helper/response/notifications";
 
 const NotificationCard: React.FC<DisplayNotification> = ({ 
   count, action, created_at, path, username, is_read, reference_id, thread_type
@@ -22,7 +22,8 @@ const NotificationCard: React.FC<DisplayNotification> = ({
     const match = path.match(regex);
     return match ? match[1] : null;
   };
-  const source_id = extractPath(path, 'timeline_id') || extractPath(path, 'source_id')
+  const source_id =
+    extractPath(path, "timeline_id") || extractPath(path, "source_id");
   // This is super iffy We have to update the way we store the paths
   const newPath = `notifications/view?source_id=${source_id}&reference_id=${reference_id}&thread_type${thread_type}`
 
@@ -30,16 +31,12 @@ const NotificationCard: React.FC<DisplayNotification> = ({
     <div className={styles.notificationCard}>
       <div className={styles.cardContent}>
         <div className={styles.cardHeader}>
-          <span>🔔</span>
-          {action}
+          <h2>🔔</h2>
+          <h2>{action}</h2>
         </div>
-        <div className={styles.cardBody}>
-          {notificationMessage(username, count, action, created_at)}
-        </div>
+        <p>{notificationMessage(username, count, action, created_at)}</p>
       </div>
-      <div 
-        onClick={() => router.push(newPath)}
-        className={styles.cardArrow}>
+      <div onClick={() => router.push(newPath)} className={styles.cardArrow}>
         <Image src={ArrowRightBrand} alt="arrow-right-brand" />
       </div>
     </div>
