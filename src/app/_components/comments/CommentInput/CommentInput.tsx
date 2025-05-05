@@ -40,7 +40,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
           thread_id: threadId,
           thread_type: threadType,
           body: newComment,
-          parent_comment_id: parentCommentId,
+          parent_id: parentCommentId,
           reference_id: null,
           username: username,
           path: path

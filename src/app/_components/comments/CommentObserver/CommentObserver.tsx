@@ -7,7 +7,7 @@ type CommentObserverProps = {
   index: number;
   currentCommentObjectLength: number;
   parent_comment_count: number;
-  parent_comment_id: string | any;
+  parent_id: string | any;
   body?: string;
   rootMargin?: string;
   threshold?: number | number[];
@@ -20,7 +20,7 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
   onIntersect,
   index,
   currentCommentObjectLength,
-  parent_comment_id,
+  parent_id,
   parent_comment_count,
   body,
   rootMargin = "25px",
@@ -40,7 +40,7 @@ const CommentObserver: React.FC<CommentObserverProps> = ({
         if (entry.isIntersecting && !isLoadingMoreComments) {
           setIsLoadingMoreComments(true)
           onIntersect(
-            parent_comment_id, 
+            parent_id, 
             currentCommentObjectLength, 
             false, 
             () => setIsLoadingMoreComments(false)

@@ -16,7 +16,7 @@ interface MainCommentDisplayProps {
 
 const MainCommentDisplay: React.FC<MainCommentDisplayProps> = ({comment, commentDispatch}) => {
   const { 
-    created_at, parent_comment_id, comment_id, comment_index,
+    created_at, parent_id, id, comment_index,
     reference_id, thread_id, user_photo_url, body, deleted,
     updated_at, username, vote_count, comment_count, vote
   } : Comment = comment

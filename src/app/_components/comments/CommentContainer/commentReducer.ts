@@ -3,7 +3,7 @@ import { CommentThread, Comment, UpdateComment, CommentsByParentId } from "@/typ
 export type CommentOrder = 'ASC' | 'DESC'
 
 export interface ParentCommentReference {
-  parent_comment_id: string;
+  parent_id: string;
   comment_count: number;
   comment_index: number;
 }
@@ -28,7 +28,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
     case 'setThread':
       const { commentThread, order, reset = false } = action.payload
 
-      const { start_comment_id = '', root_comment_count, comments } = commentThread
+      const { start_id = '', root_comment_count, comments } = commentThread
 
       if (reset) {
         const newCommentObject = {root_comment_count, comments}
@@ -39,17 +39,17 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
         delete comments.root
       }
 
-      const additionalComments = comments[start_comment_id]
+      const additionalComments = comments[start_id]
 
       const insertBasedOnOrder = () => {
         if (order === 'DESC') {
           return {
-            ...state.comments[start_comment_id],
+            ...state.comments[start_id],
             ...additionalComments,
           }
         } else {
           return {
-            ...state.comments[start_comment_id],
+            ...state.comments[start_id],
             ...additionalComments,
           }
         }
@@ -60,7 +60,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
         comments: {
           ...state.comments,
           ...comments,
-          [start_comment_id]: insertBasedOnOrder(),
+          [start_id]: insertBasedOnOrder(),
         }
       }
 
@@ -69,16 +69,16 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
     case 'addComment': {
       const { comment, parent_comment, comment_count_total, root_comment_count, order } = action.payload;
 
-      const { parent_comment_id: parent_group_id, comment_count, comment_index } = parent_comment
+      const { parent_id: parent_group_id, comment_count, comment_index } = parent_comment
 
-      const parent_comment_id = comment.parent_comment_id || 'root'
+      const parent_id = comment.parent_id || 'root'
 
       const parent_index_name = standardizeIndexName(comment_index)
 
       const index_name = standardizeIndexName(comment.comment_index)
 
-      const currentObjectLength = state.comments[parent_comment_id] ? 
-        Object.values(state.comments[parent_comment_id]).length + 1 :
+      const currentObjectLength = state.comments[parent_id] ? 
+        Object.values(state.comments[parent_id]).length + 1 :
         1
 
       const parentCount = comment_count || root_comment_count
@@ -87,30 +87,30 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
         if (order === 'DESC') {
           return {
             [index_name]: comment,
-            ...state.comments[parent_comment_id],
+            ...state.comments[parent_id],
           }
         } else if (order === 'ASC' && currentObjectLength === parentCount ) {
           return {
-            ...state.comments[parent_comment_id],
+            ...state.comments[parent_id],
             [index_name]: comment
           }
         } else {
-          return {...state.comments[parent_comment_id]}
+          return {...state.comments[parent_id]}
         }
       }
 
       const rootComment = () => {
-        const root_comment_id = state.comments.root?.comment_id
+        const root_id = state.comments.root?.id
         let root = {}
         
-        if (root_comment_id === parent_comment_id ) {
+        if (root_id === parent_id ) {
           root = {
             root: {
               ...state.comments.root,
             comment_count: comment_count
             }
           }
-        } else if (root_comment_id === comment.comment_id) {
+        } else if (root_id === comment.id) {
           root = {
             root: comment
           }
@@ -131,7 +131,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
               comment_count: comment_count
             },
           },
-          [parent_comment_id]: insertBasedOnOrder()
+          [parent_id]: insertBasedOnOrder()
         } as CommentsByParentId & { root?: Comment }
       }
 
@@ -141,13 +141,13 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
     // This is used for all comment updates including vote actions!
     case 'updateComment': {
       const { comment } = action.payload;
-      const parent_comment_id = comment.parent_comment_id || 'root';
+      const parent_id = comment.parent_id || 'root';
 
       const index_name = standardizeIndexName(comment.comment_index)
 
       const innerStateModel = () => {
         const rootComment = state?.comments?.root
-        if (rootComment?.comment_id === comment.comment_id) {
+        if (rootComment?.id === comment.id) {
           return {
             root: {
               ...rootComment,
@@ -156,10 +156,10 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
           }
         } else {
           return {
-            [parent_comment_id]: {
-              ...(state.comments[parent_comment_id] || {}), // Ensure parent exists
+            [parent_id]: {
+              ...(state.comments[parent_id] || {}), // Ensure parent exists
               [index_name]: {
-                ...(state.comments[parent_comment_id]?.[index_name] || {}), // Ensure comment exists
+                ...(state.comments[parent_id]?.[index_name] || {}), // Ensure comment exists
                 ...comment, // Merge only provided fields
               },
             },

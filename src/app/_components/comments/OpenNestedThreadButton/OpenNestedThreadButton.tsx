@@ -11,7 +11,7 @@ import { HandleGetComments } from "../RecursiveCommentDisplay/RecursiveCommentDi
 interface OpenNestedThreadButtonProps {
     isCollapsed: boolean;
     setIsCollapsed: Dispatch<SetStateAction<boolean>>;
-    comment_id: string;
+    id: string;
     comment_object: CommentGroupByIndex;
     renderChildComments?: (comment_object: CommentGroupByIndex) => React.ReactNode;
     handleGetComments: HandleGetComments;
@@ -19,7 +19,7 @@ interface OpenNestedThreadButtonProps {
 }
 
 const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo(
-    ({ comment_id, comment_object, renderChildComments, handleGetComments, orderBy, isCollapsed, setIsCollapsed }) => {
+    ({ id, comment_object, renderChildComments, handleGetComments, orderBy, isCollapsed, setIsCollapsed }) => {
         const commentContainerRef = useRef<HTMLElement | null>(null);
         const [isLoadingNestedComments, setIsLoadingNestedComments] = useState<boolean>(false)
         const [positions, setPositions] = useState<{
@@ -36,7 +36,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
 
         const calculatePositions = () => {
             const commentContainer = commentContainerRef.current;
-            const parentElement = document.getElementById(comment_id);
+            const parentElement = document.getElementById(id);
 
             if (!commentContainer || !parentElement) {
                 return {
@@ -66,7 +66,7 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
             };
 
             const childPositionsArray = Object.values(comment_object || {}).map((comment) => {
-                const childElement = document.getElementById(comment.comment_id);
+                const childElement = document.getElementById(comment.id);
                 if (childElement) {
                     const rect = childElement.getBoundingClientRect();
                     const top = rect.top - containerRect.top;
@@ -130,13 +130,13 @@ const OpenNestedThreadButton: React.FC<OpenNestedThreadButtonProps> = React.memo
                 resizeObserver.disconnect();
                 observer.disconnect();
             };
-        }, [comment_id, comment_object, orderBy]);
+        }, [id, comment_object, orderBy]);
 
         const handleClick = () => {
             setIsCollapsed((prev) => !prev);
             if (!comment_object && isCollapsed) {
                 setIsLoadingNestedComments(true)
-                handleGetComments(comment_id, 0, false, () => setIsLoadingNestedComments(false));
+                handleGetComments(id, 0, false, () => setIsLoadingNestedComments(false));
             }
         };
 

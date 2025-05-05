@@ -33,14 +33,14 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
     return (
       <div>
         {Object.values(commentObject).map((comment: Comment, index) => {
-          const { comment_id, body, comment_count, parent_comment_id } = comment;
+          const { id, body, comment_count, parent_id } = comment;
           return (
-            <div className={styles.commentContainer} key={comment_id}>
+            <div className={styles.commentContainer} key={id}>
               <CommentObserver
                 onIntersect={handleGetComments}
                 index={index}
                 currentCommentObjectLength={Object.values(commentObject).length}
-                parent_comment_id={parent_comment_id}
+                parent_id={parent_id}
                 parent_comment_count={parentCommentCount}
                 body={body}
                 isLoadingMoreComments={isLoadingMoreComments}
@@ -57,8 +57,8 @@ const RecursiveCommentDisplay: React.FC<RecursiveCommentDisplayProps> =
                 comment_count={comment_count}
                 parentCollapsed={parentCollapsed}
                 commentsObject={commentsObject}
-                commentObject={commentsObject[comment_id]}
-                commentId={comment_id}
+                commentObject={commentsObject[id]}
+                commentId={id}
                 threadId={threadId}
                 orderBy={orderBy}
                 depth={depth + 1}
