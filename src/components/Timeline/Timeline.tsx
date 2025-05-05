@@ -27,7 +27,7 @@ const Timeline: React.FC<TimelineProps> = ({
         event_id: `event-${index}`,
         event_index: index,
         narrative_bias: index % 2 === 0 ? "left" : "right", // Alternate between left and right
-        timeline_id: "placeholder-timeline",
+        id: "placeholder-timeline",
         version: 1,
       })),
     ];

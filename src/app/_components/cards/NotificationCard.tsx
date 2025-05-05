@@ -23,7 +23,7 @@ const NotificationCard: React.FC<DisplayNotification> = ({
     return match ? match[1] : null;
   };
   const source_id =
-    extractPath(path, "timeline_id") || extractPath(path, "source_id");
+    extractPath(path, "id") || extractPath(path, "source_id");
   // This is super iffy We have to update the way we store the paths
   const newPath = `notifications/view?source_id=${source_id}&reference_id=${reference_id}&thread_type${thread_type}`
 

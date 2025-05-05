@@ -275,8 +275,8 @@ const Home = () => {
               ) : categoryTimelines.length > 0 ? (
                 categoryTimelines.map((timeline) => (
                   <Link
-                    href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
-                    key={timeline.timeline_id}
+                    href={`/dashboard/timeline?id=${timeline.id}`}
+                    key={timeline.id}
                   >
                     <TimelineCard {...timeline} />
                   </Link>

@@ -4,7 +4,7 @@
 export interface Summary {
   summary: string;
   summary_id: string;
-  timeline_id: string;
+  id: string;
   version: number;
 }
 
@@ -14,13 +14,13 @@ interface Event {
   event_id: string;
   event_index: number;
   narrative_bias: "left" | "right";
-  timeline_id: string;
+  id: string;
   version: number;
 }
 
 // Timeline
 export interface Timeline {
-  timeline_id: string;
+  id: string;
   parent_event_id: string;
   title: string;
   image: string;

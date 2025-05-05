@@ -159,8 +159,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
                             <div className={styles.searchDropdownMasonry}>
                               {timelines.map((item) => (
                                 <Link
-                                  href={`/dashboard/timeline?timeline_id=${item.timeline_id}`}
-                                  key={`timeline-${item.timeline_id}`}
+                                  href={`/dashboard/timeline?id=${item.id}`}
+                                  key={`timeline-${item.id}`}
                                 >
                                   <TimelineCard {...item} variant="compact" />
                                 </Link>

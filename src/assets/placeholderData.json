@@ -159,17 +159,17 @@
 
   "timelines": [
     {
-      "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+      "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
       "title": "Gun Control in America",
       "image": "timeline_1.png"
     },
     {
-      "timeline_id": "76bd29f4-8b29-4e53-97ea-2fd0d62cb8f4",
+      "id": "76bd29f4-8b29-4e53-97ea-2fd0d62cb8f4",
       "title": "Climate Change Policy",
       "image": "timeline_2.png"
     },
     {
-      "timeline_id": "b91f5d1b-6c4a-4f79-8eb7-5d5d8a0a4f97",
+      "id": "b91f5d1b-6c4a-4f79-8eb7-5d5d8a0a4f97",
       "title": "Healthcare Reform in the US",
       "image": "timeline_3.png"
     }
@@ -182,7 +182,7 @@
         "event_id": "308dfe57-a320-4f2a-a965-886a8d60cca2",
         "event_index": 0,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -190,7 +190,7 @@
         "event_id": "6663e0c5-6f94-4f3b-9de5-68778d563a2e",
         "event_index": 1,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -198,7 +198,7 @@
         "event_id": "194cd784-2179-476f-80d6-96c709bac845",
         "event_index": 2,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -206,7 +206,7 @@
         "event_id": "a20b1118-c213-42c9-bd15-327f71c2fda4",
         "event_index": 3,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -214,7 +214,7 @@
         "event_id": "680eb5a7-a8ba-4bfe-8df8-8172e7bbc97f",
         "event_index": 4,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -222,7 +222,7 @@
         "event_id": "51087e2b-c8c6-4f07-a367-f25f5dd30c70",
         "event_index": 5,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -230,7 +230,7 @@
         "event_id": "67e2fbd9-9a44-404b-95dd-6e5e8bde2be4",
         "event_index": 6,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -238,7 +238,7 @@
         "event_id": "f91f4086-6a3d-4843-82d6-35c95859b2e9",
         "event_index": 7,
         "narrative_bias": "left",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       }
     ],
@@ -248,7 +248,7 @@
         "event_id": "e92b74f1-631e-4e41-8e5e-4621f9099556",
         "event_index": 0,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -256,7 +256,7 @@
         "event_id": "72b8de73-b727-499d-81fd-733546162d5e",
         "event_index": 1,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -264,7 +264,7 @@
         "event_id": "2aeb07c6-9c1b-4459-bcc7-5e7357a02290",
         "event_index": 2,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -272,7 +272,7 @@
         "event_id": "24c6ab73-dba3-4f53-916c-cd3428552ac7",
         "event_index": 3,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -280,7 +280,7 @@
         "event_id": "72684833-e4d8-486c-87dd-4357ee5d2433",
         "event_index": 4,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -288,7 +288,7 @@
         "event_id": "c80ae60b-9002-4e63-992e-eafbb31564e9",
         "event_index": 5,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -296,7 +296,7 @@
         "event_id": "3ec7f4bf-3ec6-475a-94b9-6c7707605a3e",
         "event_index": 6,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       },
       {
@@ -304,7 +304,7 @@
         "event_id": "743aa8f3-f3b9-45a6-895b-ccc6e501adce",
         "event_index": 7,
         "narrative_bias": "right",
-        "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+        "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
         "version": 0
       }
     ]
@@ -314,19 +314,19 @@
     {
       "summary": "The debate over gun control in the United States centers around the interpretation of the Second Amendment, the right to bear arms, and the desire to reduce gun violence. Proponents of gun control argue for stricter regulations to prevent mass shootings and reduce crime, while opponents believe that such measures infringe on constitutional rights and propose that an armed citizenry can better deter crime and offer self-protection. This issue is often brought to the forefront following mass shootings, with calls for legislative action competing against the emphasis on mental health and the safeguarding of constitutional rights.",
       "summary_id": "9df2efdd-73eb-4646-9705-82e58eecce71",
-      "timeline_id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
+      "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
       "version": 0
     },
     {
       "summary": "Climate change policy debates have evolved from scientific awareness to international cooperation and national action plans. Major agreements, such as the Kyoto Protocol and Paris Agreement, have shaped policy, though adherence and enforcement vary widely among nations.",
       "summary_id": "d8c3b5b5-57ab-4c6e-888d-2e4b7cf46a53",
-      "timeline_id": "76bd29f4-8b29-4e53-97ea-2fd0d62cb8f4",
+      "id": "76bd29f4-8b29-4e53-97ea-2fd0d62cb8f4",
       "version": 0
     },
     {
       "summary": "U.S. healthcare reform is rooted in expanding access and managing costs, with landmark laws like Medicare, Medicaid, and the Affordable Care Act shaping the landscape. Conflicts over healthcare's role remain central to political debate.",
       "summary_id": "e5f65432-c6d1-4f3b-b9a8-f89b0b5214c6",
-      "timeline_id": "b91f5d1b-6c4a-4f79-8eb7-5d5d8a0a4f97",
+      "id": "b91f5d1b-6c4a-4f79-8eb7-5d5d8a0a4f97",
       "version": 0
     }
   ]

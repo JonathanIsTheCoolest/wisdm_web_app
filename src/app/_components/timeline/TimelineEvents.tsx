@@ -16,7 +16,7 @@ interface TimelineEvent {
   event_id: string;
   event_index: number;
   narrative_bias: "left" | "right";
-  timeline_id: string;
+  id: string;
   version: number;
 }
 
