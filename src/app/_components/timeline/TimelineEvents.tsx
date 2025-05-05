@@ -13,7 +13,7 @@ import TimelinePopup, {
 
 interface TimelineEvent {
   body: string;
-  event_id: string;
+  id: string;
   event_index: number;
   narrative_bias: "left" | "right";
   id: string;
@@ -138,7 +138,7 @@ const TimelineEvents: React.FC<TimelineEventsProps> = ({
         </div>
         {transformedEvents.map((event, index) => (
           <motion.div
-            key={event.event_id || index}
+            key={event.id || index}
             className={`${styles.timelineEvent} ${
               event.narrative_bias === "left" ? styles.left : styles.right
             }`}
@@ -153,7 +153,7 @@ const TimelineEvents: React.FC<TimelineEventsProps> = ({
           >
             <motion.div
               className={styles.eventContainer}
-              layoutId={`event-container-${event.event_id}`}
+              layoutId={`event-container-${event.id}`}
               whileHover={{
                 boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
               }}
@@ -164,7 +164,7 @@ const TimelineEvents: React.FC<TimelineEventsProps> = ({
               onClick={(e) => handleEventClick(event, e)}
             >
               <div className={styles.eventContent}>
-                <motion.div layoutId={`event-title-${event.event_id}`}>
+                <motion.div layoutId={`event-title-${event.id}`}>
                   <h3 className={styles.eventDate}>
                     {event.body.split(":")[0]}
                   </h3>

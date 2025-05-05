@@ -11,7 +11,7 @@ export interface Summary {
 // Timeline Events
 interface Event {
   body: string;
-  event_id: string;
+  id: string;
   event_index: number;
   narrative_bias: "left" | "right";
   id: string;
@@ -21,7 +21,7 @@ interface Event {
 // Timeline
 export interface Timeline {
   id: string;
-  parent_event_id: string;
+  parent_id: string;
   title: string;
   image: string;
   summary?: string;

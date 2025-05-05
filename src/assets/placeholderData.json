@@ -179,7 +179,7 @@
     [
       {
         "body": "1791: The Second Amendment to the U.S. Constitution is ratified, ensuring citizens the right to bear arms.",
-        "event_id": "308dfe57-a320-4f2a-a965-886a8d60cca2",
+        "id": "308dfe57-a320-4f2a-a965-886a8d60cca2",
         "event_index": 0,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -187,7 +187,7 @@
       },
       {
         "body": "1934: The National Firearms Act is passed to regulate fully automatic firearms, after the rise of gangster-related violence.",
-        "event_id": "6663e0c5-6f94-4f3b-9de5-68778d563a2e",
+        "id": "6663e0c5-6f94-4f3b-9de5-68778d563a2e",
         "event_index": 1,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -195,7 +195,7 @@
       },
       {
         "body": "1968: The Gun Control Act is enacted, largely in response to the assassinations of JFK, RFK, and MLK, aiming to restrict firearm access to certain individuals and increase regulation.",
-        "event_id": "194cd784-2179-476f-80d6-96c709bac845",
+        "id": "194cd784-2179-476f-80d6-96c709bac845",
         "event_index": 2,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -203,7 +203,7 @@
       },
       {
         "body": "1993: The Brady Handgun Violence Prevention Act is passed, mandating federal background checks on firearm purchasers in the United States.",
-        "event_id": "a20b1118-c213-42c9-bd15-327f71c2fda4",
+        "id": "a20b1118-c213-42c9-bd15-327f71c2fda4",
         "event_index": 3,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -211,7 +211,7 @@
       },
       {
         "body": "1994: The Federal Assault Weapons Ban is signed into law, banning certain semi-automatic firearms for civilian use, which expires in 2004.",
-        "event_id": "680eb5a7-a8ba-4bfe-8df8-8172e7bbc97f",
+        "id": "680eb5a7-a8ba-4bfe-8df8-8172e7bbc97f",
         "event_index": 4,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -219,7 +219,7 @@
       },
       {
         "body": "2012: The Sandy Hook Elementary School shooting sparks national debate and calls for new gun control measures.",
-        "event_id": "51087e2b-c8c6-4f07-a367-f25f5dd30c70",
+        "id": "51087e2b-c8c6-4f07-a367-f25f5dd30c70",
         "event_index": 5,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -227,7 +227,7 @@
       },
       {
         "body": "2018: The Marjory Stoneman Douglas High School shooting renews the push for stricter gun control, leading to nationwide student-led protests.",
-        "event_id": "67e2fbd9-9a44-404b-95dd-6e5e8bde2be4",
+        "id": "67e2fbd9-9a44-404b-95dd-6e5e8bde2be4",
         "event_index": 6,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -235,7 +235,7 @@
       },
       {
         "body": "2020-2021: A significant rise in gun sales occurs amid the COVID-19 pandemic and civil unrest.",
-        "event_id": "f91f4086-6a3d-4843-82d6-35c95859b2e9",
+        "id": "f91f4086-6a3d-4843-82d6-35c95859b2e9",
         "event_index": 7,
         "narrative_bias": "left",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -245,7 +245,7 @@
     [
       {
         "body": "1791: The Second Amendment to the U.S. Constitution is ratified, recognizing the right to keep and bear arms as essential to a free state.",
-        "event_id": "e92b74f1-631e-4e41-8e5e-4621f9099556",
+        "id": "e92b74f1-631e-4e41-8e5e-4621f9099556",
         "event_index": 0,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -253,7 +253,7 @@
       },
       {
         "body": "2008: The Supreme Court case District of Columbia v. Heller affirms an individual's right to possess firearms, unconnected with service in a militia, for traditionally lawful purposes.",
-        "event_id": "72b8de73-b727-499d-81fd-733546162d5e",
+        "id": "72b8de73-b727-499d-81fd-733546162d5e",
         "event_index": 1,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -261,7 +261,7 @@
       },
       {
         "body": "2010: The Supreme Court case McDonald v. City of Chicago strikes down a citywide handgun ban and extends the Second Amendment protections to state and local levels.",
-        "event_id": "2aeb07c6-9c1b-4459-bcc7-5e7357a02290",
+        "id": "2aeb07c6-9c1b-4459-bcc7-5e7357a02290",
         "event_index": 2,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -269,7 +269,7 @@
       },
       {
         "body": "2013: Attempts to pass significant federal gun control legislation fail in the Senate after the Sandy Hook shooting, indicating a strong defense of gun rights.",
-        "event_id": "24c6ab73-dba3-4f53-916c-cd3428552ac7",
+        "id": "24c6ab73-dba3-4f53-916c-cd3428552ac7",
         "event_index": 3,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -277,7 +277,7 @@
       },
       {
         "body": "2015: The FBI reports that armed citizens are successful in stopping active shooter incidents, bolstering the argument for self-defense rights.",
-        "event_id": "72684833-e4d8-486c-87dd-4357ee5d2433",
+        "id": "72684833-e4d8-486c-87dd-4357ee5d2433",
         "event_index": 4,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -285,7 +285,7 @@
       },
       {
         "body": "2016: Record levels of gun sales occur as citizens fear potential gun restrictions with the upcoming presidential election.",
-        "event_id": "c80ae60b-9002-4e63-992e-eafbb31564e9",
+        "id": "c80ae60b-9002-4e63-992e-eafbb31564e9",
         "event_index": 5,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -293,7 +293,7 @@
       },
       {
         "body": "2017: A church shooting in Texas is stopped by an armed civilian, reinforcing the argument that good guys with guns can stop bad guys.",
-        "event_id": "3ec7f4bf-3ec6-475a-94b9-6c7707605a3e",
+        "id": "3ec7f4bf-3ec6-475a-94b9-6c7707605a3e",
         "event_index": 6,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
@@ -301,7 +301,7 @@
       },
       {
         "body": "2019: Virginia's proposed gun control measures spark significant protests and the establishment of numerous 'Second Amendment Sanctuaries' in the state.",
-        "event_id": "743aa8f3-f3b9-45a6-895b-ccc6e501adce",
+        "id": "743aa8f3-f3b9-45a6-895b-ccc6e501adce",
         "event_index": 7,
         "narrative_bias": "right",
         "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",

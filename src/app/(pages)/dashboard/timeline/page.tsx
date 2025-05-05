@@ -89,7 +89,7 @@ const Timeline = () => {
     const popupEvent = {
       title: event.body.split(":")[1]?.trim() || event.body,
       index: eventIndex,
-      eventId: event.event_id,
+      eventId: event.id,
     };
 
     const rect = eventElement.getBoundingClientRect();

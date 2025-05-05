@@ -175,7 +175,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                             </h2>
                             {events.map((item) => (
                               <div
-                                key={`event-${item.event_id}`}
+                                key={`event-${item.id}`}
                                 className={styles.dropdownEventItem}
                               >
                                 <h4>{item.title || "Event"}</h4>

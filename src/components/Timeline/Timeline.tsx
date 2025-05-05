@@ -24,7 +24,7 @@ const Timeline: React.FC<TimelineProps> = ({
     return [
       timeline.timeline.map((item: any, index: number) => ({
         body: `${item.date}: ${item.event}`,
-        event_id: `event-${index}`,
+        id: `event-${index}`,
         event_index: index,
         narrative_bias: index % 2 === 0 ? "left" : "right", // Alternate between left and right
         id: "placeholder-timeline",
@@ -56,7 +56,7 @@ const Timeline: React.FC<TimelineProps> = ({
     const popupEvent = {
       title: event.body.split(":")[1]?.trim() || event.body,
       index: eventIndex,
-      eventId: event.event_id,
+      eventId: event.id,
     };
 
     const rect = eventElement.getBoundingClientRect();
