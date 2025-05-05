@@ -191,7 +191,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                             </h2>
                             {summaries.map((item) => (
                               <div
-                                key={`summary-${item.summary_id}`}
+                                key={`summary-${item.id}`}
                                 className={styles.dropdownSummaryItem}
                               >
                                 <h4>Summary</h4>

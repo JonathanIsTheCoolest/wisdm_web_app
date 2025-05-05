@@ -3,7 +3,7 @@
 // Timeline Summary
 export interface Summary {
   summary: string;
-  summary_id: string;
+  id: string;
   id: string;
   version: number;
 }

@@ -313,19 +313,19 @@
   "summaries": [
     {
       "summary": "The debate over gun control in the United States centers around the interpretation of the Second Amendment, the right to bear arms, and the desire to reduce gun violence. Proponents of gun control argue for stricter regulations to prevent mass shootings and reduce crime, while opponents believe that such measures infringe on constitutional rights and propose that an armed citizenry can better deter crime and offer self-protection. This issue is often brought to the forefront following mass shootings, with calls for legislative action competing against the emphasis on mental health and the safeguarding of constitutional rights.",
-      "summary_id": "9df2efdd-73eb-4646-9705-82e58eecce71",
+      "id": "9df2efdd-73eb-4646-9705-82e58eecce71",
       "id": "89ee82eb-9a4f-4018-915d-e7c8fb265887",
       "version": 0
     },
     {
       "summary": "Climate change policy debates have evolved from scientific awareness to international cooperation and national action plans. Major agreements, such as the Kyoto Protocol and Paris Agreement, have shaped policy, though adherence and enforcement vary widely among nations.",
-      "summary_id": "d8c3b5b5-57ab-4c6e-888d-2e4b7cf46a53",
+      "id": "d8c3b5b5-57ab-4c6e-888d-2e4b7cf46a53",
       "id": "76bd29f4-8b29-4e53-97ea-2fd0d62cb8f4",
       "version": 0
     },
     {
       "summary": "U.S. healthcare reform is rooted in expanding access and managing costs, with landmark laws like Medicare, Medicaid, and the Affordable Care Act shaping the landscape. Conflicts over healthcare's role remain central to political debate.",
-      "summary_id": "e5f65432-c6d1-4f3b-b9a8-f89b0b5214c6",
+      "id": "e5f65432-c6d1-4f3b-b9a8-f89b0b5214c6",
       "id": "b91f5d1b-6c4a-4f79-8eb7-5d5d8a0a4f97",
       "version": 0
     }
