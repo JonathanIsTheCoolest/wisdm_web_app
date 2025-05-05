@@ -97,7 +97,7 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     socket.on("receive_notification_update", (response) => {
       const notification = response;
-
+      
       dispatch(updateNotificationState(notification));
     });
 

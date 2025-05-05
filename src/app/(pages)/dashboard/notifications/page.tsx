@@ -19,9 +19,9 @@ const Notifications = () => {
   const { isLoading, setLoaded } = useLoadingState(["notifications"]);
 
   useEffect(() => {
+    //  This basically does nothing and I hate it CHANGE IT!!!!!!!🔥🐶💩...
     const fetchNotifications = async () => {
       try {
-        // ... existing fetch code ...
       } finally {
         setLoaded("notifications");
       }
