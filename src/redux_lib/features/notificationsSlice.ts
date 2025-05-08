@@ -12,7 +12,7 @@ export interface IncomingNotification {
   action: string;
   path: string;
   username: string;
-  thread_type: string;
+  reference_type: string;
 }
 
 export interface DisplayNotification {
@@ -23,7 +23,7 @@ export interface DisplayNotification {
   username: string;
   is_read: boolean;
   reference_id: string;
-  thread_type: string;
+  reference_type: string;
 }
 
 export interface NotificationState {
