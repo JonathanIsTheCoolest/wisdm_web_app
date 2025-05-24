@@ -125,7 +125,7 @@ const ProfileTabs: React.FC<ProfileTabsProps> & {
         }`}
         onClick={() => setActiveTab("savedTopics")}
       >
-        Saved Topics
+        Saved Interests
       </div>
       <div
         className={`${styles.tabItem} ${

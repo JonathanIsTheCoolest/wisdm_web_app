@@ -1,9 +1,10 @@
 "use client";
 
 // System Imports
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { motion, useAnimation, useMotionValue } from "motion/react";
 
 // API/Database Imports
 import { Comment } from "@/types";
@@ -36,16 +37,20 @@ import { useLoadingState } from "@/hooks/useLoadingState";
 
 const Explore = () => {
   const dispatch = useAppDispatch();
-  const images = [
-    featuredImage1,
-    featuredImage2,
-    featuredImage3,
-    featuredImage4,
-    featuredImage5,
-    featuredImage6,
+  const featuredTimelines = [
+    { id: 1, image: featuredImage1, title: "Timeline 1" },
+    { id: 2, image: featuredImage2, title: "Timeline 2" },
+    { id: 3, image: featuredImage3, title: "Timeline 3" },
+    { id: 4, image: featuredImage4, title: "Timeline 4" },
+    { id: 5, image: featuredImage5, title: "Timeline 5" },
+    { id: 6, image: featuredImage6, title: "Timeline 6" },
   ];
 
-  const scrollImages = [...images, ...images];
+  const carouselItems = [...featuredTimelines, ...featuredTimelines];
+
+  const [carouselWidth, setCarouselWidth] = useState(0);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const controls = useAnimation();
 
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [overlayTriggerPosition, setOverlayTriggerPosition] = useState<{
@@ -61,6 +66,10 @@ const Explore = () => {
     }
     setIsOverlayVisible(!isOverlayVisible);
   };
+
+  const [isDragging, setIsDragging] = useState(false);
+  const x = useMotionValue(0);
+  const xRef = useRef(0);
 
   useEffect(() => {
     const fetchTrendingComments = async () => {
@@ -90,6 +99,45 @@ const Explore = () => {
       setLoaded("featured");
     }, 1000);
   }, []);
+
+  useEffect(() => {
+    if (containerRef) {
+      setCarouselWidth(containerRef.scrollWidth / 2);
+    }
+  }, [containerRef, featuredTimelines.length]);
+
+  useEffect(() => {
+    let animationFrame: number;
+    function animate() {
+      if (!isDragging && carouselWidth > 0) {
+        const speed = 0.5;
+        let nextX = x.get() - speed;
+        if (Math.abs(nextX) >= carouselWidth) {
+          nextX = 0;
+        }
+        x.set(nextX);
+        xRef.current = nextX;
+      }
+      animationFrame = requestAnimationFrame(animate);
+    }
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [carouselWidth, isDragging, x]);
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = () => {
+    // After drag, sync xRef to the current x value
+    let currentX = x.get();
+    if (Math.abs(currentX) >= carouselWidth) {
+      currentX = currentX % carouselWidth;
+      x.set(currentX);
+    }
+    xRef.current = currentX;
+    setIsDragging(false);
+  };
 
   return (
     <div className={styles.pageContainer}>
@@ -133,15 +181,23 @@ const Explore = () => {
               <LoadingSpinner />
             </div>
           ) : (
-            <div className={styles.exploreFeed}>
-              {scrollImages.map((image, index) => (
+            <motion.div
+              className={styles.exploreFeed}
+              ref={setContainerRef}
+              drag="x"
+              dragConstraints={{ left: -carouselWidth, right: 0 }}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+              style={{ x, cursor: isDragging ? "grabbing" : "grab" }}
+            >
+              {carouselItems.map((item, index) => (
                 <ExploreCard
-                  key={`scroll-${index}`}
-                  image={image}
+                  key={`carousel-${index}`}
+                  image={item.image}
                   index={index}
                 />
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
       </section>
