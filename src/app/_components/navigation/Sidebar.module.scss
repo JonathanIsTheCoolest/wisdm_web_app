@@ -11,7 +11,7 @@
   transition: right vars.$transition-duration-short;
   width: 25%;
   z-index: 1001;
-  overflow: none;
+  overflow-y: auto;
 
   h2 {
     padding-left: vars.$padding-medium;
@@ -76,6 +76,5 @@
   @media (max-width: 800px) {
     right: -100%;
     width: 100%;
-    overflow: scroll;
   }
 }

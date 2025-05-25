@@ -24,24 +24,10 @@
 }
 
 .exploreFeed {
-  animation: scroll 40s linear infinite;
   display: flex;
-  gap: 16px;
-  padding: 8px;
+  gap: vars.$gap-medium;
+  padding: vars.$padding-small;
   user-select: none;
-
-  &:active {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
 }
 
 .seeAll {

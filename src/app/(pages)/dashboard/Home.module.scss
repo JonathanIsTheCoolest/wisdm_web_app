@@ -16,6 +16,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 }
 
 .feedSection {

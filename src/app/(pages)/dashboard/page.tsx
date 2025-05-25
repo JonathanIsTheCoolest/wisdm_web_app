@@ -1,7 +1,7 @@
 "use client";
 
 // System Imports
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
@@ -102,7 +102,8 @@ const Home = () => {
   }
 
   // --- CATEGORY SWIPE ARROWS ---
-  // Add your categories here
+  // COMMENT OUT THIS SECTION
+  // Mock categories for testing
   const categories = [
     {
       id: "c68e142e-2097-e9a5-c426-e005f21d64c9",
@@ -112,8 +113,20 @@ const Home = () => {
       id: "095e7a0f-8519-586c-b7a6-b0c298a280f4",
       title: "Entertainment ",
     },
-    // Add more categories as needed
+    {
+      id: "mock-1",
+      title: "World News ",
+    },
+    {
+      id: "mock-2",
+      title: "Technology ",
+    },
+    {
+      id: "mock-3",
+      title: "Sports ",
+    },
   ];
+  // END COMMENT OUT THIS SECTION
 
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const selectedCategory = categories[selectedCategoryIdx];
@@ -161,6 +174,9 @@ const Home = () => {
   // --- SWIPE DIRECTION STATE ---
   const [direction, setDirection] = useState(0);
 
+  // Track if a drag occurred to prevent click navigation
+  const isDragging = useRef(false);
+
   // Arrow navigation handlers (set direction)
   const goLeft = () => {
     setDirection(-1);
@@ -174,11 +190,11 @@ const Home = () => {
   // Card swipe variants (no opacity, just x)
   const swipeVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? window.innerWidth : -window.innerWidth,
     }),
     center: { x: 0 },
     exit: (direction: number) => ({
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? window.innerWidth : -window.innerWidth,
     }),
   };
 
@@ -213,48 +229,7 @@ const Home = () => {
       <div className={styles.sectionTitle}>
         <h2>{selectedCategory.title}</h2>
       </div>
-      <div>
-        {/* Left Arrow */}
-        <button
-          onClick={goLeft}
-          disabled={selectedCategoryIdx === 0}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: selectedCategoryIdx === 0 ? "not-allowed" : "pointer",
-            fontSize: 40,
-            color: "#f44336",
-            marginRight: 40,
-            visibility: selectedCategoryIdx === 0 ? "hidden" : "visible",
-          }}
-          aria-label="Previous Category"
-        >
-          &#8592;
-        </button>
-        {/* Right Arrow */}
-        <button
-          onClick={goRight}
-          disabled={selectedCategoryIdx === categories.length - 1}
-          style={{
-            background: "none",
-            border: "none",
-            cursor:
-              selectedCategoryIdx === categories.length - 1
-                ? "not-allowed"
-                : "pointer",
-            fontSize: 40,
-            color: "#f44336",
-            marginLeft: 40,
-            visibility:
-              selectedCategoryIdx === categories.length - 1
-                ? "hidden"
-                : "visible",
-          }}
-          aria-label="Next Category"
-        >
-          &#8594;
-        </button>
-      </div>
+
       <div className={styles.feedWrapper}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -266,6 +241,28 @@ const Home = () => {
             exit="exit"
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className={styles.feedContainer}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragStart={() => {
+              isDragging.current = true;
+            }}
+            onDragEnd={(event, info) => {
+              setTimeout(() => {
+                isDragging.current = false;
+              }, 0);
+              if (
+                info.offset.x < -100 &&
+                selectedCategoryIdx < categories.length - 1
+              ) {
+                setDirection(1);
+                setSelectedCategoryIdx(selectedCategoryIdx + 1);
+              } else if (info.offset.x > 100 && selectedCategoryIdx > 0) {
+                setDirection(-1);
+                setSelectedCategoryIdx(selectedCategoryIdx - 1);
+              }
+            }}
+            style={{ touchAction: "pan-y" }}
           >
             <section className={styles.feedSection}>
               {categoryLoading ? (
@@ -275,8 +272,15 @@ const Home = () => {
               ) : categoryTimelines.length > 0 ? (
                 categoryTimelines.map((timeline) => (
                   <Link
-                    href={`/dashboard/timeline?id=${timeline.id}`}
-                    key={timeline.id}
+                    href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
+                    key={timeline.timeline_id}
+                    onPointerDown={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      if (isDragging.current) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }
+                    }}
                   >
                     <TimelineCard {...timeline} />
                   </Link>
