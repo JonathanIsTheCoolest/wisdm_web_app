@@ -6,12 +6,13 @@ export interface IncomingNotification {
   deleted_at: string;
   table_name: string;
   reference_id: string;
-  notification_id: string;
+  id: string;
   is_deleted: boolean;
   is_read: boolean;
   action: string;
   path: string;
   username: string;
+  reference_type: string;
 }
 
 export interface DisplayNotification {
@@ -22,7 +23,7 @@ export interface DisplayNotification {
   username: string;
   is_read: boolean;
   reference_id: string;
-  thread_type: string;
+  reference_type: string;
 }
 
 export interface NotificationState {
@@ -39,19 +40,17 @@ const notificationSlice = createSlice({
       return { ...action.payload };
     },
     updateNotificationState: (state, action: PayloadAction<IncomingNotification>) => {
-      const { created_at, reference_id, action: action_type, username, is_read } = action.payload;
+      const { reference_id, action: action_type } = action.payload;
 
       const objectKey = `${reference_id}${action_type}`;
-      const currentObject = state[objectKey] || { count: 0 };
+      const currentObject = state[objectKey] || {count: 0}
       const currentCount = currentObject.count + 1;
 
 
       state[objectKey] = {
         ...currentObject,
+        ...action.payload,
         count: currentCount,
-        created_at,
-        username,
-        is_read
       };
     }
   }

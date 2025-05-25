@@ -159,8 +159,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
                             <div className={styles.searchDropdownMasonry}>
                               {timelines.map((item) => (
                                 <Link
-                                  href={`/dashboard/timeline?timeline_id=${item.timeline_id}`}
-                                  key={`timeline-${item.timeline_id}`}
+                                  href={`/dashboard/timeline?id=${item.id}`}
+                                  key={`timeline-${item.id}`}
                                 >
                                   <TimelineCard {...item} variant="compact" />
                                 </Link>
@@ -175,7 +175,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                             </h2>
                             {events.map((item) => (
                               <div
-                                key={`event-${item.event_id}`}
+                                key={`event-${item.id}`}
                                 className={styles.dropdownEventItem}
                               >
                                 <h4>{item.title || "Event"}</h4>
@@ -191,7 +191,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                             </h2>
                             {summaries.map((item) => (
                               <div
-                                key={`summary-${item.summary_id}`}
+                                key={`summary-${item.id}`}
                                 className={styles.dropdownSummaryItem}
                               >
                                 <h4>Summary</h4>

@@ -50,7 +50,7 @@ const NestedThreadContainer = (
         <OpenNestedThreadButton
           isCollapsed={isCollapsed}
           setIsCollapsed={setIsCollapsed}
-          comment_id={commentId}
+          id={commentId}
           comment_object={commentsObject[commentId]}
           handleGetComments={handleGetComments}
           orderBy={orderBy}

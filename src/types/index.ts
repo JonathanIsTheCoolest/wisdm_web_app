@@ -3,25 +3,25 @@
 // Timeline Summary
 export interface Summary {
   summary: string;
-  summary_id: string;
-  timeline_id: string;
+  id: string;
+  id: string;
   version: number;
 }
 
 // Timeline Events
 interface Event {
   body: string;
-  event_id: string;
+  id: string;
   event_index: number;
   narrative_bias: "left" | "right";
-  timeline_id: string;
+  id: string;
   version: number;
 }
 
 // Timeline
 export interface Timeline {
-  timeline_id: string;
-  parent_event_id: string;
+  id: string;
+  parent_id: string;
   title: string;
   image: string;
   summary?: string;
@@ -94,8 +94,8 @@ export interface Wisdm {
 
 interface BaseComment {
   created_at: string;
-  parent_comment_id: string | null;
-  comment_id: string;
+  parent_id: string | null;
+  id: string;
   comment_index: number;
   reference_id: string | null;
   thread_id: string;
@@ -135,5 +135,5 @@ export interface CommentsByParentId {
 export interface CommentThread {
   comments: CommentsByParentId & { root?: Comment };
   root_comment_count?: number;
-  start_comment_id?: string;
+  start_id?: string;
 }

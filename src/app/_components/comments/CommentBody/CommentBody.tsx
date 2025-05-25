@@ -33,7 +33,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
     vote,
     username,
     created_at,
-    comment_id,
+    id,
     comment_count
   } = comment;
   const [elapsedTime, setElapsedTime] = useState(getElapsedTime(created_at));
@@ -48,10 +48,10 @@ const CommentBody: React.FC<CommentBodyProps> = ({
   }, [created_at]);
 
   return (
-    <div id={standardizePathAnchorIds(comment_id)} className={styles.commentBodyContainer}>
+    <div id={standardizePathAnchorIds(id)} className={styles.commentBodyContainer}>
       <div className={styles.commentAvatar}>
         <Image
-          id={comment_id}
+          id={id}
           src={user_photo_url || userDefaultImage}
           alt={`${username}'s user photo`}
           width={50}
@@ -88,7 +88,7 @@ const CommentBody: React.FC<CommentBodyProps> = ({
           <NestedCommentInput
             threadId={threadId}
             isReplying={isReplying}
-            parentCommentId={comment_id}
+            parentCommentId={id}
             threadType={threadType}
           />
         </div>

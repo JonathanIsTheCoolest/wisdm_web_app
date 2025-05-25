@@ -14,7 +14,7 @@ import { DisplayNotification } from "@/redux_lib/features/notificationsSlice";
 import { notificationMessage } from "@/app/_lib/helper/response/notifications";
 
 const NotificationCard: React.FC<DisplayNotification> = ({ 
-  count, action, created_at, path, username, is_read, reference_id, thread_type
+  count, action, created_at, path, username, is_read, reference_id, reference_type
 }) => {
   const router = useRouter();
   const extractPath = (path: string, keyword: string): string | null => {
@@ -23,9 +23,9 @@ const NotificationCard: React.FC<DisplayNotification> = ({
     return match ? match[1] : null;
   };
   const source_id =
-    extractPath(path, "timeline_id") || extractPath(path, "source_id");
+    extractPath(path, "id") || extractPath(path, "source_id");
   // This is super iffy We have to update the way we store the paths
-  const newPath = `notifications/view?source_id=${source_id}&reference_id=${reference_id}&thread_type${thread_type}`
+  const newPath = `notifications/view?source_id=${source_id}&reference_id=${reference_id}&reference_type${reference_type}`
 
   return (
     <div className={styles.notificationCard}>

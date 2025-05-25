@@ -212,7 +212,7 @@ const Explore = () => {
         ) : trendingComments.length > 0 ? (
           trendingComments.map((comment) => {
             const {
-              comment_id,
+              id,
               body,
               username,
               created_at,
@@ -232,7 +232,7 @@ const Explore = () => {
 
             return (
               <CommentCard
-                key={comment_id}
+                key={id}
                 content={body}
                 username={username}
                 avatar={user_photo_url || ""}

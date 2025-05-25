@@ -35,7 +35,7 @@ const Timeline = () => {
     null
   );
   const searchParams = useSearchParams();
-  const timelineId: string = searchParams?.get("timeline_id") || "";
+  const timelineId: string = searchParams?.get("id") || "";
   const dispatch = useAppDispatch();
 
   // Using the type from the central types file
@@ -47,7 +47,7 @@ const Timeline = () => {
 
   useEffect(() => {
     const fetchTimelineDetails = async () => {
-      const TIMELINE_DETAILS_URL = `${API_BASE_URL}/timelines/get/timeline?timeline_id=${timelineId}`;
+      const TIMELINE_DETAILS_URL = `${API_BASE_URL}/timelines/get/timeline?id=${timelineId}`;
       try {
         const response = await fetch(TIMELINE_DETAILS_URL, {
           method: "GET",
@@ -89,7 +89,7 @@ const Timeline = () => {
     const popupEvent = {
       title: event.body.split(":")[1]?.trim() || event.body,
       index: eventIndex,
-      eventId: event.event_id,
+      eventId: event.id,
     };
 
     const rect = eventElement.getBoundingClientRect();

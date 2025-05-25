@@ -21,7 +21,7 @@ interface VoteContainerProps {
 
 const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment, commentDispatch }) => {
   const dispatch = useAppDispatch();
-  const { vote, vote_count, comment_id, is_vote_bouncing } = comment;
+  const { vote, vote_count, id, is_vote_bouncing } = comment;
 
   const path = standardizedPath()
 

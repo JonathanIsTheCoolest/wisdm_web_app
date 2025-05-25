@@ -21,7 +21,7 @@ interface TimelineCardProps extends Timeline {
 }
 
 const TimelineCard: React.FC<TimelineCardProps> = ({
-  timeline_id,
+  id,
   title,
   image,
   onClick,

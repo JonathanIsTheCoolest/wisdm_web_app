@@ -19,9 +19,9 @@ const Notifications = () => {
   const { isLoading, setLoaded } = useLoadingState(["notifications"]);
 
   useEffect(() => {
+    //  This basically does nothing and I hate it CHANGE IT!!!!!!!🔥🐶💩...
     const fetchNotifications = async () => {
       try {
-        // ... existing fetch code ...
       } finally {
         setLoaded("notifications");
       }
@@ -51,7 +51,7 @@ const Notifications = () => {
                   username,
                   is_read,
                   reference_id,
-                  thread_type
+                  reference_type
                 } = notification;
                 return (
                   <NotificationCard
@@ -63,7 +63,7 @@ const Notifications = () => {
                     username={username}
                     is_read={is_read}
                     reference_id={reference_id}
-                    thread_type={thread_type}
+                    reference_type={reference_type}
                   />
                 );
               })
