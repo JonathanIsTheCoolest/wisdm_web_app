@@ -113,18 +113,18 @@ const Home = () => {
       id: "095e7a0f-8519-586c-b7a6-b0c298a280f4",
       title: "Entertainment ",
     },
-    {
-      id: "mock-1",
-      title: "World News ",
-    },
-    {
-      id: "mock-2",
-      title: "Technology ",
-    },
-    {
-      id: "mock-3",
-      title: "Sports ",
-    },
+    // {
+    //   id: "mock-1",
+    //   title: "World News ",
+    // },
+    // {
+    //   id: "mock-2",
+    //   title: "Technology ",
+    // },
+    // {
+    //   id: "mock-3",
+    //   title: "Sports ",
+    // },
   ];
   // END COMMENT OUT THIS SECTION
 
@@ -269,11 +269,11 @@ const Home = () => {
                 <LoadingSpinner />
               ) : categoryError ? (
                 <div>{categoryError}</div>
-              ) : categoryTimelines.length > 0 ? (
+              ) : categoryTimelines.length ? (
                 categoryTimelines.map((timeline) => (
                   <Link
-                    href={`/dashboard/timeline?timeline_id=${timeline.timeline_id}`}
-                    key={timeline.timeline_id}
+                    href={`/dashboard/timeline?id=${timeline.id}`}
+                    key={timeline.id}
                     onPointerDown={(e) => e.preventDefault()}
                     onClick={(e) => {
                       if (isDragging.current) {

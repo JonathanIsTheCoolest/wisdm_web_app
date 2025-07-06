@@ -34,6 +34,7 @@ const Timeline = () => {
   const [timelineData, setTimelineData] = useState<TimelineWithDetails | null>(
     null
   );
+
   const searchParams = useSearchParams();
   const timelineId: string = searchParams?.get("id") || "";
   const dispatch = useAppDispatch();
@@ -54,7 +55,8 @@ const Timeline = () => {
         });
 
         const result = await response.json();
-        console.log(result);
+
+        console.log(result)
         setTimelineData(result);
       } catch (e) {
         console.error(
