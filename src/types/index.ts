@@ -96,7 +96,7 @@ interface BaseComment {
   created_at: string;
   parent_id: string | null;
   id: string;
-  comment_index: number;
+  index: number;
   reference_id: string | null;
   thread_id: string;
   user_photo_url: string | null;

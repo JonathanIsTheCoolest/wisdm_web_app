@@ -5,7 +5,7 @@ export type CommentOrder = 'ASC' | 'DESC'
 export interface ParentCommentReference {
   parent_id: string;
   comment_count: number;
-  comment_index: number;
+  index: number;
 }
 
 export type CommentActions =
@@ -69,13 +69,13 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
     case 'addComment': {
       const { comment, parent_comment, comment_count_total, root_comment_count, order } = action.payload;
 
-      const { parent_id: parent_group_id, comment_count, comment_index } = parent_comment
+      const { parent_id: parent_group_id, comment_count, index } = parent_comment
 
       const parent_id = comment.parent_id || 'root'
 
-      const parent_index_name = standardizeIndexName(comment_index)
+      const parent_index_name = standardizeIndexName(index)
 
-      const index_name = standardizeIndexName(comment.comment_index)
+      const index_name = standardizeIndexName(comment.index)
 
       const currentObjectLength = state.comments[parent_id] ? 
         Object.values(state.comments[parent_id]).length + 1 :
@@ -143,7 +143,7 @@ export const commentReducer = (state: CommentThread, action: CommentActions): Co
       const { comment } = action.payload;
       const parent_id = comment.parent_id || 'root';
 
-      const index_name = standardizeIndexName(comment.comment_index)
+      const index_name = standardizeIndexName(comment.index)
 
       const innerStateModel = () => {
         const rootComment = state?.comments?.root
