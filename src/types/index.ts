@@ -4,14 +4,12 @@
 export interface Summary {
   summary: string;
   id: string;
-  id: string;
   version: number;
 }
 
 // Timeline Events
 interface Event {
   body: string;
-  id: string;
   event_index: number;
   narrative_bias: "left" | "right";
   id: string;
@@ -100,6 +98,8 @@ interface BaseComment {
   reference_id: string | null;
   thread_id: string;
   user_photo_url: string | null;
+  upvote_count: number;
+  downvote_count: number;
   is_vote_bouncing?: boolean;
 }
 
@@ -108,7 +108,6 @@ export interface Comment extends BaseComment {
   deleted: boolean;
   updated_at: string | null;
   username: string;
-  vote_count: number;
   comment_count: number;
   vote: boolean | null;
   timeline_title?: string;
@@ -119,7 +118,6 @@ export interface UpdateComment extends BaseComment {
   deleted?: boolean;
   updated_at?: string | null;
   username?: string;
-  vote_count?: number;
   comment_count?: number;
   vote?: boolean | null;
 }

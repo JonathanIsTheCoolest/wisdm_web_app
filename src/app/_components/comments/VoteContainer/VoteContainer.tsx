@@ -21,7 +21,7 @@ interface VoteContainerProps {
 
 const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment, commentDispatch }) => {
   const dispatch = useAppDispatch();
-  const { vote, vote_count, id, is_vote_bouncing } = comment;
+  const { vote, is_vote_bouncing, upvote_count, downvote_count } = comment;
 
   const path = standardizedPath()
 
@@ -72,7 +72,7 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment, commen
         }}
         onClick={(e) => onClickUpdateVote(e, vote ? null : true)}
       />
-      <span className={styles.voteCount}>{vote_count}</span>
+      <span className={styles.voteCount}>{upvote_count-downvote_count}</span>
       <Image
         src={vote === false ? upVoteFill : upVote}
         alt="down vote arrow"

@@ -29,7 +29,6 @@ const CommentBody: React.FC<CommentBodyProps> = ({
   const {
     body,
     user_photo_url,
-    vote_count,
     vote,
     username,
     created_at,
