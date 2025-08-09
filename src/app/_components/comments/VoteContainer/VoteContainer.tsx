@@ -48,7 +48,8 @@ const VoteContainer: React.FC<VoteContainerProps> = ({ threadId, comment, commen
             room: threadId,
             vote: newValue,
             comment,
-            path: path
+            path: path,
+            reference_type: 'comments'
           },
         })
       );
