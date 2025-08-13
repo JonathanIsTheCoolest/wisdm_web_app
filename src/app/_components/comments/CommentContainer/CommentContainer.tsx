@@ -80,7 +80,6 @@ const CommentContainer: React.FC<CommentContainerProps> = ({ threadId, rootComme
 
   useEffect(() => {
     socket.on("receive_comment", (response) => {
-      const { comment, parent_comment, comment_count_total, root_comment_count } = response;
 
       commentDispatch({
         type: "addComment",
