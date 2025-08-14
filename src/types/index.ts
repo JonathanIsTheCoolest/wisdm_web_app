@@ -105,7 +105,7 @@ interface BaseComment {
 
 export interface Comment extends BaseComment {
   body: string;
-  deleted: boolean;
+  is_deleted: boolean;
   updated_at: string | null;
   username: string;
   comment_count: number;
@@ -115,7 +115,7 @@ export interface Comment extends BaseComment {
 
 export interface UpdateComment extends BaseComment {
   body?: string;
-  deleted?: boolean;
+  is_deleted?: boolean;
   updated_at?: string | null;
   username?: string;
   comment_count?: number;
