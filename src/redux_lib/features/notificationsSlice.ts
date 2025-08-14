@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface IncomingNotification {
   created_at: string;
   updated_at: string;
-  deleted_at: string;
   table_name: string;
   reference_id: string;
   id: string;
