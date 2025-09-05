@@ -24,13 +24,8 @@ import gearIcon from "@/assets/icons/gear.svg";
 import questionIcon from "@/assets/icons/questionmark.svg";
 
 const Home = () => {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
-
   const idToken = useAppSelector((state: any) => state.auth.idToken);
   const { openSidebar } = useSidebar();
-
-  const [timelines, setTimelines] = useState<Timeline[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [overlayTriggerPosition, setOverlayTriggerPosition] = useState<{
@@ -46,39 +41,6 @@ const Home = () => {
       });
     }
     setIsOverlayVisible(!isOverlayVisible);
-  };
-
-  useEffect(() => {
-    fetchFeed();
-  }, [idToken]);
-
-  const fetchFeed = async () => {
-    try {
-      if (!idToken) {
-        console.error("User not authenticated");
-        return;
-      }
-
-      const response = await fetch(`${API_BASE_URL}/timelines/get/timelines`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      setTimelines(data.timelines);
-      setError(null);
-    } catch (error) {
-      console.error("Error fetching timelines:", error);
-      setError("Failed to fetch timelines. Please try again later.");
-    }
   };
 
   // Helper function to fetch timelines by category
@@ -112,19 +74,7 @@ const Home = () => {
     {
       id: "095e7a0f-8519-586c-b7a6-b0c298a280f4",
       title: "Entertainment ",
-    },
-    // {
-    //   id: "mock-1",
-    //   title: "World News ",
-    // },
-    // {
-    //   id: "mock-2",
-    //   title: "Technology ",
-    // },
-    // {
-    //   id: "mock-3",
-    //   title: "Sports ",
-    // },
+    }
   ];
   // END COMMENT OUT THIS SECTION
 
